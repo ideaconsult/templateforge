@@ -25,6 +25,11 @@
 .sv-list {
   width: 260px !important;
 }
+.sv_progress-toc {
+  min-width: 100%;
+  background: none !important;
+  border: none !important;
+}
 
 @keyframes logo-spin {
   from {
