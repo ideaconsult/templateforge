@@ -1,4 +1,5 @@
 export const json = {
+  showPreviewBeforeComplete: "showAnsweredQuestions",
   title: "Template Designer",
   description: "Designing data entry templates for eNanoMapper",
   logoPosition: "right",
@@ -1045,7 +1046,7 @@ export const json = {
       title: "Preview",
     },
   ],
-  showPrevButton: false,
+  showPrevButton: true,
   showQuestionNumbers: "off",
   showTOC: true,
   goNextPageAutomatic: true,
