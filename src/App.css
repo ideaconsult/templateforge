@@ -23,12 +23,32 @@
 
 .sv-components-column,
 .sv-list {
-  width: 260px !important;
+  width: 320px !important;
+  min-height: 100vh !important;
 }
 .sv_progress-toc {
   min-width: 100%;
   background: none !important;
   border: none !important;
+}
+
+.sv-string-viewer {
+  font-weight: 600 !important;
+}
+
+.sv-list__item-body {
+  padding-inline-start: 33px;
+}
+
+.sv-list__item.sv-list__item--selected {
+  background-color: #cac6ff;
+  color: #fff;
+}
+
+.sv-header__title > .sd-title {
+  text-transform: uppercase;
+  font-size: 1.6rem !important;
+  letter-spacing: 1.2px;
 }
 
 @keyframes logo-spin {
