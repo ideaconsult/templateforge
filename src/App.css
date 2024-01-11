@@ -41,7 +41,7 @@
 }
 
 .sv-list__item.sv-list__item--selected {
-  background-color: #cac6ff;
+  background-color: #dddbff;
   color: #fff;
 }
 
@@ -50,7 +50,10 @@
   font-size: 1.6rem !important;
   letter-spacing: 1.2px;
 }
-
+.sd-input,
+.sd-checkbox__decorator {
+  background: #9cc0ff26 !important;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
