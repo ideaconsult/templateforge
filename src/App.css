@@ -32,6 +32,10 @@
   border: none !important;
 }
 
+.sd-body__navigation.sd-action-bar {
+  flex-wrap: nowrap !important;
+}
+
 .sv-string-viewer {
   font-weight: 600 !important;
 }

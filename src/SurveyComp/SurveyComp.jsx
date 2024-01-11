@@ -8,6 +8,18 @@ import { json } from "./json";
 function SurveyComponent() {
   const survey = new Model(json);
 
+  survey.addNavigationItem({
+    id: "sv-nav-clear-page",
+    title: "Clear Page",
+    action: () => {
+      survey.currentPage.questions.forEach((question) => {
+        question.value = undefined;
+      });
+    },
+    css: "nav-button",
+    innerCss: "sd-btn nav-input",
+  });
+
   const storageItemKey = "my-survey";
 
   function saveSurveyData(survey) {
