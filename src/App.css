@@ -58,6 +58,14 @@
 .sd-checkbox__decorator {
   background: #9cc0ff26 !important;
 }
+
+.sd-matrixdynamic__add-btn > span {
+  display: none !important;
+}
+
+.sd-matrixdynamic__add-btn::after {
+  content: "Add Empty Row";
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
