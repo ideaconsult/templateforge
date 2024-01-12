@@ -20,6 +20,16 @@ function SurveyComponent() {
     innerCss: "sd-btn nav-input",
   });
 
+  survey.addNavigationItem({
+    id: "sv-nav-clear-all",
+    title: "Reset",
+    action: () => {
+      survey.clear();
+    },
+    css: "nav-button",
+    innerCss: "sd-btn nav-input",
+  });
+
   const storageItemKey = "my-survey";
 
   function saveSurveyData(survey) {

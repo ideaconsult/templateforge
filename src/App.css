@@ -66,6 +66,18 @@
 .sd-matrixdynamic__add-btn::after {
   content: "Add Empty Row";
 }
+#sv-nav-clear-page input,
+#sv-nav-clear-all input {
+  border: 1px solid #e50a3e;
+  color: #e50a3e;
+  background: none;
+}
+#sv-nav-clear-page input:hover,
+#sv-nav-clear-all input:hover {
+  border: 1px solid #e50a3e;
+  color: #e50a3e;
+  background: #fff;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
