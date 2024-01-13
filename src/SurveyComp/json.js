@@ -97,8 +97,24 @@ export const json = {
               name: "conditions",
               title: "Experimental factors, replicates, controls",
               description:
-                "Define fields for each experimental factor (e.g. concentration, time), replicates, controls ...",
+                "Add one row per each experimental factor (e.g. concentration, time), replicates, controls ... Remove the irrelevant rows.",
               requiredIf: "{user_role} contains 'role_datamgr'",
+              defaultValue: [
+                {
+                 "conditon_name": "Concentration",
+                 "condition_unit": "mg/mol",
+                 "condition_type": "c_concentration "
+                },
+                {
+                 "conditon_name": "Time",
+                 "condition_unit": "h",
+                 "condition_type": "c_time "
+                },
+                {
+                 "conditon_name": "Replicate",
+                 "condition_type": "c_replicate "
+                }
+               ],                
               columns: [
                 {
                   name: "conditon_name",
@@ -156,6 +172,7 @@ export const json = {
                   ],
                 },
               ],
+                          
               cellType: "text",
               rowCount: 0,
               confirmDelete: true,
@@ -668,7 +685,8 @@ export const json = {
               type: "boolean",
               name: "raw_data",
               startWithNewLine: false,
-              title: "Include unprocessed (raw data) in the template ?",
+              defaultValue: false,
+              title: "Include unprocessed (raw data) in the template ?"
             },
             {
               type: "matrixdynamic",
@@ -1017,11 +1035,19 @@ export const json = {
       name: "page_sampleinfo",
       elements: [
         {
+          "type": "text",
+          "name": "METADATA_SAMPLE_ID",
+          "title": "The Material ID is the only mandatory field",
+          "defaultValue": "Material ID",
+          "readOnly": true
+         },    
+        {
           type: "matrixdynamic",
-          name: "METADATA_SAMPLE_INFO",
-          title: "[{METHOD}] Samples/Materials description",
+          name: "METADATA_SAMPLE_OPTIONAL",
+          title: "[{METHOD}] Samples/Materials description (optional)",
+          description: "Add rows for each field to describe the sample. Remove the relevant rows.",
           titleLocation: "top",
-          isRequired: true,
+          isRequired: false,
           showCommentArea: true,
           columns: [
             {
@@ -1032,18 +1058,10 @@ export const json = {
               isUnique: true,
             },
             {
-              name: "param_sample_unit",
-              title: "Unit",
-            },
-            {
               name: "param_sample_group",
               title: "Group",
               cellType: "dropdown",
               choices: [
-                {
-                  value: "ID",
-                  text: "Identifier",
-                },
                 {
                   value: "NAME",
                   text: "Name",
@@ -1075,13 +1093,20 @@ export const json = {
               ],
             },
           ],
-          detailPanelMode: "underRowSingle",
+          defaultValue: [
+              {"param_sample_name":"Material name","param_sample_group":"NAME"},
+              {"param_sample_name":"CAS RN","param_sample_group":"CASRN"},
+              {"param_sample_name":"Batch","param_sample_group":"BATCH"},
+              {"param_sample_name":"Supplier","param_sample_group":"SUPPLIER"},
+              {"param_sample_name":"Material state","param_sample_group":"MATERIAL_STATE"}
+          ],
+          detailPanelMode: "hidden",
           cellType: "text",
-          rowCount: 1,
-          minRowCount: 1,
+          rowCount: 5
+          minRowCount: 0,
           confirmDelete: true,
           addRowText: "Add parameter",
-          detailPanelShowOnAdding: true,
+          detailPanelShowOnAdding: false,
           allowRowsDragAndDrop: true,
         },
       ],
@@ -1172,6 +1197,65 @@ export const json = {
       navigationTitle: "6. Sample preparation",
       navigationDescription: "Sample preparation",
     },
+    {
+      name: "page",
+      elements: [
+        {
+          type: "matrixdynamic",
+          name: "METADATA_PROTOCOLAPP",
+          title: "[{METHOD}] Experiment metadata",
+          titleLocation: "top",
+          isRequired: true,
+          showCommentArea: false,
+          columns: [
+            {
+              name: "param_protocolapp_name",
+              title: "Param name",
+              cellType: "text",
+              isRequired: true,
+              isUnique: true,
+            },
+            
+            {
+              name: "param_protocolapp_type",
+              title: "Type",
+              cellType: "dropdown",
+              choices: [
+                {
+                  value: "value_num",
+                  text: "numeric",
+                },
+                {
+                  value: "value_text",
+                  text: "text",
+                },
+                {
+                  value: "value_boolean",
+                  text: "yes/no",
+                },
+                {
+                  value: "value_date",
+                  text: "Date",
+                }                  
+              ],
+            },
+          ],
+          defaultValue: [{"param_protocolapp_name":"provider","param_protocolapp_type":"value_text"}],
+          cellType: "text",
+          rowCount: 1,
+          minRowCount: 1,
+          confirmDelete: true,
+          addRowText: "Add parameter",
+          detailPanelShowOnAdding: false,
+          allowRowsDragAndDrop: false,
+          allowRemoveRows : false
+        }
+      ],
+      
+      title: "Provenance",
+      navigationTitle: "7. Provenance",
+      navigationDescription: "Who and when did the experiment",
+    },    
     {
       name: "page_preview",
       elements: [
