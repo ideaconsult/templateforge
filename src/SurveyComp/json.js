@@ -157,7 +157,7 @@ export const json = {
                 },
               ],
               cellType: "text",
-              rowCount: 1,
+              rowCount: 0,
               confirmDelete: true,
               allowRowsDragAndDrop: true,
             },
@@ -668,15 +668,15 @@ export const json = {
               type: "boolean",
               name: "raw_data",
               startWithNewLine: false,
-              title: "Include raw data in the template ?",
+              title: "Include unprocessed (raw data) in the template ?",
             },
             {
               type: "matrixdynamic",
               name: "raw_data_report",
               visibleIf: "{raw_data} = true",
-              title: "Raw data reporting",
+              title: "Unprocessed (Raw data) reporting",
               description:
-                "Please provide information of the raw data reported (if any) e.g. Absorbance, AU",
+                "Please provide information of the parameters reported as unprocessed data (if any) e.g. Absorbance, AU",
               requiredIf:
                 "{user_role} contains 'role_datamgr ' and {raw_data} = true",
               showCommentArea: true,
@@ -687,9 +687,50 @@ export const json = {
                   isRequired: true,
                 },
                 {
+                  name: "raw_aggregate",
+                  title: "Mark if mean or median",
+                  cellType: "dropdown",
+                  isRequired: false,
+                  defaultValue: "RAW_DATA",
+                  choices: [
+                    {
+                      value: "RAW_DATA",
+                      text: ""
+                    },
+                    {
+                      value: "MEAN",
+                      text: "Mean",
+                    },
+                    {
+                      value: "MEDIAN",
+                      text: "Median",
+                    },
+                    {
+                      value: "MODE",
+                      text: "Mode",
+                    }
+                  ] 
+                },
+                {
                   name: "raw_unit",
                   title: "Unit",
-                },
+                },  
+                {
+                  name: "raw_endpoint_uncertainty",
+                  title: "Uncertainty",
+                  cellType: "dropdown",
+                  isRequired: false,
+                  choices: [
+                    {
+                      value: "none",
+                      text: "",
+                    },
+                    {
+                      value: "SD",
+                      text: "Standard Deviation",
+                    }
+                  ]                  
+                },                              
                 {
                   name: "raw_type",
                   title: "Type",
@@ -725,9 +766,10 @@ export const json = {
                       text: " file",
                     },
                     {
-                      value: "value_text ",
+                      value: "value_text",
                       text: " text ",
-                    },
+                    }
+
                   ],
                 },
               ],
@@ -738,6 +780,7 @@ export const json = {
                   title: "Please select the experimental factors ...",
                   choicesFromQuestion: "conditions",
                   minSelectedChoices: 1,
+                  visibleIf: "{conditions.rowCount} > 0"
                 },
               ],
               detailPanelMode: "underRowSingle",
@@ -760,9 +803,64 @@ export const json = {
                   isRequired: true,
                 },
                 {
+                  name: "result_aggregate",
+                  title: "Mark if mean or median",
+                  cellType: "dropdown",
+                  isRequired: false,
+                  defaultValue: "MEAN",
+                  choices: [
+                    {
+                      value: "",
+                      text: ""
+                    },
+                    {
+                      value: "MEAN",
+                      text: "Mean",
+                    },
+                    {
+                      value: "MEDIAN",
+                      text: "Median",
+                    },
+                    {
+                      value: "MODE",
+                      text: "Mode",
+                    },
+                    {
+                      value: "PEAK",
+                      text: "Peak",
+                    },
+                    {
+                      value: "D25",
+                      text: "D25",
+                    },
+                    {
+                      value: "D90",
+                      text: "D90",
+                    }                    
+                  ] 
+                },                  
+                {
                   name: "result_unit",
                   title: "Unit",
                 },
+                             
+                {
+                  name: "result_endpoint_uncertainty",
+                  title: "Uncertainty",
+                  cellType: "dropdown",
+                  isRequired: false,
+                  defaultValue: "",
+                  choices: [
+                    {
+                      value: "",
+                      text: "None",
+                    },
+                    {
+                      value: "SD",
+                      text: "Standard Deviation",
+                    }
+                  ]                  
+                },                     
                 {
                   name: "result_type",
                   title: "Type",
@@ -798,7 +896,7 @@ export const json = {
                       text: " file",
                     },
                     {
-                      value: "value_text ",
+                      value: "value_text",
                       text: " text ",
                     },
                   ],
@@ -810,8 +908,10 @@ export const json = {
                   name: "results_conditions",
                   title: "Please select the experimental factors ...",
                   choicesFromQuestion: "conditions",
-                },
+                  visibleIf: "{conditions.rowCount} > 0"
+                }
               ],
+              
               detailPanelMode: "underRowSingle",
               cellType: "text",
               rowCount: 1,
@@ -864,6 +964,7 @@ export const json = {
                   value: "OTHER_METADATA",
                   text: "OTHER METADATA",
                 },
+                "RESULT_ANALYSIS"
               ],
             },
             {
@@ -873,15 +974,31 @@ export const json = {
               choices: [
                 {
                   value: "value_num",
-                  text: " numeric",
+                  text: "numeric",
                 },
                 {
-                  value: "value_text ",
-                  text: " text ",
+                  value: "value_text",
+                  text: "text",
                 },
+                {
+                  value: "value_boolean ",
+                  text: "yes/no",
+                }                
               ],
             },
           ],
+          detailElements: [
+            {
+              type: "text",
+              name: "param_hint",
+              title: "Hint, description"
+            },
+            {
+              type: "text",
+              name: "param_subgroup",
+              title: "Subgroup (if any)"
+            }            
+          ],          
           detailPanelMode: "underRowSingle",
           cellType: "text",
           rowCount: 1,
@@ -944,9 +1061,13 @@ export const json = {
                   text: "Supplier",
                 },
                 {
-                  value: "SUPPLIER identifier",
+                  value: "SUPPLIER_identifier",
                   text: "Supplier identifier",
                 },
+                {
+                  value: "MATERIAL_STATE",
+                  text: "Material state",
+                },                
                 {
                   value: "OTHER_METADATA",
                   text: "Other",
@@ -1015,12 +1136,28 @@ export const json = {
                   text: "numeric",
                 },
                 {
-                  value: "value_text ",
+                  value: "value_text",
                   text: "text",
                 },
+                {
+                  value: "value_boolean",
+                  text: "yes/no",
+                }                 
               ],
             },
           ],
+          detailElements: [
+            {
+              type: "text",
+              name: "param_sampleprep_hint",
+              title: "Hint, description"
+            },
+            {
+              type: "text",
+              name: "param_sampleprep_subgroup",
+              title: "Subgroup (if any)"
+            }            
+          ],           
           detailPanelMode: "underRowSingle",
           cellType: "text",
           rowCount: 1,
