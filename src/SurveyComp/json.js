@@ -1102,7 +1102,7 @@ export const json = {
           ],
           detailPanelMode: "hidden",
           cellType: "text",
-          rowCount: 5
+          rowCount: 5,
           minRowCount: 0,
           confirmDelete: true,
           addRowText: "Add parameter",
