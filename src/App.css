@@ -23,7 +23,7 @@
 
 .sv-components-column,
 .sv-list {
-  width: 320px !important;
+  /* width: 320px !important; */
   min-height: 100vh !important;
 }
 .sv_progress-toc {
@@ -34,6 +34,8 @@
 
 .sd-body__navigation.sd-action-bar {
   flex-wrap: nowrap !important;
+  justify-content: space-between;
+  gap: 0 !important;
 }
 
 .sv-string-viewer {
@@ -55,8 +57,9 @@
   letter-spacing: 1.2px;
 }
 .sd-input,
-.sd-checkbox__decorator {
-  background: #9cc0ff26 !important;
+.sd-checkbox__decorator,
+.sd-radio__decorator {
+  background: #4f7dcc26 !important;
 }
 
 .sd-matrixdynamic__add-btn > span {
@@ -77,6 +80,24 @@
   border: 1px solid #e50a3e;
   color: #e50a3e;
   background: #fff;
+}
+
+#sv-nav-prev {
+  grid-area: prev;
+}
+#sv-nav-next {
+  grid-area: next;
+}
+
+#sv-nav-clear-page {
+  grid-area: clear-page;
+}
+#sv-nav-clear-all {
+  grid-area: clear-all;
+}
+.sd-action-bar {
+  display: grid !important;
+  grid-template-areas: "prev next . . . . . . clear-page clear-all";
 }
 @keyframes logo-spin {
   from {
