@@ -2,7 +2,6 @@ import { Model } from "survey-core";
 import { Survey } from "survey-react-ui";
 import "survey-core/defaultV2.min.css";
 import { themeJson } from "./theme";
-// import "./index.css";
 import { json } from "./json";
 
 function SurveyComponent() {
@@ -30,6 +29,13 @@ function SurveyComponent() {
     innerCss: "sd-btn nav-input",
   });
 
+  survey.addLayoutElement({
+    id: "new-el",
+    component: "sv-progressbar-percentage",
+    container: "sd-action-bar",
+    data: survey,
+  });
+
   const storageItemKey = "my-survey";
 
   function saveSurveyData(survey) {
@@ -55,8 +61,25 @@ function SurveyComponent() {
   });
 
   survey.applyTheme(themeJson);
-  survey.onComplete.add((sender, options) => {
+
+  survey.onComplete.add(function (sender, options) {
     console.log(JSON.stringify(sender.data, null, 3));
+    options.showSaveInProgress();
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://api.ramanchada.ideaconsult.net/template");
+    xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    xhr.onload = xhr.onerror = function () {
+      if (xhr.status == 200) {
+        // Display the "Success" message (pass a string value to display a custom message)
+        options.showSaveSuccess();
+        // Alternatively, you can clear all messages:
+        // options.clearSaveMessages();
+      } else {
+        // Display the "Error" message (pass a string value to display a custom message)
+        options.showSaveError();
+      }
+    };
+    xhr.send(JSON.stringify(sender.data));
   });
   return <Survey model={survey} />;
 }
