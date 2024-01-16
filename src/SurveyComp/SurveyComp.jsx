@@ -4,7 +4,8 @@ import "survey-core/defaultV2.min.css";
 import { themeJson } from "./theme";
 import { json } from "./json";
 
-function SurveyComponent() {
+// eslint-disable-next-line react/prop-types
+function SurveyComponent({ setResult }) {
   const survey = new Model(json);
 
   survey.addNavigationItem({
@@ -42,6 +43,7 @@ function SurveyComponent() {
     const data = survey.data;
     data.pageNo = survey.currentPageNo;
     window.localStorage.setItem(storageItemKey, JSON.stringify(data));
+    setResult(JSON.stringify(data, null, 3));
   }
 
   survey.onValueChanged.add(saveSurveyData);
@@ -64,6 +66,9 @@ function SurveyComponent() {
 
   survey.onComplete.add(function (sender, options) {
     console.log(JSON.stringify(sender.data, null, 3));
+
+    setResult(sender.data);
+
     options.showSaveInProgress();
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "https://api.ramanchada.ideaconsult.net/template");
