@@ -13,7 +13,7 @@ export const themeJson = {
     "--sjs-general-forecolor-light": "rgba(0, 0, 0, 0.45)",
     "--sjs-general-dim-forecolor": "rgba(0, 0, 0, 0.91)",
     "--sjs-general-dim-forecolor-light": "rgba(0, 0, 0, 0.45)",
-    "--sjs-primary-backcolor": "#4f46e5",
+    "--sjs-primary-backcolor": "#00016f",
     "--sjs-primary-backcolor-light": "rgba(25, 179, 148, 0.1)",
     "--sjs-primary-backcolor-dark": "#3a32b9",
     "--sjs-primary-forecolor": "rgba(255, 255, 255, 1)",
