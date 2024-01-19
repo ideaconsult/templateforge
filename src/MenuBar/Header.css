@@ -7,10 +7,10 @@
 
 .logoWrap {
   /* font-bold text-[19px] text-indigo-950 px-4 py-4 mr-4 */
-  font-weight: 600;
+  font-weight: 700;
   font-size: 19px;
   color: rgb(32, 0, 63);
-  padding: 1rem 2rem;
+  padding: 0.8rem 2rem;
   margin-right: 2rem;
 }
 
