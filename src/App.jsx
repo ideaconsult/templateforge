@@ -19,12 +19,12 @@ function App() {
   const [showPreview, setShowPreview] = useState(false);
   const [result, setResult] = useState(null);
   return (
-    <div className="relative mt-12">
-      <div className="fixed bg-white z-50 top-0 left-0 right-0">
+    <div className="wrapper">
+      <div className="headerWrap">
         <LogoBar />
         <TopMenuBar />
       </div>
-      <div className="mt-12">
+      <div className="mainWrap">
         <DialogComp result={result} />
         <SurveyComponent setResult={setResult} />
 

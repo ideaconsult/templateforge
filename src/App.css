@@ -107,7 +107,6 @@
 #sv-nav-next {
   grid-area: next;
 }
-
 #sv-nav-clear-page {
   grid-area: clear-page;
 }
@@ -118,7 +117,22 @@
   display: grid !important;
   grid-template-areas: "prev next . . . . . . clear-page clear-all";
 }
-
+.wrapper {
+  position: relative;
+  margin-top: 3rem;
+}
+.headerWrap {
+  /* fixed bg-white z-50 top-0 left-0 right-0 */
+  position: fixed;
+  background-color: #fff;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  right: 0;
+}
+.mainWrap {
+  margin-top: 4rem;
+}
 .showPreview {
   position: fixed;
   bottom: 0;
@@ -151,7 +165,7 @@
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .DialogTitle {
-  padding-top: 2rem;
+  /* padding-top: 2rem; */
   font-size: 1rem;
 }
 .previewModal {

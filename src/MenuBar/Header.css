@@ -1,0 +1,32 @@
+/* flex gap-4 items-center border border-b-1 border-slate-200 */
+.header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.logoWrap {
+  /* font-bold text-[19px] text-indigo-950 px-4 py-4 mr-4 */
+  font-weight: 600;
+  font-size: 19px;
+  color: rgb(32, 0, 63);
+  padding: 1rem 2rem;
+  margin-right: 2rem;
+}
+
+.slogan {
+  display: inline-block;
+  background-color: #def4ff;
+  padding: 0.4rem 0.7rem;
+  border-radius: 30px;
+  font-weight: 500;
+  margin-left: 1rem;
+  font-size: 16px;
+}
+.topMenuBar {
+  /* flex items-center gap-3 px-3 py-2 */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.4rem 1.5rem;
+}
