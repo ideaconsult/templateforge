@@ -22,7 +22,7 @@ function SurveyComponent({ setResult }) {
 
   survey.addNavigationItem({
     id: "sv-nav-clear-all",
-    title: "Reset",
+    title: "Start Over",
     action: () => {
       survey.clear();
     },

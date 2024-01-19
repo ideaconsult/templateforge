@@ -18,15 +18,23 @@
 
 /* STYLES */
 
-.sv-header__content{ 
+.sv-header {
+  display: none;
+  height: 120px !important;
+}
+.sv-header__content {
   display: block !important;
   padding: 3.4rem 2rem 0 2rem !important;
-  background: rgb(4,0,79);
-  background: linear-gradient(104deg, rgba(4,0,79,1) 0%, rgba(1,74,158,1) 29%, rgba(0,87,166,1) 100%);
+  background: rgb(4, 0, 79);
+  background: linear-gradient(
+    104deg,
+    rgba(4, 0, 79, 1) 0%,
+    rgba(1, 74, 158, 1) 29%,
+    rgba(0, 87, 166, 1) 100%
+  );
 }
-.sv-header {
- 
-  height: 120px !important;
+.sv-components-row {
+  margin-top: 4rem;
 }
 .sd-checkbox--checked .sd-checkbox__svg use {
   fill: #00016f !important;
@@ -34,9 +42,9 @@
 /* 
 .sv-components-column,
 .sv-list { */
-  /* width: 320px !important; */
-  /* min-height: 100vh !important; */
-}
+/* width: 320px !important; */
+/* min-height: 100vh !important; */
+
 .sv_progress-toc {
   min-width: 100%;
   background: none !important;
@@ -119,7 +127,7 @@
 .showBtn {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   background: #e0e2ff;
   border-radius: 3px;
   width: 180px;
@@ -135,8 +143,10 @@
   background-color: #dddbff;
 }
 .DialogOverlay {
-  background-color: #dddbff60;
+  background-color: #ebe6ff60;
+  backdrop-filter: blur(2px);
   position: fixed;
+  z-index: 99;
   inset: 0;
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
