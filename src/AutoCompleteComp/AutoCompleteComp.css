@@ -1,0 +1,46 @@
+.InputWrap {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 12px;
+}
+
+.Input {
+  border-bottom: 1px solid #ccc;
+}
+
+.Button {
+  background-color: #f3fbff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  padding: 0.5rem 1rem;
+  border: none;
+}
+
+.Button:hover {
+  background-color: #def4ff;
+  outline: none;
+  border: none;
+}
+.Button:focus {
+  outline: none;
+  border: none;
+}
+
+.Option {
+  cursor: pointer;
+  padding: 0.4rem 1rem;
+}
+
+.Option:hover {
+  background-color: #def4ff;
+}
+
+.List {
+  margin-top: 1rem;
+  max-height: 220px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
