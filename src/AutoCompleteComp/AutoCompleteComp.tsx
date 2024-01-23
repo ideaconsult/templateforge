@@ -1,11 +1,19 @@
 // @ts-nocheck
 import React, { useState } from "react";
+import useSWR from "swr";
+import { fetcher } from "../lib/fetcher";
+
 import "./AutoCompleteComp.css";
 
-import { mockTamplates } from "../data/MockTemplates";
-
 export default function AutoCompleteComp({ setOpen }) {
+  const { data } = useSWR(
+    "https://api.ramanchada.ideaconsult.net/template",
+    fetcher
+  );
+
   const [value, setValue] = useState("");
+  const [templateURL, setTemplateURL] = useState("");
+  console.log(templateURL);
 
   const onChange = (e) => {
     setValue(e.target.value);
@@ -14,7 +22,6 @@ export default function AutoCompleteComp({ setOpen }) {
   const onSearch = (v) => {
     setValue(v);
     setOpen(false);
-    console.log(v);
   };
   return (
     <div>
@@ -30,23 +37,31 @@ export default function AutoCompleteComp({ setOpen }) {
         </button>
       </div>
       <div className="List">
-        {mockTamplates
-          .filter((item) => {
-            const searchResult = value.toLowerCase();
-            const name = item.toLowerCase();
+        {data &&
+          data.template
+            .filter((item) => {
+              const searchResult = value.toLowerCase();
+              const name = item.PROTOCOL_CATEGORY_CODE.toLowerCase();
 
-            return (
-              searchResult &&
-              name.startsWith(searchResult) &&
-              name !== searchResult
-            );
-          })
-          // .slice(0, 10)
-          .map((item, i) => (
-            <div className="Option" onClick={() => setValue(item)} key={i}>
-              {item}
-            </div>
-          ))}
+              return (
+                searchResult &&
+                name.startsWith(searchResult) &&
+                name !== searchResult
+              );
+            })
+            // .slice(0, 10)
+            .map((item, i) => (
+              <div
+                className="Option"
+                onClick={() => {
+                  setValue(item.PROTOCOL_CATEGORY_CODE);
+                  setTemplateURL(item.uri);
+                }}
+                key={i}
+              >
+                {item.PROTOCOL_CATEGORY_CODE}
+              </div>
+            ))}
       </div>
     </div>
   );

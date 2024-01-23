@@ -1,12 +1,18 @@
+import { useEffect } from "react";
 import { Model } from "survey-core";
-import { Survey } from "survey-react-ui";
 import "survey-core/defaultV2.min.css";
-import { themeJson } from "./theme";
+import { Survey } from "survey-react-ui";
 import { json } from "./json";
+import { themeJson } from "./theme";
 
 // eslint-disable-next-line react/prop-types
-function SurveyComponent({ setResult }) {
+function SurveyComponent({ setResult, surveyReset }) {
   const survey = new Model(json);
+
+  useEffect(() => {
+    survey.clear();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [surveyReset]);
 
   survey.addNavigationItem({
     id: "sv-nav-clear-page",

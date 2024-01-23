@@ -20,15 +20,21 @@ const customColorOptions = {
 function App() {
   const [showPreview, setShowPreview] = useState(false);
   const [result, setResult] = useState(null);
+  const [surveyReset, setSurveyReset] = useState(false);
+
+  setTimeout(() => {
+    setSurveyReset(false);
+  }, 0);
+
   return (
     <div className="wrapper">
       <div className="headerWrap">
         <LogoBar />
-        <TopMenuBar />
+        <TopMenuBar setSurveyReset={setSurveyReset} />
       </div>
       <div className="mainWrap">
         <DialogComp result={result} />
-        <SurveyComponent setResult={setResult} />
+        <SurveyComponent setResult={setResult} surveyReset={surveyReset} />
 
         {showPreview && (
           <AnimatePresence>
