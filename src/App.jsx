@@ -21,6 +21,7 @@ function App() {
   const [showPreview, setShowPreview] = useState(false);
   const [result, setResult] = useState(null);
   const [surveyReset, setSurveyReset] = useState(false);
+  const [templateURL, setTemplateURL] = useState("");
 
   setTimeout(() => {
     setSurveyReset(false);
@@ -30,11 +31,18 @@ function App() {
     <div className="wrapper">
       <div className="headerWrap">
         <LogoBar />
-        <TopMenuBar setSurveyReset={setSurveyReset} />
+        <TopMenuBar
+          setSurveyReset={setSurveyReset}
+          setTemplateURL={setTemplateURL}
+        />
       </div>
       <div className="mainWrap">
         <DialogComp result={result} />
-        <SurveyComponent setResult={setResult} surveyReset={surveyReset} />
+        <SurveyComponent
+          setResult={setResult}
+          surveyReset={surveyReset}
+          templateURL={templateURL}
+        />
 
         {showPreview && (
           <AnimatePresence>

@@ -5,15 +5,13 @@ import { fetcher } from "../lib/fetcher";
 
 import "./AutoCompleteComp.css";
 
-export default function AutoCompleteComp({ setOpen }) {
+export default function AutoCompleteComp({ setOpen, setTemplateURL }) {
   const { data } = useSWR(
     "https://api.ramanchada.ideaconsult.net/template",
     fetcher
   );
 
   const [value, setValue] = useState("");
-  const [templateURL, setTemplateURL] = useState("");
-  console.log(templateURL);
 
   const onChange = (e) => {
     setValue(e.target.value);

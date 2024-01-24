@@ -17,6 +17,10 @@
 }
 
 /* STYLES */
+.sd-body,
+.sd-body--responsive {
+  height: 100vh;
+}
 
 .sv-header {
   display: none;

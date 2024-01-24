@@ -5,8 +5,14 @@ import { Survey } from "survey-react-ui";
 import { json } from "./json";
 import { themeJson } from "./theme";
 
+import { fetcher } from "../lib/fetcher";
+
+import useSWR from "swr";
+
 // eslint-disable-next-line react/prop-types
-function SurveyComponent({ setResult, surveyReset }) {
+function SurveyComponent({ setResult, surveyReset, templateURL }) {
+  const { data } = useSWR(templateURL ? `${templateURL}` : null, fetcher);
+
   const survey = new Model(json);
 
   useEffect(() => {
@@ -62,6 +68,14 @@ function SurveyComponent({ setResult, surveyReset }) {
     if (data.pageNo) {
       survey.currentPageNo = data.pageNo;
     }
+  }
+  const fetchData = (data && data) || null;
+  if (fetchData) {
+    const data = fetchData;
+    survey.data = data;
+    // if (data.pageNo) {
+    //   survey.currentPageNo = data.pageNo;
+    // }
   }
 
   survey.onComplete.add(() => {

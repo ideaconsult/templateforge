@@ -6,7 +6,7 @@ import AutoCompleteComp from "../AutoCompleteComp/AutoCompleteComp";
 
 import "./styles.css";
 
-const OpenFileDialog = () => {
+const OpenFileDialog = ({ setTemplateURL }) => {
   const [open, setOpen] = React.useState(false);
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -22,7 +22,7 @@ const OpenFileDialog = () => {
           <Dialog.Description className="DialogDescription">
             Start typing and choose your template.
           </Dialog.Description>
-          <AutoCompleteComp setOpen={setOpen} />
+          <AutoCompleteComp setOpen={setOpen} setTemplateURL={setTemplateURL} />
           {/* <fieldset className="Fieldset">
           {/* <label className="Label" htmlFor="name">
             Template Name
