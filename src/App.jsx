@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import formatHighlight from "json-format-highlight";
+import { useState } from "react";
 import "./App.css";
 import SurveyComponent from "./SurveyComp/SurveyComp";
-import ShowPreviewIcon from "./IconsComponents/ShowPreviewIcon";
-
+import TopMenuBar from "./MenuBar/TopMenuBar";
 import DialogComp from "./DialogComp/DialogComp";
+import LogoBar from "./MenuBar/LogoBar";
+// import AutoCompleteComp from "./AutoCompleteComp/AutoCompleteComp";
+
 const customColorOptions = {
   keyColor: "#3a3a3a",
   numberColor: "blue",
@@ -19,45 +20,54 @@ const customColorOptions = {
 function App() {
   const [showPreview, setShowPreview] = useState(false);
   const [result, setResult] = useState(null);
+  const [surveyReset, setSurveyReset] = useState(false);
+  const [templateURL, setTemplateURL] = useState("");
+
+  setTimeout(() => {
+    setSurveyReset(false);
+  }, 0);
+
   return (
     <div className="wrapper">
-      <DialogComp result={result} />
-      <SurveyComponent setResult={setResult} />
-      {/* <div className="showPreview">
-        <button
-          className="showBtn"
-          onClick={() => setShowPreview(!showPreview)}
-        >
-          <ShowPreviewIcon />
-          {showPreview ? "Hide Preview" : "Show Preview"}
-        </button>
-      </div> */}
-      {/* <div className="previewSection">
-        {result ? JSON.stringify(result, null, 3) : "No preview yet"}
-      </div> */}
-      {showPreview && (
-        <AnimatePresence>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="portalWrapper"
-          >
-            <div className="previewModal">
-              <p
-                className="modalJson"
-                dangerouslySetInnerHTML={{
-                  __html: formatHighlight(
-                    result && "<pre>\n" + result + "\n</pre>",
-                    customColorOptions
-                  ),
-                }}
-              />
-              {/* {result} */}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      )}
+      <div className="headerWrap">
+        <LogoBar />
+        <TopMenuBar
+          setSurveyReset={setSurveyReset}
+          setTemplateURL={setTemplateURL}
+        />
+      </div>
+      <div className="mainWrap">
+        <DialogComp result={result} />
+        <SurveyComponent
+          setResult={setResult}
+          surveyReset={surveyReset}
+          templateURL={templateURL}
+        />
+
+        {showPreview && (
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="portalWrapper"
+            >
+              <div className="previewModal">
+                <p
+                  className="modalJson"
+                  dangerouslySetInnerHTML={{
+                    __html: formatHighlight(
+                      result && "<pre>\n" + result + "\n</pre>",
+                      customColorOptions
+                    ),
+                  }}
+                />
+                {/* {result} */}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        )}
+      </div>
     </div>
   );
 }

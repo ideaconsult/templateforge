@@ -1,0 +1,21 @@
+/* flex items-center justify-between gap-2 py-2 px-4 
+border-none focus:outline-none select-none font-medium 
+leading-none rounded text-violet11 text-[14px] hover:bg-indigo-100 */
+.buttonMenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  padding: 0.5rem 1rem;
+  border: none;
+}
+
+.buttonMenu:hover {
+  background-color: #def4ff;
+  outline: none;
+  border: none;
+}
+.buttonMenu:focus {
+  outline: none;
+  border: none;
+}

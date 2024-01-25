@@ -1,12 +1,24 @@
+import { useEffect } from "react";
 import { Model } from "survey-core";
-import { Survey } from "survey-react-ui";
 import "survey-core/defaultV2.min.css";
-import { themeJson } from "./theme";
+import { Survey } from "survey-react-ui";
 import { json } from "./json";
+import { themeJson } from "./theme";
+
+import { fetcher } from "../lib/fetcher";
+
+import useSWR from "swr";
 
 // eslint-disable-next-line react/prop-types
-function SurveyComponent({ setResult }) {
+function SurveyComponent({ setResult, surveyReset, templateURL }) {
+  const { data } = useSWR(templateURL ? `${templateURL}` : null, fetcher);
+
   const survey = new Model(json);
+
+  useEffect(() => {
+    survey.clear();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [surveyReset]);
 
   survey.addNavigationItem({
     id: "sv-nav-clear-page",
@@ -22,7 +34,7 @@ function SurveyComponent({ setResult }) {
 
   survey.addNavigationItem({
     id: "sv-nav-clear-all",
-    title: "Reset",
+    title: "Start Over",
     action: () => {
       survey.clear();
     },
@@ -56,6 +68,14 @@ function SurveyComponent({ setResult }) {
     if (data.pageNo) {
       survey.currentPageNo = data.pageNo;
     }
+  }
+  const fetchData = (data && data) || null;
+  if (fetchData) {
+    const data = fetchData;
+    survey.data = data;
+    // if (data.pageNo) {
+    //   survey.currentPageNo = data.pageNo;
+    // }
   }
 
   survey.onComplete.add(() => {
