@@ -39,11 +39,11 @@ export default function AutoCompleteComp({ setOpen, setTemplateURL }) {
           data.template
             .filter((item) => {
               const searchResult = value.toLowerCase();
-              const name = item.PROTOCOL_CATEGORY_CODE.toLowerCase();
+              const name = item.EXPERIMENT.toLowerCase();
 
               return (
                 searchResult &&
-                name.startsWith(searchResult) &&
+                name.toLowerCase().includes(searchResult.toLowerCase()) &&
                 name !== searchResult
               );
             })
@@ -52,12 +52,12 @@ export default function AutoCompleteComp({ setOpen, setTemplateURL }) {
               <div
                 className="Option"
                 onClick={() => {
-                  setValue(item.PROTOCOL_CATEGORY_CODE);
+                  setValue(item.EXPERIMENT + "("+item.METHOD + ")");
                   setTemplateURL(item.uri);
                 }}
                 key={i}
               >
-                {item.PROTOCOL_CATEGORY_CODE}
+                {item.EXPERIMENT} ({item.METHOD})
               </div>
             ))}
       </div>
