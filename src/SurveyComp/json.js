@@ -8,6 +8,12 @@ export const json = {
       name: "page_role",
       elements: [
         {
+          type: "text",
+          name: "template_name",
+          visible: true,
+          title: "Template name",
+        },  
+        {
           type: "checkbox",
           name: "user_role",
           title: "I am a ...",
@@ -17,8 +23,8 @@ export const json = {
               text: " Lab researcher",
             },
             {
-              value: "role_datamgr ",
-              text: " Data manager",
+              value: "role_datamgr",
+              text: "Data manager",
             },
           ],
           minSelectedChoices: 1,
@@ -29,55 +35,18 @@ export const json = {
       navigationDescription: "Please describe your role",
     },
     {
-      name: "page_create",
-      elements: [
-        {
-          type: "radiogroup",
-          name: "newtemplate",
-          title: "I would like to ...",
-          defaultValue: "create_new",
-          choices: [
-            {
-              value: "create_new",
-              text: "Create new template",
-            },
-            {
-              value: "select_existing",
-              text: "Edit an existing template",
-            },
-          ],
-        },
-        {
-          type: "text",
-          name: "template_uuid",
-          visible: false,
-          title: "Loading existing template",
-        },
-        {
-          type: "dropdown",
-          name: "templates",
-          visibleIf: "{newtemplate}=='select_existing'",
-          title: "Select from existing templates",
-          titleLocation: "hidden",
-          choicesByUrl: {
-            url: "https://api.ramanchada.ideaconsult.net/template",
-            path: "template",
-            valueName: "uuid",
-            titleName: "METHOD",
-          },
-        },
-      ],
-      title: "Dashboard",
-      navigationTitle: "1. Select/Create template",
-      navigationDescription: "Create or select data entry template",
-    },
-    {
       name: "page1",
       elements: [
         {
           type: "panel",
           name: "panel_method",
           elements: [
+            {
+              type: "text",
+              name: "template_uuid",
+              visible: false,
+              title: "Template identifier",
+            },            
             {
               type: "text",
               name: "METHOD",
@@ -130,43 +99,43 @@ export const json = {
                   cellType: "dropdown",
                   choices: [
                     {
-                      value: "c_concentration ",
+                      value: "c_concentration",
                       text: " Concentration",
                     },
                     {
-                      value: "c_time ",
+                      value: "c_time",
                       text: " Time",
                     },
                     {
-                      value: "c_replicate ",
+                      value: "c_replicate",
                       text: " Replicate",
                     },
                     {
-                      value: "c_replicate_tech ",
+                      value: "c_replicate_tech",
                       text: " Technical replicate",
                     },
                     {
-                      value: "c_replicate_bio ",
+                      value: "c_replicate_bio",
                       text: " Biological replicate",
                     },
                     {
-                      value: "c_experiment ",
+                      value: "c_experiment",
                       text: " Experiment",
                     },
                     {
-                      value: "c_control_positive ",
+                      value: "c_control_positive",
                       text: " Control (positive)",
                     },
                     {
-                      value: "c_control_negative ",
+                      value: "c_control_negative",
                       text: " Control (negative)",
                     },
                     {
-                      value: "c_control_interference ",
+                      value: "c_control_interference",
                       text: " Control (interference)",
                     },
                     {
-                      value: "c_control_blank ",
+                      value: "c_control_blank",
                       text: " Control (blank)",
                     },
                   ],
@@ -665,7 +634,7 @@ export const json = {
       title: "Please describe the experimental method",
       description:
         "You will design a data entry template to report result for the method described",
-      navigationTitle: "2. Method",
+      navigationTitle: "1. Method",
       navigationDescription: "description",
     },
     {
@@ -785,7 +754,7 @@ export const json = {
                     },
                     {
                       value: "value_text",
-                      text: " text ",
+                      text: " text",
                     }
 
                   ],
@@ -915,7 +884,7 @@ export const json = {
                     },
                     {
                       value: "value_text",
-                      text: " text ",
+                      text: " text",
                     },
                   ],
                 },
@@ -941,7 +910,7 @@ export const json = {
           startWithNewLine: false,
         },
       ],
-      title: "3. Results",
+      title: "2. Results",
       description: "Please describe the results expected from {METHOD}",
     },
     {
@@ -999,7 +968,7 @@ export const json = {
                   text: "text",
                 },
                 {
-                  value: "value_boolean ",
+                  value: "value_boolean",
                   text: "yes/no",
                 }                
               ],
@@ -1028,7 +997,7 @@ export const json = {
         },
       ],
       title: "Method parameters",
-      navigationTitle: "4. Method parameters",
+      navigationTitle: "3. Method parameters",
       navigationDescription: "Method and instrument parameters",
     },
     {
@@ -1041,13 +1010,12 @@ export const json = {
           "defaultValue": "Material ID",
           "readOnly": true
          },    
-        {
+         {
           type: "matrixdynamic",
-          name: "METADATA_SAMPLE_OPTIONAL",
-          title: "[{METHOD}] Samples/Materials description (optional)",
-          description: "Add rows for each field to describe the sample. Remove the relevant rows.",
+          name: "METADATA_SAMPLE_INFO",
+          title: "[{METHOD}] Samples/Materials description",
           titleLocation: "top",
-          isRequired: false,
+          isRequired: true,
           showCommentArea: true,
           columns: [
             {
@@ -1058,10 +1026,18 @@ export const json = {
               isUnique: true,
             },
             {
+              name: "param_sample_unit",
+              title: "Unit",
+            },
+            {
               name: "param_sample_group",
               title: "Group",
               cellType: "dropdown",
               choices: [
+                {
+                  value: "ID",
+                  text: "Identifier",
+                },
                 {
                   value: "NAME",
                   text: "Name",
@@ -1079,13 +1055,9 @@ export const json = {
                   text: "Supplier",
                 },
                 {
-                  value: "SUPPLIER_identifier",
+                  value: "SUPPLIER identifier",
                   text: "Supplier identifier",
                 },
-                {
-                  value: "MATERIAL_STATE",
-                  text: "Material state",
-                },                
                 {
                   value: "OTHER_METADATA",
                   text: "Other",
@@ -1093,25 +1065,18 @@ export const json = {
               ],
             },
           ],
-          defaultValue: [
-              {"param_sample_name":"Material name","param_sample_group":"NAME"},
-              {"param_sample_name":"CAS RN","param_sample_group":"CASRN"},
-              {"param_sample_name":"Batch","param_sample_group":"BATCH"},
-              {"param_sample_name":"Supplier","param_sample_group":"SUPPLIER"},
-              {"param_sample_name":"Material state","param_sample_group":"MATERIAL_STATE"}
-          ],
-          detailPanelMode: "hidden",
+          detailPanelMode: "underRowSingle",
           cellType: "text",
-          rowCount: 5,
-          minRowCount: 0,
+          rowCount: 1,
+          minRowCount: 1,
           confirmDelete: true,
           addRowText: "Add parameter",
-          detailPanelShowOnAdding: false,
+          detailPanelShowOnAdding: true,
           allowRowsDragAndDrop: true,
-        },
+        }
       ],
       title: "Sample",
-      navigationTitle: "5. Sample",
+      navigationTitle: "4. Sample",
       navigationDescription: "Sample description",
     },
     {
@@ -1167,7 +1132,11 @@ export const json = {
                 {
                   value: "value_boolean",
                   text: "yes/no",
-                }                 
+                },
+                {
+                  value: "value_date",
+                  text: "date",
+                }                                  
               ],
             },
           ],
@@ -1194,7 +1163,7 @@ export const json = {
         },
       ],
       title: "Sample preparation",
-      navigationTitle: "6. Sample preparation",
+      navigationTitle: "5. Sample preparation",
       navigationDescription: "Sample preparation",
     },
     {
@@ -1253,7 +1222,7 @@ export const json = {
       ],
       
       title: "Provenance",
-      navigationTitle: "7. Provenance",
+      navigationTitle: "6. Provenance",
       navigationDescription: "Who and when did the experiment",
     },    
     {
