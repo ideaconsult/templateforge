@@ -9,11 +9,33 @@ export const json = {
       elements: [
         {
           type: "text",
+          name: "template_uuid",
+          visible: false,
+          readonly: true,
+          title: "Template identifier",
+        },          
+        {
+          type: "text",
           name: "template_name",
           visible: true,
           title: "Template name",
         },  
         {
+          type: "text",
+          name: "template_author",
+          visible: true,
+          startWithNewLine: true,
+          title: "Template Author",
+        },  
+        {
+          type: "text",
+          name: "template_acknowledgment",
+          visible: true,
+          startWithNewLine: false,
+          title: "Template Acknowledgment",
+        },                   
+        {
+          startWithNewLine: true,
           type: "checkbox",
           name: "user_role",
           title: "I am a ...",
@@ -41,12 +63,7 @@ export const json = {
           type: "panel",
           name: "panel_method",
           elements: [
-            {
-              type: "text",
-              name: "template_uuid",
-              visible: false,
-              title: "Template identifier",
-            },            
+          
             {
               type: "text",
               name: "METHOD",
@@ -1003,13 +1020,7 @@ export const json = {
     {
       name: "page_sampleinfo",
       elements: [
-        {
-          "type": "text",
-          "name": "METADATA_SAMPLE_ID",
-          "title": "The Material ID is the only mandatory field",
-          "defaultValue": "Material ID",
-          "readOnly": true
-         },    
+  
          {
           type: "matrixdynamic",
           name: "METADATA_SAMPLE_INFO",
@@ -1166,65 +1177,7 @@ export const json = {
       navigationTitle: "5. Sample preparation",
       navigationDescription: "Sample preparation",
     },
-    {
-      name: "page",
-      elements: [
-        {
-          type: "matrixdynamic",
-          name: "METADATA_PROTOCOLAPP",
-          title: "[{METHOD}] Experiment metadata",
-          titleLocation: "top",
-          isRequired: true,
-          showCommentArea: false,
-          columns: [
-            {
-              name: "param_protocolapp_name",
-              title: "Param name",
-              cellType: "text",
-              isRequired: true,
-              isUnique: true,
-            },
-            
-            {
-              name: "param_protocolapp_type",
-              title: "Type",
-              cellType: "dropdown",
-              choices: [
-                {
-                  value: "value_num",
-                  text: "numeric",
-                },
-                {
-                  value: "value_text",
-                  text: "text",
-                },
-                {
-                  value: "value_boolean",
-                  text: "yes/no",
-                },
-                {
-                  value: "value_date",
-                  text: "Date",
-                }                  
-              ],
-            },
-          ],
-          defaultValue: [{"param_protocolapp_name":"provider","param_protocolapp_type":"value_text"}],
-          cellType: "text",
-          rowCount: 1,
-          minRowCount: 1,
-          confirmDelete: true,
-          addRowText: "Add parameter",
-          detailPanelShowOnAdding: false,
-          allowRowsDragAndDrop: false,
-          allowRemoveRows : false
-        }
-      ],
-      
-      title: "Provenance",
-      navigationTitle: "6. Provenance",
-      navigationDescription: "Who and when did the experiment",
-    },    
+       
     {
       name: "page_preview",
       elements: [
