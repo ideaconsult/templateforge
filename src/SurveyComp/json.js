@@ -8,6 +8,26 @@ export const json = {
       name: "page_role",
       elements: [
         {
+          type: "text",
+          name: "template_name",
+          visible: true,
+          title: "Template name",
+        },  
+        {
+          type: "text",
+          name: "template_author",
+          visible: true,
+          startWithNewLine: true,
+          title: "Template Author",
+        },  
+        {
+          type: "text",
+          name: "template_acknowledgment",
+          visible: true,
+          startWithNewLine: false,
+          title: "Template Acknowledgment",
+        },                
+        {
           startWithNewLine: true,
           type: "checkbox",
           name: "user_role",
@@ -1153,33 +1173,14 @@ export const json = {
     {
       name: "page_preview",
       elements: [
-        {
-          type: "text",
-          name: "template_name",
-          visible: true,
-          title: "Template name",
-        },  
-        {
-          type: "text",
-          name: "template_author",
-          visible: true,
-          startWithNewLine: true,
-          title: "Template Author",
-        },  
-        {
-          type: "text",
-          name: "template_acknowledgment",
-          visible: true,
-          startWithNewLine: false,
-          title: "Template Acknowledgment",
-        },        
+        
         {
           type: "radiogroup",
           name: "template_status",
-          visible: true,
+          visible: false,
           title: "Template status",
           defaultValue : "DRAFT",
-          readonly: "{{}}",
+          readonly: false,
           startWithNewLine: true,
           choices: [
             {
@@ -1196,8 +1197,8 @@ export const json = {
           type: "text",
           name: "template_uuid",
           startWithNewLine: false,
-          visible: true,
-          readonly: true,
+          visible: false,
+          readonly: false,
           title: "Internal identifier",
         },    
         {
@@ -1209,20 +1210,25 @@ export const json = {
           title: "Internal identifier of the copied template (if any)",
         },                 
         {
-          type: "html",
+          type: "checkbox",
           name: "question1",
-          defaultValue: "Click to preview.... (or smth else)"
+          choices: [
+            {
+              value: "agree_to_finalize",
+              text: "Message I agree that finalizing  .... (enables the Fnalize button)",
+            }
+          ]
         }                   
       ],
-      title: "Template",
-      navigationTitle: "Template name (?)",
-      navigationDescription: "Template name, author, acknowledgement, status",
+      title: "Preview",
+      navigationTitle: "Preview",
+      navigationDescription: "Preview",
     }    
   ],
   showPrevButton: true,
   showQuestionNumbers: "off",
   showTOC: true,
-  goNextPageAutomatic: true,
+  goNextPageAutomatic: false,
   widthMode: "responsive",
   fitToContainer: true,
   headerView: "advanced",
