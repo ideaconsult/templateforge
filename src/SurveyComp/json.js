@@ -8,33 +8,6 @@ export const json = {
       name: "page_role",
       elements: [
         {
-          type: "text",
-          name: "template_uuid",
-          visible: false,
-          readonly: true,
-          title: "Template identifier",
-        },          
-        {
-          type: "text",
-          name: "template_name",
-          visible: true,
-          title: "Template name",
-        },  
-        {
-          type: "text",
-          name: "template_author",
-          visible: true,
-          startWithNewLine: true,
-          title: "Template Author",
-        },  
-        {
-          type: "text",
-          name: "template_acknowledgment",
-          visible: true,
-          startWithNewLine: false,
-          title: "Template Acknowledgment",
-        },                   
-        {
           startWithNewLine: true,
           type: "checkbox",
           name: "user_role",
@@ -1177,17 +1150,74 @@ export const json = {
       navigationTitle: "5. Sample preparation",
       navigationDescription: "Sample preparation",
     },
-       
     {
       name: "page_preview",
       elements: [
         {
+          type: "text",
+          name: "template_name",
+          visible: true,
+          title: "Template name",
+        },  
+        {
+          type: "text",
+          name: "template_author",
+          visible: true,
+          startWithNewLine: true,
+          title: "Template Author",
+        },  
+        {
+          type: "text",
+          name: "template_acknowledgment",
+          visible: true,
+          startWithNewLine: false,
+          title: "Template Acknowledgment",
+        },        
+        {
+          type: "radiogroup",
+          name: "template_status",
+          visible: true,
+          title: "Template status",
+          defaultValue : "DRAFT",
+          readonly: "{{}}",
+          startWithNewLine: true,
+          choices: [
+            {
+              value: "DRAFT",
+              text: " Draft",
+            },
+            {
+              value: "FINALIZED",
+              text: " Finalized",
+            }
+          ]         
+        },
+        {
+          type: "text",
+          name: "template_uuid",
+          startWithNewLine: false,
+          visible: true,
+          readonly: true,
+          title: "Internal identifier",
+        },    
+        {
+          type: "text",
+          name: "parent_uuid",
+          startWithNewLine: false,
+          visible: false,
+          readonly: true,
+          title: "Internal identifier of the copied template (if any)",
+        },                 
+        {
           type: "html",
           name: "question1",
-        },
+          defaultValue: "Click to preview.... (or smth else)"
+        }                   
       ],
-      title: "Preview",
-    },
+      title: "Template",
+      navigationTitle: "Template name (?)",
+      navigationDescription: "Template name, author, acknowledgement, status",
+    }    
   ],
   showPrevButton: true,
   showQuestionNumbers: "off",
