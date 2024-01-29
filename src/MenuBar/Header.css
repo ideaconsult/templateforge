@@ -5,19 +5,35 @@
   border-bottom: 1px solid #e2e2e2;
 }
 
+.headerStartScreen {
+  display: flex;
+
+  align-items: center;
+  border-bottom: 1px solid #e2e2e2;
+}
+
 .logoWrap {
   /* font-bold text-[19px] text-indigo-950 px-4 py-4 mr-4 */
   font-weight: 700;
   font-size: 19px;
   color: rgb(32, 0, 63);
-  padding: 0 2rem;
+  padding: 0.8rem 2rem;
+  margin-right: 2rem;
+}
+
+.logoWrapStartScreen {
+  /* font-bold text-[19px] text-indigo-950 px-4 py-4 mr-4 */
+  font-weight: 700;
+  font-size: 30px;
+  color: rgb(32, 0, 63);
+  padding: 0.8rem 2rem;
   margin-right: 2rem;
 }
 
 .slogan {
   display: inline-block;
   background-color: #def4ff;
-  padding: 0.4rem 0.7rem;
+  padding: 0.5rem 1rem;
   border-radius: 30px;
   font-weight: 500;
   margin-left: 1rem;
