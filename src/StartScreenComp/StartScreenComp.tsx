@@ -11,11 +11,30 @@ import "./StartScreenComp.css";
 export default function StartScreenComp({ setShowStartScreen }) {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState("Finalized");
+  const [UUID, setUUID] = useState(null);
 
   const { data } = useSWR(
     "https://api.ramanchada.ideaconsult.net/template",
     fetcher
   );
+  const dowloadXLS = () => {
+    UUID &&
+      fetch(
+        `https://api.ramanchada.ideaconsult.net/template/${UUID}?format=xlsx`
+      )
+        .then((resp) => resp.blob())
+        .then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = url;
+          a.download = `${UUID}`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(() => alert("oh no!"));
+  };
 
   const onChange = (e) => {
     setValue(e.target.value);
@@ -62,15 +81,28 @@ export default function StartScreenComp({ setShowStartScreen }) {
             value={value}
             onChange={onChange}
           />
-          <BluePrintsTable data={data} />
+          <BluePrintsTable
+            data={data}
+            setUUID={setUUID}
+            UUID={UUID}
+            value={value}
+          />
           <div className="buttonsWrap">
             <Button label="View" />
             <Button label="Make a copy" />
             <Button label="Share a link" />
-            <Button label="Download XLS" />
+            <div onClick={dowloadXLS}>
+              <Button label="Download XLS" />
+            </div>
           </div>
         </div>
-        <div className="view">Preview</div>
+        <div className="view">
+          <iframe
+            width="100%"
+            height="400"
+            src={`https://api.ramanchada.ideaconsult.net/template/${UUID}`}
+          ></iframe>
+        </div>
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
+// @ts-nocheck
 import React from "react";
 
 import "./StartScreenComp.css";
 
-export default function BluePrintsTable({ data }) {
+export default function BluePrintsTable({ data, setUUID, UUID, value }) {
   return (
     <div className="tableFixHead">
       <table>
@@ -15,15 +16,33 @@ export default function BluePrintsTable({ data }) {
         </thead>
         <tbody>
           {data &&
-            data.template.map((item) => {
-              return (
-                <tr key={item.uuid}>
-                  <td>{item.template_name}</td>
-                  <td>{item.template_author}</td>
-                  <td>{item.timestamp}</td>
-                </tr>
-              );
-            })}
+            data.template
+              .filter((item) => {
+                const searchResult = value.toLowerCase();
+                const name = item.EXPERIMENT.toLowerCase();
+                if (value) {
+                  return (
+                    searchResult &&
+                    name.toLowerCase().includes(searchResult.toLowerCase()) &&
+                    name !== searchResult
+                  );
+                } else {
+                  return item;
+                }
+              })
+              .map((item) => {
+                return (
+                  <tr
+                    key={item.uuid}
+                    onClick={() => setUUID(item.uuid)}
+                    className={item.uuid == UUID && "choosen"}
+                  >
+                    <td>{item.EXPERIMENT}</td>
+                    <td>{item.template_author}</td>
+                    <td>{item.timestamp}</td>
+                  </tr>
+                );
+              })}
         </tbody>
       </table>
     </div>
