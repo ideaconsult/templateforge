@@ -38,7 +38,7 @@
   );
 }
 .sv-components-row {
-  margin-top: 4rem;
+  margin-top: 6rem;
 }
 .sd-checkbox--checked .sd-checkbox__svg use {
   fill: #00016f !important;
