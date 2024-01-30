@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from "react";
 import Button from "../ui/Button";
 import LogoBar from "../MenuBar/LogoBar";
@@ -8,20 +9,25 @@ import { fetcher } from "../lib/fetcher";
 
 import "./StartScreenComp.css";
 
-export default function StartScreenComp({ setShowStartScreen }) {
+export default function StartScreenComp({
+  setShowStartScreen,
+  setSurveyReset,
+  surveyReset,
+}) {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState("Finalized");
   const [UUID, setUUID] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   const { data } = useSWR(
     "https://api.ramanchada.ideaconsult.net/template",
     fetcher
   );
+  const templateURL = `https://api.ramanchada.ideaconsult.net/template/${UUID}?format=xlsx`;
+
   const dowloadXLS = () => {
     UUID &&
-      fetch(
-        `https://api.ramanchada.ideaconsult.net/template/${UUID}?format=xlsx`
-      )
+      fetch(templateURL)
         .then((resp) => resp.blob())
         .then((blob) => {
           const url = window.URL.createObjectURL(blob);
@@ -35,6 +41,14 @@ export default function StartScreenComp({ setShowStartScreen }) {
         })
         .catch(() => alert("oh no!"));
   };
+
+  const copyLink = () => {
+    UUID && navigator.clipboard.writeText(templateURL);
+  };
+
+  setTimeout(() => {
+    setCopied(false);
+  }, 3000);
 
   const onChange = (e) => {
     setValue(e.target.value);
@@ -52,7 +66,10 @@ export default function StartScreenComp({ setShowStartScreen }) {
         {/* <Button label="Create a new Draft" /> */}
         <button
           className="createNewBtn"
-          onClick={() => setShowStartScreen(false)}
+          onClick={() => {
+            setShowStartScreen(false);
+            setSurveyReset(!surveyReset);
+          }}
         >
           Create a new Draft
         </button>
@@ -88,9 +105,18 @@ export default function StartScreenComp({ setShowStartScreen }) {
             value={value}
           />
           <div className="buttonsWrap">
-            <Button label="View" />
+            <Button label={mode == "Finalized" ? "View" : "Edit"} />
             <Button label="Make a copy" />
-            <Button label="Share a link" />
+            <div
+              onClick={() => {
+                copyLink();
+                setCopied(true);
+              }}
+            >
+              <Button
+                label={copied ? "Copied to clipboard!" : "Share a link"}
+              />
+            </div>
             <div onClick={dowloadXLS}>
               <Button label="Download XLS" />
             </div>

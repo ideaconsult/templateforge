@@ -31,7 +31,11 @@ function App() {
   return (
     <>
       {showStartScreen ? (
-        <StartScreenComp setShowStartScreen={setShowStartScreen} />
+        <StartScreenComp
+          setShowStartScreen={setShowStartScreen}
+          setSurveyReset={setSurveyReset}
+          surveyReset={surveyReset}
+        />
       ) : (
         <div className="wrapper">
           <div className="headerWrap">
