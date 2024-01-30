@@ -1,10 +1,10 @@
 .screenWrap {
   height: 100vh;
   background-color: #fff;
-  padding: 2rem;
+  padding: 0 2rem;
 }
 .descriptionNew {
-  padding: 2rem;
+  padding: 0.4rem 2rem;
   display: flex;
   gap: 40px;
   align-items: center;
@@ -133,4 +133,8 @@ tr.choosen {
   align-items: center;
   justify-content: flex-start;
   gap: 20px;
+}
+
+iframe {
+  border: none;
 }
