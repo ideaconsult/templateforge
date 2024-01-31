@@ -19,6 +19,7 @@
   color: rgb(32, 0, 63);
   padding: 0.8rem 2rem;
   margin-right: 2rem;
+  cursor: pointer;
 }
 
 .logoWrapStartScreen {

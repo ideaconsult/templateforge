@@ -3,7 +3,7 @@ import React from "react";
 
 import "./StartScreenComp.css";
 
-export default function BluePrintsTable({ data, setUUID, UUID, value }) {
+export default function BluePrintsTable({ data, setUUID, UUID, value, mode }) {
   return (
     <div className="tableFixHead">
       <table>
@@ -31,17 +31,35 @@ export default function BluePrintsTable({ data, setUUID, UUID, value }) {
                 }
               })
               .map((item) => {
-                return (
-                  <tr
-                    key={item.uuid}
-                    onClick={() => setUUID(item.uuid)}
-                    className={item.uuid == UUID && "choosen"}
-                  >
-                    <td>{item.EXPERIMENT}</td>
-                    <td>{item.template_author}</td>
-                    <td>{item.timestamp}</td>
-                  </tr>
-                );
+                if (mode == "Draft" && item.template_status == "DRAFT") {
+                  return (
+                    <tr
+                      key={item.uuid}
+                      onClick={() => setUUID(item.uuid)}
+                      className={item.uuid == UUID && "choosen"}
+                    >
+                      <td>{item.EXPERIMENT}</td>
+                      <td>{item.template_author}</td>
+                      <td>{item.timestamp}</td>
+                    </tr>
+                  );
+                }
+                if (
+                  mode == "Finalized" &&
+                  item.template_status == "FINALIZED"
+                ) {
+                  return (
+                    <tr
+                      key={item.uuid}
+                      onClick={() => setUUID(item.uuid)}
+                      className={item.uuid == UUID && "choosen"}
+                    >
+                      <td>{item.EXPERIMENT}</td>
+                      <td>{item.template_author}</td>
+                      <td>{item.timestamp}</td>
+                    </tr>
+                  );
+                }
               })}
         </tbody>
       </table>

@@ -13,6 +13,7 @@ export default function StartScreenComp({
   setShowStartScreen,
   setSurveyReset,
   surveyReset,
+  setTemplateURL,
 }) {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState("Finalized");
@@ -49,6 +50,13 @@ export default function StartScreenComp({
   setTimeout(() => {
     setCopied(false);
   }, 3000);
+
+  const editORView = () => {
+    if (mode == "Draft" && UUID) {
+      setTemplateURL(`https://api.ramanchada.ideaconsult.net/template/${UUID}`);
+      setShowStartScreen(false);
+    }
+  };
 
   const onChange = (e) => {
     setValue(e.target.value);
@@ -103,9 +111,12 @@ export default function StartScreenComp({
             setUUID={setUUID}
             UUID={UUID}
             value={value}
+            mode={mode}
           />
           <div className="buttonsWrap">
-            <Button label={mode == "Finalized" ? "View" : "Edit"} />
+            <div onClick={editORView}>
+              <Button label={mode == "Finalized" ? "View" : "Edit"} />
+            </div>
             <Button label="Make a copy" />
             <div
               onClick={() => {
@@ -123,11 +134,15 @@ export default function StartScreenComp({
           </div>
         </div>
         <div className="view">
-          <iframe
-            width="100%"
-            height="400"
-            src={`https://api.ramanchada.ideaconsult.net/template/${UUID}`}
-          ></iframe>
+          {UUID ? (
+            <iframe
+              width="100%"
+              height="400"
+              src={`https://api.ramanchada.ideaconsult.net/template/${UUID}`}
+            ></iframe>
+          ) : (
+            <p className="previewPlaceholder">No preview yet</p>
+          )}
         </div>
       </div>
     </div>

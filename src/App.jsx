@@ -24,6 +24,8 @@ function App() {
   const [surveyReset, setSurveyReset] = useState(false);
   const [templateURL, setTemplateURL] = useState("");
 
+  console.log("URL", templateURL);
+
   setTimeout(() => {
     setSurveyReset(false);
   }, 0);
@@ -35,11 +37,15 @@ function App() {
           setShowStartScreen={setShowStartScreen}
           setSurveyReset={setSurveyReset}
           surveyReset={surveyReset}
+          setTemplateURL={setTemplateURL}
         />
       ) : (
         <div className="wrapper">
           <div className="headerWrap">
-            <LogoBar startScreen={false} />
+            <LogoBar
+              startScreen={false}
+              setShowStartScreen={setShowStartScreen}
+            />
             <TopMenuBar
               setSurveyReset={setSurveyReset}
               setTemplateURL={setTemplateURL}
