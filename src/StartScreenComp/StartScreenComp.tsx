@@ -63,6 +63,9 @@ export default function StartScreenComp({
   };
   return (
     <div className="screenWrap">
+      <p className="underDev">
+        The Template Designer App is under development right now.
+      </p>
       <LogoBar startScreen={true} />
       <div className="descriptionNew">
         <p className="description">
