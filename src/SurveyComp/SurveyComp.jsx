@@ -16,7 +16,8 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
   const survey = new Model(json);
 
   useEffect(() => {
-    survey.clear();
+    surveyReset && survey.clear();
+    surveyReset && window.localStorage.setItem(storageItemKey, "");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [surveyReset]);
 
@@ -32,15 +33,15 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
     innerCss: "sd-btn nav-input",
   });
 
-  // survey.addNavigationItem({
-  //   id: "sv-nav-clear-all",
-  //   title: "Start Over",
-  //   action: () => {
-  //     survey.clear();
-  //   },
-  //   css: "nav-button",
-  //   innerCss: "sd-btn nav-input",
-  // });
+  survey.addNavigationItem({
+    id: "sv-nav-clear-all",
+    title: "Start Over",
+    action: () => {
+      survey.clear();
+    },
+    css: "nav-button",
+    innerCss: "sd-btn nav-input",
+  });
 
   survey.addLayoutElement({
     id: "new-el",
@@ -51,15 +52,15 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
 
   const storageItemKey = "my-survey";
 
-  function saveSurveyData(survey) {
-    const data = survey.data;
-    data.pageNo = survey.currentPageNo;
-    window.localStorage.setItem(storageItemKey, JSON.stringify(data));
-    setResult(JSON.stringify(data, null, 3));
-  }
+  // function saveSurveyData(survey) {
+  //   const data = survey.data;
+  //   data.pageNo = survey.currentPageNo;
+  //   window.localStorage.setItem(storageItemKey, JSON.stringify(data));
+  //   setResult(JSON.stringify(data, null, 3));
+  // }
 
-  survey.onValueChanged.add(saveSurveyData);
-  survey.onCurrentPageChanged.add(saveSurveyData);
+  // survey.onValueChanged.add(saveSurveyData);
+  // survey.onCurrentPageChanged.add(saveSurveyData);
 
   const prevData = window.localStorage.getItem(storageItemKey) || null;
   if (prevData) {
@@ -78,9 +79,9 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
     // }
   }
 
-  survey.onComplete.add(() => {
-    window.localStorage.setItem(storageItemKey, "");
-  });
+  // survey.onComplete.add(() => {
+  //   window.localStorage.setItem(storageItemKey, "");
+  // });
 
   survey.applyTheme(themeJson);
 

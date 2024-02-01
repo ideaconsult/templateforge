@@ -79,7 +79,7 @@ export default function StartScreenComp({
           className="createNewBtn"
           onClick={() => {
             setShowStartScreen(false);
-            setSurveyReset(!surveyReset);
+            setSurveyReset(true);
           }}
         >
           Create a new Draft

@@ -24,11 +24,11 @@ function App() {
   const [surveyReset, setSurveyReset] = useState(false);
   const [templateURL, setTemplateURL] = useState("");
 
-  console.log("URL", templateURL);
+  console.log("App: reset", surveyReset);
 
-  setTimeout(() => {
-    setSurveyReset(false);
-  }, 0);
+  // setTimeout(() => {
+  //   setSurveyReset(false);
+  // }, 0);
 
   return (
     <>
