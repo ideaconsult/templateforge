@@ -33,15 +33,15 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
     innerCss: "sd-btn nav-input",
   });
 
-  survey.addNavigationItem({
-    id: "sv-nav-clear-all",
-    title: "Start Over",
-    action: () => {
-      survey.clear();
-    },
-    css: "nav-button",
-    innerCss: "sd-btn nav-input",
-  });
+  // survey.addNavigationItem({
+  //   id: "sv-nav-clear-all",
+  //   title: "Start Over",
+  //   action: () => {
+  //     survey.clear();
+  //   },
+  //   css: "nav-button",
+  //   innerCss: "sd-btn nav-input",
+  // });
 
   survey.addLayoutElement({
     id: "new-el",
