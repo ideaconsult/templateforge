@@ -4,6 +4,8 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import formatHighlight from "json-format-highlight";
 import ShowPreviewIcon from "../IconsComponents/ShowPreviewIcon";
 
+import { useIntermediateData } from "../store/store";
+
 import "../App.css";
 const customColorOptions = {
   keyColor: "#3a3a3a",
@@ -16,6 +18,7 @@ const customColorOptions = {
 
 const DialogComp = ({ result }) => {
   const [open, setOpen] = React.useState(false);
+  const jsonPreview = useIntermediateData();
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild className="showPreview">
@@ -35,7 +38,9 @@ const DialogComp = ({ result }) => {
             className="modalJson"
             dangerouslySetInnerHTML={{
               __html: formatHighlight(
-                result ? "<pre>\n" + result + "\n</pre>" : "No preview yet",
+                jsonPreview
+                  ? "<pre>\n" + jsonPreview + "\n</pre>"
+                  : "No preview yet",
                 customColorOptions
               ),
             }}

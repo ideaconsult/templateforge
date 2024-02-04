@@ -6,6 +6,7 @@ import BluePrintsTable from "./BluePrintsTable";
 
 import useSWR from "swr";
 import { fetcher } from "../lib/fetcher";
+import { useUuid, useSetUuid, useSetShowStartScreen } from "../store/store";
 
 import "./StartScreenComp.css";
 
@@ -17,8 +18,12 @@ export default function StartScreenComp({
 }) {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState("Finalized");
-  const [UUID, setUUID] = useState(null);
+  // const [UUID, setUUID] = useState(null);
   const [copied, setCopied] = useState(false);
+
+  const UUID = useUuid();
+  const setUUID = useSetUuid();
+  const setStartScreen = useSetShowStartScreen();
 
   const { data } = useSWR(
     "https://api.ramanchada.ideaconsult.net/template",
@@ -54,7 +59,8 @@ export default function StartScreenComp({
   const editORView = () => {
     if (mode == "Draft" && UUID) {
       setTemplateURL(`https://api.ramanchada.ideaconsult.net/template/${UUID}`);
-      setShowStartScreen(false);
+      // setShowStartScreen(false);
+      setStartScreen();
     }
   };
 
@@ -67,6 +73,7 @@ export default function StartScreenComp({
         The Template Designer App is under development right now.
       </p>
       <LogoBar startScreen={true} />
+
       <div className="descriptionNew">
         <p className="description">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione
@@ -78,8 +85,10 @@ export default function StartScreenComp({
         <button
           className="createNewBtn"
           onClick={() => {
-            setShowStartScreen(false);
+            // setShowStartScreen(false);
+            setStartScreen();
             setSurveyReset(true);
+            setUUID("");
           }}
         >
           Create a new Draft
@@ -111,8 +120,8 @@ export default function StartScreenComp({
           />
           <BluePrintsTable
             data={data}
-            setUUID={setUUID}
-            UUID={UUID}
+            // setUUID={setUUID}
+            // UUID={UUID}
             value={value}
             mode={mode}
           />

@@ -1,9 +1,14 @@
 // @ts-nocheck
 import React from "react";
 
+import { useSetUuid, useUuid } from "../store/store";
+
 import "./StartScreenComp.css";
 
-export default function BluePrintsTable({ data, setUUID, UUID, value, mode }) {
+export default function BluePrintsTable({ data, value, mode }) {
+  const setUUID = useSetUuid();
+  const UUID = useUuid();
+
   return (
     <div className="tableFixHead">
       <table>
@@ -35,8 +40,10 @@ export default function BluePrintsTable({ data, setUUID, UUID, value, mode }) {
                   return (
                     <tr
                       key={item.uuid}
-                      onClick={() => setUUID(item.uuid)}
-                      className={item.uuid == UUID && "choosen"}
+                      onClick={() => {
+                        setUUID(item.uuid);
+                      }}
+                      className={item.uuid == UUID ? "choosen" : ""}
                     >
                       <td>{item.EXPERIMENT}</td>
                       <td>{item.template_author}</td>

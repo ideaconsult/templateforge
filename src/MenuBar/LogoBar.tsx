@@ -1,12 +1,15 @@
 import React from "react";
 import "./Header.css";
 
-export default function LogoBar({ startScreen, setShowStartScreen }) {
+import { useSetShowStartScreen } from "../store/store";
+
+export default function LogoBar({ startScreen }) {
+  const setStartScreen = useSetShowStartScreen();
   return (
     <div className={startScreen ? "headerStartScreen" : "header"}>
       <h1
         className={startScreen ? "logoWrapStartScreen" : "logoWrap"}
-        onClick={() => setShowStartScreen(true)}
+        onClick={() => setStartScreen()}
       >
         Template Designer{" "}
         <span className="slogan">

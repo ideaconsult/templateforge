@@ -45,3 +45,8 @@
   gap: 10px;
   padding: 0.4rem 1.5rem;
 }
+
+.uuid {
+  font-size: small;
+  font-weight: 700;
+}

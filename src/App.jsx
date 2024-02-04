@@ -8,6 +8,8 @@ import DialogComp from "./DialogComp/DialogComp";
 import LogoBar from "./MenuBar/LogoBar";
 import StartScreenComp from "./StartScreenComp/StartScreenComp";
 
+import { useShowStartScreen } from "./store/store";
+
 const customColorOptions = {
   keyColor: "#3a3a3a",
   numberColor: "blue",
@@ -18,23 +20,26 @@ const customColorOptions = {
 };
 
 function App() {
-  const [showStartScreen, setShowStartScreen] = useState(true);
+  const [saveSurvey, setSaveSurvey] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [result, setResult] = useState(null);
   const [surveyReset, setSurveyReset] = useState(false);
   const [templateURL, setTemplateURL] = useState("");
 
-  console.log("App: reset", surveyReset);
+  const startScreen = useShowStartScreen();
 
+  const saveResults = (val) => {
+    console.log(val);
+  };
+  console.log("RESULT", result);
   // setTimeout(() => {
   //   setSurveyReset(false);
   // }, 0);
 
   return (
     <>
-      {showStartScreen ? (
+      {startScreen ? (
         <StartScreenComp
-          setShowStartScreen={setShowStartScreen}
           setSurveyReset={setSurveyReset}
           surveyReset={surveyReset}
           setTemplateURL={setTemplateURL}
@@ -42,13 +47,11 @@ function App() {
       ) : (
         <div className="wrapper">
           <div className="headerWrap">
-            <LogoBar
-              startScreen={false}
-              setShowStartScreen={setShowStartScreen}
-            />
+            <LogoBar startScreen={false} />
             <TopMenuBar
               setSurveyReset={setSurveyReset}
               setTemplateURL={setTemplateURL}
+              saveResults={saveResults}
             />
           </div>
           <div className="mainWrap">
@@ -57,6 +60,7 @@ function App() {
               setResult={setResult}
               surveyReset={surveyReset}
               templateURL={templateURL}
+              saveSurvey={saveSurvey}
             />
 
             {showPreview && (

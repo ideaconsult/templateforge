@@ -9,15 +9,25 @@ import { fetcher } from "../lib/fetcher";
 
 import useSWR from "swr";
 
+import { useUuid, useSaveOnServer } from "../store/store";
+import { requestPOST } from "../lib/request";
+
 // eslint-disable-next-line react/prop-types
 function SurveyComponent({ setResult, surveyReset, templateURL }) {
   const { data } = useSWR(templateURL ? `${templateURL}` : null, fetcher);
 
   const survey = new Model(json);
+  const UUID = useUuid();
+  const saveONServer = useSaveOnServer();
 
   useEffect(() => {
-    surveyReset && survey.clear();
-    surveyReset && window.localStorage.setItem(storageItemKey, "");
+    requestPOST(survey.data, UUID);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [saveONServer, UUID]);
+
+  useEffect(() => {
+    surveyReset && !UUID && survey.clear();
+    surveyReset && !UUID && window.localStorage.setItem(storageItemKey, "");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [surveyReset]);
 
@@ -32,16 +42,6 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
     css: "nav-button",
     innerCss: "sd-btn nav-input",
   });
-
-  // survey.addNavigationItem({
-  //   id: "sv-nav-clear-all",
-  //   title: "Start Over",
-  //   action: () => {
-  //     survey.clear();
-  //   },
-  //   css: "nav-button",
-  //   innerCss: "sd-btn nav-input",
-  // });
 
   survey.addLayoutElement({
     id: "new-el",
@@ -79,33 +79,13 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
     // }
   }
 
-  // survey.onComplete.add(() => {
-  //   window.localStorage.setItem(storageItemKey, "");
-  // });
-
   survey.applyTheme(themeJson);
 
   survey.onComplete.add(function (sender, options) {
     console.log(JSON.stringify(sender.data, null, 3));
-
     setResult(sender.data);
-
     options.showSaveInProgress();
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://api.ramanchada.ideaconsult.net/template");
-    xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-    xhr.onload = xhr.onerror = function () {
-      if (xhr.status == 200) {
-        // Display the "Success" message (pass a string value to display a custom message)
-        options.showSaveSuccess();
-        // Alternatively, you can clear all messages:
-        // options.clearSaveMessages();
-      } else {
-        // Display the "Error" message (pass a string value to display a custom message)
-        options.showSaveError();
-      }
-    };
-    xhr.send(JSON.stringify(sender.data));
+    requestPOST(sender.data, UUID);
   });
   return <Survey model={survey} />;
 }

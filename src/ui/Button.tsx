@@ -3,6 +3,7 @@ import NewFileIcon from "../IconsComponents/NewFileIcon";
 import CopyFileIcon from "../IconsComponents/CopyFileIcon";
 import OpenFileIcon from "../IconsComponents/OpenFileIcon";
 import PublishIcon from "../IconsComponents/PublishIcon";
+import SaveIcon from "../IconsComponents/SaveIcon";
 import "./Button.css";
 
 export default function Button({ label }) {
@@ -12,6 +13,7 @@ export default function Button({ label }) {
       {label == "Make a copy" && <CopyFileIcon />}
       {label == "Open" && <OpenFileIcon />}
       {label == "Publish" && <PublishIcon />}
+      {label == "Save" && <SaveIcon />}
       <span>{label}</span>
     </button>
   );
