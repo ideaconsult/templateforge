@@ -8,10 +8,12 @@ leading-none rounded text-violet11 text-[14px] hover:bg-indigo-100 */
   gap: 9px;
   padding: 0.5rem 1rem;
   border: none;
+  background: #def4ff;
+  color: #282828;
 }
 
 .buttonMenu:hover {
-  background-color: #def4ff;
+  background-color: #c8edff;
   outline: none;
   border: none;
 }

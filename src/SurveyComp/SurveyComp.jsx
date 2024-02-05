@@ -9,7 +9,7 @@ import { fetcher } from "../lib/fetcher";
 import useSWR from "swr";
 
 import { useUuid, useSaveOnServer } from "../store/store";
-import { postRequest } from "../lib/request";
+import { postRequestUUID, postRequest } from "../lib/request";
 
 import "survey-core/defaultV2.min.css";
 
@@ -22,7 +22,8 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
   const saveONServer = useSaveOnServer();
 
   useEffect(() => {
-    postRequest(survey.data, UUID);
+    if (UUID) postRequestUUID(survey.data, UUID);
+    if (!UUID) postRequest(survey.data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [saveONServer, UUID]);
 
@@ -85,7 +86,7 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
   survey.onComplete.add(function (sender, options) {
     setResult(sender.data);
     options.showSaveInProgress();
-    postRequest(sender.data, UUID);
+    postRequestUUID(sender.data, UUID);
   });
   return <Survey model={survey} />;
 }
