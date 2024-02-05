@@ -1,4 +1,4 @@
-export const requestPOST = (data, uuid) => {
+export const postRequest = (data, uuid) => {
   if (uuid) {
     fetch(`https://api.ramanchada.ideaconsult.net/template/${uuid}`, {
       method: "POST",

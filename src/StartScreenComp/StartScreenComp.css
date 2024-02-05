@@ -31,7 +31,7 @@
   background-color: #646cff;
   cursor: pointer;
   transition: border-color 0.25s;
-  min-width: 170px;
+  min-width: 200px;
   white-space: nowrap;
 }
 

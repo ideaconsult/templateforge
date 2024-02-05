@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Model } from "survey-core";
-import "survey-core/defaultV2.min.css";
 import { Survey } from "survey-react-ui";
 import { json } from "./json";
 import { themeJson } from "./theme";
@@ -10,7 +9,9 @@ import { fetcher } from "../lib/fetcher";
 import useSWR from "swr";
 
 import { useUuid, useSaveOnServer } from "../store/store";
-import { requestPOST } from "../lib/request";
+import { postRequest } from "../lib/request";
+
+import "survey-core/defaultV2.min.css";
 
 // eslint-disable-next-line react/prop-types
 function SurveyComponent({ setResult, surveyReset, templateURL }) {
@@ -21,7 +22,7 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
   const saveONServer = useSaveOnServer();
 
   useEffect(() => {
-    requestPOST(survey.data, UUID);
+    postRequest(survey.data, UUID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [saveONServer, UUID]);
 
@@ -82,10 +83,9 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
   survey.applyTheme(themeJson);
 
   survey.onComplete.add(function (sender, options) {
-    console.log(JSON.stringify(sender.data, null, 3));
     setResult(sender.data);
     options.showSaveInProgress();
-    requestPOST(sender.data, UUID);
+    postRequest(sender.data, UUID);
   });
   return <Survey model={survey} />;
 }
