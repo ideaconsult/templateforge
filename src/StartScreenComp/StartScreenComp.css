@@ -23,8 +23,8 @@
 .createNewBtn {
   border-radius: 8px;
   text-transform: uppercase;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
+  padding: 0.6rem 0.4rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: #fff;
   font-family: inherit;

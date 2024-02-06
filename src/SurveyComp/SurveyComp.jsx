@@ -29,9 +29,9 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
 
   useEffect(() => {
     surveyReset && !UUID && survey.clear();
-    surveyReset && !UUID && window.localStorage.setItem(storageItemKey, "");
+    // surveyReset && !UUID && window.localStorage.setItem(storageItemKey, "");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [surveyReset]);
+  }, [surveyReset, UUID]);
 
   survey.addNavigationItem({
     id: "sv-nav-clear-page",

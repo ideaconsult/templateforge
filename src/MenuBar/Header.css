@@ -44,9 +44,19 @@
   align-items: center;
   gap: 10px;
   padding: 0.4rem 1.5rem;
+  justify-content: space-between;
 }
 
-.uuid {
+.uuidWORD {
   font-size: small;
   font-weight: 700;
+  color: #282828;
+}
+.uuid {
+  color: #282828;
+}
+.saveUuid {
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
