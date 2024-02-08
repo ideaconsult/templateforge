@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CopyFileIcon() {
+export default function CopyFileIcon({ disabled }) {
   return (
     <svg
       width="14"
@@ -11,9 +11,12 @@ export default function CopyFileIcon() {
     >
       <path
         d="M12.9459 12.7353H4C3.72386 12.7353 3.5 12.5114 3.5 12.2353V1C3.5 0.723858 3.72386 0.5 4 0.5H10.2947C10.4255 0.5 10.551 0.551223 10.6445 0.64269L13.2957 3.23786C13.3918 3.33191 13.4459 3.46071 13.4459 3.59517V12.2353C13.4459 12.5114 13.2221 12.7353 12.9459 12.7353Z"
-        stroke="black"
+        stroke={disabled ? "#999999" : "black"}
       />
-      <path d="M1 4.41177V14C1 14.5523 1.44772 15 2 15H10" stroke="black" />
+      <path
+        d="M1 4.41177V14C1 14.5523 1.44772 15 2 15H10"
+        stroke={disabled ? "#999999" : "#000"}
+      />
     </svg>
   );
 }

@@ -54,6 +54,7 @@
 }
 .uuid {
   color: #282828;
+  margin: 0;
 }
 .saveUuid {
   display: flex;

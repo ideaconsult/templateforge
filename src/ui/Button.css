@@ -12,7 +12,7 @@ leading-none rounded text-violet11 text-[14px] hover:bg-indigo-100 */
   color: #282828;
 }
 
-.buttonMenu:hover {
+.buttonMenu:hover:enabled {
   background-color: #c8edff;
   outline: none;
   border: none;
@@ -20,4 +20,9 @@ leading-none rounded text-violet11 text-[14px] hover:bg-indigo-100 */
 .buttonMenu:focus {
   outline: none;
   border: none;
+}
+button:disabled,
+button[disabled] {
+  background-color: #e7e7e7;
+  color: #919191;
 }

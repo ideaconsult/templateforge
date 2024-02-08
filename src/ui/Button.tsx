@@ -6,11 +6,13 @@ import PublishIcon from "../IconsComponents/PublishIcon";
 import SaveIcon from "../IconsComponents/SaveIcon";
 import "./Button.css";
 
-export default function Button({ label }) {
+export default function Button({ label, disabled }) {
   return (
-    <button className="buttonMenu">
+    <button className="buttonMenu" disabled={disabled ? true : false}>
       {label == "New" && <NewFileIcon />}
-      {label == "Make a copy" && <CopyFileIcon />}
+      {label == "Make a copy" && (
+        <CopyFileIcon disabled={disabled ? true : false} />
+      )}
       {label == "Open" && <OpenFileIcon />}
       {label == "Publish" && <PublishIcon />}
       {label == "Save" && <SaveIcon />}

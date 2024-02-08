@@ -125,11 +125,15 @@ export default function StartScreenComp({
             value={value}
             mode={mode}
           />
+
           <div className="buttonsWrap">
             <div onClick={editORView}>
-              <Button label={mode == "Finalized" ? "View" : "Edit"} />
+              <Button
+                disabled={!UUID}
+                label={mode == "Finalized" ? "View" : "Edit"}
+              />
             </div>
-            <Button label="Make a copy" />
+            <Button disabled={!UUID} label="Make a copy" />
             <div
               onClick={() => {
                 copyLink();
@@ -137,11 +141,12 @@ export default function StartScreenComp({
               }}
             >
               <Button
+                disabled={!UUID}
                 label={copied ? "Copied to clipboard!" : "Share a link"}
               />
             </div>
             <div onClick={dowloadXLS}>
-              <Button label="Download XLS" />
+              <Button disabled={!UUID} label="Download XLS" />
             </div>
           </div>
         </div>
