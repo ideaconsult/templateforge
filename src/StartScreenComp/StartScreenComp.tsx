@@ -16,7 +16,7 @@ import "./StartScreenComp.css";
 export default function StartScreenComp({
   setShowStartScreen,
   setSurveyReset,
-  surveyReset,
+  setData,
   setTemplateURL,
 }) {
   const [value, setValue] = useState("");

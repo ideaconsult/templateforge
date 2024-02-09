@@ -4,37 +4,19 @@ import { Survey } from "survey-react-ui";
 import { json } from "./json";
 import { themeJson } from "./theme";
 
-import { fetcher } from "../lib/fetcher";
-
-import useSWR from "swr";
-
-import { useUuid, useSaveOnServer } from "../store/store";
-import { postRequestUUID, postRequest } from "../lib/request";
+import { useUuid } from "../store/store";
+import { postRequestUUID } from "../lib/request";
 
 import "survey-core/defaultV2.min.css";
 
 // eslint-disable-next-line react/prop-types
-function SurveyComponent({ setResult, surveyReset, templateURL }) {
+function SurveyComponent({ setResult, surveyReset, data }) {
   const survey = new Model(json);
   const UUID = useUuid();
-  // const saveONServer = useSaveOnServer();
-
-  const { data } = useSWR(
-    UUID && templateURL ? `${templateURL}` : null,
-    fetcher
-  );
-  // setInterval(() => setResult(survey.data), 50000);
-
-  // useEffect(() => {
-  //   if (UUID) postRequestUUID(survey.data, UUID);
-  //   // if (!UUID) postRequest(survey.data);
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [saveONServer, UUID]);
 
   useEffect(() => {
     surveyReset && !UUID && survey.clear();
-    // surveyReset && !UUID && window.localStorage.setItem(storageItemKey, "");
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [surveyReset, UUID]);
 
@@ -72,7 +54,9 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
   if (prevData) {
     const data = JSON.parse(prevData);
     survey.data = data;
+    // eslint-disable-next-line react/prop-types
     if (data.pageNo) {
+      // eslint-disable-next-line react/prop-types
       survey.currentPageNo = data.pageNo;
     }
   }

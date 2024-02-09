@@ -26,6 +26,8 @@ function App() {
   const [surveyReset, setSurveyReset] = useState(false);
   const [templateURL, setTemplateURL] = useState("");
 
+  const [data, setData] = useState(null);
+
   const startScreen = useShowStartScreen();
 
   return (
@@ -35,6 +37,7 @@ function App() {
           setSurveyReset={setSurveyReset}
           surveyReset={surveyReset}
           setTemplateURL={setTemplateURL}
+          setData={setData}
         />
       ) : (
         <div className="wrapper">
@@ -50,8 +53,7 @@ function App() {
             <SurveyComponent
               setResult={setResult}
               surveyReset={surveyReset}
-              templateURL={templateURL}
-              saveSurvey={saveSurvey}
+              data={data}
             />
 
             {showPreview && (
