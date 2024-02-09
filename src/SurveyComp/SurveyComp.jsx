@@ -17,7 +17,7 @@ import "survey-core/defaultV2.min.css";
 function SurveyComponent({ setResult, surveyReset, templateURL }) {
   const survey = new Model(json);
   const UUID = useUuid();
-  const saveONServer = useSaveOnServer();
+  // const saveONServer = useSaveOnServer();
 
   const { data } = useSWR(
     UUID && templateURL ? `${templateURL}` : null,
@@ -25,12 +25,12 @@ function SurveyComponent({ setResult, surveyReset, templateURL }) {
   );
   // setInterval(() => setResult(survey.data), 50000);
 
-  useEffect(() => {
-    if (UUID) postRequestUUID(survey.data, UUID);
-    // if (!UUID) postRequest(survey.data);
+  // useEffect(() => {
+  //   if (UUID) postRequestUUID(survey.data, UUID);
+  //   // if (!UUID) postRequest(survey.data);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [saveONServer, UUID]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [saveONServer, UUID]);
 
   useEffect(() => {
     surveyReset && !UUID && survey.clear();
