@@ -49,8 +49,10 @@ export default function StartScreenComp({
   const editORView = () => {
     if (mode == "Draft" && UUID) {
       setTemplateURL(`https://api.ramanchada.ideaconsult.net/template/${UUID}`);
-      // setShowStartScreen(false);
       setStartScreen();
+      fetch(`https://api.ramanchada.ideaconsult.net/template/${UUID}`).then(
+        (response) => response.json().then((result) => setData(result))
+      );
     }
   };
 
