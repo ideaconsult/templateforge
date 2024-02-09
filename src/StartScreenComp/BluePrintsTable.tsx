@@ -45,7 +45,7 @@ export default function BluePrintsTable({ data, value, mode }) {
                       }}
                       className={item.uuid == UUID ? "choosen" : ""}
                     >
-                      <td>{item.EXPERIMENT}</td>
+                      <td>{item.template_name}</td>
                       <td>{item.template_author}</td>
                       <td>{item.timestamp}</td>
                     </tr>

@@ -32,6 +32,7 @@
   cursor: pointer;
   transition: border-color 0.25s;
   min-width: 200px;
+  text-align: center;
   white-space: nowrap;
 }
 

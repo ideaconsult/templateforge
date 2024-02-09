@@ -6,12 +6,7 @@ import OpenFileDialog from "../DialogComp/OpenFileDialog";
 import "./Header.css";
 import { useUuid, useSetUuid, useSetSaveOnServer } from "../store/store";
 
-export default function TopMenuBar({
-  setSurveyReset,
-  surveyReset,
-  setTemplateURL,
-  saveResults,
-}) {
+export default function TopMenuBar({ setSurveyReset }) {
   const uuid = useUuid();
   const setUUID = useSetUuid();
   const save = useSetSaveOnServer();

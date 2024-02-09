@@ -12,21 +12,23 @@ export const json = {
           name: "template_name",
           visible: true,
           title: "Template name",
-        },  
+          isRequired: true,
+        },
         {
           type: "text",
           name: "template_author",
           visible: true,
           startWithNewLine: true,
           title: "Template Author",
-        },  
+          isRequired: true,
+        },
         {
           type: "text",
           name: "template_acknowledgment",
           visible: true,
           startWithNewLine: false,
           title: "Template Acknowledgment",
-        },                
+        },
         {
           startWithNewLine: true,
           type: "checkbox",
@@ -56,7 +58,6 @@ export const json = {
           type: "panel",
           name: "panel_method",
           elements: [
-          
             {
               type: "text",
               name: "METHOD",
@@ -80,20 +81,20 @@ export const json = {
               requiredIf: "{user_role} contains 'role_datamgr'",
               defaultValue: [
                 {
-                 "conditon_name": "Concentration",
-                 "condition_unit": "mg/mol",
-                 "condition_type": "c_concentration "
+                  conditon_name: "Concentration",
+                  condition_unit: "mg/mol",
+                  condition_type: "c_concentration ",
                 },
                 {
-                 "conditon_name": "Time",
-                 "condition_unit": "h",
-                 "condition_type": "c_time "
+                  conditon_name: "Time",
+                  condition_unit: "h",
+                  condition_type: "c_time ",
                 },
                 {
-                 "conditon_name": "Replicate",
-                 "condition_type": "c_replicate "
-                }
-               ],                
+                  conditon_name: "Replicate",
+                  condition_type: "c_replicate ",
+                },
+              ],
               columns: [
                 {
                   name: "conditon_name",
@@ -151,7 +152,7 @@ export const json = {
                   ],
                 },
               ],
-                          
+
               cellType: "text",
               rowCount: 0,
               confirmDelete: true,
@@ -665,7 +666,7 @@ export const json = {
               name: "raw_data",
               startWithNewLine: false,
               defaultValue: false,
-              title: "Include unprocessed (raw data) in the template ?"
+              title: "Include unprocessed (raw data) in the template ?",
             },
             {
               type: "matrixdynamic",
@@ -692,7 +693,7 @@ export const json = {
                   choices: [
                     {
                       value: "RAW_DATA",
-                      text: ""
+                      text: "",
                     },
                     {
                       value: "MEAN",
@@ -705,13 +706,13 @@ export const json = {
                     {
                       value: "MODE",
                       text: "Mode",
-                    }
-                  ] 
+                    },
+                  ],
                 },
                 {
                   name: "raw_unit",
                   title: "Unit",
-                },  
+                },
                 {
                   name: "raw_endpoint_uncertainty",
                   title: "Uncertainty",
@@ -725,9 +726,9 @@ export const json = {
                     {
                       value: "SD",
                       text: "Standard Deviation",
-                    }
-                  ]                  
-                },                              
+                    },
+                  ],
+                },
                 {
                   name: "raw_type",
                   title: "Type",
@@ -765,8 +766,7 @@ export const json = {
                     {
                       value: "value_text",
                       text: " text",
-                    }
-
+                    },
                   ],
                 },
               ],
@@ -777,7 +777,7 @@ export const json = {
                   title: "Please select the experimental factors ...",
                   choicesFromQuestion: "conditions",
                   minSelectedChoices: 1,
-                  visibleIf: "{conditions.rowCount} > 0"
+                  visibleIf: "{conditions.rowCount} > 0",
                 },
               ],
               detailPanelMode: "underRowSingle",
@@ -808,7 +808,7 @@ export const json = {
                   choices: [
                     {
                       value: "",
-                      text: ""
+                      text: "",
                     },
                     {
                       value: "MEAN",
@@ -833,14 +833,14 @@ export const json = {
                     {
                       value: "D90",
                       text: "D90",
-                    }                    
-                  ] 
-                },                  
+                    },
+                  ],
+                },
                 {
                   name: "result_unit",
                   title: "Unit",
                 },
-                             
+
                 {
                   name: "result_endpoint_uncertainty",
                   title: "Uncertainty",
@@ -855,9 +855,9 @@ export const json = {
                     {
                       value: "SD",
                       text: "Standard Deviation",
-                    }
-                  ]                  
-                },                     
+                    },
+                  ],
+                },
                 {
                   name: "result_type",
                   title: "Type",
@@ -905,10 +905,10 @@ export const json = {
                   name: "results_conditions",
                   title: "Please select the experimental factors ...",
                   choicesFromQuestion: "conditions",
-                  visibleIf: "{conditions.rowCount} > 0"
-                }
+                  visibleIf: "{conditions.rowCount} > 0",
+                },
               ],
-              
+
               detailPanelMode: "underRowSingle",
               cellType: "text",
               rowCount: 1,
@@ -961,7 +961,7 @@ export const json = {
                   value: "OTHER_METADATA",
                   text: "OTHER METADATA",
                 },
-                "RESULT_ANALYSIS"
+                "RESULT_ANALYSIS",
               ],
             },
             {
@@ -980,7 +980,7 @@ export const json = {
                 {
                   value: "value_boolean",
                   text: "yes/no",
-                }                
+                },
               ],
             },
           ],
@@ -988,14 +988,14 @@ export const json = {
             {
               type: "text",
               name: "param_hint",
-              title: "Hint, description"
+              title: "Hint, description",
             },
             {
               type: "text",
               name: "param_subgroup",
-              title: "Subgroup (if any)"
-            }            
-          ],          
+              title: "Subgroup (if any)",
+            },
+          ],
           detailPanelMode: "underRowSingle",
           cellType: "text",
           rowCount: 1,
@@ -1013,8 +1013,7 @@ export const json = {
     {
       name: "page_sampleinfo",
       elements: [
-  
-         {
+        {
           type: "matrixdynamic",
           name: "METADATA_SAMPLE_INFO",
           title: "[{METHOD}] Samples/Materials description",
@@ -1077,7 +1076,7 @@ export const json = {
           addRowText: "Add parameter",
           detailPanelShowOnAdding: true,
           allowRowsDragAndDrop: true,
-        }
+        },
       ],
       title: "Sample",
       navigationTitle: "4. Sample",
@@ -1140,7 +1139,7 @@ export const json = {
                 {
                   value: "value_date",
                   text: "date",
-                }                                  
+                },
               ],
             },
           ],
@@ -1148,14 +1147,14 @@ export const json = {
             {
               type: "text",
               name: "param_sampleprep_hint",
-              title: "Hint, description"
+              title: "Hint, description",
             },
             {
               type: "text",
               name: "param_sampleprep_subgroup",
-              title: "Subgroup (if any)"
-            }            
-          ],           
+              title: "Subgroup (if any)",
+            },
+          ],
           detailPanelMode: "underRowSingle",
           cellType: "text",
           rowCount: 1,
@@ -1173,13 +1172,12 @@ export const json = {
     {
       name: "page_preview",
       elements: [
-        
         {
           type: "radiogroup",
           name: "template_status",
           visible: false,
           title: "Template status",
-          defaultValue : "DRAFT",
+          defaultValue: "DRAFT",
           readonly: false,
           startWithNewLine: true,
           choices: [
@@ -1190,8 +1188,8 @@ export const json = {
             {
               value: "FINALIZED",
               text: " Finalized",
-            }
-          ]         
+            },
+          ],
         },
         {
           type: "text",
@@ -1200,7 +1198,7 @@ export const json = {
           visible: false,
           readonly: false,
           title: "Internal identifier",
-        },    
+        },
         {
           type: "text",
           name: "parent_uuid",
@@ -1208,7 +1206,7 @@ export const json = {
           visible: false,
           readonly: true,
           title: "Internal identifier of the copied template (if any)",
-        },                 
+        },
         {
           type: "checkbox",
           name: "question1",
@@ -1216,14 +1214,14 @@ export const json = {
             {
               value: "agree_to_finalize",
               text: "Message I agree that finalizing  .... (enables the Fnalize button)",
-            }
-          ]
-        }                   
+            },
+          ],
+        },
       ],
       title: "Preview",
       navigationTitle: "Preview",
       navigationDescription: "Preview",
-    }    
+    },
   ],
   showPrevButton: true,
   showQuestionNumbers: "off",

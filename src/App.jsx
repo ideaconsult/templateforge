@@ -28,14 +28,6 @@ function App() {
 
   const startScreen = useShowStartScreen();
 
-  const saveResults = (val) => {
-    console.log(val);
-  };
-  console.log("RESULT", result);
-  // setTimeout(() => {
-  //   setSurveyReset(false);
-  // }, 0);
-
   return (
     <>
       {startScreen ? (
@@ -51,7 +43,6 @@ function App() {
             <TopMenuBar
               setSurveyReset={setSurveyReset}
               setTemplateURL={setTemplateURL}
-              saveResults={saveResults}
             />
           </div>
           <div className="mainWrap">

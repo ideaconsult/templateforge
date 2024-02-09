@@ -10,6 +10,8 @@ leading-none rounded text-violet11 text-[14px] hover:bg-indigo-100 */
   border: none;
   background: #def4ff;
   color: #282828;
+  white-space: nowrap;
+  border-radius: 6px;
 }
 
 .buttonMenu:hover:enabled {

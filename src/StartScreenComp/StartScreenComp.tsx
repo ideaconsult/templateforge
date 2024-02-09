@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import Button from "../ui/Button";
 import LogoBar from "../MenuBar/LogoBar";
 import BluePrintsTable from "./BluePrintsTable";
+import CreateNewDialog from "../DialogComp/CreateNewDialog";
 
 import useSWR from "swr";
 import { fetcher } from "../lib/fetcher";
 import { useUuid, useSetUuid, useSetShowStartScreen } from "../store/store";
+
+import { downloadFile } from "../lib/request";
 
 import "./StartScreenComp.css";
 
@@ -32,20 +35,7 @@ export default function StartScreenComp({
   const templateURL = `https://api.ramanchada.ideaconsult.net/template/${UUID}?format=xlsx`;
 
   const dowloadXLS = () => {
-    UUID &&
-      fetch(templateURL)
-        .then((resp) => resp.blob())
-        .then((blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.style.display = "none";
-          a.href = url;
-          a.download = `${UUID}`;
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-        })
-        .catch(() => alert("oh no!"));
+    UUID && downloadFile(UUID, templateURL);
   };
 
   const copyLink = () => {
@@ -81,7 +71,7 @@ export default function StartScreenComp({
           veniam eos libero. Animi voluptates error obcaecati beatae sed
           necessitatibus vero.
         </p>{" "}
-        {/* <Button label="Create a new Draft" /> */}
+        {/* <CreateNewDialog /> */}
         <button
           className="createNewBtn"
           onClick={() => {
