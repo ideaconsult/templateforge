@@ -10,7 +10,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
-    errorElement: <div>404 Not Found</div>,
     loader: () => fetch(`https://api.ramanchada.ideaconsult.net/template`),
   },
 
