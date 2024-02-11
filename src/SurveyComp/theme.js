@@ -57,7 +57,7 @@ export const themeJson = {
     "--sjs-article-font-x-large-fontStyle": "normal",
     "--sjs-article-font-x-large-fontStretch": "normal",
     "--sjs-article-font-x-large-letterSpacing": "0",
-    "--sjs-article-font-x-large-lineHeight": "56px",
+    // "--sjs-article-font-x-large-lineHeight": "56px",
     "--sjs-article-font-x-large-paragraphIndent": "0px",
     "--sjs-article-font-x-large-textCase": "none",
     "--sjs-article-font-large-textDecoration": "none",

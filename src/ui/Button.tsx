@@ -4,6 +4,7 @@ import CopyFileIcon from "../IconsComponents/CopyFileIcon";
 import OpenFileIcon from "../IconsComponents/OpenFileIcon";
 import PublishIcon from "../IconsComponents/PublishIcon";
 import SaveIcon from "../IconsComponents/SaveIcon";
+import ShareIcon from "../IconsComponents/ShareIcon";
 import "./Button.css";
 
 export default function Button({ label, disabled }) {
@@ -16,6 +17,7 @@ export default function Button({ label, disabled }) {
       {label == "Open" && <OpenFileIcon />}
       {label == "Publish" && <PublishIcon />}
       {label == "Save" && <SaveIcon />}
+      {label == "Share" && <ShareIcon />}
       <span>{label}</span>
     </button>
   );

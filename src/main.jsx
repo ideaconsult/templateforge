@@ -1,10 +1,31 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import HomePage from "./pages/HomePage.tsx";
+import TemplatePage from "./pages/TemplatePage.tsx";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+import "./index.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomePage />,
+    errorElement: <div>404 Not Found</div>,
+    loader: () => fetch(`https://api.ramanchada.ideaconsult.net/template`),
+  },
+
+  {
+    path: "/template/:templateId",
+    element: <TemplatePage />,
+    loader: ({ params }) =>
+      fetch(
+        `https://api.ramanchada.ideaconsult.net/template/${params.templateId}`
+      ),
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);

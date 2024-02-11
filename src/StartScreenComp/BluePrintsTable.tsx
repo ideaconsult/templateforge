@@ -24,7 +24,7 @@ export default function BluePrintsTable({ data, value, mode }) {
             data.template
               .filter((item) => {
                 const searchResult = value.toLowerCase();
-                const name = item.EXPERIMENT.toLowerCase();
+                const name = item.template_name.toLowerCase();
                 if (value) {
                   return (
                     searchResult &&

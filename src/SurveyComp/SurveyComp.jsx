@@ -1,24 +1,30 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Model } from "survey-core";
 import { Survey } from "survey-react-ui";
 import { json } from "./json";
 import { themeJson } from "./theme";
 
-import { useUuid } from "../store/store";
+import { useUuid, useSaveOnServer } from "../store/store";
 import { postRequestUUID } from "../lib/request";
 
 import "survey-core/defaultV2.min.css";
+import "../App.css";
 
 // eslint-disable-next-line react/prop-types
-function SurveyComponent({ setResult, surveyReset, data }) {
+function SurveyComponent({ setResult, data }) {
   const survey = new Model(json);
   const UUID = useUuid();
+  const didMount = useRef(false);
+  const toggle = useSaveOnServer();
 
   useEffect(() => {
-    surveyReset && !UUID && survey.clear();
-
+    if (didMount.current) {
+      postRequestUUID(survey.data, UUID);
+    } else {
+      didMount.current = true;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [surveyReset, UUID]);
+  }, [toggle]);
 
   survey.addNavigationItem({
     id: "sv-nav-clear-page",

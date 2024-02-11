@@ -1,36 +1,37 @@
 // @ts-nocheck
 import React from "react";
+import { useSetSaveOnServer, useSetUuid, useUuid } from "../store/store";
 import Button from "../ui/Button";
-import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
-import OpenFileDialog from "../DialogComp/OpenFileDialog";
+import { useLocation } from "react-router-dom";
 import "./Header.css";
-import { useUuid, useSetUuid, useSetSaveOnServer } from "../store/store";
 
-export default function TopMenuBar({ setSurveyReset }) {
-  const uuid = useUuid();
+export default function TopMenuBar({ uuid }) {
   const setUUID = useSetUuid();
   const save = useSetSaveOnServer();
+
+  const loc = useLocation();
+  console.log(import.meta.env.BASE_URL);
+
+  const copyLink = () => {
+    uuid &&
+      navigator.clipboard.writeText(`http://localhost:5173/template/${uuid}`);
+  };
   return (
     <div className="topMenuBar">
       <div className="saveUuid">
         <div onClick={() => save()}>
           <Button label="Save" />
         </div>
-        {/* <OpenFileDialog setTemplateURL={setTemplateURL} />
-      <MakeCopyDialog />
-      <Button label="Publish" /> */}
-        {uuid && (
-          <p className="uuid">
-            <span className="uuidWORD">UUID:</span> {uuid}
-          </p>
-        )}
+        <div onClick={() => copyLink()}>
+          <Button label="Share" />
+        </div>
       </div>
       <button
         className="createNewBtn"
         onClick={() => {
           // setShowStartScreen(false);
           // setStartScreen();
-          setSurveyReset(true);
+          // setSurveyReset(true);
           setUUID("");
         }}
       >

@@ -4,11 +4,11 @@ const useStore = create((set) => ({
   uuid: "",
   showStartScreen: true,
   saveOnServer: false,
-  intermediateData: { value: "Intermediate Data" },
+  intermediateData: null,
   setUuid: (uuid) => set(() => ({ uuid: uuid })),
   setShowStartScreen: () =>
     set((state) => ({ showStartScreen: !state.showStartScreen })),
-  setIntermediateData: (data) => set(() => ({ data: data })),
+  setIntermediateData: (data) => set(() => ({ intermediateData: data })),
   setSaveOnServer: () =>
     set((state) => ({ saveOnServer: !state.saveOnServer })),
 }));

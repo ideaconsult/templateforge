@@ -3,35 +3,23 @@ import React, { useState } from "react";
 import Button from "../ui/Button";
 import LogoBar from "../MenuBar/LogoBar";
 import BluePrintsTable from "./BluePrintsTable";
-import CreateNewDialog from "../DialogComp/CreateNewDialog";
 
-import useSWR from "swr";
-import { fetcher } from "../lib/fetcher";
-import { useUuid, useSetUuid, useSetShowStartScreen } from "../store/store";
+import { Link } from "react-router-dom";
+
+import { useUuid, useSetUuid } from "../store/store";
 
 import { downloadFile } from "../lib/request";
 
 import "./StartScreenComp.css";
 
-export default function StartScreenComp({
-  setShowStartScreen,
-  setSurveyReset,
-  setData,
-  setTemplateURL,
-}) {
+export default function StartScreenComp({ setSurveyReset, data }) {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState("Finalized");
-  // const [UUID, setUUID] = useState(null);
   const [copied, setCopied] = useState(false);
 
   const UUID = useUuid();
   const setUUID = useSetUuid();
-  const setStartScreen = useSetShowStartScreen();
 
-  const { data } = useSWR(
-    "https://api.ramanchada.ideaconsult.net/template",
-    fetcher
-  );
   const templateURL = `https://api.ramanchada.ideaconsult.net/template/${UUID}?format=xlsx`;
 
   const dowloadXLS = () => {
@@ -46,23 +34,13 @@ export default function StartScreenComp({
     setCopied(false);
   }, 3000);
 
-  const editORView = () => {
-    if (mode == "Draft" && UUID) {
-      setTemplateURL(`https://api.ramanchada.ideaconsult.net/template/${UUID}`);
-      setStartScreen();
-      fetch(`https://api.ramanchada.ideaconsult.net/template/${UUID}`).then(
-        (response) => response.json().then((result) => setData(result))
-      );
-    }
-  };
-
   const onChange = (e) => {
     setValue(e.target.value);
   };
   return (
     <div className="screenWrap">
       <p className="underDev">
-        The Template Designer App is under development right now.
+        The Template Designer App is under development right now
       </p>
       <LogoBar startScreen={true} />
 
@@ -78,7 +56,7 @@ export default function StartScreenComp({
           className="createNewBtn"
           onClick={() => {
             // setShowStartScreen(false);
-            setStartScreen();
+
             setSurveyReset(true);
             setUUID("");
           }}
@@ -119,12 +97,12 @@ export default function StartScreenComp({
           />
 
           <div className="buttonsWrap">
-            <div onClick={editORView}>
+            <Link to={`/template/${UUID}`}>
               <Button
                 disabled={!UUID}
                 label={mode == "Finalized" ? "View" : "Edit"}
               />
-            </div>
+            </Link>
             <Button disabled={!UUID} label="Make a copy" />
             <div
               onClick={() => {
