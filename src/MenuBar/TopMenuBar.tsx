@@ -9,12 +9,12 @@ export default function TopMenuBar({ uuid }) {
   const setUUID = useSetUuid();
   const save = useSetSaveOnServer();
 
-  const loc = useLocation();
-  console.log(import.meta.env.BASE_URL);
+  const urlToCopy = import.meta.env.PROD
+    ? `https://enanomapper.adma.ai/designer/template/${uuid}`
+    : `http://localhost:5173/designer/template/${uuid}`;
 
   const copyLink = () => {
-    uuid &&
-      navigator.clipboard.writeText(`http://localhost:5173/template/${uuid}`);
+    uuid && navigator.clipboard.writeText(urlToCopy);
   };
   return (
     <div className="topMenuBar">
