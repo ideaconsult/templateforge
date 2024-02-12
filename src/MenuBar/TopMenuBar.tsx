@@ -2,12 +2,13 @@
 import React from "react";
 import { useSetSaveOnServer, useSetUuid, useUuid } from "../store/store";
 import Button from "../ui/Button";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Header.css";
 
 export default function TopMenuBar({ uuid }) {
   const setUUID = useSetUuid();
   const save = useSetSaveOnServer();
+  const navigate = useNavigate();
 
   const urlToCopy = import.meta.env.PROD
     ? `https://enanomapper.adma.ai/designer/template/${uuid}`
@@ -28,11 +29,20 @@ export default function TopMenuBar({ uuid }) {
       </div>
       <button
         className="createNewBtn"
-        onClick={() => {
-          // setShowStartScreen(false);
-          // setStartScreen();
-          // setSurveyReset(true);
-          setUUID("");
+        onClick={async () => {
+          let res = await fetch(
+            "https://api.ramanchada.ideaconsult.net/template",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          let result = await res.json();
+          if (result.id) {
+            navigate(`/template/${result.id}`);
+          }
         }}
       >
         Create a new Draft

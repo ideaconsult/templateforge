@@ -4,6 +4,8 @@ import Button from "../ui/Button";
 import LogoBar from "../MenuBar/LogoBar";
 import BluePrintsTable from "./BluePrintsTable";
 
+import { useNavigate } from "react-router-dom";
+
 import { Link } from "react-router-dom";
 
 import { useUuid, useSetUuid } from "../store/store";
@@ -19,6 +21,7 @@ export default function StartScreenComp({ setSurveyReset, data }) {
 
   const UUID = useUuid();
   const setUUID = useSetUuid();
+  const navigate = useNavigate();
 
   const templateURL = `https://api.ramanchada.ideaconsult.net/template/${UUID}?format=xlsx`;
 
@@ -54,11 +57,20 @@ export default function StartScreenComp({ setSurveyReset, data }) {
         {/* <CreateNewDialog /> */}
         <button
           className="createNewBtn"
-          onClick={() => {
-            // setShowStartScreen(false);
-
-            setSurveyReset(true);
-            setUUID("");
+          onClick={async () => {
+            let res = await fetch(
+              "https://api.ramanchada.ideaconsult.net/template",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+            let result = await res.json();
+            if (result.id) {
+              navigate(`/template/${result.id}`);
+            }
           }}
         >
           Create a new Draft
