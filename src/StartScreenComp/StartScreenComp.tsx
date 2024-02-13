@@ -103,7 +103,6 @@ export default function StartScreenComp({ setSurveyReset, data }) {
             onChange={onChange}
           />
           <BluePrintsTable
-            data={data}
             // setUUID={setUUID}
             // UUID={UUID}
             value={value}
