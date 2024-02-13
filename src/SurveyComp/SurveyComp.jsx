@@ -14,15 +14,18 @@ import { fetcher } from "../lib/fetcher";
 import "survey-core/defaultV2.min.css";
 import "../App.css";
 
+import config from "../utils/config";
+
 // eslint-disable-next-line react/prop-types
 function SurveyComponent({ setResult, data }) {
   const survey = new Model(json);
   const UUID = useUuid();
   const didMount = useRef(false);
   const toggle = useSaveOnServer();
+  const apiUrl = config.apiUrl;
 
   const { dataTemp } = useSWR(
-    `https://api.ramanchada.ideaconsult.net/template/${UUID}`,
+    `${apiUrl}/${UUID}`,
     fetcher,
     {
       revalidateIfStale: false,

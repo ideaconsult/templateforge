@@ -7,12 +7,15 @@ import { fetcher } from "../lib/fetcher";
 import { useSetUuid, useUuid } from "../store/store";
 
 import "./StartScreenComp.css";
+import config from "../utils/config";
+
 
 export default function BluePrintsTable({ value, mode }) {
   const setUUID = useSetUuid();
   const UUID = useUuid();
+  const apiUrl = config.apiUrl;
   const { data, isLoading } = useSWR(
-    `https://api.ramanchada.ideaconsult.net/template/`,
+    apiUrl,
     fetcher,
     {
       revalidateIfStale: false,

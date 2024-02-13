@@ -4,13 +4,14 @@ import { useSetSaveOnServer, useSetUuid, useUuid } from "../store/store";
 import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
+import config from "../utils/config";
 
 export default function TopMenuBar({ uuid }) {
   const [copied, setCopied] = useState(false);
   const setUUID = useSetUuid();
   const save = useSetSaveOnServer();
   const navigate = useNavigate();
-
+  const apiUrl = config.apiUrl;
   const urlToCopy = import.meta.env.PROD
     ? `https://enanomapper.adma.ai/designer?uuid=${uuid}`
     : `http://localhost:5173/designer?uuid=${uuid}`;
@@ -22,7 +23,7 @@ export default function TopMenuBar({ uuid }) {
   setTimeout(() => {
     setCopied(false);
   }, 3000);
-
+  
   return (
     <div className="topMenuBar">
       <div className="saveUuid">
@@ -42,7 +43,7 @@ export default function TopMenuBar({ uuid }) {
         className="createNewBtn"
         onClick={async () => {
           let res = await fetch(
-            "https://api.ramanchada.ideaconsult.net/template",
+            `${apiUrl}`,
             {
               method: "POST",
               headers: {

@@ -4,10 +4,12 @@ import useSWR from "swr";
 import { fetcher } from "../lib/fetcher";
 
 import "./AutoCompleteComp.css";
+import config from "../utils/config";
 
 export default function AutoCompleteComp({ setOpen, setTemplateURL }) {
+
   const { data } = useSWR(
-    "https://api.ramanchada.ideaconsult.net/template",
+    config.apiUrl,
     fetcher
   );
 

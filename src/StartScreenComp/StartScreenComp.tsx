@@ -15,6 +15,9 @@ import { downloadFile } from "../lib/request";
 
 import "./StartScreenComp.css";
 
+import config from "../utils/config";
+
+
 export default function StartScreenComp() {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState("Finalized");
@@ -23,8 +26,8 @@ export default function StartScreenComp() {
   const UUID = useUuid();
   const setUUID = useSetUuid();
   const navigate = useNavigate();
-
-  const templateURL = `https://api.ramanchada.ideaconsult.net/template/${UUID}?format=xlsx`;
+  const apiUrl = config.apiUrl;
+  const templateURL = `${apiUrl}/${UUID}?format=xlsx`;
 
   const dowloadXLS = () => {
     UUID && downloadFile(UUID, templateURL);
@@ -69,7 +72,7 @@ export default function StartScreenComp() {
           className="createNewBtn"
           onClick={async () => {
             let res = await fetch(
-              "https://api.ramanchada.ideaconsult.net/template",
+              apiUrl,
               {
                 method: "POST",
                 headers: {
@@ -80,7 +83,7 @@ export default function StartScreenComp() {
             let result = await res.json();
 
             if (result.result_uuid) {
-              navigate(`/template/${result.result_uuid}`);
+              navigate(`?uuid=${result.result_uuid}`);
             }
           }}
         >
@@ -119,7 +122,7 @@ export default function StartScreenComp() {
           />
 
           <div className="buttonsWrap">
-            <Link to={`/template/${UUID}`}>
+            <Link to={`?uuid=${UUID}`}>
               <Button
                 disabled={!UUID}
                 label={mode == "Finalized" ? "View" : "Edit"}
@@ -147,7 +150,7 @@ export default function StartScreenComp() {
             <iframe
               width="100%"
               height="400"
-              src={`https://api.ramanchada.ideaconsult.net/template/${UUID}`}
+              src={`${apiUrl}/${UUID}`}
             ></iframe>
           ) : (
             <p className="previewPlaceholder">No preview yet</p>

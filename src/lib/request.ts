@@ -1,6 +1,9 @@
+import config from "../utils/config";
+
 export const postRequestUUID = (data, uuid) => {
   if (uuid) {
-    fetch(`https://api.ramanchada.ideaconsult.net/template/${uuid}`, {
+    const apiUrl = config.apiUrl;
+    fetch(`${apiUrl}/${uuid}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -11,7 +14,8 @@ export const postRequestUUID = (data, uuid) => {
 };
 
 export const postRequest = (data) => {
-  fetch(`https://api.ramanchada.ideaconsult.net/template/`, {
+  const apiUrl = config.apiUrl;
+  fetch(`${apiUrl}/${uuid}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
