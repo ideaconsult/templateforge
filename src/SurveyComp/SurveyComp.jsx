@@ -7,6 +7,10 @@ import { themeJson } from "./theme";
 import { useUuid, useSaveOnServer } from "../store/store";
 import { postRequestUUID } from "../lib/request";
 
+import useSWR from "swr";
+
+import { fetcher } from "../lib/fetcher";
+
 import "survey-core/defaultV2.min.css";
 import "../App.css";
 
@@ -16,6 +20,16 @@ function SurveyComponent({ setResult, data }) {
   const UUID = useUuid();
   const didMount = useRef(false);
   const toggle = useSaveOnServer();
+
+  const { dataTemp } = useSWR(
+    `https://api.ramanchada.ideaconsult.net/template/${UUID}`,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
 
   useEffect(() => {
     if (didMount.current) {
@@ -66,7 +80,7 @@ function SurveyComponent({ setResult, data }) {
       survey.currentPageNo = data.pageNo;
     }
   }
-  const fetchData = (data && data) || null;
+  const fetchData = (dataTemp && dataTemp) || null;
   if (fetchData) {
     const data = fetchData;
     survey.data = data;

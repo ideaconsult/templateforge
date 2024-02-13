@@ -15,7 +15,7 @@ import { downloadFile } from "../lib/request";
 
 import "./StartScreenComp.css";
 
-export default function StartScreenComp({ setSurveyReset, data }) {
+export default function StartScreenComp() {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState("Finalized");
   const [copied, setCopied] = useState(false);
@@ -30,8 +30,16 @@ export default function StartScreenComp({ setSurveyReset, data }) {
     UUID && downloadFile(UUID, templateURL);
   };
 
+  // const copyLink = () => {
+  //   UUID && navigator.clipboard.writeText(templateURL);
+  // };
+
+  const urlToCopy = import.meta.env.PROD
+    ? `https://enanomapper.adma.ai/designer?uuid=${UUID}`
+    : `http://localhost:5173/designer?uuid=${UUID}`;
+
   const copyLink = () => {
-    UUID && navigator.clipboard.writeText(templateURL);
+    UUID && navigator.clipboard.writeText(urlToCopy);
   };
 
   setTimeout(() => {
@@ -41,6 +49,7 @@ export default function StartScreenComp({ setSurveyReset, data }) {
   const onChange = (e) => {
     setValue(e.target.value);
   };
+
   return (
     <div className="screenWrap">
       <p className="underDev">

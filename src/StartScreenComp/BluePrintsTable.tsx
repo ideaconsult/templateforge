@@ -11,7 +11,7 @@ import "./StartScreenComp.css";
 export default function BluePrintsTable({ value, mode }) {
   const setUUID = useSetUuid();
   const UUID = useUuid();
-  const { data } = useSWR(
+  const { data, isLoading } = useSWR(
     `https://api.ramanchada.ideaconsult.net/template/`,
     fetcher,
     {
@@ -20,6 +20,23 @@ export default function BluePrintsTable({ value, mode }) {
       revalidateOnReconnect: false,
     }
   );
+  console.log(data);
+
+  const filteredData =
+    data &&
+    data.template.filter((item) => {
+      const searchResult = value.toLowerCase();
+      const name = item.template_name.toLowerCase();
+      if (value) {
+        return (
+          searchResult &&
+          name.toLowerCase().includes(searchResult.toLowerCase()) &&
+          name !== searchResult
+        );
+      } else {
+        return item;
+      }
+    });
 
   return (
     <div className="tableFixHead">
@@ -33,53 +50,36 @@ export default function BluePrintsTable({ value, mode }) {
         </thead>
         <tbody>
           {data &&
-            data.template
-              .filter((item) => {
-                const searchResult = value.toLowerCase();
-                const name = item.template_name.toLowerCase();
-                if (value) {
-                  return (
-                    searchResult &&
-                    name.toLowerCase().includes(searchResult.toLowerCase()) &&
-                    name !== searchResult
-                  );
-                } else {
-                  return item;
-                }
-              })
-              .map((item) => {
-                if (mode == "Draft" && item.template_status == "DRAFT") {
-                  return (
-                    <tr
-                      key={item.uuid}
-                      onClick={() => {
-                        setUUID(item.uuid);
-                      }}
-                      className={item.uuid == UUID ? "choosen" : ""}
-                    >
-                      <td>{item.template_name}</td>
-                      <td>{item.template_author}</td>
-                      <td>{item.timestamp}</td>
-                    </tr>
-                  );
-                }
-                if (
-                  mode == "Finalized" &&
-                  item.template_status == "FINALIZED"
-                ) {
-                  return (
-                    <tr
-                      key={item.uuid}
-                      onClick={() => setUUID(item.uuid)}
-                      className={item.uuid == UUID && "choosen"}
-                    >
-                      <td>{item.EXPERIMENT}</td>
-                      <td>{item.template_author}</td>
-                      <td>{item.timestamp}</td>
-                    </tr>
-                  );
-                }
-              })}
+            filteredData.map((item) => {
+              if (mode == "Draft" && item.template_status == "DRAFT") {
+                return (
+                  <tr
+                    key={item.uuid}
+                    onClick={() => {
+                      setUUID(item.uuid);
+                    }}
+                    className={item.uuid == UUID ? "choosen" : ""}
+                  >
+                    <td>{item.template_name}</td>
+                    <td>{item.template_author}</td>
+                    <td>{item.timestamp}</td>
+                  </tr>
+                );
+              }
+              if (mode == "Finalized" && item.template_status == "FINALIZED") {
+                return (
+                  <tr
+                    key={item.uuid}
+                    onClick={() => setUUID(item.uuid)}
+                    className={item.uuid == UUID && "choosen"}
+                  >
+                    <td>{item.EXPERIMENT}</td>
+                    <td>{item.template_author}</td>
+                    <td>{item.timestamp}</td>
+                  </tr>
+                );
+              }
+            })}
         </tbody>
       </table>
     </div>

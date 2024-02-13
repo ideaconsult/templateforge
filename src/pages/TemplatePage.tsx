@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
 import LogoBar from "../MenuBar/LogoBar";
 import TopMenuBar from "../MenuBar/TopMenuBar";
 import SurveyComponent from "../SurveyComp/SurveyComp";
-import { useParams, useLoaderData } from "react-router-dom";
 
 import "../App.css";
 
@@ -13,7 +13,6 @@ export default function TemplatePage() {
   const data = useLoaderData();
 
   const interData = useIntermediateData();
-  console.log(interData);
 
   const [result, setResult] = useState(null);
   const [surveyReset, setSurveyReset] = useState(false);

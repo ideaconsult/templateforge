@@ -11,16 +11,11 @@ const router = createBrowserRouter(
     {
       path: "/",
       Component: HomePage,
-      loader: () => fetch(`https://api.ramanchada.ideaconsult.net/template`),
     },
 
     {
       path: "/template/:templateId",
       Component: TemplatePage,
-      loader: ({ params }) =>
-        fetch(
-          `https://api.ramanchada.ideaconsult.net/template/${params.templateId}`
-        ),
     },
   ],
   { basename: "/designer" }

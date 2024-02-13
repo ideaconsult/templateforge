@@ -1,12 +1,19 @@
-import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import React, { useEffect } from "react";
 import StartScreenComp from "../StartScreenComp/StartScreenComp";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function HomePage() {
-  const [surveyReset, setSurveyReset] = useState(false);
-  const [templateURL, setTemplateURL] = useState("");
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const uuidParams = queryParams.get("uuid");
 
-  const data = useLoaderData();
+  const navigate = useNavigate();
 
-  return <StartScreenComp setSurveyReset={setSurveyReset} data={data} />;
+  useEffect(() => {
+    if (uuidParams) {
+      navigate(`/template/${uuidParams}`);
+    }
+  }, [uuidParams]);
+
+  return <StartScreenComp />;
 }
