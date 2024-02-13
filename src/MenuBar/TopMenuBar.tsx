@@ -40,8 +40,8 @@ export default function TopMenuBar({ uuid }) {
             }
           );
           let result = await res.json();
-          if (result.id) {
-            navigate(`/template/${result.id}`);
+          if (result.result_uuid) {
+            navigate(`/template/${result.result_uuid}`);
           }
         }}
       >

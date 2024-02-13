@@ -12,7 +12,7 @@ export const json = {
           name: "template_name",
           visible: true,
           title: "Template name",
-          // isRequired: true,
+          isRequired: true,
         },
         {
           type: "text",
@@ -20,7 +20,7 @@ export const json = {
           visible: true,
           startWithNewLine: true,
           title: "Template Author",
-          // isRequired: true,
+          isRequired: true,
         },
         {
           type: "text",
@@ -28,6 +28,7 @@ export const json = {
           visible: true,
           startWithNewLine: false,
           title: "Template Acknowledgment",
+          isRequired: true,
         },
         {
           startWithNewLine: true,

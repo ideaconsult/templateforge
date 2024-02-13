@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Button from "../ui/Button";
 import LogoBar from "../MenuBar/LogoBar";
 import BluePrintsTable from "./BluePrintsTable";
+import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 
 import { useNavigate } from "react-router-dom";
 
@@ -54,7 +55,7 @@ export default function StartScreenComp({ setSurveyReset, data }) {
           veniam eos libero. Animi voluptates error obcaecati beatae sed
           necessitatibus vero.
         </p>{" "}
-        {/* <CreateNewDialog /> */}
+        <CreateNewDialog />
         <button
           className="createNewBtn"
           onClick={async () => {
@@ -68,8 +69,9 @@ export default function StartScreenComp({ setSurveyReset, data }) {
               }
             );
             let result = await res.json();
-            if (result.id) {
-              navigate(`/template/${result.id}`);
+
+            if (result.result_uuid) {
+              navigate(`/template/${result.result_uuid}`);
             }
           }}
         >
