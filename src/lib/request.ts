@@ -35,9 +35,3 @@ export const downloadFile = (uuid, templateURL) => {
     })
     .catch(() => alert("oh no!"));
 };
-
-export const getTemplates = async () => {
-  const res = await fetch("https://api.ramanchada.ideaconsult.net/template/");
-  const data = await res.json();
-  return data;
-};

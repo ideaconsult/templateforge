@@ -55,7 +55,7 @@ export default function StartScreenComp({ setSurveyReset, data }) {
           veniam eos libero. Animi voluptates error obcaecati beatae sed
           necessitatibus vero.
         </p>{" "}
-        <CreateNewDialog />
+        {/* <CreateNewDialog /> */}
         <button
           className="createNewBtn"
           onClick={async () => {
