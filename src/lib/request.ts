@@ -2,6 +2,7 @@ import config from "../utils/config";
 
 export const postRequestUUID = (data, uuid) => {
   if (uuid) {
+    console.log(JSON.stringify(data))
     const apiUrl = config.apiUrl;
     fetch(`${apiUrl}/${uuid}`, {
       method: "POST",
@@ -15,7 +16,7 @@ export const postRequestUUID = (data, uuid) => {
 
 export const postRequest = (data) => {
   const apiUrl = config.apiUrl;
-  fetch(`${apiUrl}/${uuid}`, {
+  fetch(`${apiUrl}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
