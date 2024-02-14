@@ -5,8 +5,6 @@ import LogoBar from "../MenuBar/LogoBar";
 import BluePrintsTable from "./BluePrintsTable";
 import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 
-import { useNavigate } from "react-router-dom";
-
 import { Link } from "react-router-dom";
 
 import { useUuid, useSetUuid } from "../store/store";
@@ -21,18 +19,12 @@ export default function StartScreenComp() {
   const [copied, setCopied] = useState(false);
 
   const UUID = useUuid();
-  const setUUID = useSetUuid();
-  const navigate = useNavigate();
 
   const templateURL = `https://api.ramanchada.ideaconsult.net/template/${UUID}?format=xlsx`;
 
   const dowloadXLS = () => {
     UUID && downloadFile(UUID, templateURL);
   };
-
-  // const copyLink = () => {
-  //   UUID && navigator.clipboard.writeText(templateURL);
-  // };
 
   const urlToCopy = import.meta.env.PROD
     ? `https://enanomapper.adma.ai/designer?uuid=${UUID}`
@@ -64,28 +56,7 @@ export default function StartScreenComp() {
           veniam eos libero. Animi voluptates error obcaecati beatae sed
           necessitatibus vero.
         </p>{" "}
-        {/* <CreateNewDialog /> */}
-        <button
-          className="createNewBtn"
-          onClick={async () => {
-            let res = await fetch(
-              "https://api.ramanchada.ideaconsult.net/template",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-            let result = await res.json();
-
-            if (result.result_uuid) {
-              navigate(`/template/${result.result_uuid}`);
-            }
-          }}
-        >
-          Create a new Draft
-        </button>
+        <CreateNewDialog />
       </div>
       <div className="tabsWrap">
         <p
@@ -111,12 +82,7 @@ export default function StartScreenComp() {
             value={value}
             onChange={onChange}
           />
-          <BluePrintsTable
-            // setUUID={setUUID}
-            // UUID={UUID}
-            value={value}
-            mode={mode}
-          />
+          <BluePrintsTable value={value} mode={mode} />
 
           <div className="buttonsWrap">
             <Link to={`/template/${UUID}`}>

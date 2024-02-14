@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import Button from "../ui/Button";
 
 import "./styles.css";
 import { useSetShowStartScreen } from "../store/store";
+import { useNavigate } from "react-router-dom";
 import { postRequest } from "../lib/request";
 
 const CreateNewDialog = () => {
   const setStartScreen = useSetShowStartScreen();
+  const [name, setName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [acknowledgment, setAcknowledgment] = useState("");
+
+  const navigate = useNavigate();
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <div className="">
-          <Button label="Create New Draft (Alternative)" disabled={false} />
-        </div>
+        <button className="createNewBtn">Create a new Draft</button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" />
@@ -23,30 +28,40 @@ const CreateNewDialog = () => {
           <Dialog.Description className="DialogDescription">
             Please define a draft's name and author.
             <br />
-            Click a Create New Draft Button when you're done.
+            Click a Create New Draft button when you're done.
           </Dialog.Description>
-          <fieldset className="Fieldset">
-            {/* <label className="Label" htmlFor="name">
-            Template Name
-          </label> */}
-            <input className="Input" id="name" defaultValue="New Draft Name" />
-          </fieldset>
-          <fieldset className="Fieldset">
-            {/* <label className="Label" htmlFor="author">
-            Username
-          </label> */}
-            <input className="Input" id="author" defaultValue="Author" />
-          </fieldset>
-          <fieldset className="Fieldset">
-            {/* <label className="Label" htmlFor="author">
-            Username
-          </label> */}
+          <fieldset className={name ? "FieldsetFilled" : "Fieldset"}>
             <input
               className="Input"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              id="name"
+              defaultValue="New Draft Name"
+            />
+          </fieldset>
+          {!name && <p className="warning">Please enter Draft name</p>}
+          <fieldset className={author ? "FieldsetFilled" : "Fieldset"}>
+            <input
+              className="Input"
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+              id="author"
+              defaultValue="Author"
+            />
+          </fieldset>
+          {!author && <p className="warning">Please enter Author name</p>}
+          <fieldset className={acknowledgment ? "FieldsetFilled" : "Fieldset"}>
+            <input
+              className="Input"
+              value={acknowledgment}
+              onChange={(e) => setAcknowledgment(e.target.value)}
               id="template_acknowledgment"
               defaultValue="Template Acknowledgment"
             />
           </fieldset>
+          {!acknowledgment && (
+            <p className="warning">Please enter Acknowledgment name</p>
+          )}
           <div
             style={{
               display: "flex",
@@ -56,26 +71,35 @@ const CreateNewDialog = () => {
           >
             <Dialog.Close asChild>
               <button
-                className="Button green"
-                onClick={() => {
-                  setStartScreen();
-                  postRequest({
-                    template_name: "Test",
-                    template_status: "DRAFT",
-                    template_author: "Sergey",
-                    template_acknowledgment: "test-test",
-                  });
+                disabled={name == "" && author == "" && acknowledgment == ""}
+                className="Button"
+                onClick={async () => {
+                  let res = await fetch(
+                    "https://api.ramanchada.ideaconsult.net/template",
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        template_name: name,
+                        template_status: "DRAFT",
+                        template_author: author,
+                        template_acknowledgment: acknowledgment,
+                      }),
+                    }
+                  );
+                  let result = await res.json();
+
+                  if (result.result_uuid) {
+                    navigate(`/template/${result.result_uuid}`);
+                  }
                 }}
               >
                 Create New Draft
               </button>
             </Dialog.Close>
           </div>
-          {/* <Dialog.Close asChild>
-          <button className="IconButton" aria-label="Close">
-            <Cross2Icon />
-          </button>
-        </Dialog.Close> */}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

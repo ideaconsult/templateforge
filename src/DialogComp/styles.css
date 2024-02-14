@@ -85,6 +85,28 @@ input {
   box-shadow: 0 0 0 2px var(--green-7);
 }
 
+.createNewBtn {
+  border-radius: 8px;
+  border: none;
+  text-transform: uppercase;
+  padding: 0.6rem 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  font-family: inherit;
+  background-color: #646cff !important;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  min-width: 200px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.createNewBtn:hover {
+  border: none;
+  background-color: #545acb !important;
+}
+
 .IconButton {
   font-family: inherit;
   border-radius: 100%;
@@ -109,7 +131,20 @@ input {
   display: flex;
   gap: 20px;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+}
+
+.FieldsetFilled {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 34px;
+}
+
+.warning {
+  margin-bottom: 10px;
+  font-size: small;
+  color: rgb(185, 6, 6);
 }
 
 .Label {
@@ -136,6 +171,12 @@ input {
 }
 .Input:focus {
   box-shadow: 0 0 0 2px var(--violet-8);
+}
+
+.Button:disabled,
+.Button[disabled] {
+  background-color: #e7e7e7;
+  color: #919191;
 }
 
 @keyframes overlayShow {

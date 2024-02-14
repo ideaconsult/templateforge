@@ -1,15 +1,14 @@
 // @ts-nocheck
 import React, { useState } from "react";
-import { useSetSaveOnServer, useSetUuid, useUuid } from "../store/store";
+import CreateNewDialog from "../DialogComp/CreateNewDialog";
+import { useSetSaveOnServer } from "../store/store";
 import Button from "../ui/Button";
-import { useNavigate } from "react-router-dom";
 import "./Header.css";
 
 export default function TopMenuBar({ uuid }) {
   const [copied, setCopied] = useState(false);
-  const setUUID = useSetUuid();
+
   const save = useSetSaveOnServer();
-  const navigate = useNavigate();
 
   const urlToCopy = import.meta.env.PROD
     ? `https://enanomapper.adma.ai/designer?uuid=${uuid}`
@@ -38,26 +37,7 @@ export default function TopMenuBar({ uuid }) {
           <Button label={copied ? "Copied to clipboard!" : "Share"} />
         </div>
       </div>
-      <button
-        className="createNewBtn"
-        onClick={async () => {
-          let res = await fetch(
-            "https://api.ramanchada.ideaconsult.net/template",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          let result = await res.json();
-          if (result.result_uuid) {
-            navigate(`/template/${result.result_uuid}`);
-          }
-        }}
-      >
-        Create a new Draft
-      </button>
+      <CreateNewDialog />
     </div>
   );
 }
