@@ -4,13 +4,35 @@ import useSWR from "swr";
 
 import { fetcher } from "../lib/fetcher";
 
-import { useSetUuid, useUuid } from "../store/store";
-
 import "./StartScreenComp.css";
 
-export default function BluePrintsTable({ value, mode }) {
+import {
+  useUuid,
+  useSetUuid,
+  useName,
+  useSetName,
+  useAuthor,
+  useSetAuthor,
+  useAcknowledgment,
+  useSetAcknowledgment,
+} from "../store/store";
+
+export default function BluePrintsTable({
+  value,
+  mode,
+  setIdShosen,
+  idShosen,
+}) {
   const setUUID = useSetUuid();
   const UUID = useUuid();
+
+  const name = useName();
+  const setName = useSetName();
+  const author = useAuthor();
+  const setAuthor = useSetAuthor();
+  const acknowledgment = useAcknowledgment();
+  const setAcknowledgment = useSetAcknowledgment();
+
   const { data, isLoading } = useSWR(
     `https://api.ramanchada.ideaconsult.net/template/`,
     fetcher,
@@ -20,7 +42,6 @@ export default function BluePrintsTable({ value, mode }) {
       revalidateOnReconnect: false,
     }
   );
-  console.log(data);
 
   const filteredData =
     data &&
@@ -56,11 +77,13 @@ export default function BluePrintsTable({ value, mode }) {
                   <tr
                     key={item.uuid}
                     onClick={() => {
-                      setUUID(item.uuid);
+                      setIdShosen(item.uuid);
                     }}
-                    className={item.uuid == UUID ? "choosen" : ""}
+                    className={item.uuid == idShosen ? "choosen" : ""}
                   >
-                    <td>{item.template_name}</td>
+                    <td onClick={() => setName(item.template_name)}>
+                      {item.template_name}
+                    </td>
                     <td>{item.template_author}</td>
                     <td>{item.timestamp}</td>
                   </tr>
@@ -71,7 +94,7 @@ export default function BluePrintsTable({ value, mode }) {
                   <tr
                     key={item.uuid}
                     onClick={() => setUUID(item.uuid)}
-                    className={item.uuid == UUID && "choosen"}
+                    className={item.uuid == idShosen && "choosen"}
                   >
                     <td>{item.EXPERIMENT}</td>
                     <td>{item.template_author}</td>

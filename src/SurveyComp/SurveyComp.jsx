@@ -15,14 +15,14 @@ import "survey-core/defaultV2.min.css";
 import "../App.css";
 
 // eslint-disable-next-line react/prop-types
-function SurveyComponent({ setResult, data }) {
+function SurveyComponent({ setResult, uuid }) {
   const survey = new Model(json);
-  const UUID = useUuid();
+  // const UUID = useUuid();
   const didMount = useRef(false);
   const toggle = useSaveOnServer();
 
   const { dataTemp } = useSWR(
-    `https://api.ramanchada.ideaconsult.net/template/${UUID}`,
+    `https://api.ramanchada.ideaconsult.net/template/${uuid}`,
     fetcher,
     {
       revalidateIfStale: false,
@@ -31,9 +31,11 @@ function SurveyComponent({ setResult, data }) {
     }
   );
 
+  console.log("survey", uuid);
+
   useEffect(() => {
     if (didMount.current) {
-      postRequestUUID(survey.data, UUID);
+      postRequestUUID(survey.data, uuid);
     } else {
       didMount.current = true;
     }
@@ -94,7 +96,7 @@ function SurveyComponent({ setResult, data }) {
   survey.onComplete.add(function (sender, options) {
     setResult(sender.data);
     options.showSaveInProgress();
-    postRequestUUID(sender.data, UUID);
+    postRequestUUID(sender.data, uuid);
   });
   return <Survey model={survey} />;
 }

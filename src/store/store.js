@@ -1,11 +1,18 @@
 import { create } from "zustand";
 
 const useStore = create((set) => ({
-  uuid: "",
+  uuid: null,
+  name: "",
+  author: "",
+  acknowledgment: "",
   showStartScreen: true,
   saveOnServer: false,
   intermediateData: null,
   setUuid: (uuid) => set(() => ({ uuid: uuid })),
+  setName: (name) => set(() => ({ name: name })),
+  setAuthor: (author) => set(() => ({ author: author })),
+  setAcknowledgment: (acknowledgment) =>
+    set(() => ({ acknowledgment: acknowledgment })),
   setShowStartScreen: () =>
     set((state) => ({ showStartScreen: !state.showStartScreen })),
   setIntermediateData: (data) => set(() => ({ intermediateData: data })),
@@ -15,6 +22,17 @@ const useStore = create((set) => ({
 
 export const useUuid = () => useStore((state) => state.uuid);
 export const useSetUuid = () => useStore((state) => state.setUuid);
+
+export const useName = () => useStore((state) => state.name);
+export const useSetName = () => useStore((state) => state.setName);
+
+export const useAuthor = () => useStore((state) => state.author);
+export const useSetAuthor = () => useStore((state) => state.setAuthor);
+
+export const useAcknowledgment = () =>
+  useStore((state) => state.acknowledgment);
+export const useSetAcknowledgment = () =>
+  useStore((state) => state.setAcknowledgment);
 
 export const useShowStartScreen = () =>
   useStore((state) => state.showStartScreen);

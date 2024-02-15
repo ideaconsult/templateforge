@@ -1,17 +1,17 @@
 import React from "react";
 import "./Header.css";
 
-import { useSetShowStartScreen } from "../store/store";
+import { useSetUuid } from "../store/store";
 import { Link } from "react-router-dom";
 
 export default function LogoBar({ startScreen, uuid }) {
-  const setStartScreen = useSetShowStartScreen();
+  const setUUID = useSetUuid();
   return (
     <div className={startScreen ? "headerStartScreen" : "header"}>
       <Link to="/">
         <h1
           className={startScreen ? "logoWrapStartScreen" : "logoWrap"}
-          onClick={() => setStartScreen()}
+          onClick={() => setUUID(null)}
         >
           Template Designer{" "}
           <span className="slogan">

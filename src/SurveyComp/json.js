@@ -7,29 +7,29 @@ export const json = {
     {
       name: "page_role",
       elements: [
-        {
-          type: "text",
-          name: "template_name",
-          visible: true,
-          title: "Template name",
-          isRequired: true,
-        },
-        {
-          type: "text",
-          name: "template_author",
-          visible: true,
-          startWithNewLine: true,
-          title: "Template Author",
-          isRequired: true,
-        },
-        {
-          type: "text",
-          name: "template_acknowledgment",
-          visible: true,
-          startWithNewLine: false,
-          title: "Template Acknowledgment",
-          isRequired: true,
-        },
+        // {
+        //   type: "text",
+        //   name: "template_name",
+        //   visible: true,
+        //   title: "Template name",
+        //   isRequired: true,
+        // },
+        // {
+        //   type: "text",
+        //   name: "template_author",
+        //   visible: true,
+        //   startWithNewLine: true,
+        //   title: "Template Author",
+        //   isRequired: true,
+        // },
+        // {
+        //   type: "text",
+        //   name: "template_acknowledgment",
+        //   visible: true,
+        //   startWithNewLine: false,
+        //   title: "Template Acknowledgment",
+        //   isRequired: true,
+        // },
         {
           startWithNewLine: true,
           type: "checkbox",

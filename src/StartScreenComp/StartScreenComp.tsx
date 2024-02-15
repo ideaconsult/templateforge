@@ -5,9 +5,7 @@ import LogoBar from "../MenuBar/LogoBar";
 import BluePrintsTable from "./BluePrintsTable";
 import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 
-import { Link } from "react-router-dom";
-
-import { useUuid, useSetUuid } from "../store/store";
+import { useUuid, useSetUuid, useSetShowStartScreen } from "../store/store";
 
 import { downloadFile } from "../lib/request";
 
@@ -17,8 +15,11 @@ export default function StartScreenComp() {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState("Finalized");
   const [copied, setCopied] = useState(false);
+  const [idShosen, setIdShosen] = useState(null);
 
   const UUID = useUuid();
+  const setUUID = useSetUuid();
+  const setStartScreen = useSetShowStartScreen();
 
   const templateURL = `https://api.ramanchada.ideaconsult.net/template/${UUID}?format=xlsx`;
 
@@ -82,15 +83,25 @@ export default function StartScreenComp() {
             value={value}
             onChange={onChange}
           />
-          <BluePrintsTable value={value} mode={mode} />
+          <BluePrintsTable
+            value={value}
+            mode={mode}
+            setIdShosen={setIdShosen}
+            idShosen={idShosen}
+          />
 
           <div className="buttonsWrap">
-            <Link to={`/template/${UUID}`}>
+            <div
+              onClick={() => {
+                setUUID(idShosen);
+                setStartScreen();
+              }}
+            >
               <Button
-                disabled={!UUID}
+                disabled={!idShosen}
                 label={mode == "Finalized" ? "View" : "Edit"}
               />
-            </Link>
+            </div>
             <Button disabled={!UUID} label="Make a copy" />
             <div
               onClick={() => {

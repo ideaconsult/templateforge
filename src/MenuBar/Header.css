@@ -51,10 +51,15 @@
   font-size: small;
   font-weight: 700;
   color: #282828;
+  text-transform: uppercase;
 }
 .uuid {
   color: #282828;
   margin: 0;
+}
+
+.name {
+  margin: 0.6rem;
 }
 .saveUuid {
   display: flex;

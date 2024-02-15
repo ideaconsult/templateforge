@@ -1,20 +1,29 @@
-import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Cross2Icon } from "@radix-ui/react-icons";
-import Button from "../ui/Button";
+import React, { useState } from "react";
 
+import {
+  useSetUuid,
+  useName,
+  useSetName,
+  useAuthor,
+  useSetAuthor,
+  useAcknowledgment,
+  useSetAcknowledgment,
+} from "../store/store";
 import "./styles.css";
-import { useSetShowStartScreen } from "../store/store";
-import { useNavigate } from "react-router-dom";
-import { postRequest } from "../lib/request";
 
 const CreateNewDialog = () => {
-  const setStartScreen = useSetShowStartScreen();
-  const [name, setName] = useState("");
-  const [author, setAuthor] = useState("");
-  const [acknowledgment, setAcknowledgment] = useState("");
+  // const [name, setName] = useState("");
+  // const [author, setAuthor] = useState("");
+  // const [acknowledgment, setAcknowledgment] = useState("");
 
-  const navigate = useNavigate();
+  const setUUID = useSetUuid();
+  const name = useName();
+  const setName = useSetName();
+  const author = useAuthor();
+  const setAuthor = useSetAuthor();
+  const acknowledgment = useAcknowledgment();
+  const setAcknowledgment = useSetAcknowledgment();
 
   return (
     <Dialog.Root>
@@ -32,11 +41,11 @@ const CreateNewDialog = () => {
           </Dialog.Description>
           <fieldset className={name ? "FieldsetFilled" : "Fieldset"}>
             <input
+              autoFocus
               className="Input"
               value={name}
               onChange={(e) => setName(e.target.value)}
               id="name"
-              defaultValue="New Draft Name"
             />
           </fieldset>
           {!name && <p className="warning">Please enter Draft name</p>}
@@ -46,7 +55,6 @@ const CreateNewDialog = () => {
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
               id="author"
-              defaultValue="Author"
             />
           </fieldset>
           {!author && <p className="warning">Please enter Author name</p>}
@@ -56,7 +64,6 @@ const CreateNewDialog = () => {
               value={acknowledgment}
               onChange={(e) => setAcknowledgment(e.target.value)}
               id="template_acknowledgment"
-              defaultValue="Template Acknowledgment"
             />
           </fieldset>
           {!acknowledgment && (
@@ -92,7 +99,7 @@ const CreateNewDialog = () => {
                   let result = await res.json();
 
                   if (result.result_uuid) {
-                    navigate(`/template/${result.result_uuid}`);
+                    setUUID(result.result_uuid);
                   }
                 }}
               >
