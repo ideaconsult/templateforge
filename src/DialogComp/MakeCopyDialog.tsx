@@ -39,7 +39,7 @@ const MakeCopyDialog = () => {
           <Dialog.Description className="DialogDescription">
             Please define a draft's name and author.
             <br />
-            Click a Create New Draft button when you're done.
+            Click a Make a Copy button when you're done.
           </Dialog.Description>
           <fieldset className={name ? "FieldsetFilled" : "Fieldset"}>
             <input
@@ -105,7 +105,7 @@ const MakeCopyDialog = () => {
                   }
                 }}
               >
-                Create New Draft
+                Make a Copy
               </button>
             </Dialog.Close>
           </div>
