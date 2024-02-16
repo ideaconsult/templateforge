@@ -87,7 +87,7 @@ export default function BluePrintsTable({ value, mode }) {
                       {item.template_name}
                     </td>
                     <td>{item.template_author}</td>
-                    <td>{item.timestamp}</td>
+                    <td>{new Date(item.timestamp).toLocaleDateString()}</td>
                   </tr>
                 );
               }
