@@ -15,16 +15,16 @@ import {
   useSetAuthor,
   useAcknowledgment,
   useSetAcknowledgment,
+  useIsShosen,
+  useSetIsShosen,
 } from "../store/store";
 
-export default function BluePrintsTable({
-  value,
-  mode,
-  setIdShosen,
-  idShosen,
-}) {
+export default function BluePrintsTable({ value, mode }) {
   const setUUID = useSetUuid();
   const UUID = useUuid();
+
+  const idShosen = useIsShosen();
+  const setIdShosen = useSetIsShosen();
 
   const name = useName();
   const setName = useSetName();
@@ -32,6 +32,8 @@ export default function BluePrintsTable({
   const setAuthor = useSetAuthor();
   const acknowledgment = useAcknowledgment();
   const setAcknowledgment = useSetAcknowledgment();
+
+  console.log("store", idShosen);
 
   const { data, isLoading } = useSWR(
     `https://api.ramanchada.ideaconsult.net/template/`,

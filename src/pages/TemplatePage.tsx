@@ -15,7 +15,7 @@ export default function TemplatePage({ uuid }) {
     <div>
       <div className="headerWrap">
         <LogoBar startScreen={false} uuid={uuid} />
-        <TopMenuBar uuid={uuid} />
+        <TopMenuBar />
       </div>
       <div className="mainWrap">
         <SurveyComponent setResult={setResult} uuid={uuid} />

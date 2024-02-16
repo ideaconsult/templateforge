@@ -107,6 +107,34 @@ input {
   background-color: #545acb !important;
 }
 
+.buttonMenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #def4ff !important;
+  color: #282828;
+  white-space: nowrap;
+  border-radius: 6px;
+}
+
+.buttonMenu:hover:enabled {
+  background-color: #c8edff;
+  outline: none;
+  border: none;
+}
+.buttonMenu:focus {
+  outline: none;
+  border: none;
+}
+button:disabled,
+button[disabled] {
+  background-color: #e7e7e7;
+  color: #919191;
+}
+
 .IconButton {
   font-family: inherit;
   border-radius: 100%;

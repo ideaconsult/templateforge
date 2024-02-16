@@ -9,14 +9,11 @@ import {
   useSetAuthor,
   useAcknowledgment,
   useSetAcknowledgment,
+  useSetIsShosen,
 } from "../store/store";
 import "./styles.css";
 
 const CreateNewDialog = () => {
-  // const [name, setName] = useState("");
-  // const [author, setAuthor] = useState("");
-  // const [acknowledgment, setAcknowledgment] = useState("");
-
   const setUUID = useSetUuid();
   const name = useName();
   const setName = useSetName();
@@ -25,10 +22,14 @@ const CreateNewDialog = () => {
   const acknowledgment = useAcknowledgment();
   const setAcknowledgment = useSetAcknowledgment();
 
+  const setIdShosen = useSetIsShosen();
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button className="createNewBtn">Create a new Draft</button>
+        <button onClick={() => setIdShosen(null)} className="createNewBtn">
+          Create a new Draft
+        </button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" />

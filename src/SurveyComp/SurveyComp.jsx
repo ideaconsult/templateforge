@@ -4,7 +4,7 @@ import { Survey } from "survey-react-ui";
 import { json } from "./json";
 import { themeJson } from "./theme";
 
-import { useUuid, useSaveOnServer } from "../store/store";
+import { useUuid, useIsShosen, useSaveOnServer } from "../store/store";
 import { postRequestUUID } from "../lib/request";
 
 import useSWR from "swr";
@@ -15,14 +15,18 @@ import "survey-core/defaultV2.min.css";
 import "../App.css";
 
 // eslint-disable-next-line react/prop-types
-function SurveyComponent({ setResult, uuid }) {
+function SurveyComponent({ setResult }) {
   const survey = new Model(json);
-  // const UUID = useUuid();
+  const UUID = useUuid();
+  const idShosen = useIsShosen();
+
   const didMount = useRef(false);
   const toggle = useSaveOnServer();
 
+  const id = idShosen ? idShosen : UUID;
+
   const { dataTemp } = useSWR(
-    `https://api.ramanchada.ideaconsult.net/template/${uuid}`,
+    `https://api.ramanchada.ideaconsult.net/template/${id}`,
     fetcher,
     {
       revalidateIfStale: false,
@@ -31,11 +35,12 @@ function SurveyComponent({ setResult, uuid }) {
     }
   );
 
-  console.log("survey", uuid);
+  console.log("survey UUID", UUID);
+  console.log("survey Shosen", idShosen);
 
   useEffect(() => {
     if (didMount.current) {
-      postRequestUUID(survey.data, uuid);
+      postRequestUUID(survey.data, id);
     } else {
       didMount.current = true;
     }
@@ -96,7 +101,7 @@ function SurveyComponent({ setResult, uuid }) {
   survey.onComplete.add(function (sender, options) {
     setResult(sender.data);
     options.showSaveInProgress();
-    postRequestUUID(sender.data, uuid);
+    postRequestUUID(sender.data, id);
   });
   return <Survey model={survey} />;
 }

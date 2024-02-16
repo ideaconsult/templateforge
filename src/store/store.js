@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 const useStore = create((set) => ({
   uuid: null,
+  isShosen: null,
   name: "",
   author: "",
   acknowledgment: "",
@@ -9,6 +10,7 @@ const useStore = create((set) => ({
   saveOnServer: false,
   intermediateData: null,
   setUuid: (uuid) => set(() => ({ uuid: uuid })),
+  setIsShosen: (isShosen) => set(() => ({ isShosen: isShosen })),
   setName: (name) => set(() => ({ name: name })),
   setAuthor: (author) => set(() => ({ author: author })),
   setAcknowledgment: (acknowledgment) =>
@@ -19,6 +21,9 @@ const useStore = create((set) => ({
   setSaveOnServer: () =>
     set((state) => ({ saveOnServer: !state.saveOnServer })),
 }));
+
+export const useIsShosen = () => useStore((state) => state.isShosen);
+export const useSetIsShosen = () => useStore((state) => state.setIsShosen);
 
 export const useUuid = () => useStore((state) => state.uuid);
 export const useSetUuid = () => useStore((state) => state.setUuid);

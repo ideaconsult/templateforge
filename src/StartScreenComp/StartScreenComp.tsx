@@ -4,35 +4,44 @@ import Button from "../ui/Button";
 import LogoBar from "../MenuBar/LogoBar";
 import BluePrintsTable from "./BluePrintsTable";
 import CreateNewDialog from "./../DialogComp/CreateNewDialog";
+import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
 
-import { useUuid, useSetUuid, useSetShowStartScreen } from "../store/store";
+import {
+  useUuid,
+  useSetUuid,
+  useSetShowStartScreen,
+  useIsShosen,
+  useSetIsShosen,
+} from "../store/store";
 
 import { downloadFile } from "../lib/request";
 
 import "./StartScreenComp.css";
 
-export default function StartScreenComp() {
+export default function StartScreenComp({}) {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState("Finalized");
   const [copied, setCopied] = useState(false);
-  const [idShosen, setIdShosen] = useState(null);
 
   const UUID = useUuid();
   const setUUID = useSetUuid();
   const setStartScreen = useSetShowStartScreen();
 
-  const templateURL = `https://api.ramanchada.ideaconsult.net/template/${UUID}?format=xlsx`;
+  const idShosen = useIsShosen();
+  const setIdShosen = useSetIsShosen();
+
+  const templateURL = `https://api.ramanchada.ideaconsult.net/template/${idShosen}?format=xlsx`;
 
   const dowloadXLS = () => {
-    UUID && downloadFile(UUID, templateURL);
+    idShosen && downloadFile(idShosen, templateURL);
   };
 
   const urlToCopy = import.meta.env.PROD
-    ? `https://enanomapper.adma.ai/designer?uuid=${UUID}`
-    : `http://localhost:5173/designer?uuid=${UUID}`;
+    ? `https://enanomapper.adma.ai/designer?uuid=${idShosen}`
+    : `http://localhost:5173/designer?uuid=${idShosen}`;
 
   const copyLink = () => {
-    UUID && navigator.clipboard.writeText(urlToCopy);
+    idShosen && navigator.clipboard.writeText(urlToCopy);
   };
 
   setTimeout(() => {
@@ -48,7 +57,7 @@ export default function StartScreenComp() {
       <p className="underDev">
         The Template Designer App is under development right now
       </p>
-      <LogoBar startScreen={true} />
+      <LogoBar startScreen={true} setIdShosen={setIdShosen} />
 
       <div className="descriptionNew">
         <p className="description">
@@ -102,7 +111,7 @@ export default function StartScreenComp() {
                 label={mode == "Finalized" ? "View" : "Edit"}
               />
             </div>
-            <Button disabled={!UUID} label="Make a copy" />
+            <MakeCopyDialog />
             <div
               onClick={() => {
                 copyLink();
@@ -110,21 +119,21 @@ export default function StartScreenComp() {
               }}
             >
               <Button
-                disabled={!UUID}
+                disabled={!idShosen}
                 label={copied ? "Copied to clipboard!" : "Share a link"}
               />
             </div>
             <div onClick={dowloadXLS}>
-              <Button disabled={!UUID} label="Download XLS" />
+              <Button disabled={!idShosen} label="Download XLS" />
             </div>
           </div>
         </div>
         <div className="view">
-          {UUID ? (
+          {idShosen ? (
             <iframe
               width="100%"
               height="400"
-              src={`https://api.ramanchada.ideaconsult.net/template/${UUID}`}
+              src={`https://api.ramanchada.ideaconsult.net/template/${idShosen}`}
             ></iframe>
           ) : (
             <p className="previewPlaceholder">No preview yet</p>
