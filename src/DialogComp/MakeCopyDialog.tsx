@@ -28,18 +28,8 @@ const MakeCopyDialog = () => {
 
   const idShosen = useIsShosen();
   const setIdShosen = useSetIsShosen();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<{} | null>(null);
   const [newUUID, setNewUUID] = useState(null);
-
-  console.log("newUUID", newUUID);
-  console.log("idShosen", idShosen);
-
-  // const dataCopy = {...data, {
-  //   template_name: name,
-  //         template_status: "DRAFT",
-  //         template_author: author,
-  //         template_acknowledgment: acknowledgment,
-  // }}
 
   const apiUrl = config.apiUrl;
 
@@ -135,7 +125,16 @@ const MakeCopyDialog = () => {
                 disabled={name == "" && author == "" && acknowledgment == ""}
                 className="Button"
                 onClick={() => {
-                  postRequestUUID({ ...data, template_name: name }, newUUID);
+                  postRequestUUID(
+                    {
+                      ...data,
+                      template_name: name,
+                      template_status: "DRAFT",
+                      template_author: author,
+                      template_acknowledgment: acknowledgment,
+                    },
+                    newUUID
+                  );
                   setUUID(newUUID);
                   setIdShosen(newUUID);
                 }}
