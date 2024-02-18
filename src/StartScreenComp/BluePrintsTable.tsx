@@ -33,8 +33,6 @@ export default function BluePrintsTable({ value, mode }) {
   const acknowledgment = useAcknowledgment();
   const setAcknowledgment = useSetAcknowledgment();
 
-  console.log("store", idShosen);
-
   const { data, isLoading } = useSWR(
     `https://api.ramanchada.ideaconsult.net/template/`,
     fetcher,
@@ -80,12 +78,13 @@ export default function BluePrintsTable({ value, mode }) {
                     key={item.uuid}
                     onClick={() => {
                       setIdShosen(item.uuid);
+                      setName(item.template_name);
+                      setAuthor(item.template_author);
+                      setAcknowledgment(item.template_acknowledgment);
                     }}
                     className={item.uuid == idShosen ? "choosen" : ""}
                   >
-                    <td onClick={() => setName(item.template_name)}>
-                      {item.template_name}
-                    </td>
+                    <td>{item.template_name}</td>
                     <td>{item.template_author}</td>
                     <td>{new Date(item.timestamp).toLocaleDateString()}</td>
                   </tr>

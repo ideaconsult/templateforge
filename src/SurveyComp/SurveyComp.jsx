@@ -30,7 +30,6 @@ function SurveyComponent({ setResult }) {
     const data = await response.json();
     survey.data = data;
   }
-  console.log("survey data1", survey.data);
 
   useEffect(() => {
     getTemplateInfo();
@@ -88,7 +87,7 @@ function SurveyComponent({ setResult }) {
   survey.onComplete.add(() => {
     window.localStorage.setItem(storageItemKey, "");
   });
-  console.log("survey data2", survey.data);
+
   survey.applyTheme(themeJson);
 
   survey.onComplete.add(function (sender, options) {

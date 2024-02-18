@@ -10,9 +10,12 @@ import {
   useAcknowledgment,
   useSetAcknowledgment,
   useIsShosen,
+  useSetIsShosen,
 } from "../store/store";
 import "./styles.css";
-import Button from "../ui/Button";
+
+import config from "../utils/config";
+import { postRequestUUID } from "../lib/request";
 
 const MakeCopyDialog = () => {
   const setUUID = useSetUuid();
@@ -24,11 +27,59 @@ const MakeCopyDialog = () => {
   const setAcknowledgment = useSetAcknowledgment();
 
   const idShosen = useIsShosen();
+  const setIdShosen = useSetIsShosen();
+  const [data, setData] = useState(null);
+  const [newUUID, setNewUUID] = useState(null);
+
+  console.log("newUUID", newUUID);
+  console.log("idShosen", idShosen);
+
+  // const dataCopy = {...data, {
+  //   template_name: name,
+  //         template_status: "DRAFT",
+  //         template_author: author,
+  //         template_acknowledgment: acknowledgment,
+  // }}
+
+  const apiUrl = config.apiUrl;
+
+  async function getTemplateInfo() {
+    const response = await fetch(`${apiUrl}/${idShosen}`);
+    const data = await response.json();
+    setData(data);
+  }
+
+  async function postForNewUUID() {
+    const response = await fetch(`${apiUrl}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        template_name: name,
+        template_status: "DRAFT",
+        template_author: author,
+        template_acknowledgment: acknowledgment,
+      }),
+    });
+    let result = await response.json();
+
+    if (result.result_uuid) {
+      setNewUUID(result.result_uuid);
+    }
+  }
 
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button className="buttonMenu" disabled={!idShosen ? true : false}>
+        <button
+          className="buttonMenu"
+          disabled={!idShosen ? true : false}
+          onClick={() => {
+            getTemplateInfo();
+            postForNewUUID();
+          }}
+        >
           Make a Copy
         </button>
       </Dialog.Trigger>
@@ -48,6 +99,7 @@ const MakeCopyDialog = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               id="name"
+              placeholder="copy"
             />
           </fieldset>
           {!name && <p className="warning">Please enter Draft name</p>}
@@ -82,27 +134,10 @@ const MakeCopyDialog = () => {
               <button
                 disabled={name == "" && author == "" && acknowledgment == ""}
                 className="Button"
-                onClick={async () => {
-                  let res = await fetch(
-                    "https://api.ramanchada.ideaconsult.net/template",
-                    {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({
-                        template_name: name,
-                        template_status: "DRAFT",
-                        template_author: author,
-                        template_acknowledgment: acknowledgment,
-                      }),
-                    }
-                  );
-                  let result = await res.json();
-
-                  if (result.result_uuid) {
-                    setUUID(result.result_uuid);
-                  }
+                onClick={() => {
+                  postRequestUUID({ ...data, template_name: name }, newUUID);
+                  setUUID(newUUID);
+                  setIdShosen(newUUID);
                 }}
               >
                 Make a Copy

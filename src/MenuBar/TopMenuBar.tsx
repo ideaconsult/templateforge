@@ -1,19 +1,18 @@
 // @ts-nocheck
 import React, { useState } from "react";
-import CreateNewDialog from "../DialogComp/CreateNewDialog";
 import { useSetSaveOnServer } from "../store/store";
 import Button from "../ui/Button";
 import "./Header.css";
 
 import {
-  useUuid,
-  useSetUuid,
-  useName,
-  useSetName,
-  useAuthor,
-  useSetAuthor,
   useAcknowledgment,
+  useAuthor,
+  useName,
   useSetAcknowledgment,
+  useSetAuthor,
+  useSetName,
+  useSetUuid,
+  useUuid,
 } from "../store/store";
 
 export default function TopMenuBar() {
@@ -56,16 +55,7 @@ export default function TopMenuBar() {
             }}
           >
             <Button label={copied ? "Copied to clipboard!" : "Share"} />
-          </div>{" "}
-          <p className="name">
-            <span className="uuidWORD">NAME:</span> {name}
-          </p>
-          <p className="name">
-            <span className="uuidWORD">AUTHOR:</span> {author}
-          </p>
-          <p className="name">
-            <span className="uuidWORD">acknowledgment:</span> {acknowledgment}
-          </p>
+          </div>
         </div>
         {/* <CreateNewDialog /> */}
       </div>
