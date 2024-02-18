@@ -1,6 +1,10 @@
+import config from "../utils/config";
+
 export const postRequestUUID = (data, uuid) => {
   if (uuid) {
-    fetch(`https://api.ramanchada.ideaconsult.net/template/${uuid}`, {
+    console.log(JSON.stringify("request", data));
+    const apiUrl = config.apiUrl;
+    fetch(`${apiUrl}/${uuid}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -9,9 +13,16 @@ export const postRequestUUID = (data, uuid) => {
     });
   }
 };
+export const getRequestUUID = async (uuid) => {
+  const apiUrl = config.apiUrl;
+  const res = await fetch(`${apiUrl}/${uuid}`);
+  const data = await res.json();
+  return data;
+};
 
 export const postRequest = (data) => {
-  fetch(`https://api.ramanchada.ideaconsult.net/template/`, {
+  const apiUrl = config.apiUrl;
+  fetch(`${apiUrl}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",

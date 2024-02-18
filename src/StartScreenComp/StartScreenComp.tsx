@@ -51,7 +51,7 @@ export default function StartScreenComp({}) {
   const onChange = (e) => {
     setValue(e.target.value);
   };
-
+  const storageItemKey = "my-survey";
   return (
     <div className="screenWrap">
       <p className="underDev">
@@ -104,6 +104,7 @@ export default function StartScreenComp({}) {
               onClick={() => {
                 setUUID(idShosen);
                 setStartScreen();
+                window.localStorage.setItem(storageItemKey, "");
               }}
             >
               <Button

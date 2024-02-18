@@ -23,11 +23,19 @@ const CreateNewDialog = () => {
   const setAcknowledgment = useSetAcknowledgment();
 
   const setIdShosen = useSetIsShosen();
+  const storageItemKey = "my-survey";
 
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button onClick={() => setIdShosen(null)} className="createNewBtn">
+        <button
+          onClick={() => {
+            setIdShosen(null);
+
+            window.localStorage.setItem(storageItemKey, "");
+          }}
+          className="createNewBtn"
+        >
           Create a new Draft
         </button>
       </Dialog.Trigger>

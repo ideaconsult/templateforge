@@ -13,7 +13,9 @@ export default function HomePage() {
   const queryParams = new URLSearchParams(location.search);
   const uuidParams = queryParams.get("uuid");
 
-  if (uuidParams) setUUID(uuidParams);
+  if (uuidParams) {
+    setUUID(uuidParams);
+  }
 
   return <>{UUID ? <TemplatePage uuid={UUID} /> : <StartScreenComp />}</>;
 }
