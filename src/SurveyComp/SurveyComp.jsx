@@ -18,9 +18,6 @@ function SurveyComponent({ setResult }) {
   const UUID = useUuid();
   const idShosen = useIsShosen();
 
-  // const didMount = useRef(false);
-  // const toggle = useSaveOnServer();
-
   const id = idShosen ? idShosen : UUID;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,14 +32,6 @@ function SurveyComponent({ setResult }) {
     getTemplateInfo();
     console.log("effect mount");
   }, [getTemplateInfo, id]);
-
-  // useEffect(() => {
-  //   if (didMount.current) {
-  //     postRequestUUID(survey.data, id);
-  //   } else {
-  //     didMount.current = true;
-  //   }
-  // }, [toggle]);
 
   survey.addNavigationItem({
     id: "sv-nav-clear-page",
@@ -69,8 +58,6 @@ function SurveyComponent({ setResult }) {
     postRequestUUID(survey.data, id);
   }
 
-  // Save survey results to the local storage
-  // survey.onValueChanged.add(saveSurveyData);
   survey.onCurrentPageChanged.add(saveSurveyData);
 
   // Restore survey results
