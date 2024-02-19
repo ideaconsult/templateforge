@@ -4,16 +4,9 @@ import { useSetSaveOnServer } from "../store/store";
 import Button from "../ui/Button";
 import "./Header.css";
 
-import {
-  useAcknowledgment,
-  useAuthor,
-  useName,
-  useSetAcknowledgment,
-  useSetAuthor,
-  useSetName,
-  useSetUuid,
-  useUuid,
-} from "../store/store";
+import { useIntermediateData, useUuid } from "../store/store";
+
+import { postRequestUUID } from "../lib/request";
 
 export default function TopMenuBar() {
   const [copied, setCopied] = useState(false);
@@ -21,13 +14,7 @@ export default function TopMenuBar() {
   const save = useSetSaveOnServer();
 
   const uuid = useUuid();
-  const setUUID = useSetUuid();
-  const name = useName();
-  const setName = useSetName();
-  const author = useAuthor();
-  const setAuthor = useSetAuthor();
-  const acknowledgment = useAcknowledgment();
-  const setAcknowledgment = useSetAcknowledgment();
+  const interData = useIntermediateData();
 
   const urlToCopy = import.meta.env.PROD
     ? `https://enanomapper.adma.ai/designer?uuid=${uuid}`
@@ -45,7 +32,7 @@ export default function TopMenuBar() {
     <div>
       <div className="topMenuBar">
         <div className="saveUuid">
-          <div onClick={() => save()}>
+          <div onClick={() => postRequestUUID(interData, uuid)}>
             <Button label="Save" />
           </div>
           <div

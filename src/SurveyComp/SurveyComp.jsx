@@ -5,7 +5,7 @@ import { json } from "./json";
 import { themeJson } from "./theme";
 
 import { postRequestUUID } from "../lib/request";
-import { useIsShosen, useUuid } from "../store/store";
+import { useIsShosen, useUuid, useSetIntermediateData } from "../store/store";
 
 import config from "../utils/config";
 
@@ -17,6 +17,7 @@ function SurveyComponent({ setResult }) {
   const survey = new Model(json);
   const UUID = useUuid();
   const idShosen = useIsShosen();
+  const setIntermediateData = useSetIntermediateData();
 
   const id = idShosen ? idShosen : UUID;
 
@@ -30,7 +31,6 @@ function SurveyComponent({ setResult }) {
 
   useEffect(() => {
     getTemplateInfo();
-    console.log("effect mount");
   }, [getTemplateInfo, id]);
 
   survey.addNavigationItem({
@@ -56,19 +56,19 @@ function SurveyComponent({ setResult }) {
 
   function saveSurveyData(survey) {
     postRequestUUID(survey.data, id);
+    setIntermediateData(survey.data);
   }
 
+  function saveinLocalSurveyData(survey) {
+    setIntermediateData(survey.data);
+    const data = survey.data;
+    data.pageNo = survey.currentPageNo;
+    window.localStorage.setItem(storageItemKey, JSON.stringify(data));
+  }
+
+  // Save survey results to the local storage
+  survey.onValueChanged.add(saveinLocalSurveyData);
   survey.onCurrentPageChanged.add(saveSurveyData);
-
-  // Restore survey results
-  const prevData = window.localStorage.getItem(storageItemKey) || null;
-  if (prevData) {
-    const data = JSON.parse(prevData);
-    survey.data = data;
-    if (data.pageNo) {
-      survey.currentPageNo = data.pageNo;
-    }
-  }
 
   // Empty the local storage after the survey is completed
   survey.onComplete.add(() => {
