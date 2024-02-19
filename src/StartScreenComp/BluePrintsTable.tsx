@@ -48,11 +48,14 @@ export default function BluePrintsTable({ value, mode }) {
     data.template.filter((item) => {
       const searchResult = value.toLowerCase();
       const name = item.template_name.toLowerCase();
+      const author = item.template_author.toLowerCase();
       if (value) {
         return (
-          searchResult &&
-          name.toLowerCase().includes(searchResult.toLowerCase()) &&
-          name !== searchResult
+          (searchResult &&
+            name.toLowerCase().includes(searchResult.toLowerCase()) &&
+            name !== searchResult) ||
+          (author.toLowerCase().includes(searchResult.toLowerCase()) &&
+            author !== searchResult)
         );
       } else {
         return item;
@@ -94,8 +97,13 @@ export default function BluePrintsTable({ value, mode }) {
                 return (
                   <tr
                     key={item.uuid}
-                    onClick={() => setUUID(item.uuid)}
-                    className={item.uuid == idShosen && "choosen"}
+                    onClick={() => {
+                      setIdShosen(item.uuid);
+                      setName(item.template_name);
+                      setAuthor(item.template_author);
+                      setAcknowledgment(item.template_acknowledgment);
+                    }}
+                    className={item.uuid == idShosen ? "choosen" : ""}
                   >
                     <td>{item.EXPERIMENT}</td>
                     <td>{item.template_author}</td>
