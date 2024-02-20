@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 
 import { fetcher } from "../lib/fetcher";
@@ -19,6 +19,8 @@ import {
   useSetIsShosen,
 } from "../store/store";
 
+import { getRequest } from "../lib/request";
+
 export default function BluePrintsTable({ value, mode }) {
   const setUUID = useSetUuid();
   const UUID = useUuid();
@@ -35,12 +37,7 @@ export default function BluePrintsTable({ value, mode }) {
 
   const { data, isLoading } = useSWR(
     `https://api.ramanchada.ideaconsult.net/template/`,
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
+    fetcher
   );
 
   const filteredData =

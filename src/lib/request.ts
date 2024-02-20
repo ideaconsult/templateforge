@@ -1,8 +1,28 @@
 import config from "../utils/config";
 
-export const postRequestUUID = (data, uuid) => {
+export const getRequest = async () => {
+  const apiUrl = config.apiUrl;
+  const res = await fetch(`${apiUrl}`);
+  const data = await res.json();
+  return data;
+};
+
+export const postRequestCopy = (data, uuid) => {
   if (uuid) {
     console.log(JSON.stringify("request", data));
+    const apiUrl = config.apiUrl;
+    fetch(`${apiUrl}/${uuid}/copy`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify(data),
+    });
+  }
+};
+
+export const postRequestUUID = (data, uuid) => {
+  if (uuid) {
     const apiUrl = config.apiUrl;
     fetch(`${apiUrl}/${uuid}`, {
       method: "POST",

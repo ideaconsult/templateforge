@@ -15,7 +15,7 @@ import {
 import "./styles.css";
 
 import config from "../utils/config";
-import { postRequestUUID } from "../lib/request";
+import { postRequestCopy } from "../lib/request";
 
 const MakeCopyDialog = () => {
   const setUUID = useSetUuid();
@@ -39,13 +39,14 @@ const MakeCopyDialog = () => {
     setData(data);
   }
 
-  async function postForNewUUID() {
-    const response = await fetch(`${apiUrl}`, {
+  async function postRequestCopy() {
+    const response = await fetch(`${apiUrl}/${idShosen}/copy`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        ...data,
         template_name: name,
         template_status: "DRAFT",
         template_author: author,
@@ -55,7 +56,7 @@ const MakeCopyDialog = () => {
     let result = await response.json();
 
     if (result.result_uuid) {
-      setNewUUID(result.result_uuid);
+      setUUID(result.result_uuid);
     }
   }
 
@@ -67,7 +68,6 @@ const MakeCopyDialog = () => {
           disabled={!idShosen ? true : false}
           onClick={() => {
             getTemplateInfo();
-            postForNewUUID();
           }}
         >
           Make a Copy
@@ -125,17 +125,8 @@ const MakeCopyDialog = () => {
                 disabled={name == "" && author == "" && acknowledgment == ""}
                 className="Button"
                 onClick={() => {
-                  postRequestUUID(
-                    {
-                      ...data,
-                      template_name: name,
-                      template_status: "DRAFT",
-                      template_author: author,
-                      template_acknowledgment: acknowledgment,
-                    },
-                    newUUID
-                  );
-                  setUUID(newUUID);
+                  postRequestCopy();
+
                   setIdShosen(newUUID);
                 }}
               >
