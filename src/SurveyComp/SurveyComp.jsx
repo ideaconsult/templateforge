@@ -59,15 +59,15 @@ function SurveyComponent({ setResult }) {
     setIntermediateData(survey.data);
   }
 
-  function saveinLocalSurveyData(survey) {
-    setIntermediateData(survey.data);
-    const data = survey.data;
-    data.pageNo = survey.currentPageNo;
-    window.localStorage.setItem(storageItemKey, JSON.stringify(data));
-  }
+  // function saveinLocalSurveyData(survey) {
+  //   setIntermediateData(survey.data);
+  //   const data = survey.data;
+  //   data.pageNo = survey.currentPageNo;
+  //   window.localStorage.setItem(storageItemKey, JSON.stringify(data));
+  // }
 
   // Save survey results to the local storage
-  survey.onValueChanged.add(saveinLocalSurveyData);
+  // survey.onValueChanged.add(saveinLocalSurveyData);
   survey.onCurrentPageChanged.add(saveSurveyData);
 
   // Empty the local storage after the survey is completed
