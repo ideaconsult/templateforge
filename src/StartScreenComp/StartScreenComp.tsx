@@ -32,7 +32,7 @@ export default function StartScreenComp({}) {
   const setIdShosen = useSetIsShosen();
 
   const apiUrl = config.apiUrl;
-  const templateURL = `${apiUrl}${idShosen}?format=xlsx`;
+  const templateURL = `${apiUrl}/${idShosen}?format=xlsx`;
 
   const dowloadXLS = () => {
     idShosen && downloadFile(idShosen, templateURL);

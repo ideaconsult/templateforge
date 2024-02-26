@@ -19,7 +19,7 @@ export default function TopMenuBar() {
   const interData = useIntermediateData();
 
   const apiUrl = config.apiUrl;
-  const templateURL = `${apiUrl}${uuid}?format=xlsx`;
+  const templateURL = `${apiUrl}/${uuid}?format=xlsx`;
 
   const urlToCopy = import.meta.env.PROD
     ? `https://enanomapper.adma.ai/designer?uuid=${uuid}`
