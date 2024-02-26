@@ -31,8 +31,7 @@ export default function StartScreenComp({}) {
   const idShosen = useIsShosen();
   const setIdShosen = useSetIsShosen();
 
-
-  const apiUrl = config.apiUrl
+  const apiUrl = config.apiUrl;
   const templateURL = `{apiUrl}${idShosen}?format=xlsx`;
 
   const dowloadXLS = () => {
@@ -137,7 +136,7 @@ export default function StartScreenComp({}) {
             <iframe
               width="100%"
               height="400"
-              src={`https://api.ramanchada.ideaconsult.net/template/${idShosen}`}
+              src={`${apiUrl}/${idShosen}`}
             ></iframe>
           ) : (
             <p className="previewPlaceholder">No preview yet</p>

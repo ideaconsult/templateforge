@@ -5,6 +5,7 @@ import OpenFileIcon from "../IconsComponents/OpenFileIcon";
 import PublishIcon from "../IconsComponents/PublishIcon";
 import SaveIcon from "../IconsComponents/SaveIcon";
 import ShareIcon from "../IconsComponents/ShareIcon";
+import ExcelIcon from "../IconsComponents/ExcelIcon";
 import "./Button.css";
 
 export default function Button({ label, disabled }) {
@@ -18,6 +19,7 @@ export default function Button({ label, disabled }) {
       {label == "Publish" && <PublishIcon />}
       {label == "Save" && <SaveIcon />}
       {label == "Share" && <ShareIcon />}
+      {label == "Genarate Excel" && <ExcelIcon />}
       <span>{label}</span>
     </button>
   );
