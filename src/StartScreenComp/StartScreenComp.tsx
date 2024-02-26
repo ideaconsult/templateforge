@@ -5,6 +5,7 @@ import LogoBar from "../MenuBar/LogoBar";
 import BluePrintsTable from "./BluePrintsTable";
 import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
+import config from "../utils/config";
 
 import {
   useUuid,
@@ -30,7 +31,9 @@ export default function StartScreenComp({}) {
   const idShosen = useIsShosen();
   const setIdShosen = useSetIsShosen();
 
-  const templateURL = `https://api.ramanchada.ideaconsult.net/template/${idShosen}?format=xlsx`;
+
+  const apiUrl = config.apiUrl
+  const templateURL = `{apiUrl}${idShosen}?format=xlsx`;
 
   const dowloadXLS = () => {
     idShosen && downloadFile(idShosen, templateURL);
