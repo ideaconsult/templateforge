@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
+import config from "../utils/config";
 
 import { fetcher } from "../lib/fetcher";
 
@@ -36,7 +37,7 @@ export default function BluePrintsTable({ value, mode }) {
   const setAcknowledgment = useSetAcknowledgment();
 
   const { data, isLoading } = useSWR(
-    `https://api.ramanchada.ideaconsult.net/template/`,
+    config.apiUrl,
     fetcher
   );
 

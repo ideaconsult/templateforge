@@ -2,12 +2,14 @@
 import React, { useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "../lib/fetcher";
+import config from "../utils/config";
 
 import "./AutoCompleteComp.css";
 
+
 export default function AutoCompleteComp({ setOpen, setTemplateURL }) {
   const { data } = useSWR(
-    "https://api.ramanchada.ideaconsult.net/template",
+    config.apiUrl,
     fetcher
   );
 

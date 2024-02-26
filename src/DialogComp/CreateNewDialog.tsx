@@ -1,5 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import React, { useEffect, useState } from "react";
+import config from "../utils/config";
 
 import {
   useSetUuid,
@@ -94,7 +95,8 @@ const CreateNewDialog = () => {
                 className="Button"
                 onClick={async () => {
                   let res = await fetch(
-                    "https://api.ramanchada.ideaconsult.net/template",
+                    config.apiUrl,
+                    
                     {
                       method: "POST",
                       headers: {
