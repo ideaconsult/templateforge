@@ -79,7 +79,7 @@ export const json = {
               title: "Experimental factors, replicates, controls",
               description:
                 "Add one row per each experimental factor (e.g. concentration, time), replicates, controls ... Remove the irrelevant rows.",
-              requiredIf: "{user_role} contains 'role_datamgr'",
+              _requiredIf: "{user_role} contains 'role_datamgr'",
               defaultValue: [
                 {
                   conditon_name: "Concentration",

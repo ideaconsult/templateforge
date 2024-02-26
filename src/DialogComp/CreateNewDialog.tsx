@@ -1,6 +1,8 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import React, { useEffect, useState } from "react";
 import config from "../utils/config";
+import { Model } from "survey-core";
+import { json } from "../SurveyComp/json";
 
 import {
   useSetUuid,
@@ -25,6 +27,8 @@ const CreateNewDialog = () => {
 
   const setIdShosen = useSetIsShosen();
   const storageItemKey = "my-survey";
+
+  var survey_data = new Model(json).data;
 
   return (
     <Dialog.Root>
@@ -94,6 +98,11 @@ const CreateNewDialog = () => {
                 disabled={name == "" && author == "" && acknowledgment == ""}
                 className="Button"
                 onClick={async () => {
+                  survey_data["template_name"] = name;
+                  survey_data["template_status"] = "DRAFT";
+                  survey_data["template_author"] = author;
+                  survey_data["template_acknowledgment"] = acknowledgment;
+
                   let res = await fetch(
                     config.apiUrl,
                     
@@ -102,12 +111,7 @@ const CreateNewDialog = () => {
                       headers: {
                         "Content-Type": "application/json",
                       },
-                      body: JSON.stringify({
-                        template_name: name,
-                        template_status: "DRAFT",
-                        template_author: author,
-                        template_acknowledgment: acknowledgment,
-                      }),
+                      body: JSON.stringify(survey_data),
                     }
                   );
                   let result = await res.json();
