@@ -4,9 +4,11 @@ import { useSetSaveOnServer } from "../store/store";
 import Button from "../ui/Button";
 import "./Header.css";
 
+import config from "../utils/config";
+
 import { useIntermediateData, useUuid } from "../store/store";
 
-import { postRequestUUID } from "../lib/request";
+import { postRequestUUID, downloadFile } from "../lib/request";
 
 export default function TopMenuBar() {
   const [copied, setCopied] = useState(false);
@@ -15,6 +17,9 @@ export default function TopMenuBar() {
 
   const uuid = useUuid();
   const interData = useIntermediateData();
+
+  const apiUrl = config.apiUrl;
+  const templateURL = `${apiUrl}${uuid}?format=xlsx`;
 
   const urlToCopy = import.meta.env.PROD
     ? `https://enanomapper.adma.ai/designer?uuid=${uuid}`
@@ -43,7 +48,7 @@ export default function TopMenuBar() {
           >
             <Button label={copied ? "Copied to clipboard!" : "Share"} />
           </div>
-          <div>
+          <div onClick={() => downloadFile(uuid, templateURL)}>
             <Button label="Generate Excel" />
           </div>
         </div>
