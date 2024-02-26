@@ -44,7 +44,7 @@ export default function TopMenuBar() {
             <Button label={copied ? "Copied to clipboard!" : "Share"} />
           </div>
           <div>
-            <Button label="Genarate Excel" />
+            <Button label="Generate Excel" />
           </div>
         </div>
         {uuid && (

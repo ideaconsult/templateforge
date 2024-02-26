@@ -19,7 +19,7 @@ export default function Button({ label, disabled }) {
       {label == "Publish" && <PublishIcon />}
       {label == "Save" && <SaveIcon />}
       {label == "Share" && <ShareIcon />}
-      {label == "Genarate Excel" && <ExcelIcon />}
+      {label == "Generate Excel" && <ExcelIcon />}
       <span>{label}</span>
     </button>
   );
