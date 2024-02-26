@@ -23,11 +23,6 @@ export default function LogoBar({ startScreen, uuid }) {
           </span>
         </h1>
       </Link>
-      {uuid && (
-        <p className="uuid">
-          <span className="uuidWORD">UUID:</span> {uuid}
-        </p>
-      )}
     </div>
   );
 }

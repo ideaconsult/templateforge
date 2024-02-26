@@ -44,7 +44,11 @@ export default function TopMenuBar() {
             <Button label={copied ? "Copied to clipboard!" : "Share"} />
           </div>
         </div>
-        {/* <CreateNewDialog /> */}
+        {uuid && (
+          <p className="uuid">
+            <span className="uuidWORD">UUID:</span> {uuid}
+          </p>
+        )}
       </div>
     </div>
   );

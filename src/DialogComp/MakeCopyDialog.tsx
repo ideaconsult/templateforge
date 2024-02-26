@@ -2,20 +2,19 @@ import * as Dialog from "@radix-ui/react-dialog";
 import React, { useState } from "react";
 
 import {
-  useSetUuid,
-  useName,
-  useSetName,
-  useAuthor,
-  useSetAuthor,
   useAcknowledgment,
-  useSetAcknowledgment,
+  useAuthor,
   useIsShosen,
+  useName,
+  useSetAcknowledgment,
+  useSetAuthor,
   useSetIsShosen,
+  useSetName,
+  useSetUuid,
 } from "../store/store";
 import "./styles.css";
 
 import config from "../utils/config";
-import { postRequestCopy } from "../lib/request";
 
 const MakeCopyDialog = () => {
   const setUUID = useSetUuid();
@@ -126,7 +125,6 @@ const MakeCopyDialog = () => {
                 className="Button"
                 onClick={() => {
                   postRequestCopy();
-
                   setIdShosen(newUUID);
                 }}
               >
