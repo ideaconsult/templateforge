@@ -752,24 +752,46 @@ export const json = {
               type: "comment",
               name: "RESULTS",
               title: "Results description",
+              description: "Describe the results in free text , including data analysis",
               requiredIf: "{user_role} contains 'role_lab'",
             },
             {
-              type: "boolean",
-              name: "raw_data",
+              type: "checkbox",
+              name: "data_sheets",
               startWithNewLine: false,
               defaultValue: false,
-              title: "Include unprocessed (raw data) in the template ?",
+              title: "Include the following data types in the generated template:",
+              choices: [
+                {
+                  value: "data_raw",
+                  text: "Raw data",
+                },
+                {
+                  value: "data_processed",
+                  text: "Processed data",
+                },
+                {
+                  value: "data_platelayout",
+                  text: "Plate layout",
+                }, 
+                {
+                  value: "data_filepointer",
+                  text: "Links to files with data"
+                } 
+              ],              
+              hasOther: true,
+              otherText: "Other (please specify)",
+              defaultValue : ["data_raw","data_processed"]   
             },
             {
               type: "matrixdynamic",
               name: "raw_data_report",
-              visibleIf: "{raw_data} = true",
+              visibleIf: "{data_sheets} contains 'data_raw'",
               title: "Unprocessed (Raw data) reporting",
               description:
-                "Please provide information of the parameters reported as unprocessed data (if any) e.g. Absorbance, AU",
+                "Please provide information of the parameters reported as unprocessed data (e.g. Absorbance, AU). Use the + button to specify which factors are varied.  ",
               requiredIf:
-                "{user_role} contains 'role_datamgr ' and {raw_data} = true",
+                "{user_role} contains 'role_datamgr' and {data_sheets} contains 'data_raw'",
               showCommentArea: true,
               columns: [
                 {
@@ -779,14 +801,14 @@ export const json = {
                 },
                 {
                   name: "raw_aggregate",
-                  title: "Mark if mean or median",
+                  title: "Mark if aggregated",
                   cellType: "dropdown",
                   isRequired: false,
                   defaultValue: "RAW_DATA",
                   choices: [
                     {
                       value: "RAW_DATA",
-                      text: "",
+                      text: "Raw data",
                     },
                     {
                       value: "MEAN",
@@ -882,9 +904,10 @@ export const json = {
               type: "matrixdynamic",
               name: "question3",
               title: "Results reporting",
+              visibleIf: "{data_sheets} contains 'data_processed'",
               description:
                 "Please provide information of the endpoints or descriptors reported as experimental results. e.g. Cell viability , %",
-              requiredIf: "{user_role} contains 'role_datamgr'",
+              requiredIf:  "{user_role} contains 'role_datamgr' and {data_sheets} contains 'data_processed'",
               showCommentArea: true,
               columns: [
                 {
