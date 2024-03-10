@@ -1234,7 +1234,11 @@ export const json = {
                   text: "Dispersion",
                 },
                 {
-                  value: "OTHER_METADATA",
+                  value: "INCUBATION",
+                  text: "Incubation",
+                },                
+                {
+                  value: "OTHER_SAMPLEPREP",
                   text: "Other",
                 },
               ],
@@ -1252,6 +1256,10 @@ export const json = {
                   value: "value_text",
                   text: "text",
                 },
+                {
+                  value: "value_comment",
+                  text: "long_text",
+                },                
                 {
                   value: "value_boolean",
                   text: "yes/no",
