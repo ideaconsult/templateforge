@@ -913,11 +913,11 @@ export const json = {
                 {
                   name: "result_name",
                   title: "Name",
-                  isRequired: true,
+                  isRequired: true
                 },
                 {
                   name: "result_aggregate",
-                  title: "Mark if mean or median",
+                  title: "Mark if aggregated",
                   cellType: "dropdown",
                   isRequired: false,
                   defaultValue: "MEAN",
@@ -1070,6 +1070,7 @@ export const json = {
                 "INSTRUMENT",
                 "ENVIRONMENT",
                 "MEDIUM",
+                "SPECIES",
                 "CELL LINE DETAILS",
                 "CULTURE CONDITIONS",
                 "MONITORING",
