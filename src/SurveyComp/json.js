@@ -33,16 +33,7 @@ export const json = {
           description: "The author of this template blueprint. Not necessary the person who perform the experiment.",
           isRequired: true,
         },  
-        {
-          type: "text",
-          name: "template_author_orcid",
-          visible: true,
-          startWithNewLine: false,
-          title: "ORCID",
-          title: "Template Author ORCID",
-          description: "ORCID is optional for draft blueprints but required to finalize the blueprint.",
-          isRequired: false,
-        },                
+      
         {
           startWithNewLine: true,
           type: "checkbox",
@@ -282,7 +273,7 @@ export const json = {
               name: "PROTOCOL_CATEGORY_CODE",
               startWithNewLine: false,
               title: "Type or class of experimental test",
-              requiredIf: "{user_role} contains 'role_datamgr' or {template_status} == 'FINALIZED'",
+              requiredIf: "{user_role} contains 'role_datamgr'",
               choices: [
                 {
                   value: "GI_GENERAL_INFORM_SECTION",
@@ -853,35 +844,35 @@ export const json = {
                   choices: [
                     {
                       value: "value_num",
-                      text: " numeric",
+                      text: "numeric",
                     },
                     {
                       value: "value_spectrum",
-                      text: " spectrum",
+                      text: "spectrum",
                     },
                     {
                       value: "value_timeseries",
-                      text: " time series",
+                      text: "time series",
                     },
                     {
                       value: "value_image",
-                      text: " image",
+                      text: "image",
                     },
                     {
                       value: "value_1darray",
-                      text: " 1D array",
+                      text: "1D array",
                     },
                     {
                       value: "value_2darray",
-                      text: " 2D array",
+                      text: "2D array",
                     },
                     {
                       value: "value_file",
-                      text: " file",
+                      text: "file",
                     },
                     {
                       value: "value_text",
-                      text: " text",
+                      text: "text",
                     },
                   ],
                 },
@@ -979,18 +970,19 @@ export const json = {
                   title: "Type",
                   cellType: "dropdown",
                   isRequired: true,
+                  defaultValue: "value_num",
                   choices: [
                     {
                       value: "value_num",
-                      text: " numeric",
+                      text: "numeric",
                     },
                     {
                       value: "value_spectrum",
-                      text: " spectrum",
+                      text: "spectrum",
                     },
                     {
                       value: "value_timeseries",
-                      text: " time series",
+                      text: "time series",
                     },
                     {
                       value: "value_image",
@@ -998,19 +990,19 @@ export const json = {
                     },
                     {
                       value: "value_1darray",
-                      text: " 1D array",
+                      text: "1D array",
                     },
                     {
                       value: "value_2darray",
-                      text: " 2D array",
+                      text: "2D array",
                     },
                     {
                       value: "value_file",
-                      text: " file",
+                      text: "file",
                     },
                     {
                       value: "value_text",
-                      text: " text",
+                      text: "text",
                     },
                   ],
                 },
@@ -1138,18 +1130,14 @@ export const json = {
           title: "[{METHOD}] Samples/Materials description",
           titleLocation: "top",
           isRequired: true,
-          showCommentArea: true,
+          showCommentArea: false,
           columns: [
             {
               name: "param_sample_name",
-              title: "Param name",
+              title: "Parameter name",
               cellType: "text",
               isRequired: true,
               isUnique: true,
-            },
-            {
-              name: "param_sample_unit",
-              title: "Unit",
             },
             {
               name: "param_sample_group",
@@ -1187,12 +1175,26 @@ export const json = {
               ],
             },
           ],
+          defaultValue: [
+            {
+              param_sample_name: "Material ID",
+              param_sample_group: "ID"
+            },
+            {
+              param_sample_name: "Material name",
+              param_sample_group: "NAME"
+            },
+            {
+              param_sample_name: "Material supplier",
+              param_sample_group: "SUPPLIER"
+            }             
+          ],          
           detailPanelMode: "underRowSingle",
           cellType: "text",
-          rowCount: 1,
-          minRowCount: 1,
+          rowCount: 3,
+          minRowCount: 3,
           confirmDelete: true,
-          addRowText: "Add parameter",
+          addRowText: "Add material identifier",
           detailPanelShowOnAdding: true,
           allowRowsDragAndDrop: true,
         },
@@ -1369,23 +1371,83 @@ export const json = {
       name: "page_preview",
       elements: [
         {
+          type: "checkbox",
+          name: "confirm_statuschange",
+          title: "Please confirm",
+          description: "A finalized blueprint will become readonly. You will be able to generate Excel templates, share the blueprint and make copies of the blueprint.",
+          visibleIf: "{user_role} contains 'role_datamgr'",
+          choices: [
+            {
+              value: "FINALIZED",
+              text: "I agree to finalize the ['{template_name}'] template blueprint",
+            }         
+          ],
+        },  
+        {
+          type: "text",
+          inputType: "date",
+          name: "template_date",
+          description: "Please select the date",
+          startWithNewLine: false,
+          visible: true,
+          readOnly : false,
+          title: "Template finalized at",
+          requiredIf: "{confirm_statuschange} contains 'FINALIZED'",
+          defaultValueExpression: "today()"
+        } , 
+        {
+          type: "text",
+          name: "template_author_orcid",
+          visible: true,
+          startWithNewLine: true,
+          title: "ORCID",
+          title: "Template Author ORCID",
+          description: "ORCID is optional for draft blueprints but required to finalize the blueprint.",
+          requiredIf: "{confirm_statuschange} contains 'FINALIZED'",
+          validators: [
+            {
+              "type": "expression",
+              "expression": "isValidOrcid({template_author_orcid})",
+              "text": "Please enter a valid ORCID."
+            }
+          ]  
+        },         
+               
+        {
+          type: "text",
+          valueName: "METHOD",
+          visibleIf: "{confirm_statuschange} contains 'FINALIZED'",
+          startWithNewLine: true,
+          title: "METHOD",
+          isRequired : true
+        },      
+        {
+          type: "text",
+          valueName: "EXPERIMENT",
+          visibleIf: "{confirm_statuschange} contains 'FINALIZED'",
+          startWithNewLine: false,
+          title: "{SOP}",
+          isRequired: true
+        },                              
+        {
           type: "radiogroup",
           name: "template_status",
-          visible: false,
+          _visibleIf: "{confirm_statuschange} contains 'FINALIZED'",
+          visible: true,
           title: "Template status",
           defaultValue: "DRAFT",
-          readOnly: false,
           startWithNewLine: true,
           choices: [
             {
               value: "DRAFT",
-              text: " Draft",
+              text: "Draft",
             },
             {
               value: "FINALIZED",
-              text: " Finalized",
+              text: "Finalized",
             },
           ],
+          colCount: 1
         },
         {
           type: "text",
@@ -1402,21 +1464,12 @@ export const json = {
           visible: false,
           readOnly: true,
           title: "Internal identifier of the copied template (if any)",
-        },
-        {
-          type: "checkbox",
-          name: "question1",
-          choices: [
-            {
-              value: "agree_to_finalize",
-              text: "Message I agree that finalizing  .... (enables the Fnalize button)",
-            },
-          ],
-        },
+        }       
       ],
-      title: "Preview",
-      navigationTitle: "Preview",
-      navigationDescription: "Preview",
+      title: "[{template_name}]: Preview/Finalize",
+      description: "A finalized blueprint will become readonly. You will be able to generate Excel templates, share the blueprint and make copies of the blueprint.",
+      navigationTitle: "Preview/Finalize",
+      navigationDescription: "Predefined fields describing provenance",         
     },
   ],
   showPrevButton: true,
@@ -1425,5 +1478,6 @@ export const json = {
   goNextPageAutomatic: false,
   widthMode: "responsive",
   fitToContainer: true,
-  headerView: "advanced",
+  headerView: "advanced"
+ 
 };
