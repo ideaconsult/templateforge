@@ -16,20 +16,29 @@ export const json = {
         },
         {
           type: "text",
-          name: "template_author",
-          visible: true,
-          startWithNewLine: true,
-          title: "Template Author",
-          isRequired: true,
-        },
-        {
-          type: "text",
           name: "template_acknowledgment",
           visible: true,
           startWithNewLine: false,
           title: "Template Acknowledgment",
           isRequired: true,
         },
+        {
+          type: "text",
+          name: "template_author",
+          visible: true,
+          startWithNewLine: true,
+          title: "Template Author",
+          isRequired: true,
+        },  
+        {
+          type: "text",
+          name: "template_author_orcid",
+          visible: true,
+          startWithNewLine: false,
+          title: "ORCID",
+          title: "Template Author ORCID",
+          isRequired: false,
+        },                
         {
           startWithNewLine: true,
           type: "checkbox",
@@ -48,9 +57,10 @@ export const json = {
           minSelectedChoices: 1,
         },
       ],
-      title: "Welcome",
+      title: "Please enter template name",
+      description: "Acknowledge a project or lab",
       navigationTitle: "Welcome",
-      navigationDescription: "Please describe your role",
+      navigationDescription: "Template name and acknowledgment",
     },
     {
       name: "page1",
@@ -199,7 +209,7 @@ export const json = {
               type: "dropdown",
               name: "PROTOCOL_CATEGORY_CODE",
               startWithNewLine: false,
-              title: "Endpoint category",
+              title: "Type or class of experimental test",
               requiredIf: "{user_role} contains 'role_datamgr'",
               choices: [
                 {
@@ -643,9 +653,9 @@ export const json = {
           title: "Please select the closest categories for your study",
         },
       ],
-      title: "Please describe the experimental method",
+      title: "[{template_name}]: Please describe the experimental method",
       description:
-        "You will design a data entry template to report result for the method described",
+        "You will design a 'blueprint' of a data entry template to report result for the method described.",
       navigationTitle: "1. Method",
       navigationDescription: "description",
     },
@@ -735,6 +745,7 @@ export const json = {
                   title: "Type",
                   cellType: "dropdown",
                   isRequired: true,
+                  defaultValue: "value_num",
                   choices: [
                     {
                       value: "value_num",
@@ -808,7 +819,7 @@ export const json = {
                   choices: [
                     {
                       value: "",
-                      text: "",
+                      text: "-",
                     },
                     {
                       value: "MEAN",
@@ -920,8 +931,9 @@ export const json = {
           startWithNewLine: false,
         },
       ],
-      title: "2. Results",
-      description: "Please describe the results expected from {METHOD}",
+      title: "[{template_name}]: Results",
+      navigationTitle: "2. Results",
+      description: "Please describe the results expected from method [{METHOD}]",
     },
     {
       name: "page_methodparams",
@@ -1006,9 +1018,10 @@ export const json = {
           allowRowsDragAndDrop: true,
         },
       ],
-      title: "Method parameters",
       navigationTitle: "3. Method parameters",
       navigationDescription: "Method and instrument parameters",
+      title: "[{template_name}]: Method parameters",
+      description: "Please describe all relevant [{METHOD}] parameters",      
     },
     {
       name: "page_sampleinfo",
@@ -1078,9 +1091,10 @@ export const json = {
           allowRowsDragAndDrop: true,
         },
       ],
-      title: "Sample",
       navigationTitle: "4. Sample",
       navigationDescription: "Sample description",
+      title: "[{template_name}]: Sample details",
+      description: "Parameters to desribe the materials tested by [{METHOD}]",        
     },
     {
       name: "page_sampleprep",
@@ -1165,9 +1179,77 @@ export const json = {
           allowRowsDragAndDrop: true,
         },
       ],
-      title: "Sample preparation",
+      title: "[{template_name}]: Sample preparation",
+      description: "Details of sample preparation to be tested by [{METHOD}]",         
       navigationTitle: "5. Sample preparation",
       navigationDescription: "Sample preparation",
+    },
+    {
+      name: "page_provenance",
+      title: "[{template_name}]: Who and when did the experiment",
+      description: "Predefined fields for reference.\n You may enter default values. The user can change the values in the template",
+      navigationTitle: "6. Provenance",
+      navigationDescription: "Predefined fields describing provenance",      
+      elements: [
+        {
+          type: "text",
+          name: "provenance_project",
+          startWithNewLine: false,
+          visible: true,
+          readOnly : false,
+          title: "Project",
+        },
+        {
+          type: "text",
+          name: "provenance_workpackage",
+          startWithNewLine: false,
+          visible: true,
+          readOnly : false,
+          title: "Work package",
+        },
+        {
+          type: "text",
+          name: "provenance_provider",
+          startWithNewLine: true,
+          visible: true,
+          readOnly : true,
+          title: "Partner/test facility"
+        },
+        {
+          type: "text",
+          name: "provenance_contact",
+          startWithNewLine: false,
+          visible: true,
+          readOnly : true,
+          title: "Lead Scientist & contact for test"
+        },   
+        {
+          type: "text",
+          name: "provenance_operator",
+          startWithNewLine: false,
+          visible: true,
+          readOnly : true,
+          title: "Assay/Test work conducted by"
+        },               
+        {
+          type: "text",
+          inputType: "date",
+          name: "provenance_startdate",
+          startWithNewLine: true,
+          visible: true,
+          readOnly : true,
+          title: "Test start date"
+        },
+        {
+          type: "text",
+          inputType: "date",
+          name: "provenance_enddate",
+          startWithNewLine: false,
+          visible: true,
+          readOnly : true,
+          title: "Test end date"
+        }
+      ]
     },
     {
       name: "page_preview",
@@ -1178,7 +1260,7 @@ export const json = {
           visible: false,
           title: "Template status",
           defaultValue: "DRAFT",
-          readonly: false,
+          readOnly: false,
           startWithNewLine: true,
           choices: [
             {
@@ -1196,7 +1278,7 @@ export const json = {
           name: "template_uuid",
           startWithNewLine: false,
           visible: false,
-          readonly: false,
+          readOnly: false,
           title: "Internal identifier",
         },
         {
@@ -1204,7 +1286,7 @@ export const json = {
           name: "parent_uuid",
           startWithNewLine: false,
           visible: false,
-          readonly: true,
+          readOnly: true,
           title: "Internal identifier of the copied template (if any)",
         },
         {
