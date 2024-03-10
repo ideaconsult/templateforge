@@ -77,17 +77,51 @@ export const json = {
             {
               type: "text",
               name: "METHOD",
-              startWithNewLine: false,
+              startWithNewLine: true,
               title: "Method",
+              description: "Short name or acronym for test/assay",
+              isRequired: true,
+            },
+            {
+              type: "dropdown",
+              name: "SOP",
+              startWithNewLine: false,
+              title: "Specify the type of protocol for the test",
+              description: "Standard Operating Procedure (SOP) or research protocol",
+              isRequired: true,
+              choices: [
+                {
+                  value: "protocol_sop",
+                  text: "Standard Operating Procedure (SOP)",
+                },
+                {
+                  value: "protocol_sopmodified",
+                  text: "Modified SOP",
+                },
+                {
+                  value: "protocol_research",
+                  text: "Research protocol",
+                }
+              ], 
+              defaultValue : "protocol_sop"           
+            },            
+            {
+              type: "text",
+              name: "EXPERIMENT",
+              title: "{SOP}",
+              description: "Full name of the protocol for the test",
+              startWithNewLine: true,
               isRequired: true,
             },
             {
               type: "comment",
-              name: "EXPERIMENT",
-              title: "Experiment description",
-              isRequired: true,
-              requiredIf: "{user_role} contains 'role_lab'",
-            },
+              name: "EXPERIMENT_PROTOCOL",
+              title: "{SOP} description",
+              description: "Description of the test/assay and/or link to document",
+              startWithNewLine: true,
+              visibleIf : "({SOP} contains '_research') or ({SOP} contains 'modified')",
+              requiredIf : "({SOP} contains '_research') or ({SOP} contains 'modified')",
+            },            
             {
               type: "matrixdynamic",
               name: "conditions",
@@ -196,6 +230,12 @@ export const json = {
              
           ],
         },
+        {
+          type: "panel",
+          name: "panel_sop",
+          elements: [
+          ]
+        },            
         {
           type: "panel",
           name: "panel_experiment",
@@ -1239,7 +1279,7 @@ export const json = {
           startWithNewLine: false,
           visible: true,
           readOnly : false,
-          title: "Project",
+          title: "Project"
         },
         {
           type: "text",
