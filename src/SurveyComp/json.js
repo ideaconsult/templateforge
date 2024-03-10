@@ -12,6 +12,7 @@ export const json = {
           name: "template_name",
           visible: true,
           title: "Template name",
+          description: "Pick an unique name that reflect your experiment and help you and others to find it later.",
           isRequired: true,
         },
         {
@@ -20,6 +21,7 @@ export const json = {
           visible: true,
           startWithNewLine: false,
           title: "Template Acknowledgment",
+          description: "Acknowledge a project, your lab, etc.",
           isRequired: true,
         },
         {
@@ -28,6 +30,7 @@ export const json = {
           visible: true,
           startWithNewLine: true,
           title: "Template Author",
+          description: "The author of this template blueprint. Not necessary the person who perform the experiment.",
           isRequired: true,
         },  
         {
@@ -37,6 +40,7 @@ export const json = {
           startWithNewLine: false,
           title: "ORCID",
           title: "Template Author ORCID",
+          description: "ORCID is optional for draft blueprints but required to finalize the blueprint.",
           isRequired: false,
         },                
         {
@@ -57,8 +61,8 @@ export const json = {
           minSelectedChoices: 1,
         },
       ],
-      title: "Please enter template name",
-      description: "Acknowledge a project or lab",
+      title: "Please enter the template name",
+      description: "You are designing a template blueprint to report your experiment. And you would like other researchers to find it and reuse it. Some questions will be marked as required or not, based on the role specified.",
       navigationTitle: "Welcome",
       navigationDescription: "Template name and acknowledgment",
     },
