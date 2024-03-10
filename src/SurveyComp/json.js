@@ -48,6 +48,7 @@ export const json = {
           type: "checkbox",
           name: "user_role",
           title: "I am a ...",
+          colCount: 1,
           choices: [
             {
               value: "role_lab",
@@ -90,24 +91,24 @@ export const json = {
             {
               type: "matrixdynamic",
               name: "conditions",
-              title: "Experimental factors, replicates, controls",
+              title: "Experimental factors, replicates",
               description:
-                "Add one row per each experimental factor (e.g. concentration, time), replicates, controls ... Remove the irrelevant rows.",
+                "Add one row per each experimental factor (e.g. concentration, time), replicates, etc. Remove the irrelevant rows. Don't forget to specify the type. The rows can be reorderd by drag and drop.",
               	_requiredIf: "{user_role} contains 'role_datamgr'",
               defaultValue: [
                 {
                   conditon_name: "Concentration",
                   condition_unit: "mg/mol",
-                  condition_type: "c_concentration ",
+                  condition_type: "c_concentration",
                 },
                 {
                   conditon_name: "Time",
                   condition_unit: "h",
-                  condition_type: "c_time ",
+                  condition_type: "c_time",
                 },
                 {
                   conditon_name: "Replicate",
-                  condition_type: "c_replicate ",
+                  condition_type: "c_replicate",
                 },
               ],
               columns: [
@@ -126,45 +127,34 @@ export const json = {
                   choices: [
                     {
                       value: "c_concentration",
-                      text: " Concentration",
+                      text: "Concentration",
                     },
                     {
                       value: "c_time",
-                      text: " Time",
+                      text: "Time",
                     },
                     {
                       value: "c_replicate",
-                      text: " Replicate",
+                      text: "Replicate",
                     },
                     {
                       value: "c_replicate_tech",
-                      text: " Technical replicate",
+                      text: "Technical replicate",
                     },
                     {
                       value: "c_replicate_bio",
-                      text: " Biological replicate",
+                      text: "Biological replicate",
                     },
                     {
                       value: "c_experiment",
-                      text: " Experiment",
+                      text: "Experiment",
                     },
                     {
-                      value: "c_control_positive",
-                      text: " Control (positive)",
-                    },
-                    {
-                      value: "c_control_negative",
-                      text: " Control (negative)",
-                    },
-                    {
-                      value: "c_control_interference",
-                      text: " Control (interference)",
-                    },
-                    {
-                      value: "c_control_blank",
-                      text: " Control (blank)",
-                    },
+                      value: "c_other",
+                      text: "Other",
+                    }
                   ],
+                  defaultValue : "c_replicate_tech"
                 },
               ],
 
@@ -173,12 +163,50 @@ export const json = {
               confirmDelete: true,
               allowRowsDragAndDrop: true,
             },
+            {
+              startWithNewLine: true,
+              type: "checkbox",
+              name: "controls",
+              title: "Please specify if/what type of controls will be used",
+              description: "The actual controls will be specified in the template.",
+              colCount: 5,
+              choices: [
+                {
+                  value: "c_control_negative",
+                  text: "Negative controls",
+                },
+                {
+                  value: "c_control_positive",
+                  text: "Positive controls",
+                },
+                {
+                  value: "c_control_interference",
+                  text: "Interference controls",
+                },      
+                {
+                  value: "c_control_blank",
+                  text: "Blank controls",
+                },  
+                {
+                  value: "c_control_other",
+                  text: "Other type of controls",
+                }                
+              ]
+            }            
+             
           ],
         },
         {
           type: "panel",
           name: "panel_experiment",
           elements: [
+            {
+              type: "html",
+              name: "help_categories",
+              titleLocation: "hidden",
+              html : "Please select the closest categories for your study. The dropdown lists follows <a href='https://www.oecd.org/ehs/templates/' target=_blank>OECD Harmonized Templates</a> nomenclature, extended with ontology entries.",
+              readOnly: true,
+             },            
             {
               type: "dropdown",
               name: "PROTOCOL_TOP_CATEGORY",
@@ -214,7 +242,7 @@ export const json = {
               name: "PROTOCOL_CATEGORY_CODE",
               startWithNewLine: false,
               title: "Type or class of experimental test",
-              requiredIf: "{user_role} contains 'role_datamgr'",
+              requiredIf: "{user_role} contains 'role_datamgr' or {template_status} == 'FINALIZED'",
               choices: [
                 {
                   value: "GI_GENERAL_INFORM_SECTION",
@@ -653,8 +681,18 @@ export const json = {
                 },
               ],
             },
+            {
+              "type": "html",
+              "name": "comment_fair_learn",
+              "title" : " ",
+              "hideNumber": true,
+              "titleLocation": "hidden",
+              "html": "<div class='alert alert-primary'>You will be redirected to <a href='https://enanomapper.adma.ai/fair/' target='fair'>The visual guide to FAIR principles (with eNanoMapper)</a>. The guide consists of a dedicated page for each of FAIR criteria and sub criteria, and examples, interpretations and links to possible implementations in addition to the definitions.</div>",
+              "readOnly": true,
+              "visibleIf" : "{q_start} = 'fair_learn'"
+             }
           ],
-          title: "Please select the closest categories for your study",
+          titleLocation: "hidden"
         },
       ],
       title: "[{template_name}]: Please describe the experimental method",
