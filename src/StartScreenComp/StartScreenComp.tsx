@@ -1,11 +1,20 @@
 // @ts-nocheck
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 import Button from "../ui/Button";
+// import { Button } from "@/components/ui/button";
 import LogoBar from "../MenuBar/LogoBar";
 import BluePrintsTable from "./BluePrintsTable";
 import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
 import config from "../utils/config";
+
+import { Template, columns } from "@/DataTable/columns";
+import { DataTable } from "@/DataTable/DataTable";
+
+import useSWR from "swr";
+
+import { fetcher } from "../lib/fetcher";
 
 import {
   useUuid,
@@ -33,6 +42,8 @@ export default function StartScreenComp({}) {
 
   const apiUrl = config.apiUrl;
   const templateURL = `${apiUrl}/${idShosen}?format=xlsx`;
+
+  const { data, isLoading } = useSWR(config.apiUrl, fetcher);
 
   const dowloadXLS = () => {
     idShosen && downloadFile(idShosen, templateURL);
@@ -87,20 +98,20 @@ export default function StartScreenComp({}) {
 
       <div className="tableViewWrap">
         <div className="inputWrap">
-          <input
+          {/* <input
             className="inputSearch"
             placeholder="Please start typing to find your blueprint..."
             type="text"
             value={value}
             onChange={onChange}
-          />
-          <BluePrintsTable
+          /> */}
+          {/* <BluePrintsTable
             value={value}
             mode={mode}
             setIdShosen={setIdShosen}
             idShosen={idShosen}
-          />
-
+          /> */}
+          <DataTable columns={columns} data={!isLoading && data.template} />
           <div className="buttonsWrap">
             <div
               onClick={() => {
@@ -114,6 +125,7 @@ export default function StartScreenComp({}) {
                 label={mode == "Finalized" ? "View" : "Edit"}
               />
             </div>
+            {UUID && <Navigate to={`?uuid=${idShosen}`} replace={true} />}
             <MakeCopyDialog />
             <div
               onClick={() => {
@@ -127,11 +139,11 @@ export default function StartScreenComp({}) {
               />
             </div>
             <div onClick={dowloadXLS}>
-              <Button disabled={!idShosen} label="Download XLS" />
+              <Button disabled={!idShosen} label="Generate Excel Template" />
             </div>
           </div>
         </div>
-        <div className="view">
+        {/* <div className="view">
           {idShosen ? (
             <iframe
               width="100%"
@@ -141,7 +153,7 @@ export default function StartScreenComp({}) {
           ) : (
             <p className="previewPlaceholder">No preview yet</p>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

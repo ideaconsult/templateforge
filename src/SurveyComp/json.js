@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 export const json = {
   showPreviewBeforeComplete: "showAnsweredQuestions",
   title: "Template Designer",
@@ -79,7 +80,7 @@ export const json = {
               title: "Experimental factors, replicates, controls",
               description:
                 "Add one row per each experimental factor (e.g. concentration, time), replicates, controls ... Remove the irrelevant rows.",
-              	_requiredIf: "{user_role} contains 'role_datamgr'",
+              _requiredIf: "{user_role} contains 'role_datamgr'",
               defaultValue: [
                 {
                   conditon_name: "Concentration",
@@ -777,7 +778,7 @@ export const json = {
                   name: "raw_conditions",
                   title: "Please select the experimental factors ...",
                   choicesFromQuestion: "conditions",
-                  minSelectedChoices: 0
+                  minSelectedChoices: 0,
                 },
               ],
               detailPanelMode: "underRowSingle",
@@ -905,7 +906,7 @@ export const json = {
                   name: "results_conditions",
                   title: "Please select the experimental factors ...",
                   choicesFromQuestion: "conditions",
-                  minSelectedChoices: 0
+                  minSelectedChoices: 0,
                 },
               ],
 
