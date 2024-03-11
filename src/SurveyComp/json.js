@@ -1,4 +1,8 @@
 export const json = {
+  triggers: [
+    { type: "setvalue", expression: "{confirm_statuschange} contains 'FINALIZED'", setToName: "template_status", setValue: "FINALIZED" },  
+    { type: "setvalue", expression: "!({confirm_statuschange} contains 'FINALIZED')", setToName: "template_status", setValue: "DRAFT" },  
+  ],
   showPreviewBeforeComplete: "showAnsweredQuestions",
   title: "Template Designer",
   description: "Designing data entry templates for eNanoMapper",
@@ -266,7 +270,7 @@ export const json = {
                   text: "Exposure",
                 },
               ],
-              placeholder: "P-CHEM",
+              placeholder: "P-CHEM"             
             },
             {
               type: "dropdown",
@@ -1368,6 +1372,41 @@ export const json = {
       ]
     },
     {
+      name: "page_formats",
+      elements: [
+        {
+          type: "radiogroup",
+          name: "template_layout",
+          visible: true,
+          title: "Template layout",
+          defaultValueExpression:  "{preferred_layout}",
+          startWithNewLine: true,
+          choices: [
+            {
+              value: "dose_response",
+              text: "Dose response",
+            },
+            {
+              value: "pchem",
+              text: "Nanoreg",
+            },
+          ],
+          colCount: 1
+        },        
+        {
+          type: "html",
+          name: "help_layout",
+          titleLocation: "hidden",
+          html : "{template_uuid}?format={template_layout}",
+          readOnly: true,
+         },         
+      ],
+      title: "[{template_name}]: Template layout",
+      description: "Select from several supported layouts",
+      navigationTitle: "7. Layout",
+      navigationDescription: "Select the most appropriate Excel layout",           
+    },   
+    {
       name: "page_preview",
       elements: [
         {
@@ -1393,6 +1432,7 @@ export const json = {
           readOnly : false,
           title: "Template finalized at",
           requiredIf: "{confirm_statuschange} contains 'FINALIZED'",
+          visibleIf: "{confirm_statuschange} contains 'FINALIZED'",
           defaultValueExpression: "today()"
         } , 
         {
@@ -1432,7 +1472,9 @@ export const json = {
         {
           type: "radiogroup",
           name: "template_status",
-          _visibleIf: "{confirm_statuschange} contains 'FINALIZED'",
+          readOnly: true,
+          isRequired: true,
+          _tmp: "{user_role} contains 'role_lab'",
           visible: true,
           title: "Template status",
           defaultValue: "DRAFT",
@@ -1478,6 +1520,10 @@ export const json = {
   goNextPageAutomatic: false,
   widthMode: "responsive",
   fitToContainer: true,
-  headerView: "advanced"
- 
+  headerView: "advanced"  ,
+  calculatedValues: [{
+    name: "preferred_layout",
+    expression:  "iif({PROTOCOL_TOP_CATEGORY}='TOX','dose_response','pchem')",
+  }
+  ]
 };
