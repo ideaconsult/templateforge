@@ -155,8 +155,8 @@ export default function StartScreenComp({}) {
             setIdShosen={setIdShosen}
             idShosen={idShosen}
           /> */}
-          <TemplateTable columns={columns} data={!isLoading && templateData} />
-          {/* <DataTable columns={columns} data={!isLoading && templateData} /> */}
+          {/* <TemplateTable columns={columns} data={!isLoading && templateData} /> */}
+          <DataTable columns={columns} data={!isLoading && templateData} />
           <div className="buttonsWrap">
             <div
               onClick={() => {
