@@ -93,7 +93,10 @@ export default function TemplateTable({ data }) {
         <tbody>
           {table.getRowModel().rows?.length &&
             table.getRowModel().rows.map((row) => (
-              <tr key={RowsIcon.id}>
+              <tr
+                key={RowsIcon.id}
+                data-state={row.getIsSelected() && "selected"}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
