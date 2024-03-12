@@ -60,6 +60,10 @@ button {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+  border-color: #646cff;
+}
+button:checked {
+  background-color: #646cff;
 }
 
 pre {

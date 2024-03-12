@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Model } from "survey-core";
+import { FunctionFactory } from "survey-core";
 import { Survey } from "survey-react-ui";
 import { json } from "./json";
 import { themeJson } from "./theme";
@@ -11,6 +12,13 @@ import config from "../utils/config";
 
 import "survey-core/defaultV2.min.css";
 import "../App.css";
+
+var orcidPattern = /^\d{4}-\d{4}-\d{4}-(\d{4}|[Xx])$/;
+
+function isValidOrcid([ORCID]) {
+  return orcidPattern.test(ORCID);
+}
+FunctionFactory.Instance.register("isValidOrcid", isValidOrcid);
 
 // eslint-disable-next-line react/prop-types
 function SurveyComponent({ setResult }) {
