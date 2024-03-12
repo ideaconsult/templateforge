@@ -11,31 +11,28 @@ import { RowsIcon } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const columns = [
-  {
-    accessorKey: "uuid",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => {
-          row.toggleSelected(!!value);
-        }}
-        aria-label="Select row"
-      />
-    ),
-  },
+  // {
+  //   accessorKey: "uuid",
+  //   header: ({ table }) => <>#</>,
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       checked={row.getIsSelected()}
+  //       onCheckedChange={(value) => {
+  //         row.toggleSelected(!!value);
+  //       }}
+  //       aria-label="Select row"
+  //     />
+  //   ),
+  // },
+
   {
     accessorKey: "template_name",
     header: "Template Name",
+    cell: (props) => <p>{props.getValue()}</p>,
+  },
+  {
+    accessorKey: "template_author",
+    header: "Template Author",
     cell: (props) => <p>{props.getValue()}</p>,
   },
   {
@@ -58,6 +55,8 @@ const columns = [
 export default function TemplateTable({ data }) {
   const [rowSelection, setRowSelection] = useState({});
 
+  console.log(rowSelection);
+
   const table = useReactTable({
     data,
     columns,
@@ -71,11 +70,7 @@ export default function TemplateTable({ data }) {
 
   const setIdShosen = useSetIsShosen();
   useEffect(() => {
-    setIdShosen(
-      data && Object.keys(rowSelection)[0]
-        ? data[Object.keys(rowSelection)[0]].uuid
-        : null
-    );
+    setIdShosen(data && rowSelection ? data[rowSelection]?.uuid : null);
   }, [rowSelection]);
 
   return (
@@ -96,6 +91,8 @@ export default function TemplateTable({ data }) {
               <tr
                 key={RowsIcon.id}
                 data-state={row.getIsSelected() && "selected"}
+                onClick={() => setRowSelection(row.id)}
+                className={row.id == rowSelection ? "selected" : "nonSelected"}
               >
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id}>

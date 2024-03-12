@@ -156,3 +156,11 @@ tr.choosen {
 iframe {
   border: none;
 }
+
+.selected {
+  background-color: #dee0ff;
+}
+.nonSelected {
+  background-color: #fff;
+  cursor: pointer;
+}
