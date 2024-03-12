@@ -11,6 +11,7 @@ import config from "../utils/config";
 
 import { Template, columns } from "@/DataTable/columns";
 import { DataTable } from "@/DataTable/DataTable";
+import TemplateTable from "@/DataTable/TemplateTable";
 
 import useSWR from "swr";
 
@@ -154,7 +155,8 @@ export default function StartScreenComp({}) {
             setIdShosen={setIdShosen}
             idShosen={idShosen}
           /> */}
-          <DataTable columns={columns} data={!isLoading && templateData} />
+          <TemplateTable columns={columns} data={!isLoading && templateData} />
+          {/* <DataTable columns={columns} data={!isLoading && templateData} /> */}
           <div className="buttonsWrap">
             <div
               onClick={() => {
