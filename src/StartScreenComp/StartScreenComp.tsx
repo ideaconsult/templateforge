@@ -1,11 +1,20 @@
 // @ts-nocheck
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 import Button from "../ui/Button";
+// import { Button } from "@/components/ui/button";
 import LogoBar from "../MenuBar/LogoBar";
 import BluePrintsTable from "./BluePrintsTable";
 import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
 import config from "../utils/config";
+
+import { Template, columns } from "@/DataTable/columns";
+import { DataTable } from "@/DataTable/DataTable";
+
+import useSWR from "swr";
+
+import { fetcher } from "../lib/fetcher";
 
 import {
   useUuid,
@@ -33,6 +42,19 @@ export default function StartScreenComp({}) {
 
   const apiUrl = config.apiUrl;
   const templateURL = `${apiUrl}/${idShosen}?format=xlsx`;
+
+  const { data, isLoading } = useSWR(config.apiUrl, fetcher);
+
+  const templateData = [];
+  data &&
+    data.template.map((item) => {
+      if (mode == "Finalized" && item.template_status == "FINALIZED") {
+        return templateData.push(item);
+      }
+      if (mode == "Draft" && item.template_status == "DRAFT") {
+        return templateData.push(item);
+      }
+    });
 
   const dowloadXLS = () => {
     idShosen && downloadFile(idShosen, templateURL);
@@ -63,10 +85,42 @@ export default function StartScreenComp({}) {
 
       <div className="descriptionNew">
         <p className="description">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione
-          itaque laudantium animi omnis, in mollitia rem velit quasi soluta,
-          veniam eos libero. Animi voluptates error obcaecati beatae sed
-          necessitatibus vero.
+          Are you in search of the{" "}
+          <a
+            href="https://enanomapper.adma.ai/help/#templatewizard"
+            target="enm"
+          >
+            Template Wizard
+          </a>{" "}
+          within the{" "}
+          <a href="https://enanomapper.adma.ai" target="enm">
+            Nanosafety Data Interface
+          </a>
+          ? Perhaps the existing templates don't quite align with your
+          experiment requirements.
+          <br />
+          Enter the <a href="">Template Designer</a>, a powerful tool that
+          enables you to create a 'blueprint' for your data entry template,
+          tailored to report experiment results. Once your 'blueprint' is ready,
+          both you and fellow researchers can effortlessly generate and download
+          Excel templates based on your specifications. The templates generated
+          adhere to the{" "}
+          <a href="https://enanomapper.adma.ai/fair/" target="enm">
+            FAIR
+          </a>{" "}
+          data principles, including machine readability, and can be can be
+          seamlessly converted to formats such as JSON and{" "}
+          <a href="https://www.nexusformat.org/" target="_blank">
+            NeXus
+          </a>
+          . The templates can be effortlessly imported into the{" "}
+          <a href="https://enanomapper.adma.ai/" target="enm">
+            eNanoMapper database
+          </a>
+          , enhancing the efficiency and interoperability of your research data.
+          Elevate your data reporting experience with the{" "}
+          <a href="">Template Designer</a> app.
+          <br />
         </p>{" "}
         <CreateNewDialog />
       </div>
@@ -87,20 +141,20 @@ export default function StartScreenComp({}) {
 
       <div className="tableViewWrap">
         <div className="inputWrap">
-          <input
+          {/* <input
             className="inputSearch"
             placeholder="Please start typing to find your blueprint..."
             type="text"
             value={value}
             onChange={onChange}
-          />
-          <BluePrintsTable
+          /> */}
+          {/* <BluePrintsTable
             value={value}
             mode={mode}
             setIdShosen={setIdShosen}
             idShosen={idShosen}
-          />
-
+          /> */}
+          <DataTable columns={columns} data={!isLoading && templateData} />
           <div className="buttonsWrap">
             <div
               onClick={() => {
@@ -114,6 +168,7 @@ export default function StartScreenComp({}) {
                 label={mode == "Finalized" ? "View" : "Edit"}
               />
             </div>
+            {UUID && <Navigate to={`?uuid=${idShosen}`} replace={true} />}
             <MakeCopyDialog />
             <div
               onClick={() => {
@@ -127,11 +182,11 @@ export default function StartScreenComp({}) {
               />
             </div>
             <div onClick={dowloadXLS}>
-              <Button disabled={!idShosen} label="Download XLS" />
+              <Button disabled={!idShosen} label="Generate Excel Template" />
             </div>
           </div>
         </div>
-        <div className="view">
+        {/* <div className="view">
           {idShosen ? (
             <iframe
               width="100%"
@@ -141,7 +196,7 @@ export default function StartScreenComp({}) {
           ) : (
             <p className="previewPlaceholder">No preview yet</p>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

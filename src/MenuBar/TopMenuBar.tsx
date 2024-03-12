@@ -49,7 +49,7 @@ export default function TopMenuBar() {
             <Button label={copied ? "Copied to clipboard!" : "Share"} />
           </div>
           <div onClick={() => downloadFile(uuid, templateURL)}>
-            <Button label="Generate Excel" />
+            <Button label="Generate Excel Template" />
           </div>
         </div>
         {uuid && (

@@ -1,4 +1,19 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 export const json = {
+  triggers: [
+    {
+      type: "setvalue",
+      expression: "{confirm_statuschange} contains 'FINALIZED'",
+      setToName: "template_status",
+      setValue: "FINALIZED",
+    },
+    {
+      type: "setvalue",
+      expression: "!({confirm_statuschange} contains 'FINALIZED')",
+      setToName: "template_status",
+      setValue: "DRAFT",
+    },
+  ],
   showPreviewBeforeComplete: "showAnsweredQuestions",
   title: "Template Designer",
   description: "Designing data entry templates for eNanoMapper",
@@ -12,14 +27,8 @@ export const json = {
           name: "template_name",
           visible: true,
           title: "Template name",
-          isRequired: true,
-        },
-        {
-          type: "text",
-          name: "template_author",
-          visible: true,
-          startWithNewLine: true,
-          title: "Template Author",
+          description:
+            "Pick an unique name that reflect your experiment and help you and others to find it later.",
           isRequired: true,
         },
         {
@@ -28,13 +37,26 @@ export const json = {
           visible: true,
           startWithNewLine: false,
           title: "Template Acknowledgment",
+          description: "Acknowledge a project, your lab, etc.",
           isRequired: true,
         },
+        {
+          type: "text",
+          name: "template_author",
+          visible: true,
+          startWithNewLine: true,
+          title: "Template Author",
+          description:
+            "The author of this template blueprint. Not necessary the person who perform the experiment.",
+          isRequired: true,
+        },
+
         {
           startWithNewLine: true,
           type: "checkbox",
           name: "user_role",
           title: "I am a ...",
+          colCount: 1,
           choices: [
             {
               value: "role_lab",
@@ -48,9 +70,11 @@ export const json = {
           minSelectedChoices: 1,
         },
       ],
-      title: "Welcome",
+      title: "Please enter the template name",
+      description:
+        "You are designing a template blueprint to report your experiment. And you would like other researchers to find it and reuse it. Some questions will be marked as required or not, based on the role specified.",
       navigationTitle: "Welcome",
-      navigationDescription: "Please describe your role",
+      navigationDescription: "Template name and acknowledgment",
     },
     {
       name: "page1",
@@ -62,38 +86,77 @@ export const json = {
             {
               type: "text",
               name: "METHOD",
-              startWithNewLine: false,
+              startWithNewLine: true,
               title: "Method",
+              description: "Short name or acronym for test/assay",
+              isRequired: true,
+            },
+            {
+              type: "dropdown",
+              name: "SOP",
+              startWithNewLine: false,
+              title: "Specify the type of protocol for the test",
+              description:
+                "Standard Operating Procedure (SOP) or research protocol",
+              isRequired: true,
+              choices: [
+                {
+                  value: "protocol_sop",
+                  text: "Standard Operating Procedure (SOP)",
+                },
+                {
+                  value: "protocol_sopmodified",
+                  text: "Modified SOP",
+                },
+                {
+                  value: "protocol_research",
+                  text: "Research protocol",
+                },
+              ],
+              defaultValue: "protocol_sop",
+            },
+            {
+              type: "text",
+              name: "EXPERIMENT",
+              title: "{SOP}",
+              description: "Full name of the protocol for the test",
+              startWithNewLine: true,
               isRequired: true,
             },
             {
               type: "comment",
-              name: "EXPERIMENT",
-              title: "Experiment description",
-              isRequired: true,
-              requiredIf: "{user_role} contains 'role_lab'",
+              name: "EXPERIMENT_PROTOCOL",
+              title: "{SOP} description",
+              description:
+                "Description of the test/assay and/or link to document",
+              startWithNewLine: true,
+              visibleIf:
+                "({SOP} contains '_research') or ({SOP} contains 'modified')",
+              requiredIf:
+                "({SOP} contains '_research') or ({SOP} contains 'modified')",
             },
             {
               type: "matrixdynamic",
               name: "conditions",
-              title: "Experimental factors, replicates, controls",
+              title: "Experimental factors, replicates",
               description:
-                "Add one row per each experimental factor (e.g. concentration, time), replicates, controls ... Remove the irrelevant rows.",
-              	_requiredIf: "{user_role} contains 'role_datamgr'",
+                "Add one row per each experimental factor (e.g. concentration, time), replicates, etc. Remove the irrelevant rows. Don't forget to specify the type. The rows can be reorderd by drag and drop.",
+              _requiredIf: "{user_role} contains 'role_datamgr'",
+
               defaultValue: [
                 {
                   conditon_name: "Concentration",
                   condition_unit: "mg/mol",
-                  condition_type: "c_concentration ",
+                  condition_type: "c_concentration",
                 },
                 {
                   conditon_name: "Time",
                   condition_unit: "h",
-                  condition_type: "c_time ",
+                  condition_type: "c_time",
                 },
                 {
                   conditon_name: "Replicate",
-                  condition_type: "c_replicate ",
+                  condition_type: "c_replicate",
                 },
               ],
               columns: [
@@ -112,45 +175,34 @@ export const json = {
                   choices: [
                     {
                       value: "c_concentration",
-                      text: " Concentration",
+                      text: "Concentration",
                     },
                     {
                       value: "c_time",
-                      text: " Time",
+                      text: "Time",
                     },
                     {
                       value: "c_replicate",
-                      text: " Replicate",
+                      text: "Replicate",
                     },
                     {
                       value: "c_replicate_tech",
-                      text: " Technical replicate",
+                      text: "Technical replicate",
                     },
                     {
                       value: "c_replicate_bio",
-                      text: " Biological replicate",
+                      text: "Biological replicate",
                     },
                     {
                       value: "c_experiment",
-                      text: " Experiment",
+                      text: "Experiment",
                     },
                     {
-                      value: "c_control_positive",
-                      text: " Control (positive)",
-                    },
-                    {
-                      value: "c_control_negative",
-                      text: " Control (negative)",
-                    },
-                    {
-                      value: "c_control_interference",
-                      text: " Control (interference)",
-                    },
-                    {
-                      value: "c_control_blank",
-                      text: " Control (blank)",
+                      value: "c_other",
+                      text: "Other",
                     },
                   ],
+                  defaultValue: "c_replicate_tech",
                 },
               ],
 
@@ -159,12 +211,55 @@ export const json = {
               confirmDelete: true,
               allowRowsDragAndDrop: true,
             },
+            {
+              startWithNewLine: true,
+              type: "checkbox",
+              name: "controls",
+              title: "Please specify if/what type of controls will be used",
+              description:
+                "The actual controls will be specified in the template.",
+              colCount: 5,
+              choices: [
+                {
+                  value: "c_control_negative",
+                  text: "Negative controls",
+                },
+                {
+                  value: "c_control_positive",
+                  text: "Positive controls",
+                },
+                {
+                  value: "c_control_interference",
+                  text: "Interference controls",
+                },
+                {
+                  value: "c_control_blank",
+                  text: "Blank controls",
+                },
+                {
+                  value: "c_control_other",
+                  text: "Other type of controls",
+                },
+              ],
+            },
           ],
+        },
+        {
+          type: "panel",
+          name: "panel_sop",
+          elements: [],
         },
         {
           type: "panel",
           name: "panel_experiment",
           elements: [
+            {
+              type: "html",
+              name: "help_categories",
+              titleLocation: "hidden",
+              html: "Please select the closest categories for your study. The dropdown lists follows <a href='https://www.oecd.org/ehs/templates/' target=_blank>OECD Harmonized Templates</a> nomenclature, extended with ontology entries.",
+              readOnly: true,
+            },
             {
               type: "dropdown",
               name: "PROTOCOL_TOP_CATEGORY",
@@ -199,7 +294,7 @@ export const json = {
               type: "dropdown",
               name: "PROTOCOL_CATEGORY_CODE",
               startWithNewLine: false,
-              title: "Endpoint category",
+              title: "Type or class of experimental test",
               requiredIf: "{user_role} contains 'role_datamgr'",
               choices: [
                 {
@@ -639,13 +734,23 @@ export const json = {
                 },
               ],
             },
+            {
+              type: "html",
+              name: "comment_fair_learn",
+              title: " ",
+              hideNumber: true,
+              titleLocation: "hidden",
+              html: "<div class='alert alert-primary'>You will be redirected to <a href='https://enanomapper.adma.ai/fair/' target='fair'>The visual guide to FAIR principles (with eNanoMapper)</a>. The guide consists of a dedicated page for each of FAIR criteria and sub criteria, and examples, interpretations and links to possible implementations in addition to the definitions.</div>",
+              readOnly: true,
+              visibleIf: "{q_start} = 'fair_learn'",
+            },
           ],
-          title: "Please select the closest categories for your study",
+          titleLocation: "hidden",
         },
       ],
-      title: "Please describe the experimental method",
+      title: "[{template_name}]: Please describe the experimental method",
       description:
-        "You will design a data entry template to report result for the method described",
+        "You will design a 'blueprint' of a data entry template to report result for the method described.",
       navigationTitle: "1. Method",
       navigationDescription: "description",
     },
@@ -660,24 +765,48 @@ export const json = {
               type: "comment",
               name: "RESULTS",
               title: "Results description",
+              description:
+                "Describe the results in free text , including data analysis",
               requiredIf: "{user_role} contains 'role_lab'",
             },
             {
-              type: "boolean",
-              name: "raw_data",
+              type: "checkbox",
+              name: "data_sheets",
               startWithNewLine: false,
               defaultValue: false,
-              title: "Include unprocessed (raw data) in the template ?",
+              title:
+                "Include the following data types in the generated template:",
+              choices: [
+                {
+                  value: "data_raw",
+                  text: "Raw data",
+                },
+                {
+                  value: "data_processed",
+                  text: "Processed data",
+                },
+                {
+                  value: "data_platelayout",
+                  text: "Plate layout",
+                },
+                {
+                  value: "data_filepointer",
+                  text: "Links to files with data",
+                },
+              ],
+              hasOther: true,
+              otherText: "Other (please specify)",
+              defaultValue: ["data_raw", "data_processed"],
             },
             {
               type: "matrixdynamic",
               name: "raw_data_report",
-              visibleIf: "{raw_data} = true",
+              visibleIf: "{data_sheets} contains 'data_raw'",
               title: "Unprocessed (Raw data) reporting",
               description:
-                "Please provide information of the parameters reported as unprocessed data (if any) e.g. Absorbance, AU",
+                "Please provide information of the parameters reported as unprocessed data (e.g. Absorbance, AU). Use the + button to specify which factors are varied.  ",
               requiredIf:
-                "{user_role} contains 'role_datamgr ' and {raw_data} = true",
+                "{user_role} contains 'role_datamgr' and {data_sheets} contains 'data_raw'",
               showCommentArea: true,
               columns: [
                 {
@@ -687,14 +816,14 @@ export const json = {
                 },
                 {
                   name: "raw_aggregate",
-                  title: "Mark if mean or median",
+                  title: "Mark if aggregated",
                   cellType: "dropdown",
                   isRequired: false,
                   defaultValue: "RAW_DATA",
                   choices: [
                     {
                       value: "RAW_DATA",
-                      text: "",
+                      text: "Raw data",
                     },
                     {
                       value: "MEAN",
@@ -735,38 +864,39 @@ export const json = {
                   title: "Type",
                   cellType: "dropdown",
                   isRequired: true,
+                  defaultValue: "value_num",
                   choices: [
                     {
                       value: "value_num",
-                      text: " numeric",
+                      text: "numeric",
                     },
                     {
                       value: "value_spectrum",
-                      text: " spectrum",
+                      text: "spectrum",
                     },
                     {
                       value: "value_timeseries",
-                      text: " time series",
+                      text: "time series",
                     },
                     {
                       value: "value_image",
-                      text: " image",
+                      text: "image",
                     },
                     {
                       value: "value_1darray",
-                      text: " 1D array",
+                      text: "1D array",
                     },
                     {
                       value: "value_2darray",
-                      text: " 2D array",
+                      text: "2D array",
                     },
                     {
                       value: "value_file",
-                      text: " file",
+                      text: "file",
                     },
                     {
                       value: "value_text",
-                      text: " text",
+                      text: "text",
                     },
                   ],
                 },
@@ -777,7 +907,7 @@ export const json = {
                   name: "raw_conditions",
                   title: "Please select the experimental factors ...",
                   choicesFromQuestion: "conditions",
-                  minSelectedChoices: 0
+                  minSelectedChoices: 0,
                 },
               ],
               detailPanelMode: "underRowSingle",
@@ -789,9 +919,11 @@ export const json = {
               type: "matrixdynamic",
               name: "question3",
               title: "Results reporting",
+              visibleIf: "{data_sheets} contains 'data_processed'",
               description:
                 "Please provide information of the endpoints or descriptors reported as experimental results. e.g. Cell viability , %",
-              requiredIf: "{user_role} contains 'role_datamgr'",
+              requiredIf:
+                "{user_role} contains 'role_datamgr' and {data_sheets} contains 'data_processed'",
               showCommentArea: true,
               columns: [
                 {
@@ -801,14 +933,14 @@ export const json = {
                 },
                 {
                   name: "result_aggregate",
-                  title: "Mark if mean or median",
+                  title: "Mark if aggregated",
                   cellType: "dropdown",
                   isRequired: false,
                   defaultValue: "MEAN",
                   choices: [
                     {
                       value: "",
-                      text: "",
+                      text: "-",
                     },
                     {
                       value: "MEAN",
@@ -863,18 +995,19 @@ export const json = {
                   title: "Type",
                   cellType: "dropdown",
                   isRequired: true,
+                  defaultValue: "value_num",
                   choices: [
                     {
                       value: "value_num",
-                      text: " numeric",
+                      text: "numeric",
                     },
                     {
                       value: "value_spectrum",
-                      text: " spectrum",
+                      text: "spectrum",
                     },
                     {
                       value: "value_timeseries",
-                      text: " time series",
+                      text: "time series",
                     },
                     {
                       value: "value_image",
@@ -882,19 +1015,19 @@ export const json = {
                     },
                     {
                       value: "value_1darray",
-                      text: " 1D array",
+                      text: "1D array",
                     },
                     {
                       value: "value_2darray",
-                      text: " 2D array",
+                      text: "2D array",
                     },
                     {
                       value: "value_file",
-                      text: " file",
+                      text: "file",
                     },
                     {
                       value: "value_text",
-                      text: " text",
+                      text: "text",
                     },
                   ],
                 },
@@ -905,7 +1038,7 @@ export const json = {
                   name: "results_conditions",
                   title: "Please select the experimental factors ...",
                   choicesFromQuestion: "conditions",
-                  minSelectedChoices: 0
+                  minSelectedChoices: 0,
                 },
               ],
 
@@ -920,8 +1053,10 @@ export const json = {
           startWithNewLine: false,
         },
       ],
-      title: "2. Results",
-      description: "Please describe the results expected from {METHOD}",
+      title: "[{template_name}]: Results",
+      navigationTitle: "2. Results",
+      description:
+        "Please describe the results expected from method [{METHOD}]",
     },
     {
       name: "page_methodparams",
@@ -953,6 +1088,7 @@ export const json = {
                 "INSTRUMENT",
                 "ENVIRONMENT",
                 "MEDIUM",
+                "SPECIES",
                 "CELL LINE DETAILS",
                 "CULTURE CONDITIONS",
                 "MONITORING",
@@ -1006,9 +1142,10 @@ export const json = {
           allowRowsDragAndDrop: true,
         },
       ],
-      title: "Method parameters",
       navigationTitle: "3. Method parameters",
       navigationDescription: "Method and instrument parameters",
+      title: "[{template_name}]: Method parameters",
+      description: "Please describe all relevant [{METHOD}] parameters",
     },
     {
       name: "page_sampleinfo",
@@ -1019,18 +1156,14 @@ export const json = {
           title: "[{METHOD}] Samples/Materials description",
           titleLocation: "top",
           isRequired: true,
-          showCommentArea: true,
+          showCommentArea: false,
           columns: [
             {
               name: "param_sample_name",
-              title: "Param name",
+              title: "Parameter name",
               cellType: "text",
               isRequired: true,
               isUnique: true,
-            },
-            {
-              name: "param_sample_unit",
-              title: "Unit",
             },
             {
               name: "param_sample_group",
@@ -1068,19 +1201,34 @@ export const json = {
               ],
             },
           ],
+          defaultValue: [
+            {
+              param_sample_name: "Material ID",
+              param_sample_group: "ID",
+            },
+            {
+              param_sample_name: "Material name",
+              param_sample_group: "NAME",
+            },
+            {
+              param_sample_name: "Material supplier",
+              param_sample_group: "SUPPLIER",
+            },
+          ],
           detailPanelMode: "underRowSingle",
           cellType: "text",
-          rowCount: 1,
-          minRowCount: 1,
+          rowCount: 3,
+          minRowCount: 3,
           confirmDelete: true,
-          addRowText: "Add parameter",
+          addRowText: "Add material identifier",
           detailPanelShowOnAdding: true,
           allowRowsDragAndDrop: true,
         },
       ],
-      title: "Sample",
       navigationTitle: "4. Sample",
       navigationDescription: "Sample description",
+      title: "[{template_name}]: Sample details",
+      description: "Parameters to desribe the materials tested by [{METHOD}]",
     },
     {
       name: "page_sampleprep",
@@ -1114,7 +1262,11 @@ export const json = {
                   text: "Dispersion",
                 },
                 {
-                  value: "OTHER_METADATA",
+                  value: "INCUBATION",
+                  text: "Incubation",
+                },
+                {
+                  value: "OTHER_SAMPLEPREP",
                   text: "Other",
                 },
               ],
@@ -1131,6 +1283,10 @@ export const json = {
                 {
                   value: "value_text",
                   text: "text",
+                },
+                {
+                  value: "value_comment",
+                  text: "long_text",
                 },
                 {
                   value: "value_boolean",
@@ -1165,38 +1321,207 @@ export const json = {
           allowRowsDragAndDrop: true,
         },
       ],
-      title: "Sample preparation",
+      title: "[{template_name}]: Sample preparation",
+      description: "Details of sample preparation to be tested by [{METHOD}]",
       navigationTitle: "5. Sample preparation",
       navigationDescription: "Sample preparation",
+    },
+    {
+      name: "page_provenance",
+      title: "[{template_name}]: Who and when did the experiment",
+      description:
+        "Predefined fields for reference.\n You may enter default values. The user can change the values in the template",
+      navigationTitle: "6. Provenance",
+      navigationDescription: "Predefined fields describing provenance",
+      elements: [
+        {
+          type: "text",
+          name: "provenance_project",
+          startWithNewLine: false,
+          visible: true,
+          readOnly: false,
+          title: "Project",
+        },
+        {
+          type: "text",
+          name: "provenance_workpackage",
+          startWithNewLine: false,
+          visible: true,
+          readOnly: false,
+          title: "Work package",
+        },
+        {
+          type: "text",
+          name: "provenance_provider",
+          startWithNewLine: true,
+          visible: true,
+          readOnly: true,
+          title: "Partner/test facility",
+        },
+        {
+          type: "text",
+          name: "provenance_contact",
+          startWithNewLine: false,
+          visible: true,
+          readOnly: true,
+          title: "Lead Scientist & contact for test",
+        },
+        {
+          type: "text",
+          name: "provenance_operator",
+          startWithNewLine: false,
+          visible: true,
+          readOnly: true,
+          title: "Assay/Test work conducted by",
+        },
+        {
+          type: "text",
+          inputType: "date",
+          name: "provenance_startdate",
+          startWithNewLine: true,
+          visible: true,
+          readOnly: true,
+          title: "Test start date",
+        },
+        {
+          type: "text",
+          inputType: "date",
+          name: "provenance_enddate",
+          startWithNewLine: false,
+          visible: true,
+          readOnly: true,
+          title: "Test end date",
+        },
+      ],
+    },
+    {
+      name: "page_formats",
+      elements: [
+        {
+          type: "radiogroup",
+          name: "template_layout",
+          visible: true,
+          title: "Template layout",
+          defaultValueExpression: "{preferred_layout}",
+          startWithNewLine: true,
+          choices: [
+            {
+              value: "dose_response",
+              text: "Dose response",
+            },
+            {
+              value: "pchem",
+              text: "Nanoreg",
+            },
+          ],
+          colCount: 1,
+        },
+        {
+          type: "html",
+          name: "help_layout",
+          titleLocation: "hidden",
+          html: "{template_uuid}?format={template_layout}",
+          readOnly: true,
+        },
+      ],
+      title: "[{template_name}]: Template layout",
+      description: "Select from several supported layouts",
+      navigationTitle: "7. Layout",
+      navigationDescription: "Select the most appropriate Excel layout",
     },
     {
       name: "page_preview",
       elements: [
         {
+          type: "checkbox",
+          name: "confirm_statuschange",
+          title: "Please confirm",
+          description:
+            "A finalized blueprint will become readonly. You will be able to generate Excel templates, share the blueprint and make copies of the blueprint.",
+          visibleIf: "{user_role} contains 'role_datamgr'",
+          choices: [
+            {
+              value: "FINALIZED",
+              text: "I agree to finalize the ['{template_name}'] template blueprint",
+            },
+          ],
+        },
+        {
+          type: "text",
+          inputType: "date",
+          name: "template_date",
+          description: "Please select the date",
+          startWithNewLine: false,
+          visible: true,
+          readOnly: false,
+          title: "Template finalized at",
+          requiredIf: "{confirm_statuschange} contains 'FINALIZED'",
+          visibleIf: "{confirm_statuschange} contains 'FINALIZED'",
+          defaultValueExpression: "today()",
+        },
+        {
+          type: "text",
+          name: "template_author_orcid",
+          visible: true,
+          startWithNewLine: true,
+          title: "ORCID",
+          title: "Template Author ORCID",
+          description:
+            "ORCID is optional for draft blueprints but required to finalize the blueprint.",
+          requiredIf: "{confirm_statuschange} contains 'FINALIZED'",
+          validators: [
+            {
+              type: "expression",
+              expression: "isValidOrcid({template_author_orcid})",
+              text: "Please enter a valid ORCID.",
+            },
+          ],
+        },
+
+        {
+          type: "text",
+          valueName: "METHOD",
+          visibleIf: "{confirm_statuschange} contains 'FINALIZED'",
+          startWithNewLine: true,
+          title: "METHOD",
+          isRequired: true,
+        },
+        {
+          type: "text",
+          valueName: "EXPERIMENT",
+          visibleIf: "{confirm_statuschange} contains 'FINALIZED'",
+          startWithNewLine: false,
+          title: "{SOP}",
+          isRequired: true,
+        },
+        {
           type: "radiogroup",
           name: "template_status",
-          visible: false,
+          readOnly: true,
+          isRequired: true,
+          _tmp: "{user_role} contains 'role_lab'",
+          visible: true,
           title: "Template status",
           defaultValue: "DRAFT",
-          readonly: false,
           startWithNewLine: true,
           choices: [
             {
               value: "DRAFT",
-              text: " Draft",
+              text: "Draft",
             },
             {
               value: "FINALIZED",
-              text: " Finalized",
+              text: "Finalized",
             },
           ],
+          colCount: 1,
         },
         {
           type: "text",
           name: "template_uuid",
           startWithNewLine: false,
           visible: false,
-          readonly: false,
+          readOnly: false,
           title: "Internal identifier",
         },
         {
@@ -1204,23 +1529,15 @@ export const json = {
           name: "parent_uuid",
           startWithNewLine: false,
           visible: false,
-          readonly: true,
+          readOnly: true,
           title: "Internal identifier of the copied template (if any)",
         },
-        {
-          type: "checkbox",
-          name: "question1",
-          choices: [
-            {
-              value: "agree_to_finalize",
-              text: "Message I agree that finalizing  .... (enables the Fnalize button)",
-            },
-          ],
-        },
       ],
-      title: "Preview",
-      navigationTitle: "Preview",
-      navigationDescription: "Preview",
+      title: "[{template_name}]: Preview/Finalize",
+      description:
+        "A finalized blueprint will become readonly. You will be able to generate Excel templates, share the blueprint and make copies of the blueprint.",
+      navigationTitle: "Preview/Finalize",
+      navigationDescription: "Predefined fields describing provenance",
     },
   ],
   showPrevButton: true,
@@ -1230,4 +1547,10 @@ export const json = {
   widthMode: "responsive",
   fitToContainer: true,
   headerView: "advanced",
+  calculatedValues: [
+    {
+      name: "preferred_layout",
+      expression: "iif({PROTOCOL_TOP_CATEGORY}='TOX','dose_response','pchem')",
+    },
+  ],
 };

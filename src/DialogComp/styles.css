@@ -73,7 +73,7 @@ input {
   background-color: var(--mauve-3);
 }
 .Button.violet:focus {
-  box-shadow: 0 0 0 2px black;
+  box-shadow: 0 0 0 2px #646cff;
 }
 .Button.green {
   background-color: var(--green-4);
@@ -90,9 +90,10 @@ input {
   border-radius: 8px;
   border: none;
   text-transform: uppercase;
-  padding: 0.6rem 0.4rem;
-  font-size: 0.9rem;
-  font-weight: 500;
+
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.03rem;
   color: #fff;
   font-family: inherit;
   background-color: #646cff !important;

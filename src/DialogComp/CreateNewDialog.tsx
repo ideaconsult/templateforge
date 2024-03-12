@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import config from "../utils/config";
 import { Model } from "survey-core";
 import { json } from "../SurveyComp/json";
+import { Button } from "@/components/ui/button";
 
 import {
   useSetUuid,
@@ -33,7 +34,7 @@ const CreateNewDialog = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button
+        <Button
           onClick={() => {
             setIdShosen(null);
             setName("");
@@ -45,7 +46,7 @@ const CreateNewDialog = () => {
           className="createNewBtn"
         >
           Create a new Draft
-        </button>
+        </Button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" />
@@ -105,7 +106,7 @@ const CreateNewDialog = () => {
 
                   let res = await fetch(
                     config.apiUrl,
-                    
+
                     {
                       method: "POST",
                       headers: {
