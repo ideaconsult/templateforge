@@ -134,6 +134,23 @@ th {
   border: none;
 }
 
+.pagination {
+  margin-top: 2rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.paginBtn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #def4ff;
+  color: #282828;
+  white-space: nowrap;
+  border-radius: 6px;
+}
+
 /* tr:nth-child(even) {
   background-color: #f6f6f6;
 } */

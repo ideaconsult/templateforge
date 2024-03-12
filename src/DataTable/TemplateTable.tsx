@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import {
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
+  getFilteredRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -54,17 +57,27 @@ const columns = [
 
 export default function TemplateTable({ data }) {
   const [rowSelection, setRowSelection] = useState({});
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 4,
+  });
 
-  console.log(rowSelection);
+  const [sorting, setSorting] = useState([]);
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection,
+    onPaginationChange: setPagination,
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     enableMultiRowSelection: false,
     state: {
       rowSelection,
+      pagination,
+      sorting,
     },
   });
 
@@ -103,6 +116,26 @@ export default function TemplateTable({ data }) {
             ))}
         </tbody>
       </table>
+      <div className="pagination">
+        <button
+          className="paginBtn"
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </button>
+        <button
+          className="paginBtn"
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
