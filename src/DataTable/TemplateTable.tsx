@@ -11,23 +11,9 @@ import {
 
 import { useSetIsShosen } from "../store/store";
 import { RowsIcon } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
+import SortingIcon from "../IconsComponents/SortingIcon";
 
 const columns = [
-  // {
-  //   accessorKey: "uuid",
-  //   header: ({ table }) => <>#</>,
-  //   cell: ({ row }) => (
-  //     <Checkbox
-  //       checked={row.getIsSelected()}
-  //       onCheckedChange={(value) => {
-  //         row.toggleSelected(!!value);
-  //       }}
-  //       aria-label="Select row"
-  //     />
-  //   ),
-  // },
-
   {
     accessorKey: "template_name",
     header: "Template Name",
@@ -59,10 +45,11 @@ export default function TemplateTable({ data }) {
   const [rowSelection, setRowSelection] = useState({});
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 4,
+    pageSize: 10,
   });
 
   const [sorting, setSorting] = useState([]);
+  const [filtering, setFiltering] = useState("");
 
   const table = useReactTable({
     data,
@@ -72,12 +59,15 @@ export default function TemplateTable({ data }) {
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
     onSortingChange: setSorting,
+    onGlobalFilterChange: setFiltering,
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     enableMultiRowSelection: false,
     state: {
       rowSelection,
       pagination,
       sorting,
+      globalFilter: filtering,
     },
   });
 
@@ -88,34 +78,56 @@ export default function TemplateTable({ data }) {
 
   return (
     <div>
-      <table>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id}>{header.column.columnDef.header}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows?.length &&
-            table.getRowModel().rows.map((row) => (
-              <tr
-                key={RowsIcon.id}
-                data-state={row.getIsSelected() && "selected"}
-                onClick={() => setRowSelection(row.id)}
-                className={row.id == rowSelection ? "selected" : "nonSelected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
+      <div>
+        <input
+          className="search"
+          type="text"
+          placeholder="Search for Blueprints..."
+          value={filtering}
+          onChange={(e) => setFiltering(e.target.value)}
+        />
+        <table>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    className="thSorted"
+                    onClick={header.column.getToggleSortingHandler()}
+                  >
+                    {header.column.columnDef.header}
+                    {/* {{ asc: " ", desc: "" }[header.column.getIsSorted() ?? null]}
+                  <SortingIcon /> */}
+                  </th>
                 ))}
               </tr>
             ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {table.getRowModel().rows?.length &&
+              table.getRowModel().rows.map((row) => (
+                <tr
+                  key={RowsIcon.id}
+                  data-state={row.getIsSelected() && "selected"}
+                  onClick={() => setRowSelection(row.id)}
+                  className={
+                    row.id == rowSelection ? "selected" : "nonSelected"
+                  }
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
       <div className="pagination">
         <button
           className="paginBtn"

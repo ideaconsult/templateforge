@@ -2,15 +2,11 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import Button from "../ui/Button";
-// import { Button } from "@/components/ui/button";
-import LogoBar from "../MenuBar/LogoBar";
-import BluePrintsTable from "./BluePrintsTable";
-import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
+import LogoBar from "../MenuBar/LogoBar";
 import config from "../utils/config";
+import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 
-import { Template, columns } from "@/DataTable/columns";
-import { DataTable } from "@/DataTable/DataTable";
 import TemplateTable from "@/DataTable/TemplateTable";
 
 import useSWR from "swr";
@@ -18,11 +14,11 @@ import useSWR from "swr";
 import { fetcher } from "../lib/fetcher";
 
 import {
-  useUuid,
-  useSetUuid,
-  useSetShowStartScreen,
   useIsShosen,
   useSetIsShosen,
+  useSetShowStartScreen,
+  useSetUuid,
+  useUuid,
 } from "../store/store";
 
 import { downloadFile } from "../lib/request";
@@ -142,21 +138,8 @@ export default function StartScreenComp({}) {
 
       <div className="tableViewWrap">
         <div className="inputWrap">
-          {/* <input
-            className="inputSearch"
-            placeholder="Please start typing to find your blueprint..."
-            type="text"
-            value={value}
-            onChange={onChange}
-          /> */}
-          {/* <BluePrintsTable
-            value={value}
-            mode={mode}
-            setIdShosen={setIdShosen}
-            idShosen={idShosen}
-          /> */}
-          <TemplateTable columns={columns} data={!isLoading && templateData} />
-          {/* <DataTable columns={columns} data={!isLoading && templateData} /> */}
+          <TemplateTable data={!isLoading && templateData} />
+
           <div className="buttonsWrap">
             <div
               onClick={() => {
@@ -188,17 +171,6 @@ export default function StartScreenComp({}) {
             </div>
           </div>
         </div>
-        {/* <div className="view">
-          {idShosen ? (
-            <iframe
-              width="100%"
-              height="400"
-              src={`${apiUrl}/${idShosen}`}
-            ></iframe>
-          ) : (
-            <p className="previewPlaceholder">No preview yet</p>
-          )}
-        </div> */}
       </div>
     </div>
   );
