@@ -53,7 +53,13 @@ export const postRequest = (data) => {
 
 export const downloadFile = (uuid, templateURL) => {
   fetch(templateURL)
-    .then((resp) => resp.blob())
+    .then((resp) => {
+      if (!resp.ok) {
+        alert("Sorry, something goes wrong");
+        throw new Error();
+      }
+      return resp.blob();
+    })
     .then((blob) => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
