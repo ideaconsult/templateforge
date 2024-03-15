@@ -13,8 +13,7 @@
 }
 
 .logoWrap {
-  /* font-bold text-[19px] text-indigo-950 px-4 py-4 mr-4 */
-  font-weight: 700;
+  font-weight: 900;
   font-size: 19px;
   color: rgb(32, 0, 63);
   padding: 0.8rem 2rem;
@@ -23,7 +22,7 @@
 }
 
 .logoWrapStartScreen {
-  font-weight: 700;
+  font-weight: 900;
   font-size: 30px;
   color: rgb(32, 0, 63);
   margin: 20px;

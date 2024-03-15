@@ -1,43 +1,42 @@
 // @ts-nocheck
-import { useState, useEffect } from "react";
 import {
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
   getFilteredRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { useEffect, useState } from "react";
 
-import { useSetIsShosen } from "../store/store";
 import { RowsIcon } from "lucide-react";
-import SortingIcon from "../IconsComponents/SortingIcon";
+import { useSetIsShosen } from "../store/store";
 
 const columns = [
   {
     accessorKey: "template_name",
     header: "Template Name",
-    cell: (props) => <p>{props.getValue()}</p>,
+    cell: (props) => <>{props.getValue()}</>,
   },
   {
     accessorKey: "template_author",
     header: "Template Author",
-    cell: (props) => <p>{props.getValue()}</p>,
+    cell: (props) => <>{props.getValue()}</>,
   },
   {
     accessorKey: "METHOD",
     header: "Method",
-    cell: (props) => <p>{props.getValue()}</p>,
+    cell: (props) => <>{props.getValue()}</>,
   },
   {
     accessorKey: "template_acknowledgment",
     header: "Acknowledgment",
-    cell: (props) => <p>{props.getValue()}</p>,
+    cell: (props) => <>{props.getValue()}</>,
   },
   {
     accessorKey: "PROTOCOL_CATEGORY_CODE",
     header: "Category",
-    cell: (props) => <p>{props.getValue()}</p>,
+    cell: (props) => <>{props.getValue()}</>,
   },
 ];
 
@@ -148,6 +147,7 @@ export default function TemplateTable({ data }) {
           Next
         </button>
       </div>
+      <hr style={{ border: "1px solid #e4e4e4", marginTop: "1rem" }} />
     </div>
   );
 }

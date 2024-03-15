@@ -29,8 +29,6 @@
     "survey-core": "latest",
     "survey-react-ui": "latest",
     "swr": "^2.2.4",
-    "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7",
     "zustand": "^4.5.0"
   },
   "devDependencies": {
@@ -46,7 +44,6 @@
     "http-server": "^14.1.1",
     "postcss": "^8.4.33",
     "rimraf": "^5.0.5",
-    "tailwindcss": "^3.4.1",
     "vite": "^5.0.8"
   }
 }

@@ -1,10 +1,9 @@
 import path from "path";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import tailwindcss from "tailwindcss";
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react()],
   resolve: {
     alias: {
       // eslint-disable-next-line no-undef
@@ -12,8 +11,6 @@ export default defineConfig({
     },
   },
   css: {
-    postcss: {
-      plugins: [tailwindcss],
-    },
+    postcss: {},
   },
 });

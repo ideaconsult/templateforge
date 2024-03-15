@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import config from "../utils/config";
 import { Model } from "survey-core";
 import { json } from "../SurveyComp/json";
-import { Button } from "@/components/ui/button";
+import Button from "@/ui/Button";
 
 import {
   useSetUuid,
@@ -34,7 +34,7 @@ const CreateNewDialog = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <Button
+        <button
           onClick={() => {
             setIdShosen(null);
             setName("");
@@ -46,7 +46,7 @@ const CreateNewDialog = () => {
           className="createNewBtn"
         >
           Create a new Draft
-        </Button>
+        </button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" />
