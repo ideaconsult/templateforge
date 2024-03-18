@@ -38,6 +38,11 @@ const columns = [
     header: "Category",
     cell: (props) => <>{props.getValue()}</>,
   },
+  {
+    accessorKey: "timestamp",
+    header: "Date",
+    cell: (props) => <>{props.getValue().slice(0, 10)}</>,
+  },
 ];
 
 export default function TemplateTable({ data }) {
