@@ -37,6 +37,8 @@ function SurveyComponent({ setResult }) {
     survey.data = data;
   }
 
+  console.log(survey.data.PROTOCOL_TOP_CATEGORY);
+
   useEffect(() => {
     getTemplateInfo();
   }, [getTemplateInfo, id]);
