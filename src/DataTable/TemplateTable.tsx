@@ -11,29 +11,9 @@ import { useEffect, useState } from "react";
 
 import { RowsIcon } from "lucide-react";
 import { useSetIsShosen } from "../store/store";
+import { ontLookup } from "./CategoryLookUp";
 
-const category = [
-  {
-    value: "P-CHEM",
-    text: "Physico-chemical characterisation",
-  },
-  {
-    value: "ECOTOX",
-    text: "Ecotoxicity studies",
-  },
-  {
-    value: "ENV FATE",
-    text: "Environmental fate",
-  },
-  {
-    value: "TOX",
-    text: "Toxicity studies",
-  },
-  {
-    value: "EXPOSURE",
-    text: "Exposure",
-  },
-];
+console.log(ontLookup("ENM_0000068_SECTION"));
 
 const columns = [
   {
@@ -59,16 +39,7 @@ const columns = [
   {
     accessorKey: "PROTOCOL_CATEGORY_CODE",
     header: "Category",
-    cell: (props) => {
-      if (props.getValue() === "ENM_0000068_SECTION") {
-        return <>Environmental fate</>;
-      }
-      if (props.getValue() === "EC_BACTOX_SECTION") {
-        return <>Ecotoxicity studies</>;
-      } else {
-        return <>{props.getValue()}</>;
-      }
-    },
+    cell: (props) => ontLookup(props.getValue()),
   },
   {
     accessorKey: "timestamp",
