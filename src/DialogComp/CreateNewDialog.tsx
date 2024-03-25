@@ -16,6 +16,7 @@ import {
   useSetIsShosen,
 } from "../store/store";
 import "./styles.css";
+import { Navigate } from "react-router-dom";
 
 const CreateNewDialog = () => {
   const setUUID = useSetUuid();
@@ -116,9 +117,15 @@ const CreateNewDialog = () => {
                     }
                   );
                   let result = await res.json();
+                  <Navigate
+                    to={`?uuid=${result.result_uuid}`}
+                    replace={true}
+                  />;
 
                   if (result.result_uuid) {
                     setUUID(result.result_uuid);
+                    {
+                    }
                   }
                 }}
               >

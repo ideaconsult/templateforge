@@ -27,7 +27,9 @@ function SurveyComponent({ setResult }) {
   const idShosen = useIsShosen();
   const setIntermediateData = useSetIntermediateData();
 
+  console.log("UUID", UUID);
   const id = idShosen ? idShosen : UUID;
+  console.log("id", id);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getTemplateInfo() {
@@ -36,8 +38,6 @@ function SurveyComponent({ setResult }) {
     const data = await response.json();
     survey.data = data;
   }
-
-  console.log(survey.data.PROTOCOL_TOP_CATEGORY);
 
   useEffect(() => {
     getTemplateInfo();
