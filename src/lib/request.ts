@@ -52,7 +52,7 @@ export const postRequest = (data) => {
 };
 
 export const downloadFile = (uuid, templateURL) => {
-  fetch(templateURL)
+  fetch(templateURL, { cache: "no-cache" })
     .then((resp) => {
       if (!resp.ok) {
         alert("Sorry, something goes wrong");

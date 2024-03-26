@@ -41,7 +41,8 @@ function SurveyComponent({ setResult }) {
 
   useEffect(() => {
     getTemplateInfo();
-  }, [getTemplateInfo, id]);
+    setIntermediateData(survey.data);
+  }, [getTemplateInfo, id, setIntermediateData]);
 
   survey.addNavigationItem({
     id: "sv-nav-clear-page",
