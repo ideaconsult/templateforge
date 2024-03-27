@@ -123,12 +123,14 @@ export default function StartScreenComp({}) {
       </div>
       <div className="tabsWrap">
         <p
+          id="Finalized"
           onClick={() => setMode("Finalized")}
           className={mode == "Finalized" ? "tabActive" : "tab"}
         >
           Finalized Blueprints
         </p>
         <p
+          id="Draft"
           onClick={() => setMode("Draft")}
           className={mode == "Draft" ? "tabActive" : "tab"}
         >
