@@ -33,8 +33,6 @@ export default function TopMenuBar() {
     setCopied(false);
   }, 3000);
 
-  console.log(interData);
-
   return (
     <div>
       <div className="topMenuBar">
