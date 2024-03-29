@@ -41,7 +41,9 @@ function SurveyComponent({ setResult }) {
     const data = await response.json();
     // populate survye.js with data from API
     survey.data = data;
-    console.log("API Data", data);
+    if (data.template_status == "FINALIZED") {
+      survey.mode = "display";
+    }
   }
   console.log("survey", survey.data);
 
