@@ -775,7 +775,8 @@ export const json = {
               startWithNewLine: false,
               defaultValue: false,
               title:
-                "Include the following data types in the generated template:",
+                "Include the following sheets in the generated template:",
+              description: "tbd",
               choices: [
                 {
                   value: "data_raw",
@@ -784,15 +785,11 @@ export const json = {
                 {
                   value: "data_processed",
                   text: "Processed data",
-                },
+                },                
                 {
                   value: "data_platelayout",
                   text: "Plate layout",
-                },
-                {
-                  value: "data_filepointer",
-                  text: "Links to files with data",
-                },
+                }
               ],
               hasOther: true,
               otherText: "Other (please specify)",
@@ -804,9 +801,9 @@ export const json = {
               visibleIf: "{data_sheets} contains 'data_raw'",
               title: "Unprocessed (Raw data) reporting",
               description:
-                "Please provide information of the parameters reported as unprocessed data (e.g. Absorbance, AU). Use the + button to specify which factors are varied.  ",
+                "Please provide information of the parameters reported as unprocessed data (e.g. Absorbance, AU). Use the + button to specify which factors are varied. If your data is in separate files you may use the 'Pointer to file' type.",
               requiredIf:
-                "{user_role} contains 'role_datamgr' and {data_sheets} contains 'data_raw'",
+                "{data_sheets} contains 'data_raw'",
               showCommentArea: true,
               columns: [
                 {
@@ -837,6 +834,14 @@ export const json = {
                       value: "MODE",
                       text: "Mode",
                     },
+                    {
+                      value: "AGGREGATED",
+                      text: "Aggregated",
+                    },
+                    {
+                      value: "",
+                      text: "Other",
+                    }                                         
                   ],
                 },
                 {
@@ -891,13 +896,17 @@ export const json = {
                       text: "2D array",
                     },
                     {
-                      value: "value_file",
-                      text: "file",
-                    },
-                    {
                       value: "value_text",
                       text: "text",
+                    },                    
+                    {
+                      value: "value_file",
+                      text: "Pointer to a file",
                     },
+                    {
+                      value: "value_database",
+                      text: "Link to a database entry (e.g. GEO)",
+                    }
                   ],
                 },
               ],
@@ -921,9 +930,9 @@ export const json = {
               title: "Results reporting",
               visibleIf: "{data_sheets} contains 'data_processed'",
               description:
-                "Please provide information of the endpoints or descriptors reported as experimental results. e.g. Cell viability , %",
+                "Please provide information of the endpoints or descriptors reported as experimental results. e.g. Cell viability , %. If your data is in separate files you may use the 'Pointer to file' type.",
               requiredIf:
-                "{user_role} contains 'role_datamgr' and {data_sheets} contains 'data_processed'",
+                "{data_sheets} contains 'data_processed'",
               showCommentArea: true,
               columns: [
                 {
@@ -936,7 +945,7 @@ export const json = {
                   title: "Mark if aggregated",
                   cellType: "dropdown",
                   isRequired: false,
-                  defaultValue: "MEAN",
+                  defaultValue: "",
                   choices: [
                     {
                       value: "",
@@ -1022,13 +1031,41 @@ export const json = {
                       text: "2D array",
                     },
                     {
-                      value: "value_file",
-                      text: "file",
-                    },
-                    {
                       value: "value_text",
                       text: "text",
                     },
+                    {
+                      value: "value_num",
+                      text: "numeric",
+                    },
+                    {
+                      value: "value_spectrum",
+                      text: "spectrum",
+                    },
+                    {
+                      value: "value_timeseries",
+                      text: "time series",
+                    },
+                    {
+                      value: "value_image",
+                      text: "image",
+                    },
+                    {
+                      value: "value_1darray",
+                      text: "1D array",
+                    },
+                    {
+                      value: "value_2darray",
+                      text: "2D array",
+                    },
+                    {
+                      value: "value_file",
+                      text: "Pointer to a file",
+                    },
+                    {
+                      value: "value_database",
+                      text: "Link to a database entry (e.g. GEO)",
+                    }                    
                   ],
                 },
               ],
