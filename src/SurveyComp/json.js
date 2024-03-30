@@ -914,8 +914,9 @@ export const json = {
                 {
                   type: "checkbox",
                   name: "raw_conditions",
-                  title: "Please select the experimental factors ...",
+                  title: "Please select the experimental factors (these are defined in the Method page)",
                   choicesFromQuestion: "conditions",
+                  _visibleIf: "{conditions.rowCount} > 0",
                   minSelectedChoices: 0,
                 },
               ],
@@ -1073,8 +1074,9 @@ export const json = {
                 {
                   type: "checkbox",
                   name: "results_conditions",
-                  title: "Please select the experimental factors ...",
+                  title: "Please select the experimental factors (these are defined in the Method page)",
                   choicesFromQuestion: "conditions",
+                  _visibleIf: "{conditions.rowCount} > 0",
                   minSelectedChoices: 0,
                 },
               ],
@@ -1439,7 +1441,7 @@ export const json = {
           name: "template_layout",
           visible: true,
           title: "Template layout",
-          defaultValueExpression: "{preferred_layout}",
+          defaultValue:  "{preferred_layout}",
           startWithNewLine: true,
           choices: [
             {
@@ -1448,18 +1450,27 @@ export const json = {
             },
             {
               value: "pchem",
-              text: "Nanoreg",
+              text: "Physchem characterisaiton",
             },
           ],
           colCount: 1,
         },
         {
-          type: "html",
-          name: "help_layout",
-          titleLocation: "hidden",
-          html: "{template_uuid}?format={template_layout}",
-          readOnly: true,
+          "type": "html",
+          "name": "help_layout_dose_response",
+          "titleLocation": "hidden",
+          "visibleIf": "{template_layout} == 'dose_response'",
+          "html": "This layout is appropriate when there are a number of experimental factors, e.g. concentration, time, as well as parameters like instrument, medium, temperature.",
+          "readOnly": true
         },
+        {
+          "type": "html",
+          "name": "help_layout_pchem",
+          "titleLocation": "hidden",
+          "visibleIf": "{template_layout} == 'pchem'",
+          "html": "This layout is appropriate when there are no experimental factors (but there could be parameters like instrument, medium, temperature).",
+          "readOnly": true
+        }
       ],
       title: "[{template_name}]: Template layout",
       description: "Select from several supported layouts",
