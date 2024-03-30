@@ -51,14 +51,17 @@ export const postRequest = (data) => {
   });
 };
 
+
+
 export const downloadFile = (uuid, templateURL) => {
   fetch(templateURL, { cache: "no-cache" })
-    .then((resp) => {
-      if (!resp.ok) {
-        alert("Sorry, something goes wrong");
-        throw new Error();
-      }
-      return resp.blob();
+  .then((resp) => {
+    if (!resp.ok) {
+      return resp.text().then((body) => {
+        throw new Error(`Failed to download the file: \n${body}`);
+      });
+    }
+    return resp.blob();
     })
     .then((blob) => {
       const url = window.URL.createObjectURL(blob);
@@ -70,5 +73,14 @@ export const downloadFile = (uuid, templateURL) => {
       a.click();
       window.URL.revokeObjectURL(url);
     })
-    .catch(() => alert("oh no!"));
+    .catch((error) => {
+      const errorMessage = error.message;
+      const detailsButton = document.createElement("button");
+      detailsButton.textContent = "Details";
+      detailsButton.addEventListener("click", () => {
+        alert(errorMessage);
+      });
+      alert(errorMessage);
+   
+    });
 };
