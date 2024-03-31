@@ -776,7 +776,7 @@ export const json = {
               defaultValue: false,
               title:
                 "Include the following sheets in the generated template:",
-              description: "tbd",
+              description: "",
               choices: [
                 {
                   value: "data_raw",
@@ -794,7 +794,42 @@ export const json = {
               hasOther: true,
               otherText: "Other (please specify)",
               defaultValue: ["data_raw", "data_processed"],
-            },
+            },            
+            {
+              type: "dropdown",
+              name: "plate_layout_type",
+              startWithNewLine: false,
+              visibleIf: "{data_sheets} contains 'data_platelayout'",
+              title: "Plate Layout Type",
+              choices: [
+                  {
+                      value: "96-well",
+                      text: "96-Well"
+                  },
+                  {
+                      value: "384-well",
+                      text: "384-Well"
+                  }
+              ]
+            },    
+            {
+              type: "html",
+              name: "help_data_sheets_other",
+              titleLocation: "hidden",
+              startWithNewLine: false,
+              visibleIf: "{data_sheets} contains 'other'",
+              html: "Please note that the 'Other' option is for information purposes only, no data sheet will be generated!",
+              readOnly: true
+            },      
+            {
+              type: "html",
+              name: "help_data_sheets",
+              titleLocation: "hidden",
+              startWithNewLine: false,
+              visibleIf: "{data_sheets} contains 'data_raw' or {data_sheets} contains 'data_processed'",
+              html: "Please define in the tables below the columns that represents your results. Columns for samples and experimental factors will be automatically added. If your data is in separate files you may use the 'Pointer to file' type.",
+              readOnly: true
+            },                             
             {
               type: "matrixdynamic",
               name: "raw_data_report",
