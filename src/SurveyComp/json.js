@@ -797,17 +797,18 @@ export const json = {
             },            
             {
               type: "dropdown",
-              name: "plate_layout_type",
+              name: "plate_format",
               startWithNewLine: false,
               visibleIf: "{data_sheets} contains 'data_platelayout'",
               title: "Plate Layout Type",
+              defaultValue: "96",
               choices: [
                   {
-                      value: "96-well",
+                      value: "96",
                       text: "96-Well"
                   },
                   {
-                      value: "384-well",
+                      value: "384",
                       text: "384-Well"
                   }
               ]
@@ -984,10 +985,6 @@ export const json = {
                   defaultValue: "",
                   choices: [
                     {
-                      value: "",
-                      text: "-",
-                    },
-                    {
                       value: "MEAN",
                       text: "Mean",
                     },
@@ -1004,13 +1001,21 @@ export const json = {
                       text: "Peak",
                     },
                     {
+                      value: "MAX",
+                      text: "Max",
+                    },                    
+                    {
                       value: "D25",
                       text: "D25",
                     },
                     {
                       value: "D90",
                       text: "D90",
-                    },
+                    },  
+                    {
+                      value: "",
+                      text: "Other",
+                    }                                     
                   ],
                 },
                 {
@@ -1160,6 +1165,7 @@ export const json = {
               cellType: "dropdown",
               choices: [
                 "INSTRUMENT",
+                "MEASUREMENT CONDITIONS",
                 "ENVIRONMENT",
                 "MEDIUM",
                 "SPECIES",
@@ -1495,7 +1501,7 @@ export const json = {
           "name": "help_layout_dose_response",
           "titleLocation": "hidden",
           "visibleIf": "{template_layout} == 'dose_response'",
-          "html": "This layout is appropriate when there are a number of experimental factors, e.g. concentration, time, as well as parameters like instrument, medium, temperature.",
+          "html": "This layout is appropriate when there are a number of experimental factors, e.g. concentration, time, as well as a single set of parameters like instrument, medium, temperature, cell type.",
           "readOnly": true
         },
         {
@@ -1503,7 +1509,7 @@ export const json = {
           "name": "help_layout_pchem",
           "titleLocation": "hidden",
           "visibleIf": "{template_layout} == 'pchem'",
-          "html": "This layout is appropriate when there are no experimental factors (but there could be parameters like instrument, medium, temperature).",
+          "html": "This layout is appropriate when there are no experimental factors (but there could be multiple set of parameters like instrument, medium, temperature).",
           "readOnly": true
         }
       ],
