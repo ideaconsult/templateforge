@@ -97,6 +97,7 @@ const CreateNewDialog = () => {
           >
             <Dialog.Close asChild>
               <button
+                id="create_new"
                 disabled={name == "" && author == "" && acknowledgment == ""}
                 className="Button"
                 onClick={async () => {
