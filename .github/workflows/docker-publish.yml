@@ -32,6 +32,19 @@ jobs:
         with:
           submodules: recursive
 
+      # TODO: Temporary solution for using different backends.
+      - name: Set up appropriate backend
+        run: >-
+          if [[ '${{ github.ref }}' == 'refs/heads/main' ]]; then
+            api_url="https://api.ramanchada.ideaconsult.net/template"
+          elif [[ '${{ github.ref }}' == 'refs/heads/develop' ]]; then
+            api_url='https://api-test.ramanchada.ideaconsult.net/template'
+          else
+            api_url='https://api-test.ramanchada.ideaconsult.net/template'
+          fi
+
+          sed -i "/[[:blank:]]*apiUrl: /s|: \".*\",|: \"${api_url}\",|" src/utils/config.ts
+
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
