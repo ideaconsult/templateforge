@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "build-docker": "vite build --base=/designer",
+    "build": "rimraf dist && vite build",
+    "build-docker": "rimraf dist && vite build --base=/designer",
+    "clean": "rimraf dist",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "rimraf dist && vite build --base /designer --outDir dist/designer && http-server -a localhost -p 0 -o /designer dist"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.0.4",
@@ -28,8 +29,6 @@
     "survey-core": "latest",
     "survey-react-ui": "latest",
     "swr": "^2.2.4",
-    "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7",
     "zustand": "^4.5.0"
   },
   "devDependencies": {
@@ -42,8 +41,9 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "http-server": "^14.1.1",
     "postcss": "^8.4.33",
-    "tailwindcss": "^3.4.1",
+    "rimraf": "^5.0.5",
     "vite": "^5.0.8"
   }
 }

@@ -21,6 +21,16 @@
 .sd-body--responsive {
   height: 100vh;
 }
+.thSorted {
+  cursor: pointer;
+  user-select: none;
+}
+
+.search {
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  padding: 1rem 0.5rem;
+}
 
 .sv-header {
   display: none;

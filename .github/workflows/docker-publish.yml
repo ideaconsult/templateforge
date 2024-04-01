@@ -32,13 +32,26 @@ jobs:
         with:
           submodules: recursive
 
+      # TODO: Temporary solution for using different backends.
+      - name: Set up appropriate backend
+        run: >-
+          if [[ '${{ github.ref }}' == 'refs/heads/main' ]]; then
+            api_url="https://api.ramanchada.ideaconsult.net/template"
+          elif [[ '${{ github.ref }}' == 'refs/heads/develop' ]]; then
+            api_url='https://api-test.ramanchada.ideaconsult.net/template'
+          else
+            api_url='https://api-test.ramanchada.ideaconsult.net/template'
+          fi
+
+          sed -i "/[[:blank:]]*apiUrl: /s|: \".*\",|: \"${api_url}\",|" src/utils/config.ts
+
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@6e04d228eb30da1757ee4e1dd75a0ec73a653e06  # v3.1.1
+        uses: sigstore/cosign-installer@v3.3.0
         with:
-          cosign-release: 'v2.1.1'
+          cosign-release: 'v2.2.3'
 
       # Workaround: https://github.com/docker/build-push-action/issues/461
       - name: Setup Docker buildx

@@ -13,13 +13,17 @@ export default function HomePage() {
   const queryParams = new URLSearchParams(location.search);
   const uuidParams = queryParams.get("uuid");
 
-  console.log(uuidParams);
-
   if (uuidParams) {
     setUUID(uuidParams);
   }
 
   return (
-    <>{uuidParams ? <TemplatePage uuid={uuidParams} /> : <StartScreenComp />}</>
+    <>
+      {uuidParams || UUID ? (
+        <TemplatePage uuid={uuidParams} />
+      ) : (
+        <StartScreenComp />
+      )}
+    </>
   );
 }

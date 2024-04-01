@@ -6,7 +6,12 @@ import { json } from "./json";
 import { themeJson } from "./theme";
 
 import { postRequestUUID } from "../lib/request";
-import { useIsShosen, useUuid, useSetIntermediateData } from "../store/store";
+import {
+  useIsShosen,
+  useUuid,
+  useSetIntermediateData,
+  useIntermediateData,
+} from "../store/store";
 
 import config from "../utils/config";
 
@@ -34,12 +39,18 @@ function SurveyComponent({ setResult }) {
     const apiUrl = config.apiUrl;
     const response = await fetch(`${apiUrl}/${id}`);
     const data = await response.json();
+    // populate survye.js with data from API
     survey.data = data;
+    if (data.template_status == "FINALIZED") {
+      survey.mode = "display";
+    }
   }
+  console.log("survey", survey.data);
 
   useEffect(() => {
     getTemplateInfo();
-  }, [getTemplateInfo, id]);
+    setIntermediateData(survey.data);
+  }, [getTemplateInfo, id, setIntermediateData]);
 
   survey.addNavigationItem({
     id: "sv-nav-clear-page",
@@ -67,15 +78,15 @@ function SurveyComponent({ setResult }) {
     setIntermediateData(survey.data);
   }
 
-  // function saveinLocalSurveyData(survey) {
-  //   setIntermediateData(survey.data);
-  //   const data = survey.data;
-  //   data.pageNo = survey.currentPageNo;
-  //   window.localStorage.setItem(storageItemKey, JSON.stringify(data));
-  // }
+  function saveinLocalSurveyData(survey) {
+    setIntermediateData(survey.data);
+    const data = survey.data;
+    data.pageNo = survey.currentPageNo;
+    window.localStorage.setItem(storageItemKey, JSON.stringify(data));
+  }
 
   // Save survey results to the local storage
-  // survey.onValueChanged.add(saveinLocalSurveyData);
+  survey.onValueChanged.add(saveinLocalSurveyData);
   survey.onCurrentPageChanged.add(saveSurveyData);
 
   // Empty the local storage after the survey is completed
@@ -86,9 +97,12 @@ function SurveyComponent({ setResult }) {
   survey.applyTheme(themeJson);
 
   survey.onComplete.add(function (sender, options) {
-    setResult(sender.data);
-    options.showSaveInProgress();
-    postRequestUUID(sender.data, id);
+    // onCoplete Check
+    if (options.isCompleteOnTrigger) {
+      setResult(sender.data);
+      options.showSaveInProgress();
+      postRequestUUID(sender.data, id);
+    }
   });
   return <Survey model={survey} />;
 }

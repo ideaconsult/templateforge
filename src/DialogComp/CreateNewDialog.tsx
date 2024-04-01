@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import config from "../utils/config";
 import { Model } from "survey-core";
 import { json } from "../SurveyComp/json";
-import { Button } from "@/components/ui/button";
+import Button from "@/ui/Button";
 
 import {
   useSetUuid,
@@ -16,6 +16,7 @@ import {
   useSetIsShosen,
 } from "../store/store";
 import "./styles.css";
+import { Navigate } from "react-router-dom";
 
 const CreateNewDialog = () => {
   const setUUID = useSetUuid();
@@ -34,7 +35,7 @@ const CreateNewDialog = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <Button
+        <button
           onClick={() => {
             setIdShosen(null);
             setName("");
@@ -46,7 +47,7 @@ const CreateNewDialog = () => {
           className="createNewBtn"
         >
           Create a new Draft
-        </Button>
+        </button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" />
@@ -96,6 +97,7 @@ const CreateNewDialog = () => {
           >
             <Dialog.Close asChild>
               <button
+                id="create_new"
                 disabled={name == "" && author == "" && acknowledgment == ""}
                 className="Button"
                 onClick={async () => {
@@ -116,9 +118,15 @@ const CreateNewDialog = () => {
                     }
                   );
                   let result = await res.json();
+                  <Navigate
+                    to={`?uuid=${result.result_uuid}`}
+                    replace={true}
+                  />;
 
                   if (result.result_uuid) {
                     setUUID(result.result_uuid);
+                    {
+                    }
                   }
                 }}
               >
