@@ -97,9 +97,12 @@ function SurveyComponent({ setResult }) {
   survey.applyTheme(themeJson);
 
   survey.onComplete.add(function (sender, options) {
-    setResult(sender.data);
-    options.showSaveInProgress();
-    postRequestUUID(sender.data, id);
+    // onCoplete Check
+    if (options.isCompleteOnTrigger) {
+      setResult(sender.data);
+      options.showSaveInProgress();
+      postRequestUUID(sender.data, id);
+    }
   });
   return <Survey model={survey} />;
 }
