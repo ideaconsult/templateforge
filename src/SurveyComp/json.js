@@ -775,7 +775,8 @@ export const json = {
               startWithNewLine: false,
               defaultValue: false,
               title:
-                "Include the following data types in the generated template:",
+                "Include the following sheets in the generated template:",
+              description: "",
               choices: [
                 {
                   value: "data_raw",
@@ -784,29 +785,61 @@ export const json = {
                 {
                   value: "data_processed",
                   text: "Processed data",
-                },
+                },                
                 {
                   value: "data_platelayout",
                   text: "Plate layout",
-                },
-                {
-                  value: "data_filepointer",
-                  text: "Links to files with data",
-                },
+                }
               ],
               hasOther: true,
               otherText: "Other (please specify)",
               defaultValue: ["data_raw", "data_processed"],
-            },
+            },            
+            {
+              type: "dropdown",
+              name: "plate_format",
+              startWithNewLine: false,
+              visibleIf: "{data_sheets} contains 'data_platelayout'",
+              title: "Plate Layout Type",
+              defaultValue: "96",
+              choices: [
+                  {
+                      value: "96",
+                      text: "96-Well"
+                  },
+                  {
+                      value: "384",
+                      text: "384-Well"
+                  }
+              ]
+            },    
+            {
+              type: "html",
+              name: "help_data_sheets_other",
+              titleLocation: "hidden",
+              startWithNewLine: false,
+              visibleIf: "{data_sheets} contains 'other'",
+              html: "Please note that the 'Other' option is for information purposes only, no data sheet will be generated!",
+              readOnly: true
+            },      
+            {
+              type: "html",
+              name: "help_data_sheets",
+              titleLocation: "hidden",
+              startWithNewLine: false,
+              visibleIf: "{data_sheets} contains 'data_raw' or {data_sheets} contains 'data_processed'",
+              html: "Please define in the tables below the columns that represents your results. Columns for samples and experimental factors will be automatically added. If your data is in separate files you may use the 'Pointer to file' type.",
+              readOnly: true
+            },                             
             {
               type: "matrixdynamic",
               name: "raw_data_report",
               visibleIf: "{data_sheets} contains 'data_raw'",
               title: "Unprocessed (Raw data) reporting",
               description:
-                "Please provide information of the parameters reported as unprocessed data (e.g. Absorbance, AU). Use the + button to specify which factors are varied.  ",
+                "Please provide information of the parameters reported as unprocessed data (e.g. Absorbance, AU). Use the + button to specify which factors are varied. If your data is in separate files you may use the 'Pointer to file' type.",
               requiredIf:
-                "{user_role} contains 'role_datamgr' and {data_sheets} contains 'data_raw'",
+                "{data_sheets} contains 'data_raw'",
               showCommentArea: true,
               columns: [
                 {
@@ -837,6 +870,14 @@ export const json = {
                       value: "MODE",
                       text: "Mode",
                     },
+                    {
+                      value: "AGGREGATED",
+                      text: "Aggregated",
+                    },
+                    {
+                      value: "",
+                      text: "Other",
+                    }                                         
                   ],
                 },
                 {
@@ -891,13 +932,17 @@ export const json = {
                       text: "2D array",
                     },
                     {
-                      value: "value_file",
-                      text: "file",
-                    },
-                    {
                       value: "value_text",
                       text: "text",
+                    },                    
+                    {
+                      value: "value_file",
+                      text: "Pointer to a file",
                     },
+                    {
+                      value: "value_database",
+                      text: "Link to a database entry (e.g. GEO)",
+                    }
                   ],
                 },
               ],
@@ -905,8 +950,9 @@ export const json = {
                 {
                   type: "checkbox",
                   name: "raw_conditions",
-                  title: "Please select the experimental factors ...",
+                  title: "Please select the experimental factors (these are defined in the Method page)",
                   choicesFromQuestion: "conditions",
+                  _visibleIf: "{conditions.rowCount} > 0",
                   minSelectedChoices: 0,
                 },
               ],
@@ -921,9 +967,9 @@ export const json = {
               title: "Results reporting",
               visibleIf: "{data_sheets} contains 'data_processed'",
               description:
-                "Please provide information of the endpoints or descriptors reported as experimental results. e.g. Cell viability , %",
+                "Please provide information of the endpoints or descriptors reported as experimental results. e.g. Cell viability , %. If your data is in separate files you may use the 'Pointer to file' type.",
               requiredIf:
-                "{user_role} contains 'role_datamgr' and {data_sheets} contains 'data_processed'",
+                "{data_sheets} contains 'data_processed'",
               showCommentArea: true,
               columns: [
                 {
@@ -936,12 +982,8 @@ export const json = {
                   title: "Mark if aggregated",
                   cellType: "dropdown",
                   isRequired: false,
-                  defaultValue: "MEAN",
+                  defaultValue: "",
                   choices: [
-                    {
-                      value: "",
-                      text: "-",
-                    },
                     {
                       value: "MEAN",
                       text: "Mean",
@@ -959,13 +1001,21 @@ export const json = {
                       text: "Peak",
                     },
                     {
+                      value: "MAX",
+                      text: "Max",
+                    },                    
+                    {
                       value: "D25",
                       text: "D25",
                     },
                     {
                       value: "D90",
                       text: "D90",
-                    },
+                    },  
+                    {
+                      value: "",
+                      text: "Other",
+                    }                                     
                   ],
                 },
                 {
@@ -1022,13 +1072,41 @@ export const json = {
                       text: "2D array",
                     },
                     {
-                      value: "value_file",
-                      text: "file",
-                    },
-                    {
                       value: "value_text",
                       text: "text",
                     },
+                    {
+                      value: "value_num",
+                      text: "numeric",
+                    },
+                    {
+                      value: "value_spectrum",
+                      text: "spectrum",
+                    },
+                    {
+                      value: "value_timeseries",
+                      text: "time series",
+                    },
+                    {
+                      value: "value_image",
+                      text: "image",
+                    },
+                    {
+                      value: "value_1darray",
+                      text: "1D array",
+                    },
+                    {
+                      value: "value_2darray",
+                      text: "2D array",
+                    },
+                    {
+                      value: "value_file",
+                      text: "Pointer to a file",
+                    },
+                    {
+                      value: "value_database",
+                      text: "Link to a database entry (e.g. GEO)",
+                    }                    
                   ],
                 },
               ],
@@ -1036,8 +1114,9 @@ export const json = {
                 {
                   type: "checkbox",
                   name: "results_conditions",
-                  title: "Please select the experimental factors ...",
+                  title: "Please select the experimental factors (these are defined in the Method page)",
                   choicesFromQuestion: "conditions",
+                  _visibleIf: "{conditions.rowCount} > 0",
                   minSelectedChoices: 0,
                 },
               ],
@@ -1086,6 +1165,7 @@ export const json = {
               cellType: "dropdown",
               choices: [
                 "INSTRUMENT",
+                "MEASUREMENT CONDITIONS",
                 "ENVIRONMENT",
                 "MEDIUM",
                 "SPECIES",
@@ -1402,7 +1482,7 @@ export const json = {
           name: "template_layout",
           visible: true,
           title: "Template layout",
-          defaultValueExpression: "{preferred_layout}",
+          defaultValue:  "{preferred_layout}",
           startWithNewLine: true,
           choices: [
             {
@@ -1411,18 +1491,27 @@ export const json = {
             },
             {
               value: "pchem",
-              text: "Nanoreg",
+              text: "Physchem characterisaiton",
             },
           ],
           colCount: 1,
         },
         {
-          type: "html",
-          name: "help_layout",
-          titleLocation: "hidden",
-          html: "{template_uuid}?format={template_layout}",
-          readOnly: true,
+          "type": "html",
+          "name": "help_layout_dose_response",
+          "titleLocation": "hidden",
+          "visibleIf": "{template_layout} == 'dose_response'",
+          "html": "This layout is appropriate when there are a number of experimental factors, e.g. concentration, time, as well as a single set of parameters like instrument, medium, temperature, cell type.",
+          "readOnly": true
         },
+        {
+          "type": "html",
+          "name": "help_layout_pchem",
+          "titleLocation": "hidden",
+          "visibleIf": "{template_layout} == 'pchem'",
+          "html": "This layout is appropriate when there are no experimental factors (but there could be multiple set of parameters like instrument, medium, temperature).",
+          "readOnly": true
+        }
       ],
       title: "[{template_name}]: Template layout",
       description: "Select from several supported layouts",
