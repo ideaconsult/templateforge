@@ -40,7 +40,9 @@ export default function StartScreenComp({}) {
   const apiUrl = config.apiUrl;
   const templateURL = `${apiUrl}/${idShosen}?format=xlsx`;
 
-  const { data, isLoading } = useSWR(config.apiUrl, fetcher);
+  const { data, isLoading, error } = useSWR(`${apiUrl}`, fetcher);
+
+  console.log(error ? "1error" : "ok");
 
   const templateData = [];
   data &&
@@ -151,7 +153,7 @@ export default function StartScreenComp({}) {
               }}
             >
               <Button
-                disabled={!idShosen}
+                disabled={!idShosen || error}
                 label={mode == "Finalized" ? "View" : "Edit"}
               />
             </div>
