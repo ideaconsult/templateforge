@@ -45,7 +45,6 @@ function SurveyComponent({ setResult }) {
       survey.mode = "display";
     }
   }
-  console.log("survey", survey.data);
 
   useEffect(() => {
     getTemplateInfo();
@@ -96,9 +95,11 @@ function SurveyComponent({ setResult }) {
 
   survey.applyTheme(themeJson);
 
+  console.log("validate", survey.validationAllowComplete);
+
   survey.onComplete.add(function (sender, options) {
     // onCoplete Check
-    if (options.isCompleteOnTrigger) {
+    if (survey.validationAllowComplete) {
       setResult(sender.data);
       options.showSaveInProgress();
       postRequestUUID(sender.data, id);
