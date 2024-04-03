@@ -95,7 +95,7 @@ function SurveyComponent({ setResult }) {
 
   survey.applyTheme(themeJson);
 
-  console.log("validate", survey.validationAllowComplete);
+  survey.completedHtml = "Thank you for finalizing the template";
 
   survey.onComplete.add(function (sender, options) {
     // onCoplete Check
