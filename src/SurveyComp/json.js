@@ -198,6 +198,10 @@ export const json = {
                       text: "Experiment",
                     },
                     {
+                      value: "c_calibration",
+                      text: "Calibration",
+                    },                    
+                    {
                       value: "c_other",
                       text: "Other",
                     },
@@ -789,7 +793,7 @@ export const json = {
                 {
                   value: "data_platelayout",
                   text: "Plate layout",
-                }
+                }             
               ],
               hasOther: true,
               otherText: "Other (please specify)",
@@ -813,6 +817,7 @@ export const json = {
                   }
               ]
             },    
+          
             {
               type: "html",
               name: "help_data_sheets_other",
@@ -1003,7 +1008,23 @@ export const json = {
                     {
                       value: "MAX",
                       text: "Max",
-                    },                    
+                    },     
+                    {
+                      value: "NORMALIZED",
+                      text: "Normalized",
+                    },                 
+                    {
+                      value: "HIGHEST_DOSE",
+                      text: "Highest dose",
+                    },                             
+                    {
+                      value: "FOLD_CHANGE",
+                      text: "FOLD CHANGE",
+                    },                               
+                    {
+                      value: "REPLICATES AVERAGE",
+                      text: "Replicates average",
+                    },                             
                     {
                       value: "D25",
                       text: "D25",
@@ -1171,6 +1192,7 @@ export const json = {
                 "SPECIES",
                 "CELL LINE DETAILS",
                 "CULTURE CONDITIONS",
+                "PLATE DETAILS",
                 "MONITORING",
                 "CALIBRATION",
                 {
