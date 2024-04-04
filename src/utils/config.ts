@@ -1,4 +1,4 @@
-// config.tss
+// config.ts
 const config = {
   apiUrl: "https://api.ramanchada.ideaconsult.net/template",
 };
