@@ -42,8 +42,6 @@ export default function StartScreenComp({}) {
 
   const { data, isLoading, error } = useSWR(`${apiUrl}`, fetcher);
 
-  console.log(error ? "1error" : "ok");
-
   const templateData = [];
   data &&
     data.template.map((item) => {
