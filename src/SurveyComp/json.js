@@ -1171,7 +1171,7 @@ export const json = {
           columns: [
             {
               name: "param_name",
-              title: "Param name",
+              title: "Parameter name",
               cellType: "text",
               isRequired: true,
               isUnique: true,
@@ -1345,7 +1345,7 @@ export const json = {
           columns: [
             {
               name: "param_sampleprep_name",
-              title: "Param name",
+              title: "Parameter name",
               cellType: "text",
               isRequired: true,
               isUnique: true,
