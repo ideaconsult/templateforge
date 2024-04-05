@@ -1195,12 +1195,13 @@ export const json = {
                 "PLATE DETAILS",
                 "MONITORING",
                 "CALIBRATION",
+                "RESULT_ANALYSIS",
                 {
                   value: "OTHER_METADATA",
                   text: "OTHER METADATA",
-                },
-                "RESULT_ANALYSIS",
+                }
               ],
+              isRequired: true
             },
             {
               name: "param_type",
