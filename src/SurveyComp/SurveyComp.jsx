@@ -69,7 +69,7 @@ function SurveyComponent({ setResult }) {
     container: "sd-action-bar",
     data: survey,
   });
-
+  // console.log("HasErrors", survey.isCurrentPageHasErrors);
   const storageItemKey = "my-survey";
 
   function saveSurveyData(survey) {
@@ -105,7 +105,11 @@ function SurveyComponent({ setResult }) {
       postRequestUUID(sender.data, id);
     }
   });
-  return <Survey model={survey} />;
+  return (
+    <>
+      <Survey model={survey} />
+    </>
+  );
 }
 
 export default SurveyComponent;
