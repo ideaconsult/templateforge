@@ -5,7 +5,6 @@ import Button from "../ui/Button";
 import "./Header.css";
 
 import config from "../utils/config";
-import urlConfig from "../utils/appUrl";
 
 import { useIntermediateData, useUuid } from "../store/store";
 
@@ -15,7 +14,6 @@ export default function TopMenuBar() {
   const [copied, setCopied] = useState(false);
 
   const save = useSetSaveOnServer();
-  const appUrl = urlConfig.appUrl;
 
   const uuid = useUuid();
   const interData = useIntermediateData();
@@ -24,7 +22,7 @@ export default function TopMenuBar() {
   const templateURL = `${apiUrl}/${uuid}?format=xlsx`;
 
   const urlToCopy = import.meta.env.PROD
-    ? `${appUrl}?uuid=${uuid}`
+    ? `${window.location.href}?uuid=${uuid}`
     : `http://localhost:5173/designer?uuid=${uuid}`;
 
   const copyLink = () => {
