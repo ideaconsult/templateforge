@@ -39,7 +39,6 @@ export default function StartScreenComp({}) {
   const setIdShosen = useSetIsShosen();
 
   const apiUrl = config.apiUrl;
-  const appUrl = urlConfig.appUrl;
   const templateURL = `${apiUrl}/${idShosen}?format=xlsx`;
 
   const { data, isLoading, error } = useSWR(`${apiUrl}`, fetcher);
@@ -60,7 +59,7 @@ export default function StartScreenComp({}) {
   };
 
   const urlToCopy = import.meta.env.PROD
-    ? `${appUrl}?uuid=${idShosen}`
+    ? `${window.location.href}?uuid=${idShosen}`
     : `http://localhost:5173/designer?uuid=${idShosen}`;
 
   const copyLink = () => {
