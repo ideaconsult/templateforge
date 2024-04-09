@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+
 const { Builder, Browser, By, Key } = require("selenium-webdriver");
 
 describe("Open Template Designer and Search for Template", function () {
