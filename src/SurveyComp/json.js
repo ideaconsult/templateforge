@@ -140,7 +140,7 @@ export const json = {
               name: "conditions",
               title: "Experimental factors, replicates",
               description:
-                "Add one row per each experimental factor (e.g. concentration, time), replicates, etc. Remove the irrelevant rows. Don't forget to specify the type. The rows can be reorderd by drag and drop.",
+                "Add one row per each experimental factor (e.g. concentration, time), replicates, etc.  Remove the irrelevant rows. Don't forget to specify the type. The rows can be reorderd by drag and drop. DO NOT ENTER actual (concentration, etc) values!  The values shall be entered in the downloaded template.",
               _requiredIf: "{user_role} contains 'role_datamgr'",
 
               defaultValue: [
@@ -434,6 +434,11 @@ export const json = {
                 {
                   value: "TO_ACUTE_DERMAL_SECTION",
                   text: "7.2.3.Acute toxicity - dermal",
+                  visibleIf: "{PROTOCOL_TOP_CATEGORY} = 'TOX'",
+                },
+                {
+                  value: "TO_ACUTE_PULMONARY_INSTILLATION_SECTION",
+                  text: "Acute and sub-chronic toxicity - pulmonary instillation",
                   visibleIf: "{PROTOCOL_TOP_CATEGORY} = 'TOX'",
                 },
                 {
@@ -842,7 +847,7 @@ export const json = {
               visibleIf: "{data_sheets} contains 'data_raw'",
               title: "Unprocessed (Raw data) reporting",
               description:
-                "Please provide information of the parameters reported as unprocessed data (e.g. Absorbance, AU). Use the + button to specify which factors are varied. If your data is in separate files you may use the 'Pointer to file' type.",
+                "Please provide information of the parameters reported as unprocessed data (e.g. Absorbance, AU). Use the + button to specify which factors are varied. DO NOT ENTER actual values! If your data is in separate files you may use the 'Pointer to file' type.",
               requiredIf:
                 "{data_sheets} contains 'data_raw'",
               showCommentArea: true,
@@ -1368,6 +1373,10 @@ export const json = {
                   value: "INCUBATION",
                   text: "Incubation",
                 },
+                {
+                  value: "SAMPLE_COLLECTION",
+                  text: "Sample collection",
+                },                
                 {
                   value: "OTHER_SAMPLEPREP",
                   text: "Other",
