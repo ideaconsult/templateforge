@@ -1376,7 +1376,11 @@ export const json = {
                 {
                   value: "SAMPLE_COLLECTION",
                   text: "Sample collection",
-                },                
+                },      
+                {
+                  value: "ALI_EXPOSURE",
+                  text: "Air-liquid interface exposure",
+                },                            
                 {
                   value: "OTHER_SAMPLEPREP",
                   text: "Other",
