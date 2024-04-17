@@ -8,7 +8,7 @@ describe("Create New Template", function () {
     driver = await new Builder().forBrowser(Browser.CHROME).build();
   });
 
-  it("should search for Template in The Table", async function () {
+  it("should create a New Template", async function () {
     await driver.get("https://enm-dev.adma.ai/designer");
 
     await driver.findElement(By.className("createNewBtn")).click();

@@ -12,11 +12,17 @@ describe("View Template: open Template Designer and Search for Template and Clic
   it("should search for Template in The Table and Click View", async function () {
     await driver.get("https://enm-dev.adma.ai/designer");
 
+    // await driver.findElement(By.id("Draft")).click();
+
     await driver
       .findElement(By.className("search"))
       .sendKeys("test", Key.RETURN);
 
-    await driver.findElement(By.className("nonSelected")).click();
+    const template = await driver.findElement(By.className("nonSelected"));
+
+    await driver.actions().scroll(0, 0, 0, 0, template).perform();
+
+    template.click();
 
     await driver.findElement(By.id("View")).click();
 

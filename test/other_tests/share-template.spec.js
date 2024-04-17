@@ -20,13 +20,9 @@ describe("Share a Template", function () {
     await driver.findElement(By.className("nonSelected")).click();
 
     await driver.findElement(By.id("Share a link")).click();
+    await driver.switchTo().newWindow("tab");
 
-    const templateUrl = await driver
-      .actions()
-      .sendKeys(Key.chord(Key.CONTROL, "v"));
-
-    console.log(templateUrl);
-    await driver.get(templateUrl);
+    // await driver.get(templateUrl);
     // await driver
     //   .findElement(By.id("name"))
     //   .sendKeys("Selenium Testing: Name (copy)");
