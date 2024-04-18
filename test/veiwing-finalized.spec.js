@@ -11,6 +11,9 @@ describe("Veiwing Finalized Blueprint", async () => {
   // 1. Search for the template
   it("Search for template", async () => {
     await driver.get("https://enm-dev.adma.ai/designer");
+
+    await driver.manage().window().maximize();
+
     await driver
       .findElement(By.className("search"))
       .sendKeys("ALI exposure Alamar Blue", Key.RETURN);
@@ -99,7 +102,11 @@ describe("Veiwing Finalized Blueprint", async () => {
     const buttons = await driver.findElement(By.id("sv-nav-next"));
     await driver.actions().scroll(0, 0, 0, 0, buttons).perform();
 
-    // await driver.findElement(By.className("sd-navigation__next-btn")).click();
+    await driver.sleep(5000);
+  });
+
+  it("Generate Excel File", async () => {
+    await driver.findElement(By.id("Generate Excel Template")).click();
 
     await driver.sleep(5000);
   });
