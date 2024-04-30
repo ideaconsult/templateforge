@@ -1,11 +1,25 @@
 /* eslint-disable no-undef */
 const { Builder, Browser, By, Key } = require("selenium-webdriver");
+const { argv } = require("node:process");
 
 describe("Veiwing Finalized Blueprint", async () => {
   let driver;
 
+  console.log(argv[5] != null ? argv[5] : "CHROME");
+
   before(async function () {
-    driver = await new Builder().forBrowser(Browser.CHROME).build();
+    if (argv[5] === "CHROME") {
+      driver = await new Builder().forBrowser(Browser.CHROME).build();
+    }
+    if (argv[5] === "FIREFOX") {
+      driver = await new Builder().forBrowser(Browser.FIREFOX).build();
+    }
+    if (argv[5] === "EDGE") {
+      driver = await new Builder().forBrowser(Browser.EDGE).build();
+    }
+    if (argv[5] == null) {
+      driver = await new Builder().forBrowser(Browser.CHROME).build();
+    }
   });
 
   // 1. Search for the template

@@ -1,22 +1,31 @@
 /* eslint-disable no-undef */
 const { Builder, Browser, By, Key } = require("selenium-webdriver");
+const { argv } = require("node:process");
 
-describe("Simple sequence of tests", async () => {
+describe("Testing of Start Screen Componet's Functionality", async () => {
   let driver;
 
-  // const browsers = [
-  //   { browser: "CHROME" },
-  //   { browser: "FIREFOX" },
-  //   { browser: "EDGE" },
-  // ];
+  console.log(argv[5] != null ? argv[5] : "CHROME");
 
   before(async function () {
-    driver = await new Builder().forBrowser(Browser.FIREFOX).build();
+    if (argv[5] === "CHROME") {
+      driver = await new Builder().forBrowser(Browser.CHROME).build();
+    }
+    if (argv[5] === "FIREFOX") {
+      driver = await new Builder().forBrowser(Browser.FIREFOX).build();
+    }
+    if (argv[5] === "EDGE") {
+      driver = await new Builder().forBrowser(Browser.EDGE).build();
+    }
+    if (argv[5] == null) {
+      driver = await new Builder().forBrowser(Browser.CHROME).build();
+    }
   });
 
   // 1. Search for the template
   it("Search for template", async () => {
     await driver.get("https://enm-dev.adma.ai/designer");
+    await driver.manage().window().maximize();
     await driver
       .findElement(By.className("search"))
       .sendKeys("test", Key.RETURN);

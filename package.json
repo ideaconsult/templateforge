@@ -9,7 +9,10 @@
     "dev": "vite",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "rimraf dist && vite build --base /designer --outDir dist/designer && http-server -a localhost -p 0 -o /designer dist",
-    "test": "mocha --timeout 60000"
+    "test": "mocha --timeout 60000",
+    "test-chrome": "mocha --timeout 60000 --browser CHROME",
+    "test-firefox": "mocha --timeout 60000 --browser FIREFOX",
+    "test-edge": "mocha --timeout 60000 --browser EDGE"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.0.4",
