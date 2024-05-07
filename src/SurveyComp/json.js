@@ -1598,25 +1598,31 @@ export const json = {
           "valueName": "conditions",
           "renderMode": "tab",
           "templateTabTitle": " {panel.conditon_name} [{panel.condition_unit}] ",
+          "panelPrevText": "",
+          "panelNextText": "",          
           "templateElements": [
             {
                   type: "matrixdynamic",
                   
                   name: "conditions_values",
                   titleLocation: "hidden",
+                  showRangeInProgress: false,            
                   columns: [
                     {
                       name: "value",
-                      title: " "
+                      title: " ",
+                      isUnique: true
                     }           
                   ],
                   cellType: "text",
                   rowCount: 1,
                   minRowCount: 1,
-                  addRowText: "Add {panel.conditon_name}",
-            }            
+                  allowRowsDragAndDrop: true,
+                  addRowText: "Add {panel.conditon_name} [{panel.condition_unit}]",
+            }
+
           ],
-              
+                        
           "titleLocation": "left",
           "allowAddPanel": false,
           "allowRemovePanel": false
