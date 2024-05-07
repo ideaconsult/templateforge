@@ -214,6 +214,7 @@ export const json = {
               rowCount: 0,
               confirmDelete: true,
               allowRowsDragAndDrop: true,
+              addRowText: "Add experimental factor",
             },
             {
               startWithNewLine: true,
@@ -846,6 +847,7 @@ export const json = {
               name: "raw_data_report",
               visibleIf: "{data_sheets} contains 'data_raw'",
               title: "Unprocessed (Raw data) reporting",
+              addRowText: "Add empty row",
               description:
                 "Please provide information of the parameters reported as unprocessed data (e.g. Absorbance, AU). Use the + button to specify which factors are varied. DO NOT ENTER actual values! If your data is in separate files you may use the 'Pointer to file' type.",
               requiredIf:
@@ -981,6 +983,7 @@ export const json = {
               requiredIf:
                 "{data_sheets} contains 'data_processed'",
               showCommentArea: true,
+              addRowText: "Add empty row",
               columns: [
                 {
                   name: "result_name",
@@ -1458,7 +1461,7 @@ export const json = {
           startWithNewLine: false,
           visible: true,
           readOnly: false,
-          title: "Project",
+          title: "Project"
         },
         {
           type: "text",
@@ -1466,7 +1469,7 @@ export const json = {
           startWithNewLine: false,
           visible: true,
           readOnly: false,
-          title: "Work package",
+          title: "Work package"  
         },
         {
           type: "text",
@@ -1474,7 +1477,7 @@ export const json = {
           startWithNewLine: true,
           visible: true,
           readOnly: true,
-          title: "Partner/test facility",
+          title: "Partner/test facility"       
         },
         {
           type: "text",
@@ -1549,13 +1552,106 @@ export const json = {
           "visibleIf": "{template_layout} == 'pchem'",
           "html": "This layout is appropriate when there are no experimental factors (but there could be multiple set of parameters like instrument, medium, temperature).",
           "readOnly": true
-        }
+        },
+        {
+          "type": "radiogroup",
+          "name": "wizard",
+          "title": "Would you like to test Template Wizard ?",
+          "isRequired": true,
+          "defaultValue" : "no",
+          columns : 2,
+          "choices": [
+            {
+              "value": "yes",
+              "text": "Yes"
+            },
+            {
+              "value": "no",
+              "text": "No"
+            }
+          ]
+        }            
       ],
       title: "[{template_name}]: Template layout",
       description: "Select from several supported layouts",
       navigationTitle: "7. Layout",
       navigationDescription: "Select the most appropriate Excel layout",
     },
+    {
+      name: "page_wizard",
+      visibleIf: "{wizard} = 'yes'",      
+      elements: [
+        {
+          type: "text",
+          name: "wizard_METHOD",
+          startWithNewLine: true,
+          title: "Method",
+          description: "Short name or acronym for test/assay",
+          isRequired: true,
+          readonly : true,
+          valueName: "METHOD"
+        },        
+        {
+          "type": "paneldynamic",
+          "name": "wizard_conditions",
+          "title": "Experimental factors",
+          "valueName": "conditions",
+          "renderMode": "tab",
+          "templateTabTitle": " {panel.conditon_name} [{panel.condition_unit}] ",
+          "templateElements": [
+            {
+                  type: "matrixdynamic",
+                  
+                  name: "conditions_values",
+                  titleLocation: "hidden",
+                  columns: [
+                    {
+                      name: "value",
+                      title: " "
+                    }           
+                  ],
+                  cellType: "text",
+                  rowCount: 1,
+                  minRowCount: 1,
+                  addRowText: "Add {panel.conditon_name}",
+            }            
+          ],
+              
+          "titleLocation": "left",
+          "allowAddPanel": false,
+          "allowRemovePanel": false
+        },        
+        {
+          type: "text",
+          name: "wizard_project",
+          startWithNewLine: true,
+          readOnly: false,
+          title: "Project",
+          valueName : "provenance_project"
+        },
+        {
+          type: "text",
+          name: "wizard_workpackage",
+          startWithNewLine: false,
+          readOnly: false,
+          valueName : "provenance_workpackage",
+          title: "Work package"  
+        },
+        {
+          type: "text",
+          name: "wizard_provider",
+          startWithNewLine: false,
+          readOnly: false,
+          valueName : "provenance_provider",
+          title: "Partner/test facility"       
+        },    
+      ],
+      title: "[{template_name}]: Template Wizard",
+      description: "Testing Template Wizard",
+      navigationTitle: "Template Wizard",
+      navigationDescription: "tbd",      
+    },
+
     {
       name: "page_preview",
       elements: [
@@ -1663,7 +1759,7 @@ export const json = {
       title: "[{template_name}]: Preview/Finalize",
       description:
         "A finalized blueprint will become readonly. You will be able to generate Excel templates, share the blueprint and make copies of the blueprint.",
-      navigationTitle: "Preview/Finalize",
+      navigationTitle: "8. Preview/Finalize",
       navigationDescription: "Predefined fields describing provenance",
     },
   ],
