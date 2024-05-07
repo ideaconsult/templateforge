@@ -1179,7 +1179,7 @@ export const json = {
               title: "Parameter name",
               cellType: "text",
               isRequired: true,
-              isUnique: true,
+              isUnique: true
             },
             {
               name: "param_unit",
@@ -1277,6 +1277,7 @@ export const json = {
               name: "param_sample_group",
               title: "Group",
               cellType: "dropdown",
+              isRequired: true,
               choices: [
                 {
                   value: "ID",
@@ -1363,6 +1364,7 @@ export const json = {
             {
               name: "param_sampleprep_group",
               title: "Group",
+              isRequired: true,
               cellType: "dropdown",
               choices: [
                 {
