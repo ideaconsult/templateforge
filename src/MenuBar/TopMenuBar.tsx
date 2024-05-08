@@ -22,7 +22,7 @@ export default function TopMenuBar() {
   const templateURL = `${apiUrl}/${uuid}?format=xlsx`;
 
   const urlToCopy = import.meta.env.PROD
-    ? `https://enanomapper.adma.ai/designer?uuid=${uuid}`
+    ? `${window.location.href}?uuid=${uuid}`
     : `http://localhost:5173/designer?uuid=${uuid}`;
 
   const copyLink = () => {

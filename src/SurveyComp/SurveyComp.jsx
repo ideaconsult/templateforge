@@ -45,7 +45,6 @@ function SurveyComponent({ setResult }) {
       survey.mode = "display";
     }
   }
-  console.log("survey", survey.data);
 
   useEffect(() => {
     getTemplateInfo();
@@ -70,7 +69,7 @@ function SurveyComponent({ setResult }) {
     container: "sd-action-bar",
     data: survey,
   });
-
+  // console.log("HasErrors", survey.isCurrentPageHasErrors);
   const storageItemKey = "my-survey";
 
   function saveSurveyData(survey) {
@@ -96,15 +95,21 @@ function SurveyComponent({ setResult }) {
 
   survey.applyTheme(themeJson);
 
+  survey.completedHtml = "Thank you for finalizing the template";
+
   survey.onComplete.add(function (sender, options) {
     // onCoplete Check
-    if (options.isCompleteOnTrigger) {
+    if (survey.validationAllowComplete) {
       setResult(sender.data);
       options.showSaveInProgress();
       postRequestUUID(sender.data, id);
     }
   });
-  return <Survey model={survey} />;
+  return (
+    <>
+      <Survey model={survey} />
+    </>
+  );
 }
 
 export default SurveyComponent;

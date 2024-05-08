@@ -5,6 +5,7 @@ import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
 import LogoBar from "../MenuBar/LogoBar";
 import Button from "../ui/Button";
 import config from "../utils/config";
+import urlConfig from "../utils/appUrl";
 import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 
 import TemplateTable from "@/DataTable/TemplateTable";
@@ -40,7 +41,7 @@ export default function StartScreenComp({}) {
   const apiUrl = config.apiUrl;
   const templateURL = `${apiUrl}/${idShosen}?format=xlsx`;
 
-  const { data, isLoading } = useSWR(config.apiUrl, fetcher);
+  const { data, isLoading, error } = useSWR(`${apiUrl}`, fetcher);
 
   const templateData = [];
   data &&
@@ -58,7 +59,7 @@ export default function StartScreenComp({}) {
   };
 
   const urlToCopy = import.meta.env.PROD
-    ? `https://enanomapper.adma.ai/designer?uuid=${idShosen}`
+    ? `${window.location.href}?uuid=${idShosen}`
     : `http://localhost:5173/designer?uuid=${idShosen}`;
 
   const copyLink = () => {
@@ -151,7 +152,7 @@ export default function StartScreenComp({}) {
               }}
             >
               <Button
-                disabled={!idShosen}
+                disabled={!idShosen || error}
                 label={mode == "Finalized" ? "View" : "Edit"}
               />
             </div>

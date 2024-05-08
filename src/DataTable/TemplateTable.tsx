@@ -13,8 +13,6 @@ import { RowsIcon } from "lucide-react";
 import { useSetIsShosen } from "../store/store";
 import { ontLookup } from "./CategoryLookUp";
 
-console.log(ontLookup("ENM_0000068_SECTION"));
-
 const columns = [
   {
     accessorKey: "template_name",
@@ -70,18 +68,19 @@ export default function TemplateTable({ data }) {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     enableMultiRowSelection: false,
+    autoResetPageIndex: false,
     state: {
-      rowSelection,
       pagination,
       sorting,
       globalFilter: filtering,
+      rowSelection,
     },
   });
 
   const setIdShosen = useSetIsShosen();
   useEffect(() => {
     setIdShosen(data && rowSelection ? data[rowSelection]?.uuid : null);
-  }, [rowSelection]);
+  }, [rowSelection, pagination]);
 
   return (
     <div>
@@ -117,7 +116,9 @@ export default function TemplateTable({ data }) {
                 <tr
                   key={RowsIcon.id}
                   data-state={row.getIsSelected() && "selected"}
-                  onClick={() => setRowSelection(row.id)}
+                  onClick={() => {
+                    setRowSelection(row.id);
+                  }}
                   className={
                     row.id == rowSelection ? "selected" : "nonSelected"
                   }
