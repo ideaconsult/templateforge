@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
+import ProcessingBluePrintDialog from "../DialogComp/ProcessingBluePrintDialog";
 import LogoBar from "../MenuBar/LogoBar";
 import Button from "../ui/Button";
 import config from "../utils/config";
@@ -172,6 +173,7 @@ export default function StartScreenComp({}) {
             <div onClick={dowloadXLS}>
               <Button disabled={!idShosen} label="Generate Excel Template" />
             </div>
+            <ProcessingBluePrintDialog />
           </div>
         </div>
       </div>

@@ -5,6 +5,10 @@ import { Survey } from "survey-react-ui";
 import { json } from "./json";
 import { themeJson } from "./theme";
 
+import $ from "jquery";
+import * as SurveyCore from "survey-core";
+import { autocomplete } from "surveyjs-widgets";
+
 import { postRequestUUID } from "../lib/request";
 import {
   useIsShosen,
@@ -50,6 +54,10 @@ function SurveyComponent({ setResult }) {
     getTemplateInfo();
     setIntermediateData(survey.data);
   }, [getTemplateInfo, id, setIntermediateData]);
+
+  window["$"] = window["jQuery"] = $;
+  // require("easy-autocomplete/dist/jquery.easy-autocomplete.js");
+  autocomplete(SurveyCore);
 
   survey.addNavigationItem({
     id: "sv-nav-clear-page",

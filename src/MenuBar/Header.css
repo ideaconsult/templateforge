@@ -7,7 +7,7 @@
 
 .headerStartScreen {
   display: flex;
-
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #e2e2e2;
 }
@@ -31,6 +31,16 @@
 .slogan {
   display: inline-block;
   background-color: #def4ff;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-weight: 500;
+  margin-left: 1rem;
+  font-size: 16px;
+}
+
+.sloganWizard {
+  display: inline-block;
+  background-color: #ffdeff;
   padding: 0.5rem 1rem;
   border-radius: 30px;
   font-weight: 500;
