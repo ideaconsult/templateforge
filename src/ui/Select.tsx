@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Select.css";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
@@ -26,11 +26,20 @@ export default function Select() {
     }
   );
 
+  useEffect(
+    () =>
+      setFiltered(
+        data &&
+          data.filter((item) =>
+            item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+          )
+      ),
+    [search, data]
+  );
+
   localStorage.setItem("project", project);
 
   const storedProject = localStorage.getItem("project");
-
-  console.log(storedProject);
 
   return (
     <section>
@@ -39,13 +48,17 @@ export default function Select() {
         <span>{storedProject ? storedProject : project}</span>
       </div>
       <div onClick={() => setOpen(!open)} className="selectBtn">
-        Select the project
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search for the project"
+        />
       </div>
 
       {open && (
         <div className="selectOptions">
-          {data &&
-            data.map((item) => (
+          {filtered &&
+            filtered.map((item) => (
               <p
                 key={item.id}
                 onClick={() => {
