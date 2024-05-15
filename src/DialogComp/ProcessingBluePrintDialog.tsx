@@ -74,7 +74,7 @@ const ProcessingBluePrintDialog = () => {
             getTemplateInfo();
           }}
         >
-          Processing Template
+          Customize Excel template
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>

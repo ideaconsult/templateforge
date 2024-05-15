@@ -28,7 +28,7 @@ const router = createBrowserRouter(
       Component: PreferencesPage,
     },
   ],
-  { basename: "/designer" }
+  { basename: "/templates" }
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(

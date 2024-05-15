@@ -11,6 +11,8 @@ import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 
 import TemplateTable from "@/DataTable/TemplateTable";
 
+import { Link } from "react-router-dom";
+
 import useSWR from "swr";
 
 import { fetcher } from "../lib/fetcher";
@@ -154,7 +156,7 @@ export default function StartScreenComp({}) {
             >
               <Button
                 disabled={!idShosen || error}
-                label={mode == "Finalized" ? "View" : "Edit"}
+                label={mode == "Finalized" ? "View" : "Edit blueprint"}
               />
             </div>
             {UUID && <Navigate to={`?uuid=${idShosen}`} replace={true} />}
@@ -173,7 +175,10 @@ export default function StartScreenComp({}) {
             <div onClick={dowloadXLS}>
               <Button disabled={!idShosen} label="Generate Excel Template" />
             </div>
-            <ProcessingBluePrintDialog />
+            <Link to={"/wizard"}>
+              <Button disabled={!idShosen} label="Customize Excel template" />
+            </Link>
+            {/* <ProcessingBluePrintDialog /> */}
           </div>
         </div>
       </div>
