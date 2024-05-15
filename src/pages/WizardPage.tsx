@@ -17,7 +17,7 @@ export default function WizardPage() {
           <Button label="Back to Template Designer" disabled={false} />
         </Link>
         <div style={{ marginTop: "1rem" }}>
-          <Select url={selectUrl} name="Materials" />
+          {/* <Select url={selectUrl} name="Materials" /> */}
         </div>
       </div>
     </div>
