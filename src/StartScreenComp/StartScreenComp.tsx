@@ -42,7 +42,10 @@ export default function StartScreenComp({}) {
   const setIdShosen = useSetIsShosen();
 
   const apiUrl = config.apiUrl;
-  const templateURL = `${apiUrl}/${idShosen}?format=xlsx`;
+  const projectID = localStorage.getItem("projectID");
+
+  // https://api-test.ramanchada.ideaconsult.net/template/2fb538c8-094d-4cd4-a9d8-6faff5880fbf?format=xlsx&project={the-selected-project-id}
+  const templateURL = `${apiUrl}/${idShosen}?format=xlsx&project=${projectID}`;
 
   const { data, isLoading, error } = useSWR(`${apiUrl}`, fetcher);
 

@@ -4,10 +4,12 @@ import SearchIcon from "@/IconsComponents/SearchIcon";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 
-export default function Select({ url, name }) {
+export default function Select({ url }) {
   const [open, setOpen] = useState(false);
   const [project, setProject] = useState(() => localStorage.getItem("project"));
-  const [materials, setMaterials] = useState(null);
+  const [projectID, setProjectID] = useState(() =>
+    localStorage.getItem("projectID")
+  );
   const [filtered, setFiltered] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -27,26 +29,24 @@ export default function Select({ url, name }) {
       ),
     [search, data]
   );
-  if (name === "Project") {
-    localStorage.setItem("project", project);
-  }
+
+  localStorage.setItem("project", project);
+  localStorage.setItem("projectID", projectID);
+
   const storedProject = localStorage.getItem("project");
 
   return (
     <section>
       <div className="projectName">
-        <span className="projectLabel">{name}:</span>
-        <span>
-          {name === "Materials" && materials}
-          {name === "Project" && storedProject}
-        </span>
+        <span className="projectLabel">Project:</span>
+        <span>{storedProject}</span>
       </div>
       <div onClick={() => setOpen(!open)} className="selectBtn">
         <SearchIcon />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder={`Search for the ${name}`}
+          placeholder={`Search for the project`}
         />
       </div>
 
@@ -57,12 +57,8 @@ export default function Select({ url, name }) {
               <p
                 key={item.id}
                 onClick={() => {
-                  if (name === "Project") {
-                    setProject(item.name);
-                  }
-                  if (name === "Materials") {
-                    setMaterials(item.name);
-                  }
+                  setProject(item.name);
+                  setProjectID(item.id);
                   setOpen(false);
                 }}
               >

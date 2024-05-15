@@ -12,7 +12,7 @@ export default function PreferencesPage() {
     <div>
       <LogoBarWizardPreferences />
       <div style={{ padding: "1rem" }}>
-        <Select url={selectUrl} name="Project" />
+        <Select url={selectUrl} />
       </div>
     </div>
   );
