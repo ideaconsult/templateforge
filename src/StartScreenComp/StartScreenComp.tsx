@@ -2,11 +2,10 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
-import ProcessingBluePrintDialog from "../DialogComp/ProcessingBluePrintDialog";
+
 import LogoBar from "../MenuBar/LogoBar";
 import Button from "../ui/Button";
 import config from "../utils/config";
-import urlConfig from "../utils/appUrl";
 import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 
 import TemplateTable from "@/DataTable/TemplateTable";

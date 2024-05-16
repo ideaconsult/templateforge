@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Select.css";
 import SearchIcon from "@/IconsComponents/SearchIcon";
+import CloseIcon from "@/IconsComponents/CloseIcon";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 
-export default function Select({ url }) {
+export default function Select({ url, setProjectName, projectName }) {
   const [open, setOpen] = useState(false);
   const [project, setProject] = useState(() => localStorage.getItem("project"));
   const [projectID, setProjectID] = useState(() =>
@@ -33,13 +34,25 @@ export default function Select({ url }) {
   localStorage.setItem("project", project);
   localStorage.setItem("projectID", projectID);
 
-  const storedProject = localStorage.getItem("project");
+  const resetProject = () => {
+    localStorage.clear();
+    setProjectName("");
+  };
+  console.log(project);
 
   return (
     <section>
       <div className="projectName">
-        <span className="projectLabel">Project:</span>
-        <span>{storedProject}</span>
+        {projectName ? (
+          <>
+            <span className="projectLabel">Project:</span>
+            <span>{projectName}</span>
+
+            <div className="closeBtn" onClick={() => resetProject()}>
+              <CloseIcon />
+            </div>
+          </>
+        ) : null}
       </div>
       <div onClick={() => setOpen(!open)} className="selectBtn">
         <SearchIcon />
@@ -51,7 +64,7 @@ export default function Select({ url }) {
       </div>
 
       {open && (
-        <div className="selectOptions">
+        <div className="selectOptions" style={{ scrollbarWidth: "thin" }}>
           {filtered &&
             filtered.map((item) => (
               <p
@@ -59,6 +72,7 @@ export default function Select({ url }) {
                 onClick={() => {
                   setProject(item.name);
                   setProjectID(item.id);
+                  setProjectName(item.name);
                   setOpen(false);
                 }}
               >
