@@ -27,9 +27,17 @@ export default function LogoBar({ startScreen, uuid }) {
           </h1>
         </Link>
       </div>
-      <Link to="/preferences">
-        <Button label="Preferences" disabled={false} />
-      </Link>
+      <div style={{ display: "flex", gap: "22px", alignItems: "center" }}>
+        {localStorage.getItem("project") && (
+          <div className="projectName">
+            <span className="projectLabel">Project:</span>
+            <span>{localStorage.getItem("project")}</span>
+          </div>
+        )}
+        <Link to="/preferences">
+          <Button label="Preferences" disabled={false} />
+        </Link>
+      </div>
     </div>
   );
 }
