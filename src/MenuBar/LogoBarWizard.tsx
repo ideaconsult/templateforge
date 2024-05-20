@@ -9,9 +9,7 @@ export default function LogoBarWizard() {
       <Link to="/">
         <h1 className={"logoWrapStartScreen"}>
           Template Wizard{" "}
-          <span className="sloganWizard">
-            Designing data entry templates for eNanoMapper
-          </span>
+          <span className="sloganWizard">Customize yoiur template</span>
         </h1>
       </Link>
     </div>

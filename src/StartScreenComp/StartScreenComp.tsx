@@ -177,7 +177,7 @@ export default function StartScreenComp({}) {
             <div onClick={dowloadXLS}>
               <Button disabled={!idShosen} label="Generate Excel Template" />
             </div>
-            <Link to={"/wizard"}>
+            <Link to={`?wizard=${idShosen}`}>
               <Button disabled={!idShosen} label="Customize Excel template" />
             </Link>
             {/* <ProcessingBluePrintDialog /> */}
