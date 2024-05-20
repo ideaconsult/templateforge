@@ -19,18 +19,11 @@ export default function HomePage() {
     setUUID(uuidParams);
   }
 
-  console.log(wizardParams);
-
   return (
     <>
       {wizardParams && <WizardPage />}
       {uuidParams && <TemplatePage uuid={uuidParams} />}
       {!uuidParams && !wizardParams && <StartScreenComp />}
-      {/* {uuidParams || UUID ? (
-        <TemplatePage uuid={uuidParams} />
-      ) : (
-        <StartScreenComp />
-      )} */}
     </>
   );
 }
