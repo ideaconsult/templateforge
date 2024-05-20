@@ -17,6 +17,8 @@ export default function HomePage() {
     setUUID(uuidParams);
   }
 
+  console.log(uuidParams);
+
   return (
     <>
       {uuidParams || UUID ? (

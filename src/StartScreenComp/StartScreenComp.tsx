@@ -65,7 +65,7 @@ export default function StartScreenComp({}) {
 
   const urlToCopy = import.meta.env.PROD
     ? `${window.location.href}?uuid=${idShosen}`
-    : `http://localhost:5173/designer?uuid=${idShosen}`;
+    : `http://localhost:5173/templates?uuid=${idShosen}`;
 
   const copyLink = () => {
     idShosen && navigator.clipboard.writeText(urlToCopy);
