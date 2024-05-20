@@ -23,7 +23,7 @@ export default function TopMenuBar() {
 
   const urlToCopy = import.meta.env.PROD
     ? `${window.location.href}?uuid=${uuid}`
-    : `http://localhost:5173/designer?uuid=${uuid}`;
+    : `http://localhost:5173/templates?uuid=${uuid}`;
 
   const copyLink = () => {
     uuid && navigator.clipboard.writeText(urlToCopy);

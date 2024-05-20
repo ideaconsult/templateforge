@@ -2,13 +2,15 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
+
 import LogoBar from "../MenuBar/LogoBar";
 import Button from "../ui/Button";
 import config from "../utils/config";
-import urlConfig from "../utils/appUrl";
 import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 
 import TemplateTable from "@/DataTable/TemplateTable";
+
+import { Link } from "react-router-dom";
 
 import useSWR from "swr";
 
@@ -39,7 +41,10 @@ export default function StartScreenComp({}) {
   const setIdShosen = useSetIsShosen();
 
   const apiUrl = config.apiUrl;
-  const templateURL = `${apiUrl}/${idShosen}?format=xlsx`;
+  const projectID = localStorage.getItem("projectID");
+
+  // https://api-test.ramanchada.ideaconsult.net/template/2fb538c8-094d-4cd4-a9d8-6faff5880fbf?format=xlsx&project={the-selected-project-id}
+  const templateURL = `${apiUrl}/${idShosen}?format=xlsx&project=${projectID}`;
 
   const { data, isLoading, error } = useSWR(`${apiUrl}`, fetcher);
 
@@ -60,7 +65,7 @@ export default function StartScreenComp({}) {
 
   const urlToCopy = import.meta.env.PROD
     ? `${window.location.href}?uuid=${idShosen}`
-    : `http://localhost:5173/designer?uuid=${idShosen}`;
+    : `http://localhost:5173/templates?uuid=${idShosen}`;
 
   const copyLink = () => {
     idShosen && navigator.clipboard.writeText(urlToCopy);
@@ -153,7 +158,7 @@ export default function StartScreenComp({}) {
             >
               <Button
                 disabled={!idShosen || error}
-                label={mode == "Finalized" ? "View" : "Edit"}
+                label={mode == "Finalized" ? "View" : "Edit blueprint"}
               />
             </div>
             {UUID && <Navigate to={`?uuid=${idShosen}`} replace={true} />}
@@ -172,6 +177,10 @@ export default function StartScreenComp({}) {
             <div onClick={dowloadXLS}>
               <Button disabled={!idShosen} label="Generate Excel Template" />
             </div>
+            <Link to={`?wizard=${idShosen}`}>
+              <Button disabled={!idShosen} label="Customize Excel template" />
+            </Link>
+            {/* <ProcessingBluePrintDialog /> */}
           </div>
         </div>
       </div>

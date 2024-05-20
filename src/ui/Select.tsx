@@ -1,0 +1,86 @@
+import React, { useEffect, useState } from "react";
+import "./Select.css";
+import SearchIcon from "@/IconsComponents/SearchIcon";
+import CloseIcon from "@/IconsComponents/CloseIcon";
+import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
+
+export default function Select({ url, setProjectName, projectName }) {
+  const [open, setOpen] = useState(false);
+  const [project, setProject] = useState(() => localStorage.getItem("project"));
+  const [projectID, setProjectID] = useState(() =>
+    localStorage.getItem("projectID")
+  );
+  const [filtered, setFiltered] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const { data, isLoading } = useSWR(url, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+
+  useEffect(
+    () =>
+      setFiltered(
+        data &&
+          data.filter((item) =>
+            item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+          )
+      ),
+    [search, data]
+  );
+
+  localStorage.setItem("project", project);
+  localStorage.setItem("projectID", projectID);
+
+  const resetProject = () => {
+    localStorage.clear();
+    setProjectName("");
+  };
+  console.log(project);
+
+  return (
+    <section>
+      <div className="projectName">
+        {projectName ? (
+          <>
+            <span className="projectLabel">Project:</span>
+            <span>{projectName}</span>
+
+            <div className="closeBtn" onClick={() => resetProject()}>
+              <CloseIcon />
+            </div>
+          </>
+        ) : null}
+      </div>
+      <div onClick={() => setOpen(!open)} className="selectBtn">
+        <SearchIcon />
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder={`Search for the project`}
+        />
+      </div>
+
+      {open && (
+        <div className="selectOptions" style={{ scrollbarWidth: "thin" }}>
+          {filtered &&
+            filtered.map((item) => (
+              <p
+                key={item.id}
+                onClick={() => {
+                  setProject(item.name);
+                  setProjectID(item.id);
+                  setProjectName(item.name);
+                  setOpen(false);
+                }}
+              >
+                {item.name}
+              </p>
+            ))}
+        </div>
+      )}
+    </section>
+  );
+}
