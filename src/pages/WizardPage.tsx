@@ -12,7 +12,7 @@ export default function WizardPage() {
   return (
     <div>
       <p className="underDev">
-        The Template Designer App is under development right now
+        The Template Wizard App is under development right now
       </p>
       <LogoBarWizard />
       <div style={{ padding: "1rem" }}>

@@ -9,7 +9,7 @@ export default function LogoBarWizard() {
       <Link to="/">
         <h1 className={"logoWrapStartScreen"}>
           Template Wizard{" "}
-          <span className="sloganWizard">Customize yoiur template</span>
+          <span className="sloganWizard">Customize your template</span>
         </h1>
       </Link>
     </div>
