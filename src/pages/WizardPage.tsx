@@ -19,8 +19,19 @@ export default function WizardPage() {
         <Link to="/">
           <Button label="Back to Template Designer" disabled={false} />
         </Link>
-        <div style={{ marginTop: "1rem" }}>
-          {/* <Select url={selectUrl} name="Materials" /> */}
+        <div style={{ marginTop: "6rem" }}>
+          <p
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "2rem",
+              color: "#ccc",
+              marginTop: "3rem",
+            }}
+          >
+            Coming soon...
+          </p>
         </div>
       </div>
     </div>
