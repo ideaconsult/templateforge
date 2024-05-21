@@ -7,6 +7,7 @@ import Button from "@/ui/Button";
 
 import {
   useSetUuid,
+  useUuid,
   useName,
   useSetName,
   useAuthor,
@@ -20,6 +21,7 @@ import { Navigate } from "react-router-dom";
 
 const CreateNewDialog = () => {
   const setUUID = useSetUuid();
+  const UUID = useUuid();
   const name = useName();
   const setName = useSetName();
   const author = useAuthor();
@@ -31,6 +33,7 @@ const CreateNewDialog = () => {
   const storageItemKey = "my-survey";
 
   var survey_data = new Model(json).data;
+  console.log("Create: UUID", UUID);
 
   return (
     <Dialog.Root>
@@ -118,16 +121,22 @@ const CreateNewDialog = () => {
                     }
                   );
                   let result = await res.json();
-                  <Navigate
-                    to={`?uuid=${result.result_uuid}`}
-                    replace={true}
-                  />;
 
                   if (result.result_uuid) {
                     setUUID(result.result_uuid);
-                    {
-                    }
                   }
+                  {
+                    UUID && (
+                      <Navigate
+                        to={`?uuid=${result.result_uuid}`}
+                        replace={true}
+                      />
+                    );
+                  }
+                  // <Navigate
+                  //   to={`?uuid=${result.result_uuid}`}
+                  //   replace={true}
+                  // />;
                 }}
               >
                 Create New Draft

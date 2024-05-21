@@ -19,7 +19,10 @@ export default function TopMenuBar() {
   const interData = useIntermediateData();
 
   const apiUrl = config.apiUrl;
-  const templateURL = `${apiUrl}/${uuid}?format=xlsx`;
+
+  const projectID = localStorage.getItem("projectID");
+
+  const templateURL = `${apiUrl}/${uuid}?format=xlsx&project=${projectID}`;
 
   const urlToCopy = import.meta.env.PROD
     ? `${window.location.href}?uuid=${uuid}`
