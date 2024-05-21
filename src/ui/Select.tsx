@@ -31,14 +31,12 @@ export default function Select({ url, setProjectName, projectName }) {
     [search, data]
   );
 
-  localStorage.setItem("project", project);
-  localStorage.setItem("projectID", projectID);
-
   const resetProject = () => {
-    localStorage.clear();
     setProjectName("");
+    localStorage.setItem("project", "");
+    localStorage.setItem("projectID", "");
+    localStorage.clear();
   };
-  console.log(project);
 
   return (
     <section>
@@ -70,6 +68,8 @@ export default function Select({ url, setProjectName, projectName }) {
               <p
                 key={item.id}
                 onClick={() => {
+                  localStorage.setItem("project", item.name);
+                  localStorage.setItem("projectID", item.id);
                   setProject(item.name);
                   setProjectID(item.id);
                   setProjectName(item.name);
