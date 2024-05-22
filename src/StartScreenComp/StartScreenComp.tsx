@@ -46,8 +46,7 @@ export default function StartScreenComp({}) {
   const templateURL = `${apiUrl}/${idShosen}?format=xlsx&project=${projectID}`;
 
   const { data, isLoading, error } = useSWR(`${apiUrl}`, fetcher, {
-    revalidateOnMount: true,
-    // refreshInterval: 1000,
+    cachePolicy: "no-cache",
   });
 
   const templateData = [];
