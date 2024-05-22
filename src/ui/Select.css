@@ -43,3 +43,10 @@
   cursor: pointer;
   margin-left: 1rem;
 }
+.selectItem {
+  color: #7a7a7a;
+}
+
+.selectItem:hover {
+  color: #282828;
+}
