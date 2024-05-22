@@ -433,6 +433,11 @@ export const json = {
                   visibleIf: "{PROTOCOL_TOP_CATEGORY} = 'TOX'",
                 },
                 {
+                 value: "TO_ACUTE_PULMONARY_INSTILLATION_SECTION",
+                  text: "7.2.9. Acute and sub-chronic toxicity - pulmonary instillation",
+                  visibleIf: "{PROTOCOL_TOP_CATEGORY} = 'TOX'",
+                },
+                {
                   value: "TO_SKIN_IRRITATION_SECTION",
                   text: "7.3.1.Skin irritation / Corrosion",
                   visibleIf: "{PROTOCOL_TOP_CATEGORY} = 'TOX'",
