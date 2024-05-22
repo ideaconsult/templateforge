@@ -27,6 +27,11 @@ describe("Testing of Selecting Project Functionality", async () => {
     await driver.get("https://enm-dev.adma.ai/designer");
     await driver.manage().window().maximize();
     await driver.findElement(By.id("preferences")).click();
+    // await driver.findElement(By.className("selectBtn")).click();
+    await driver
+      .findElement(By.tagName("input"))
+      .click()
+      .sendKeys("Nano", Key.RETURN);
     //       .sendKeys("test", Key.RETURN);
     //     const template = await driver.findElement(By.className("nonSelected"));
     //     await driver.actions().scroll(0, 0, 0, 0, template).perform();
