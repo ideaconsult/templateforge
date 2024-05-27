@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const { Builder, Browser, By, Key } = require("selenium-webdriver");
+const { Builder, Browser, By } = require("selenium-webdriver");
 const { argv } = require("node:process");
 
 describe("Testing of Selecting Project Functionality", async () => {
@@ -22,21 +22,26 @@ describe("Testing of Selecting Project Functionality", async () => {
     }
   });
 
-  // 1. Search for project
-  it("Search for template", async () => {
+  // 1. Select a project
+  it("Select a project", async () => {
     await driver.get("https://enm-dev.adma.ai/designer");
     await driver.manage().window().maximize();
     await driver.findElement(By.id("preferences")).click();
-    // await driver.findElement(By.className("selectBtn")).click();
+    await driver.findElement(By.className("selectBtn")).click();
     await driver
-      .findElement(By.tagName("input"))
-      .click()
-      .sendKeys("Nano", Key.RETURN);
-    //       .sendKeys("test", Key.RETURN);
-    //     const template = await driver.findElement(By.className("nonSelected"));
-    //     await driver.actions().scroll(0, 0, 0, 0, template).perform();
-    //     template.click();
-    //     await driver.findElement(By.id("View")).click();
+      .findElement(By.xpath('//*[@data-project="calibrate"]'))
+      .click();
+    await driver.sleep(2000);
+    await driver.findElement(By.id("okBtn")).click();
+    await driver.sleep(5000);
+  });
+
+  it("Clear", async () => {
+    await driver.findElement(By.id("preferences")).click();
+    await driver.findElement(By.className("closeBtn")).click();
+
+    await driver.sleep(2000);
+    await driver.findElement(By.id("okBtn")).click();
     await driver.sleep(5000);
   });
 });

@@ -15,25 +15,29 @@ describe("Make a Template Copy", function () {
 
     await driver
       .findElement(By.className("search"))
-      .sendKeys("HARMLESS", Key.RETURN);
+      .sendKeys("Test_Test", Key.RETURN);
 
     await driver.findElement(By.className("nonSelected")).click();
 
     await driver.findElement(By.id("makeCopy")).click();
 
-    await driver
-      .findElement(By.id("name"))
-      .sendKeys("Selenium Testing: Name (copy)");
+    await driver.findElement(By.id("name")).sendKeys("Selenium Testing");
 
-    await driver
-      .findElement(By.id("author"))
-      .sendKeys("Selenium Testing: Author (copy)");
+    await driver.findElement(By.id("author")).sendKeys("Selenium Testing");
 
     await driver
       .findElement(By.id("template_acknowledgment"))
-      .sendKeys("Selenium Testing: Acknowledgment (copy)");
+      .sendKeys("Selenium Testing");
 
     await driver.findElement(By.className("Button")).click();
+
+    await driver.sleep(5000);
+
+    // logoWrapStartScreen
+    await driver.findElement(By.className("logoWrapStartScreen")).click();
+    await driver
+      .findElement(By.className("search"))
+      .sendKeys("Selenium Testing", Key.RETURN);
 
     await driver.sleep(5000);
   });
