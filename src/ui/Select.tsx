@@ -31,14 +31,12 @@ export default function Select({ url, setProjectName, projectName }) {
     [search, data]
   );
 
-  localStorage.setItem("project", project);
-  localStorage.setItem("projectID", projectID);
-
   const resetProject = () => {
-    localStorage.clear();
     setProjectName("");
+    localStorage.setItem("project", "");
+    localStorage.setItem("projectID", "");
+    localStorage.clear();
   };
-  console.log(project);
 
   return (
     <section>
@@ -48,7 +46,11 @@ export default function Select({ url, setProjectName, projectName }) {
             <span className="projectLabel">Project:</span>
             <span>{projectName}</span>
 
-            <div className="closeBtn" onClick={() => resetProject()}>
+            <div
+              id="cleanProject"
+              className="closeBtn"
+              onClick={() => resetProject()}
+            >
               <CloseIcon />
             </div>
           </>
@@ -57,6 +59,7 @@ export default function Select({ url, setProjectName, projectName }) {
       <div onClick={() => setOpen(!open)} className="selectBtn">
         <SearchIcon />
         <input
+          id="projectSearch"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={`Search for the project`}
@@ -68,8 +71,12 @@ export default function Select({ url, setProjectName, projectName }) {
           {filtered &&
             filtered.map((item) => (
               <p
+                data-project={item.id}
+                className="selectItem"
                 key={item.id}
                 onClick={() => {
+                  localStorage.setItem("project", item.name);
+                  localStorage.setItem("projectID", item.id);
                   setProject(item.name);
                   setProjectID(item.id);
                   setProjectName(item.name);

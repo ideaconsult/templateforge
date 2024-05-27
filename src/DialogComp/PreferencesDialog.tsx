@@ -10,7 +10,7 @@ const PreferencesDialog = ({ setProjectName, projectName }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button id="makeCopy" className="buttonMenu">
+        <button id="preferences" className="buttonMenu">
           Preferences
         </button>
       </Dialog.Trigger>
@@ -37,7 +37,9 @@ const PreferencesDialog = ({ setProjectName, projectName }) => {
             }}
           >
             <Dialog.Close asChild>
-              <button className="Button">Ok</button>
+              <button id="okBtn" className="Button">
+                Ok
+              </button>
             </Dialog.Close>
           </div>
         </Dialog.Content>

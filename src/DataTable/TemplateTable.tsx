@@ -110,9 +110,9 @@ export default function TemplateTable({ data }) {
               </tr>
             ))}
           </thead>
-          <tbody>
-            {table.getRowModel().rows?.length &&
-              table.getRowModel().rows.map((row) => (
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <tbody>
                 <tr
                   key={RowsIcon.id}
                   data-state={row.getIsSelected() && "selected"}
@@ -132,8 +132,13 @@ export default function TemplateTable({ data }) {
                     </td>
                   ))}
                 </tr>
-              ))}
-          </tbody>
+              </tbody>
+            ))
+          ) : (
+            <p style={{ paddingLeft: "12px", color: "rgb(137 137 137)" }}>
+              Sorry, no search result
+            </p>
+          )}
         </table>
       </div>
       <div className="pagination">
