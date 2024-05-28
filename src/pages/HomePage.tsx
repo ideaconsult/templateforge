@@ -15,16 +15,10 @@ export default function HomePage() {
   const uuidParams = queryParams.get("uuid");
   const wizardParams = queryParams.get("wizard");
 
-  // if (uuidParams) {
-  //   setUUID(uuidParams);
-  // }
-
-  console.log("home", UUID);
-
   return (
     <>
       {wizardParams && <WizardPage />}
-      {UUID ? <TemplatePage uuid={UUID} /> : null}
+      {uuidParams || UUID ? <TemplatePage uuid={UUID} /> : null}
       {!uuidParams && !wizardParams && <StartScreenComp />}
     </>
   );
