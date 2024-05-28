@@ -17,6 +17,8 @@ import {
   useIntermediateData,
 } from "../store/store";
 
+import { useLocation } from "react-router-dom";
+
 import config from "../utils/config";
 
 import "survey-core/defaultV2.min.css";
@@ -36,7 +38,11 @@ function SurveyComponent({ setResult }) {
   const idShosen = useIsShosen();
   const setIntermediateData = useSetIntermediateData();
 
-  const id = idShosen ? idShosen : UUID;
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const uuidParams = queryParams.get("uuid");
+
+  const id = idShosen ? idShosen : UUID || uuidParams;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getTemplateInfo() {
