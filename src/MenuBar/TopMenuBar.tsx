@@ -25,7 +25,7 @@ export default function TopMenuBar() {
   const templateURL = `${apiUrl}/${uuid}?format=xlsx&project=${projectID}`;
 
   const urlToCopy = import.meta.env.PROD
-    ? `${window.location.href}?uuid=${uuid}`
+    ? `${window.location.href}`
     : `http://localhost:5173/templates?uuid=${uuid}`;
 
   const copyLink = () => {
