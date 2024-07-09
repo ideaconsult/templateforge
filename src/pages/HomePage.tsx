@@ -15,6 +15,8 @@ export default function HomePage() {
   const uuidParams = queryParams.get("uuid");
   const wizardParams = queryParams.get("wizard");
 
+  if (!UUID) setUUID(uuidParams);
+
   return (
     <>
       {wizardParams && <WizardPage />}
