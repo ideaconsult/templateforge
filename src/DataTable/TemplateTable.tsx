@@ -15,6 +15,11 @@ import { ontLookup } from "./CategoryLookUp";
 
 const columns = [
   {
+    accessorKey: "uuid",
+    header: "UUID",
+    cell: (props) => <>{props.getValue()}</>,
+  },
+  {
     accessorKey: "template_name",
     header: "Template Name",
     cell: (props) => <>{props.getValue()}</>,
@@ -75,6 +80,11 @@ export default function TemplateTable({ data }) {
       globalFilter: filtering,
       rowSelection,
     },
+    initialState: {
+      columnVisibility: {
+        uuid: false,
+      },
+    },
   });
 
   const setIdShosen = useSetIsShosen();
@@ -110,6 +120,7 @@ export default function TemplateTable({ data }) {
               </tr>
             ))}
           </thead>
+          {/* {console.log(table.getRowModel().rows[0]?.original?.uuid)} */}
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <tbody>
