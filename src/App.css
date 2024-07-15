@@ -95,13 +95,7 @@
   background: #4f7dcc26 !important;
 }
 
-.sd-matrixdynamic__add-btn > span {
-  display: none !important;
-}
 
-.sd-matrixdynamic__add-btn::after {
-  content: "Add Empty Row";
-}
 #sv-nav-clear-page input,
 #sv-nav-clear-all input {
   /* border: 1px solid #e50a3e; */

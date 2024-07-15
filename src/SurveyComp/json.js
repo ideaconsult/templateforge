@@ -210,6 +210,7 @@ export const json = {
               rowCount: 0,
               confirmDelete: true,
               allowRowsDragAndDrop: true,
+              addRowText: "Add experimental factor"
             },
             {
               startWithNewLine: true,
@@ -841,6 +842,7 @@ export const json = {
               name: "raw_data_report",
               visibleIf: "{data_sheets} contains 'data_raw'",
               title: "Unprocessed (Raw data) reporting",
+              addRowText: "Add empty row",
               description:
                 "Please provide information of the parameters reported as unprocessed data (e.g. Absorbance, AU). Use the + button to specify which factors are varied. If your data is in separate files you may use the 'Pointer to file' type.",
               requiredIf:
@@ -879,6 +881,10 @@ export const json = {
                       value: "AGGREGATED",
                       text: "Aggregated",
                     },
+                    {
+                      value: "NORMALIZED",
+                      text: "Normalized",
+                    },                    
                     {
                       value: "",
                       text: "Other",
@@ -969,6 +975,7 @@ export const json = {
             {
               type: "matrixdynamic",
               name: "question3",
+              addRowText: "Add empty row",
               title: "Results reporting",
               visibleIf: "{data_sheets} contains 'data_processed'",
               description:
@@ -1008,7 +1015,11 @@ export const json = {
                     {
                       value: "MAX",
                       text: "Max",
-                    },                    
+                    },      
+                    {
+                      value: "MIN",
+                      text: "Min",
+                    },                                     
                     {
                       value: "D25",
                       text: "D25",
@@ -1018,7 +1029,51 @@ export const json = {
                       text: "D90",
                     },  
                     {
-                      value: "",
+                      value: "AGGREGATED",
+                      text: "Aggregated",
+                    },                    
+                    {
+                      value: "NORMALIZED",
+                      text: "Normalized",
+                    },    
+                    {
+                      value: "NORMALIZED_TO_CONTROL",
+                      text: "Normalized to control",
+                    },                     
+                    {
+                      value: "RELATIVE_TO_CONTROL",
+                      text: "Relative to control",
+                    },      
+                    {
+                      value: "FOLD_CHANGE",
+                      text: "Fold change",
+                    },  
+                    {
+                      value: "HIGHEST_DOSE",
+                      text: "Highest dose",
+                    },                     
+                    {
+                      value: "Z-AVERAGE",
+                      text: "Z-AVERAGE",
+                    }, 
+                    {
+                      value: "INTENSITY-WEIGHTED",
+                      text: "INTENSITY-WEIGHTED",
+                    },  
+                    {
+                      value: "NUMBER-BASED",
+                      text: "NUMBER-BASED",
+                    },                                          
+                    {
+                      value: "TOTAL",
+                      text: "TOTAL",
+                    },               
+                    {
+                      value: "GEOMETRIC_MEAN",
+                      text: "Geometric mean",
+                    },                                                                                                           
+                    {
+                      value: "OTHER",
                       text: "Other",
                     }                                     
                   ],
@@ -1341,6 +1396,7 @@ export const json = {
               name: "param_sampleprep_group",
               title: "Group",
               cellType: "dropdown",
+              isRequired: true,
               choices: [
                 {
                   value: "DISPERSION",
@@ -1350,6 +1406,10 @@ export const json = {
                   value: "INCUBATION",
                   text: "Incubation",
                 },
+                {
+                  value: "ALI_EXPOSURE",
+                  text: "Air-liquid interface exposure",
+                },                     
                 {
                   value: "OTHER_SAMPLEPREP",
                   text: "Other",
@@ -1630,7 +1690,7 @@ export const json = {
       title: "[{template_name}]: Preview/Finalize",
       description:
         "A finalized blueprint will become readonly. You will be able to generate Excel templates, share the blueprint and make copies of the blueprint.",
-      navigationTitle: "Preview/Finalize",
+      navigationTitle: "8. Preview/Finalize",
       navigationDescription: "Predefined fields describing provenance",
     },
   ],
