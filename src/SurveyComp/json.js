@@ -1393,6 +1393,7 @@ export const json = {
               name: "param_sampleprep_group",
               title: "Group",
               cellType: "dropdown",
+              isRequired: true,
               choices: [
                 {
                   value: "DISPERSION",
@@ -1402,6 +1403,10 @@ export const json = {
                   value: "INCUBATION",
                   text: "Incubation",
                 },
+                {
+                  value: "ALI_EXPOSURE",
+                  text: "Air-liquid interface exposure",
+                },                     
                 {
                   value: "OTHER_SAMPLEPREP",
                   text: "Other",
