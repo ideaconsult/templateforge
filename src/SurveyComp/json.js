@@ -880,6 +880,10 @@ export const json = {
                       text: "Aggregated",
                     },
                     {
+                      value: "NORMALIZED",
+                      text: "Normalized",
+                    },                    
+                    {
                       value: "",
                       text: "Other",
                     }                                         
@@ -1008,7 +1012,11 @@ export const json = {
                     {
                       value: "MAX",
                       text: "Max",
-                    },                    
+                    },      
+                    {
+                      value: "MIN",
+                      text: "Min",
+                    },                                     
                     {
                       value: "D25",
                       text: "D25",
@@ -1018,7 +1026,51 @@ export const json = {
                       text: "D90",
                     },  
                     {
-                      value: "",
+                      value: "AGGREGATED",
+                      text: "Aggregated",
+                    },                    
+                    {
+                      value: "NORMALIZED",
+                      text: "Normalized",
+                    },    
+                    {
+                      value: "NORMALIZED_TO_CONTROL",
+                      text: "Normalized to control",
+                    },                     
+                    {
+                      value: "RELATIVE_TO_CONTROL",
+                      text: "Relative to control",
+                    },      
+                    {
+                      value: "FOLD_CHANGE",
+                      text: "Fold change",
+                    },  
+                    {
+                      value: "HIGHEST_DOSE",
+                      text: "Highest dose",
+                    },                     
+                    {
+                      value: "Z-AVERAGE",
+                      text: "Z-AVERAGE",
+                    }, 
+                    {
+                      value: "INTENSITY-WEIGHTED",
+                      text: "INTENSITY-WEIGHTED",
+                    },  
+                    {
+                      value: "NUMBER-BASED",
+                      text: "NUMBER-BASED",
+                    },                                          
+                    {
+                      value: "TOTAL",
+                      text: "TOTAL",
+                    },               
+                    {
+                      value: "GEOMETRIC_MEAN",
+                      text: "Geometric mean",
+                    },                                                                                                           
+                    {
+                      value: "OTHER",
                       text: "Other",
                     }                                     
                   ],
