@@ -210,6 +210,7 @@ export const json = {
               rowCount: 0,
               confirmDelete: true,
               allowRowsDragAndDrop: true,
+              addRowText: "Add experimental factor"
             },
             {
               startWithNewLine: true,
@@ -841,6 +842,7 @@ export const json = {
               name: "raw_data_report",
               visibleIf: "{data_sheets} contains 'data_raw'",
               title: "Unprocessed (Raw data) reporting",
+              addRowText: "Add empty row",
               description:
                 "Please provide information of the parameters reported as unprocessed data (e.g. Absorbance, AU). Use the + button to specify which factors are varied. If your data is in separate files you may use the 'Pointer to file' type.",
               requiredIf:
@@ -973,6 +975,7 @@ export const json = {
             {
               type: "matrixdynamic",
               name: "question3",
+              addRowText: "Add empty row",
               title: "Results reporting",
               visibleIf: "{data_sheets} contains 'data_processed'",
               description:
@@ -1687,7 +1690,7 @@ export const json = {
       title: "[{template_name}]: Preview/Finalize",
       description:
         "A finalized blueprint will become readonly. You will be able to generate Excel templates, share the blueprint and make copies of the blueprint.",
-      navigationTitle: "Preview/Finalize",
+      navigationTitle: "8. Preview/Finalize",
       navigationDescription: "Predefined fields describing provenance",
     },
   ],
