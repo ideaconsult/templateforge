@@ -9,6 +9,9 @@ const useStore = create((set) => ({
   showStartScreen: true,
   saveOnServer: false,
   intermediateData: null,
+  project: localStorage.getItem("project"),
+  projectID: localStorage.getItem("projectID"),
+  setProjectID: (projectID) => set(() => ({ projectID: projectID })),
   setUuid: (uuid) => set(() => ({ uuid: uuid })),
   setIsShosen: (isShosen) => set(() => ({ isShosen: isShosen })),
   setName: (name) => set(() => ({ name: name })),
@@ -21,6 +24,9 @@ const useStore = create((set) => ({
   setSaveOnServer: () =>
     set((state) => ({ saveOnServer: !state.saveOnServer })),
 }));
+
+export const useProjectID = () => useStore((state) => state.projectID);
+export const useSetProjectID = () => useStore((state) => state.setProjectID);
 
 export const useIsShosen = () => useStore((state) => state.isShosen);
 export const useSetIsShosen = () => useStore((state) => state.setIsShosen);

@@ -106,9 +106,9 @@ export default function TemplateTable({ data }) {
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
+                {headerGroup.headers.map((header, idx) => (
                   <th
-                    key={header.id}
+                    key={idx}
                     className="thSorted"
                     onClick={header.column.getToggleSortingHandler()}
                   >
@@ -122,10 +122,10 @@ export default function TemplateTable({ data }) {
           </thead>
           {/* {console.log(table.getRowModel().rows[0]?.original?.uuid)} */}
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
+            table.getRowModel().rows.map((row, i) => (
               <tbody>
                 <tr
-                  key={RowsIcon.id}
+                  key={i}
                   data-state={row.getIsSelected() && "selected"}
                   onClick={() => {
                     setRowSelection(row.id);
@@ -134,8 +134,8 @@ export default function TemplateTable({ data }) {
                     row.id == rowSelection ? "selected" : "nonSelected"
                   }
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id}>
+                  {row.getVisibleCells().map((cell, y) => (
+                    <td key={y}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -146,9 +146,11 @@ export default function TemplateTable({ data }) {
               </tbody>
             ))
           ) : (
-            <p style={{ paddingLeft: "12px", color: "rgb(137 137 137)" }}>
-              Sorry, no search result
-            </p>
+            <tbody>
+              <tr style={{ paddingLeft: "12px", color: "rgb(137 137 137)" }}>
+                <td>Sorry, no search result</td>
+              </tr>
+            </tbody>
           )}
         </table>
       </div>

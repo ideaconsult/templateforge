@@ -22,6 +22,7 @@ import {
   useSetShowStartScreen,
   useSetUuid,
   useUuid,
+  useProjectID,
 } from "../store/store";
 
 import { downloadFile } from "../lib/request";
@@ -36,12 +37,12 @@ export default function StartScreenComp({}) {
   const UUID = useUuid();
   const setUUID = useSetUuid();
   const setStartScreen = useSetShowStartScreen();
+  const projectID = useProjectID();
 
   const idShosen = useIsShosen();
   const setIdShosen = useSetIsShosen();
 
   const apiUrl = config.apiUrl;
-  const projectID = localStorage.getItem("projectID");
 
   const templateURL = `${apiUrl}/${idShosen}?format=xlsx&project=${projectID}`;
 

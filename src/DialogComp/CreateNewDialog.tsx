@@ -33,7 +33,6 @@ const CreateNewDialog = () => {
   const storageItemKey = "my-survey";
 
   var survey_data = new Model(json).data;
-  console.log("Create: UUID", UUID);
 
   return (
     <Dialog.Root>

@@ -4,15 +4,18 @@ import SearchIcon from "@/IconsComponents/SearchIcon";
 import CloseIcon from "@/IconsComponents/CloseIcon";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
+import { useSetProjectID } from "../store/store";
 
 export default function Select({ url, setProjectName, projectName }) {
   const [open, setOpen] = useState(false);
   const [project, setProject] = useState(() => localStorage.getItem("project"));
-  const [projectID, setProjectID] = useState(() =>
-    localStorage.getItem("projectID")
-  );
+  // const [projectID, setProjectID] = useState(() =>
+  //   localStorage.getItem("projectID")
+  // );
   const [filtered, setFiltered] = useState([]);
   const [search, setSearch] = useState("");
+
+  const setProjectID = useSetProjectID();
 
   const { data, isLoading } = useSWR(url, fetcher, {
     revalidateIfStale: false,
@@ -33,6 +36,7 @@ export default function Select({ url, setProjectName, projectName }) {
 
   const resetProject = () => {
     setProjectName("");
+    setProjectID("");
     localStorage.setItem("project", "");
     localStorage.setItem("projectID", "");
     localStorage.clear();
