@@ -6,7 +6,7 @@ import "./Header.css";
 
 import config from "../utils/config";
 
-import { useIntermediateData, useUuid } from "../store/store";
+import { useIntermediateData, useUuid, useProjectID } from "../store/store";
 
 import { postRequestUUID, downloadFile } from "../lib/request";
 
@@ -17,10 +17,9 @@ export default function TopMenuBar() {
 
   const uuid = useUuid();
   const interData = useIntermediateData();
+  const projectID = useProjectID();
 
   const apiUrl = config.apiUrl;
-
-  const projectID = localStorage.getItem("projectID");
 
   const templateURL = `${apiUrl}/${uuid}?format=xlsx&project=${projectID}`;
 

@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import StartScreenComp from "../StartScreenComp/StartScreenComp";
 import TemplatePage from "./TemplatePage";
 import WizardPage from "./WizardPage";
 
-import { useSetUuid, useUuid } from "../store/store";
+import { useSetUuid, useUuid, useProjectID } from "../store/store";
 
 export default function HomePage() {
   const setUUID = useSetUuid();
   const UUID = useUuid();
+  const prID = useProjectID();
+
+  const [projectID, setProjectID] = useState(() =>
+    localStorage.getItem("projectID")
+  );
+
+  // console.log("Home", prID, localStorage.getItem("projectID"));
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -20,7 +27,13 @@ export default function HomePage() {
   return (
     <>
       {wizardParams && <WizardPage />}
-      {uuidParams || UUID ? <TemplatePage uuid={UUID} /> : null}
+      {uuidParams || UUID ? (
+        <TemplatePage
+          uuid={UUID}
+          setProjectID={setProjectID}
+          projectID={projectID}
+        />
+      ) : null}
       {!uuidParams && !wizardParams && <StartScreenComp />}
     </>
   );

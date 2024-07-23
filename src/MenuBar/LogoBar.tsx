@@ -8,7 +8,7 @@ import { useSetUuid, useSetIsShosen } from "../store/store";
 import { Link } from "react-router-dom";
 import Button from "@/ui/Button";
 
-export default function LogoBar({ startScreen, uuid }) {
+export default function LogoBar({ startScreen, uuid, setProjectID }) {
   const setUUID = useSetUuid();
   const setIdShosen = useSetIsShosen();
   const [projectName, setProjectName] = useState(() =>

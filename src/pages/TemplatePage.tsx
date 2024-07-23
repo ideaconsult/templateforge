@@ -6,7 +6,7 @@ import SurveyComponent from "../SurveyComp/SurveyComp";
 
 import "../App.css";
 
-export default function TemplatePage({ uuid }) {
+export default function TemplatePage({ uuid, setProjectID, projectID }) {
   const params = useParams<{ templateId: string }>();
 
   const [result, setResult] = useState(null);
@@ -14,7 +14,12 @@ export default function TemplatePage({ uuid }) {
   return (
     <div>
       <div className="headerWrap">
-        <LogoBar startScreen={false} uuid={uuid} />
+        <LogoBar
+          startScreen={false}
+          uuid={uuid}
+          setProjectID={setProjectID}
+          projectID={projectID}
+        />
         <TopMenuBar />
       </div>
       <div className="mainWrap">
