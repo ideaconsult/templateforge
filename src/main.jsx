@@ -6,6 +6,10 @@ import TemplatePage from "./pages/TemplatePage.tsx";
 import WizardPage from "./pages/WizardPage.tsx";
 import PreferencesPage from "./pages/PreferencesPage.tsx";
 
+import { ReactKeycloakProvider } from "@react-keycloak/web";
+
+import _kc from "./utils/keycloak.js";
+
 import "./index.css";
 
 const router = createBrowserRouter(
@@ -16,7 +20,7 @@ const router = createBrowserRouter(
     },
 
     {
-      path: "/template/:templateId",
+      path: "/template/:templateId/",
       Component: TemplatePage,
     },
     {
@@ -28,11 +32,21 @@ const router = createBrowserRouter(
       Component: PreferencesPage,
     },
   ],
-  { basename: "/templates" }
+  { basename: "/templates/" }
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <ReactKeycloakProvider
+    authClient={_kc}
+    initOptions={{
+      onLoad: "check-sso",
+      checkLoginIframe: false,
+      silentCheckSsoRedirectUri:
+        window.location.origin + "/silent-check-sso.html",
+    }}
+  >
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </ReactKeycloakProvider>
 );
