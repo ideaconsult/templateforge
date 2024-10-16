@@ -19,6 +19,8 @@ import useSWR from "swr";
 
 import { fetcher } from "../lib/fetcher";
 
+import useFetch from "../utils/useFetch.jsx";
+
 import {
   useIsShosen,
   useSetIsShosen,
@@ -47,13 +49,13 @@ export default function StartScreenComp({}) {
 
   const { keycloak } = useKeycloak();
 
-  useEffect(() => {
-    if (keycloak.authenticated) {
-      localStorage.setItem("refreshToken", keycloak.refreshToken);
-      localStorage.setItem("token", keycloak.token);
-      localStorage.setItem("username", keycloak.tokenParsed.preferred_username);
-    }
-  }, [keycloak.authenticated]);
+  // useEffect(() => {
+  //   if (keycloak.authenticated) {
+  //     localStorage.setItem("refreshToken", keycloak.refreshToken);
+  //     localStorage.setItem("token", keycloak.token);
+  //     localStorage.setItem("username", keycloak.tokenParsed.preferred_username);
+  //   }
+  // }, [keycloak.authenticated]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -84,20 +86,20 @@ export default function StartScreenComp({}) {
 
   const stored_token = localStorage.getItem("token");
 
-  const logoutHandle = () => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("token");
-    localStorage.removeItem("refreshToken");
-  };
+  // const logoutHandle = () => {
+  //   localStorage.removeItem("username");
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("refreshToken");
+  // };
 
   const apiUrl = config.apiUrl;
 
   const templateURL = `${apiUrl}/${idShosen}?format=xlsx&project=${projectID}`;
 
-  const { data, isLoading, error } = useSWR(`${apiUrl}`, fetcher, {
-    cachePolicy: "no-cache",
-  });
-
+  // const { data, isLoading, error } = useSWR(`${apiUrl}`, fetcher, {
+  //   cachePolicy: "no-cache",
+  // });
+  const { data, isLoading, error } = useFetch(`template`);
   const templateData = [];
   data &&
     data.template.map((item) => {
