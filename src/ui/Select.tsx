@@ -41,7 +41,6 @@ export default function Select({ url, setProjectName, projectName }) {
     setProjectID("");
     localStorage.setItem("project", "");
     localStorage.setItem("projectID", "");
-    localStorage.clear();
   };
 
   return (
