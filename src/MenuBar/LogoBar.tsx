@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Header.css";
 
 import { useKeycloak } from "@react-keycloak/web";
+import { useNavigate } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 import { useSetIsShosen, useSetUuid } from "../store/store";
@@ -14,6 +15,7 @@ export default function LogoBar({ startScreen, uuid, setProjectID }) {
   );
 
   const { keycloak } = useKeycloak();
+  const navigate = useNavigate();
 
   const username = keycloak.tokenParsed?.preferred_username
     ? keycloak.tokenParsed?.preferred_username
@@ -22,9 +24,11 @@ export default function LogoBar({ startScreen, uuid, setProjectID }) {
   const stored_token = localStorage.getItem("token");
 
   const logoutHandle = () => {
+    navigate("/");
     localStorage.removeItem("username");
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
+    keycloak.logout();
   };
   return (
     <div className={startScreen ? "headerStartScreen" : "header"}>
@@ -51,7 +55,6 @@ export default function LogoBar({ startScreen, uuid, setProjectID }) {
         {keycloak.authenticated || stored_token ? (
           <button
             onClick={() => {
-              keycloak.logout();
               logoutHandle();
             }}
             className="buttonLogin"
