@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthProvider, useAuth } from "react-oidc-context";
 import HomePage from "./pages/HomePage.tsx";
 import TemplatePage from "./pages/TemplatePage.tsx";
 import WizardPage from "./pages/WizardPage.tsx";
