@@ -102,8 +102,15 @@ jobs:
           cache-to: type=gha,mode=max
           context: .
           labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=docker,dest=template-designer.tar
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
+
+      - name: Upload the built image as artifact for download
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: template-designer.tar
+          path: template-designer.tar
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker

@@ -49,6 +49,8 @@ function SurveyComponent({ setResult }) {
     const apiUrl = config.apiUrl;
     const response = await fetch(`${apiUrl}/${id}`);
     const data = await response.json();
+
+    setIntermediateData(data);
     // populate survye.js with data from API
     survey.data = data;
     if (data.template_status == "FINALIZED") {
@@ -58,8 +60,7 @@ function SurveyComponent({ setResult }) {
 
   useEffect(() => {
     getTemplateInfo();
-    setIntermediateData(survey.data);
-  }, [getTemplateInfo, id, setIntermediateData]);
+  }, [getTemplateInfo]);
 
   window["$"] = window["jQuery"] = $;
   // require("easy-autocomplete/dist/jquery.easy-autocomplete.js");
