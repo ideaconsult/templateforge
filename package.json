@@ -9,7 +9,8 @@
     "build-docker": "rimraf dist && vite build --base=/templates",
     "clean": "rimraf dist",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "rimraf dist && vite build --base /templates --outDir dist/templates && http-server -a localhost -p 0 -o /templates dist"
+    "preview": "rimraf dist && vite build --base /templates --outDir dist/templates && http-server -a localhost -p 0 -o /templates dist",
+    "cy:open": "cypress open"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.0.4",
@@ -45,6 +46,7 @@
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.17",
+    "cypress": "^13.16.1",
     "eslint": "^8.55.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^4.6.0",
