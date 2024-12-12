@@ -1,7 +1,8 @@
 // @ts-nocheck
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
+import PreferencesDialog from "@/DialogComp/PreferencesDialog";
 
 import LogoBar from "../MenuBar/LogoBar";
 import Button from "../ui/Button";
@@ -10,11 +11,15 @@ import CreateNewDialog from "./../DialogComp/CreateNewDialog";
 
 import TemplateTable from "@/DataTable/TemplateTable";
 
+import { useKeycloak } from "@react-keycloak/web";
+
 import { Link } from "react-router-dom";
 
 import useSWR from "swr";
 
 import { fetcher } from "../lib/fetcher";
+
+import useFetch from "../utils/useFetch.jsx";
 
 import {
   useIsShosen,
@@ -42,14 +47,59 @@ export default function StartScreenComp({}) {
   const idShosen = useIsShosen();
   const setIdShosen = useSetIsShosen();
 
+  const { keycloak } = useKeycloak();
+
+  // useEffect(() => {
+  //   if (keycloak.authenticated) {
+  //     localStorage.setItem("refreshToken", keycloak.refreshToken);
+  //     localStorage.setItem("token", keycloak.token);
+  //     localStorage.setItem("username", keycloak.tokenParsed.preferred_username);
+  //   }
+  // }, [keycloak.authenticated]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      keycloak
+        .updateToken(30)
+        .then((refreshed) => {
+          if (refreshed) {
+            console.log("app: Token refreshed and updated in localStorage.");
+            localStorage.setItem("token", keycloak.token);
+          } else {
+            console.log("app: Token is still valid.");
+          }
+        })
+        .catch(() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+
+          console.error("app: Failed to refresh token.");
+        });
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const username = keycloak.tokenParsed?.preferred_username
+    ? keycloak.tokenParsed?.preferred_username
+    : localStorage.getItem("username");
+
+  const stored_token = localStorage.getItem("token");
+
+  // const logoutHandle = () => {
+  //   localStorage.removeItem("username");
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("refreshToken");
+  // };
+
   const apiUrl = config.apiUrl;
 
   const templateURL = `${apiUrl}/${idShosen}?format=xlsx&project=${projectID}`;
 
-  const { data, isLoading, error } = useSWR(`${apiUrl}`, fetcher, {
-    cachePolicy: "no-cache",
-  });
-
+  // const { data, isLoading, error } = useSWR(`${apiUrl}`, fetcher, {
+  //   cachePolicy: "no-cache",
+  // });
+  const { data, isLoading, error } = useFetch(`template`);
   const templateData = [];
   data &&
     data.template.map((item) => {
@@ -60,6 +110,10 @@ export default function StartScreenComp({}) {
         return templateData.push(item);
       }
     });
+
+  const [projectName, setProjectName] = useState(() =>
+    localStorage.getItem("project")
+  );
 
   const dowloadXLS = () => {
     idShosen && downloadFile(idShosen, templateURL);
@@ -83,10 +137,32 @@ export default function StartScreenComp({}) {
   const storageItemKey = "my-survey";
   return (
     <div className="screenWrap">
-      <p className="underDev">
-        The Template Designer App is under development right now
-      </p>
-      <LogoBar startScreen={true} setIdShosen={setIdShosen} />
+      <div className="topBarAuth">
+        <LogoBar startScreen={true} setIdShosen={setIdShosen} />
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          gap: "22px",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          marginTop: "12px",
+        }}
+      >
+        {projectName ? (
+          <div className="projectName">
+            <span className="projectLabel">Project:</span>
+            <span>{projectName}</span>
+          </div>
+        ) : (
+          <p className="projectPromt">Project is not selected</p>
+        )}
+        <PreferencesDialog
+          setProjectName={setProjectName}
+          projectName={projectName}
+        />
+      </div>
 
       <div className="descriptionNew">
         <p className="description">

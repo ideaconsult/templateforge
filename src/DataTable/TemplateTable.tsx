@@ -87,6 +87,11 @@ export default function TemplateTable({ data }) {
     },
   });
 
+  console.log(table.getPageCount());
+  // console.log(table.getState().pagination.pageIndex);
+  const pageCount = table.getPageCount();
+  const currentPage = table.getState().pagination.pageIndex;
+
   const setIdShosen = useSetIsShosen();
   useEffect(() => {
     setIdShosen(data && rowSelection ? data[rowSelection]?.uuid : null);
@@ -164,6 +169,12 @@ export default function TemplateTable({ data }) {
         >
           Previous
         </button>
+        <div className="paginationPageCount">
+          <p>
+            page <span className="pageCurrent">{currentPage + 1}</span> of{" "}
+            <span className="pageCurrent">{pageCount}</span>
+          </p>
+        </div>
         <button
           className="paginBtn"
           variant="outline"

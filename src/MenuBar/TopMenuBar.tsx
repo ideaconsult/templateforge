@@ -6,9 +6,9 @@ import "./Header.css";
 
 import config from "../utils/config";
 
-import { useIntermediateData, useUuid, useProjectID } from "../store/store";
+import { useIntermediateData, useProjectID, useUuid } from "../store/store";
 
-import { postRequestUUID, downloadFile } from "../lib/request";
+import { downloadFile, postRequestUUID } from "../lib/request";
 
 export default function TopMenuBar() {
   const [copied, setCopied] = useState(false);

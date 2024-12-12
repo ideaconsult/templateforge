@@ -15,8 +15,6 @@ export default function HomePage() {
     localStorage.getItem("projectID")
   );
 
-  // console.log("Home", prID, localStorage.getItem("projectID"));
-
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const uuidParams = queryParams.get("uuid");

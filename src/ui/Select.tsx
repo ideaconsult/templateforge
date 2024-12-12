@@ -3,6 +3,7 @@ import "./Select.css";
 import SearchIcon from "@/IconsComponents/SearchIcon";
 import CloseIcon from "@/IconsComponents/CloseIcon";
 import useSWR from "swr";
+import useFetch from "../utils/useFetch.jsx";
 import { fetcher } from "@/lib/fetcher";
 import { useSetProjectID } from "../store/store";
 
@@ -22,6 +23,7 @@ export default function Select({ url, setProjectName, projectName }) {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
+  // const { data, isLoading, error } = useFetch(`template`);
 
   useEffect(
     () =>
@@ -39,7 +41,6 @@ export default function Select({ url, setProjectName, projectName }) {
     setProjectID("");
     localStorage.setItem("project", "");
     localStorage.setItem("projectID", "");
-    localStorage.clear();
   };
 
   return (

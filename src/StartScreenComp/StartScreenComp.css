@@ -3,11 +3,23 @@
   background-color: #fff;
   padding: 0 2rem;
 }
+.description {
+  line-height: 1.6rem;
+}
 .descriptionNew {
-  margin: 2rem;
+  margin: 1rem 0 2rem 2rem;
   display: flex;
   gap: 60px;
-  align-items: flex-start;
+  align-items: center;
+  gap: 120px;
+  justify-content: space-between;
+}
+
+.topBarAuth {
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
 }
 
 .underDev {
@@ -19,6 +31,19 @@
   padding: 0.3rem 0.8rem;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
+  margin-top: -30px;
+}
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.username {
+  color: #6d6d6d;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: capitalize;
 }
 
 .createNewBtn {
@@ -137,9 +162,26 @@ th {
 .pagination {
   margin-top: 2rem;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 18px;
+}
+
+.paginationPageCount {
+  width: 110px;
+  /* color: #777777; */
+  /* text-transform: uppercase; */
+  font-size: 14px;
+}
+.pageCurrent {
+  display: inline-block;
+  background-color: #e3f6ff;
+  width: 20px;
+  height: 20px;
+  padding: 2px;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: 700;
 }
 
 .paginBtn {

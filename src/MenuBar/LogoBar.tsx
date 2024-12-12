@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
 import "./Header.css";
 
-import PreferencesDialog from "@/DialogComp/PreferencesDialog";
+import { useKeycloak } from "@react-keycloak/web";
+import { useNavigate } from "react-router-dom";
 
-import { useSetUuid, useSetIsShosen } from "../store/store";
 import { Link } from "react-router-dom";
-import Button from "@/ui/Button";
+import { useSetIsShosen, useSetUuid } from "../store/store";
 
 export default function LogoBar({ startScreen, uuid, setProjectID }) {
   const setUUID = useSetUuid();
@@ -14,6 +13,23 @@ export default function LogoBar({ startScreen, uuid, setProjectID }) {
   const [projectName, setProjectName] = useState(() =>
     localStorage.getItem("project")
   );
+
+  const { keycloak } = useKeycloak();
+  const navigate = useNavigate();
+
+  const username = keycloak.tokenParsed?.preferred_username
+    ? keycloak.tokenParsed?.preferred_username
+    : localStorage.getItem("username");
+
+  const stored_token = localStorage.getItem("token");
+
+  const logoutHandle = () => {
+    navigate("/");
+    localStorage.removeItem("username");
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    keycloak.logout();
+  };
   return (
     <div className={startScreen ? "headerStartScreen" : "header"}>
       <div>
@@ -32,19 +48,30 @@ export default function LogoBar({ startScreen, uuid, setProjectID }) {
           </h1>
         </Link>
       </div>
-      <div style={{ display: "flex", gap: "22px", alignItems: "center" }}>
-        {projectName ? (
-          <div className="projectName">
-            <span className="projectLabel">Project:</span>
-            <span>{projectName}</span>
-          </div>
+      <div className="userInfo">
+        <div className="username">
+          {keycloak.authenticated || username ? username : ""}
+        </div>
+        {keycloak.authenticated || stored_token ? (
+          <button
+            onClick={() => {
+              logoutHandle();
+            }}
+            className="buttonLogin"
+          >
+            Log out
+          </button>
         ) : (
-          <p className="projectPromt">Project is not selected</p>
+          <button
+            onClick={() => {
+              // navigate("/");
+              keycloak.login();
+            }}
+            className="buttonLogin"
+          >
+            Log in
+          </button>
         )}
-        <PreferencesDialog
-          setProjectName={setProjectName}
-          projectName={projectName}
-        />
       </div>
     </div>
   );
