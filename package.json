@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "rimraf dist && vite build",
     "build-docker": "rimraf dist && vite build --base=/templates",
+    "build-serve": "rimraf dist && vite build --base /templates --outDir dist/templates && http-server -a 127.0.0.1 -p 50722 dist",
     "clean": "rimraf dist",
+    "dev": "vite",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "rimraf dist && vite build --base /templates --outDir dist/templates && http-server -a localhost -p 0 -o /templates dist"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.0.4",
@@ -40,6 +41,7 @@
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.17",
+    "cypress": "^13.16.1",
     "eslint": "^8.55.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^4.6.0",
