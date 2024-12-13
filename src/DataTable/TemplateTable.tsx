@@ -59,7 +59,7 @@ export default function TemplateTable({ data }) {
     pageSize: 10,
   });
 
-  const [sorting, setSorting] = useState([]);
+  const [sorting, setSorting] = useState([{ id: "timestamp", desc: true }]);
   const [filtering, setFiltering] = useState("");
 
   const table = useReactTable({
@@ -235,32 +235,34 @@ export default function TemplateTable({ data }) {
           )}
         </table>
       </div>
-      <div className="pagination">
-        <button
-          className="paginBtn"
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </button>
-        <div className="paginationPageCount">
-          <p>
-            page <span className="pageCurrent">{currentPage + 1}</span> of{" "}
-            <span className="pageCurrent">{pageCount}</span>
-          </p>
+      {pageCount > 2 ? (
+        <div className="pagination">
+          <button
+            className="paginBtn"
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </button>
+          <div className="paginationPageCount">
+            <p>
+              page <span className="pageCurrent">{currentPage + 1}</span> of{" "}
+              <span className="pageCurrent">{pageCount}</span>
+            </p>
+          </div>
+          <button
+            className="paginBtn"
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </button>
         </div>
-        <button
-          className="paginBtn"
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </button>
-      </div>
+      ) : null}
       <hr style={{ border: "1px solid #e4e4e4", marginTop: "1rem" }} />
     </div>
   );
