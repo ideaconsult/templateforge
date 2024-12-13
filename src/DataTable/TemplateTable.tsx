@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { RowsIcon } from "lucide-react";
 import { useSetIsShosen } from "../store/store";
 import { ontLookup } from "./CategoryLookUp";
+import SortingIcon from "@/IconsComponents/SortingIcon";
 
 const columns = [
   {
@@ -87,6 +88,9 @@ export default function TemplateTable({ data }) {
     },
   });
 
+  const pageCount = table.getPageCount();
+  const currentPage = table.getState().pagination.pageIndex;
+
   const setIdShosen = useSetIsShosen();
   useEffect(() => {
     setIdShosen(data && rowSelection ? data[rowSelection]?.uuid : null);
@@ -112,9 +116,86 @@ export default function TemplateTable({ data }) {
                     className="thSorted"
                     onClick={header.column.getToggleSortingHandler()}
                   >
-                    {header.column.columnDef.header}
-                    {/* {{ asc: " ", desc: "" }[header.column.getIsSorted() ?? null]}
-                  <SortingIcon /> */}
+                    {header.column.getIsSorted() === "asc" ||
+                    header.column.getIsSorted() === "desc" ? (
+                      <span className="thSorted-selected">
+                        {header.column.columnDef.header}&nbsp;&nbsp;
+                      </span>
+                    ) : (
+                      <span>{header.column.columnDef.header}&nbsp;&nbsp;</span>
+                    )}
+                    {/* {header.column.columnDef.header}&nbsp;&nbsp; */}
+                    {header.column.getIsSorted() === "asc" && (
+                      <svg
+                        width="8"
+                        height="14"
+                        viewBox="0 0 8 14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          x="3"
+                          width="1.5"
+                          height="12"
+                          rx="0.75"
+                          fill="#656CF6"
+                        />
+                        <rect
+                          y="9.70709"
+                          width="1.5"
+                          height="5"
+                          rx="0.75"
+                          transform="rotate(-45 0 9.70709)"
+                          fill="#656CF6"
+                        />
+                        <rect
+                          width="1.5"
+                          height="5"
+                          rx="0.75"
+                          transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 7.59619 9.70709)"
+                          fill="#656CF6"
+                        />
+                      </svg>
+                    )}
+                    {header.column.getIsSorted() === "desc" && (
+                      <svg
+                        width="8"
+                        height="14"
+                        viewBox="0 0 8 14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          width="1.5"
+                          height="12"
+                          rx="0.75"
+                          transform="matrix(1 0 0 -1 3 13.2426)"
+                          fill="#656CF6"
+                        />
+                        <rect
+                          width="1.5"
+                          height="5"
+                          rx="0.75"
+                          transform="matrix(0.707107 0.707107 0.707107 -0.707107 0 3.53552)"
+                          fill="#656CF6"
+                        />
+                        <rect
+                          x="7.59619"
+                          y="3.53552"
+                          width="1.5"
+                          height="5"
+                          rx="0.75"
+                          transform="rotate(135 7.59619 3.53552)"
+                          fill="#656CF6"
+                        />
+                      </svg>
+                    )}
+                    {/* {
+                      { asc: "a ", desc: "d" }[
+                        header.column.getIsSorted() ?? null
+                      ]
+                    } */}
+                    {/* <SortingIcon /> */}
                   </th>
                 ))}
               </tr>
@@ -164,6 +245,12 @@ export default function TemplateTable({ data }) {
         >
           Previous
         </button>
+        <div className="paginationPageCount">
+          <p>
+            page <span className="pageCurrent">{currentPage + 1}</span> of{" "}
+            <span className="pageCurrent">{pageCount}</span>
+          </p>
+        </div>
         <button
           className="paginBtn"
           variant="outline"
