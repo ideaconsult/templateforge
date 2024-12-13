@@ -25,7 +25,9 @@
   cursor: pointer;
   user-select: none;
 }
-
+.thSorted-selected {
+  color: #4c53cb !important;
+}
 .search {
   border-bottom: 1px solid #ccc;
   width: 100%;
@@ -94,7 +96,6 @@
 .sd-radio__decorator {
   background: #4f7dcc26 !important;
 }
-
 
 #sv-nav-clear-page input,
 #sv-nav-clear-all input {
