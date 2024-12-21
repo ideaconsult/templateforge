@@ -46,15 +46,18 @@ function SurveyComponent({ setResult }) {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getTemplateInfo() {
-    const apiUrl = config.apiUrl;
-    const response = await fetch(`${apiUrl}/${id}`);
-    const data = await response.json();
+    try {
+      const apiUrl = config.apiUrl;
+      const response = await fetch(`${apiUrl}/${id}`);
+      const data = await response.json();
 
-    setIntermediateData(data);
-    // populate survye.js with data from API
-    survey.data = data;
-    if (data.template_status == "FINALIZED") {
-      survey.mode = "display";
+      setIntermediateData(data);
+      survey.data = data;
+      if (data.template_status == "FINALIZED") {
+        survey.mode = "display";
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   }
 
