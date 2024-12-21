@@ -11,7 +11,7 @@ import "./Button.css";
 export default function Button({ label, disabled }) {
   return (
     <button
-      id={label}
+      id={label.replace(/\s+/g, "-")}
       className="buttonMenu"
       disabled={disabled ? true : false}
     >

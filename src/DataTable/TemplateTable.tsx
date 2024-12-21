@@ -96,6 +96,8 @@ export default function TemplateTable({ data }) {
     setIdShosen(data && rowSelection ? data[rowSelection]?.uuid : null);
   }, [rowSelection, pagination]);
 
+  // console.log(table.getRowModel());
+
   return (
     <div>
       <div>
@@ -109,7 +111,7 @@ export default function TemplateTable({ data }) {
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
+              <tr key={headerGroup.headers.id}>
                 {headerGroup.headers.map((header, idx) => (
                   <th
                     key={idx}
@@ -206,7 +208,7 @@ export default function TemplateTable({ data }) {
             table.getRowModel().rows.map((row, i) => (
               <tbody>
                 <tr
-                  key={i}
+                  key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                   onClick={() => {
                     setRowSelection(row.id);
