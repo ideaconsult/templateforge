@@ -9,9 +9,11 @@ import ExcelIcon from "../IconsComponents/ExcelIcon";
 import "./Button.css";
 
 export default function Button({ label, disabled }) {
+  let id = label.replace(/\s+/g, "-");
   return (
     <button
-      id={label.replace(/\s+/g, "-")}
+      id={id}
+      data-cy={label}
       className="buttonMenu"
       disabled={disabled ? true : false}
     >
