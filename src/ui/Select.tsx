@@ -9,9 +9,7 @@ import { useSetProjectID } from "../store/store";
 export default function Select({ url, setProjectName, projectName }) {
   const [open, setOpen] = useState(false);
   const [project, setProject] = useState(() => localStorage.getItem("project"));
-  // const [projectID, setProjectID] = useState(() =>
-  //   localStorage.getItem("projectID")
-  // );
+
   const [filtered, setFiltered] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -51,6 +49,7 @@ export default function Select({ url, setProjectName, projectName }) {
             <span>{projectName}</span>
 
             <div
+              data-cy="clean-btn"
               id="cleanProject"
               className="closeBtn"
               onClick={() => resetProject()}
@@ -60,7 +59,11 @@ export default function Select({ url, setProjectName, projectName }) {
           </>
         ) : null}
       </div>
-      <div onClick={() => setOpen(!open)} className="selectBtn">
+      <div
+        data-cy="select-btn"
+        onClick={() => setOpen(!open)}
+        className="selectBtn"
+      >
         <SearchIcon />
         <input
           id="projectSearch"
