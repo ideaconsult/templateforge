@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
 import "./Header.css";
 
 import PreferencesDialog from "@/DialogComp/PreferencesDialog";
 
-import { useSetUuid, useSetIsShosen } from "../store/store";
 import { Link } from "react-router-dom";
-import Button from "@/ui/Button";
+import { useSetIsShosen, useSetUuid } from "../store/store";
 
 export default function LogoBar({ startScreen, uuid, setProjectID }) {
   const setUUID = useSetUuid();
