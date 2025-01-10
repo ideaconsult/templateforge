@@ -64,6 +64,7 @@ const MakeCopyDialog = () => {
       <Dialog.Trigger asChild>
         <button
           id="makeCopy"
+          data-cy="copy-btn"
           className="buttonMenu"
           disabled={!idShosen ? true : false}
           onClick={() => {

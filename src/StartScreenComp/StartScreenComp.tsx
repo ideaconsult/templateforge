@@ -138,6 +138,7 @@ export default function StartScreenComp({}) {
       </div>
       <div className="tabsWrap">
         <p
+          data-cy="finalized"
           id="Finalized"
           onClick={() => setMode("Finalized")}
           className={mode == "Finalized" ? "tabActive" : "tab"}
@@ -145,6 +146,7 @@ export default function StartScreenComp({}) {
           Finalized Blueprints
         </p>
         <p
+          data-cy="draft"
           id="Draft"
           onClick={() => setMode("Draft")}
           className={mode == "Draft" ? "tabActive" : "tab"}

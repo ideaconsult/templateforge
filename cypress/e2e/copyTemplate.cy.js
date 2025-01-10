@@ -1,6 +1,6 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
 
-describe("Searching for the template", () => {
+describe("Copy existing template", () => {
   beforeEach(() => {
     cy.intercept(
       {
@@ -19,5 +19,10 @@ describe("Searching for the template", () => {
   it("Find template by searching", () => {
     cy.get(".search").click().type("Dose response");
     cy.get(".nonSelected td").eq(1).click();
+    cy.get('[data-cy="copy-btn"]').click();
   });
+
+  //   it("Make a copy", () => {
+
+  //   });
 });

@@ -1,22 +1,22 @@
-const testURLRoot = "http://localhost:5173/templates";
+const testURLRoot = "http://127.0.0.1:50722/templates/";
 
 describe("choosing the project", () => {
   beforeEach(() => {
     cy.intercept(
       {
         method: "GET",
-        url: "/template",
-        hostname: "api-test.ramanchada.ideaconsult.net",
+        url: "/api/projects.json",
+        hostname: "enanomapper.adma.ai",
       },
       {
-        fixture: "json/bk_rcapi_template_default.json",
+        fixture: "json/bk_rcapi_projects_default.json",
       }
-    ).as("getAllTemplates");
+    ).as("getAllProjects");
 
     cy.visit(testURLRoot);
   });
 
-  it("Clicking the Preferences button, Choosing the Project and then set to None-selected", () => {
+  it("clicks the Preferences button, shooses the Project and then set to None-selected", () => {
     cy.get('[data-cy="preferences-btn"]').click();
     cy.get('[data-cy="select-btn"]').click();
     cy.get('[data-project="enanomapper"]').click();
