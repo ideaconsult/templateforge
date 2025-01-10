@@ -1,4 +1,4 @@
-const testURLRoot = "http://localhost:5173/templates";
+const testURLRoot = "http://127.0.0.1:50722/templates/";
 
 describe("Create New Template", () => {
   beforeEach(() => {
