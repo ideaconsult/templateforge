@@ -241,6 +241,7 @@ export default function TemplateTable({ data }) {
       {pageCount > 2 ? (
         <div className="pagination">
           <button
+            data-cy="previous-page"
             className="paginBtn"
             variant="outline"
             size="sm"
@@ -251,11 +252,18 @@ export default function TemplateTable({ data }) {
           </button>
           <div className="paginationPageCount">
             <p>
-              page <span className="pageCurrent">{currentPage + 1}</span> of{" "}
-              <span className="pageCurrent">{pageCount}</span>
+              page{" "}
+              <span data-cy="current-page-number" className="pageCurrent">
+                {currentPage + 1}
+              </span>{" "}
+              of{" "}
+              <span data-cy="all-page-number" className="pageCurrent">
+                {pageCount}
+              </span>
             </p>
           </div>
           <button
+            data-cy="next-page"
             className="paginBtn"
             variant="outline"
             size="sm"
