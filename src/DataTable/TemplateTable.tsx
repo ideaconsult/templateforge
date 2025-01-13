@@ -116,6 +116,7 @@ export default function TemplateTable({ data }) {
                 {headerGroup.headers.map((header, idx) => (
                   <th
                     key={idx}
+                    data-cy={header.column.columnDef.header}
                     className="thSorted"
                     onClick={header.column.getToggleSortingHandler()}
                   >
