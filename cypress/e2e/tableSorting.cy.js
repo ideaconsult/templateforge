@@ -1,7 +1,8 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
 
-describe("Copy existing template", () => {
+describe("Table column sorting functionality", () => {
   beforeEach(() => {
+    cy.visit(testURLRoot);
     cy.intercept(
       {
         method: "GET",
@@ -12,17 +13,12 @@ describe("Copy existing template", () => {
         fixture: "json/bk_rcapi_template_default.json",
       }
     ).as("getAllTemplates");
-
-    cy.visit(testURLRoot);
   });
 
-  it("Find template by searching", () => {
-    cy.get(".search").click().type("Dose response");
-    cy.get(".nonSelected td").eq(1).click();
-    cy.get('[data-cy="copy-btn"]').click();
+  it("makes sorting by a table column", () => {
+    cy.get('[data-cy="draft"]').click();
+    cy.get('[data-cy="Acknowledgment"]').click();
+    cy.get('[data-cy="Acknowledgment"]').click();
+    cy.get('[data-cy="Acknowledgment"]').click();
   });
-
-  //   it("Make a copy", () => {
-
-  //   });
 });
