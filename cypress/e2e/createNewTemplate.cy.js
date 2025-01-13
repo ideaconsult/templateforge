@@ -16,7 +16,7 @@ describe("Create New Template", () => {
     cy.visit(testURLRoot);
   });
 
-  it("Creating New Template", () => {
+  it("creats a new template", () => {
     cy.get('[data-cy="create-new-btn"]').click();
     cy.get('[data-cy="name-input"]').type("name: test");
     cy.get('[data-cy="author-input"]').type("author: test");
@@ -28,12 +28,6 @@ describe("Create New Template", () => {
         method: "POST",
         url: "/template",
         hostname: "api-test.ramanchada.ideaconsult.net",
-        // statusCode: 201,
-        body: {
-          name: "name: test",
-          author: "author: test",
-          acknowledgment: "acknowledgment: test",
-        },
       },
       {
         fixture: "json/bk_rcapi_template_default.json",
