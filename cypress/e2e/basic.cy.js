@@ -27,10 +27,5 @@ describe("Basic site functionality", () => {
     cy.get('[data-cy="Edit blueprint"]').click();
 
     cy.get("#Save").click();
-
-    cy.intercept("POST", "/template/*", {
-      hostname: "api-test.ramanchada.ideaconsult.net",
-      fixture: "json/bk_rcapi_template_default.json",
-    }).as("saveTemplate");
   });
 });
