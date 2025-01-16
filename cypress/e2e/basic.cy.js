@@ -26,10 +26,6 @@ describe("Basic site functionality", () => {
     cy.get(".nonSelected td").eq(1).click();
     cy.get('[data-cy="Edit blueprint"]').click();
 
-    cy.intercept("GET", "/template/*", {
-      fixture: "json/bk_rcapi_template_default.json",
-    }).as("getTemplate");
-
     cy.get("#Save").click();
 
     cy.intercept("POST", "/template/*", {
