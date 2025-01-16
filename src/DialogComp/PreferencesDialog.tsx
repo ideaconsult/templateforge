@@ -10,7 +10,11 @@ const PreferencesDialog = ({ setProjectName, projectName }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button id="preferences" className="buttonMenu">
+        <button
+          data-cy="preferences-btn"
+          id="preferences"
+          className="buttonMenu"
+        >
           Preferences
         </button>
       </Dialog.Trigger>
@@ -37,7 +41,7 @@ const PreferencesDialog = ({ setProjectName, projectName }) => {
             }}
           >
             <Dialog.Close asChild>
-              <button id="okBtn" className="Button">
+              <button data-cy="ok-btn" id="okBtn" className="Button">
                 Ok
               </button>
             </Dialog.Close>

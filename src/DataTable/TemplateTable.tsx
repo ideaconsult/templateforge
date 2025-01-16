@@ -7,6 +7,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+
 import { useEffect, useState } from "react";
 
 import { RowsIcon } from "lucide-react";
@@ -96,6 +97,8 @@ export default function TemplateTable({ data }) {
     setIdShosen(data && rowSelection ? data[rowSelection]?.uuid : null);
   }, [rowSelection, pagination]);
 
+  // console.log(table.getRowModel());
+
   return (
     <div>
       <div>
@@ -109,10 +112,11 @@ export default function TemplateTable({ data }) {
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
+              <tr key={headerGroup.headers.id}>
                 {headerGroup.headers.map((header, idx) => (
                   <th
                     key={idx}
+                    data-cy={header.column.columnDef.header}
                     className="thSorted"
                     onClick={header.column.getToggleSortingHandler()}
                   >
@@ -206,7 +210,7 @@ export default function TemplateTable({ data }) {
             table.getRowModel().rows.map((row, i) => (
               <tbody>
                 <tr
-                  key={i}
+                  key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                   onClick={() => {
                     setRowSelection(row.id);
@@ -238,6 +242,7 @@ export default function TemplateTable({ data }) {
       {pageCount > 2 ? (
         <div className="pagination">
           <button
+            data-cy="previous-page"
             className="paginBtn"
             variant="outline"
             size="sm"
@@ -248,11 +253,18 @@ export default function TemplateTable({ data }) {
           </button>
           <div className="paginationPageCount">
             <p>
-              page <span className="pageCurrent">{currentPage + 1}</span> of{" "}
-              <span className="pageCurrent">{pageCount}</span>
+              page{" "}
+              <span data-cy="current-page-number" className="pageCurrent">
+                {currentPage + 1}
+              </span>{" "}
+              of{" "}
+              <span data-cy="all-page-number" className="pageCurrent">
+                {pageCount}
+              </span>
             </p>
           </div>
           <button
+            data-cy="next-page"
             className="paginBtn"
             variant="outline"
             size="sm"

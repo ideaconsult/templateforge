@@ -1,6 +1,6 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
 
-describe("Basic site functionality", () => {
+describe("Table column sorting functionality", () => {
   beforeEach(() => {
     cy.visit(testURLRoot);
     cy.intercept(
@@ -15,17 +15,10 @@ describe("Basic site functionality", () => {
     ).as("getAllTemplates");
   });
 
-  it("displays the under development notice", () => {
-    cy.get("#root > div > p")
-      .should("have.class", "underDev")
-      .and("be.visible");
-  });
-
-  it("chooses draft templates", () => {
+  it("makes sorting by a table column", () => {
     cy.get('[data-cy="draft"]').click();
-    cy.get(".nonSelected td").eq(1).click();
-    cy.get('[data-cy="Edit blueprint"]').click();
-
-    cy.get("#Save").click();
+    cy.get('[data-cy="Acknowledgment"]').click();
+    cy.get('[data-cy="Acknowledgment"]').click();
+    cy.get('[data-cy="Acknowledgment"]').click();
   });
 });

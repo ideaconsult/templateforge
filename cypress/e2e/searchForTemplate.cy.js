@@ -1,6 +1,6 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
 
-describe("Basic site functionality", () => {
+describe("Searching for the template", () => {
   beforeEach(() => {
     cy.visit(testURLRoot);
     cy.intercept(
@@ -15,17 +15,8 @@ describe("Basic site functionality", () => {
     ).as("getAllTemplates");
   });
 
-  it("displays the under development notice", () => {
-    cy.get("#root > div > p")
-      .should("have.class", "underDev")
-      .and("be.visible");
-  });
-
-  it("chooses draft templates", () => {
-    cy.get('[data-cy="draft"]').click();
+  it("Find template by searching", () => {
+    cy.get(".search").click().type("hts_metadata_test_finalized");
     cy.get(".nonSelected td").eq(1).click();
-    cy.get('[data-cy="Edit blueprint"]').click();
-
-    cy.get("#Save").click();
   });
 });

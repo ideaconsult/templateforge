@@ -1,0 +1,22 @@
+[
+  {
+    "id": "nanoreg",
+    "name": "FP7 NANoREG",
+    "award_id": [310584]
+  },
+  {
+    "id": "nanoreg2",
+    "name": "H2020 NanoReg2",
+    "award_id": [646221]
+  },
+  {
+    "id": "enanomapper",
+    "name": "eNanoMapper",
+    "award_id": [604134]
+  },
+  {
+    "id": "gracious",
+    "name": "H2020 GRACIOUS",
+    "award_id": [760840]
+  }
+]
