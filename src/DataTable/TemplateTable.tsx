@@ -205,10 +205,10 @@ export default function TemplateTable({ data }) {
               </tr>
             ))}
           </thead>
-          {/* {console.log(table.getRowModel().rows[0]?.original?.uuid)} */}
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row, i) => (
-              <tbody>
+          <tbody>
+            {/* {console.log(table.getRowModel().rows[0]?.original?.uuid)} */}
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row, i) => (
                 <tr
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
@@ -228,15 +228,13 @@ export default function TemplateTable({ data }) {
                     </td>
                   ))}
                 </tr>
-              </tbody>
-            ))
-          ) : (
-            <tbody>
+              ))
+            ) : (
               <tr style={{ paddingLeft: "12px", color: "rgb(137 137 137)" }}>
                 <td>Sorry, no search result</td>
               </tr>
-            </tbody>
-          )}
+            )}
+          </tbody>
         </table>
       </div>
       {pageCount > 2 ? (
