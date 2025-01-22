@@ -15,10 +15,34 @@ describe("Table column sorting functionality", () => {
     ).as("getAllTemplates");
   });
 
-  it("makes sorting by a table column", () => {
-    cy.get('[data-cy="draft"]').click();
-    cy.get('[data-cy="Acknowledgment"]').click();
-    cy.get('[data-cy="Acknowledgment"]').click();
-    cy.get('[data-cy="Acknowledgment"]').click();
+  it('extracts text from the "Template Name" column and sorts them in ascending order', () => {
+    const originalNames = [];
+
+    cy.get('[data-cy="Template Name"]').click();
+
+    cy.get(".nonSelected").each((el) => {
+      let text = el.find("td:nth-child(1)").text();
+      originalNames.push(text);
+
+      const ascendingNames = [...originalNames].sort();
+
+      expect(originalNames).to.deep.equal(ascendingNames);
+    });
+  });
+
+  it('extracts text from the "Template Name" column and sorts them in descending order', () => {
+    const originalNames = [];
+
+    cy.get('[data-cy="Template Name"]').click();
+    cy.get('[data-cy="Template Name"]').click();
+
+    cy.get(".nonSelected").each((el) => {
+      let text = el.find("td:nth-child(1)").text();
+      originalNames.push(text);
+
+      const descendingNames = [...originalNames].sort().reverse();
+
+      expect(originalNames).to.deep.equal(descendingNames);
+    });
   });
 });
