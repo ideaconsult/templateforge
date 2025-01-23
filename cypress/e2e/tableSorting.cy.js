@@ -1,5 +1,8 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
 
+const fixture = "json/templates_generated.json";
+// const fixture = "json/tbk_rcapi_template_default.json";
+
 describe("Table column sorting functionality", () => {
   beforeEach(() => {
     cy.visit(testURLRoot);
@@ -10,7 +13,7 @@ describe("Table column sorting functionality", () => {
         hostname: "api-test.ramanchada.ideaconsult.net",
       },
       {
-        fixture: "json/bk_rcapi_template_default.json",
+        fixture,
       }
     ).as("getAllTemplates");
   });
