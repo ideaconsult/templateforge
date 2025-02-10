@@ -209,6 +209,18 @@ button[disabled] {
   color: #919191;
 }
 
+.notification-content {
+  width: max-content;
+  position: absolute;
+  bottom: 3rem;
+  left: 23rem;
+  font-size: 0.8rem;
+  background-color: #292929;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
 @keyframes overlayShow {
   from {
     opacity: 0;

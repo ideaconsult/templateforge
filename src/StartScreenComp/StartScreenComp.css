@@ -164,6 +164,7 @@ tr.choosen {
   color: #fff;
 }
 .buttonsWrap {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -180,4 +181,22 @@ iframe {
 .nonSelected {
   background-color: #fff;
   cursor: pointer;
+}
+
+.genAnyway {
+  background: transparent;
+  text-transform: inherit;
+  text-decoration: underline;
+
+  border: none;
+}
+
+.genAnyway:hover {
+  color: #dddddd;
+}
+
+.genAnyway:active,
+.genAnyway:focus {
+  border: none;
+  outline: none;
 }
