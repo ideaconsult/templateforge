@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
+import Notification from "../DialogComp/Notification";
 
 import LogoBar from "../MenuBar/LogoBar";
 import Button from "../ui/Button";
@@ -39,6 +40,8 @@ export default function StartScreenComp({}) {
   const setStartScreen = useSetShowStartScreen();
   const projectID = useProjectID();
 
+  const [showNotification, setShowNotification] = useState(false);
+
   const idShosen = useIsShosen();
   const setIdShosen = useSetIsShosen();
 
@@ -75,7 +78,11 @@ export default function StartScreenComp({}) {
 
   setTimeout(() => {
     setCopied(false);
-  }, 3000);
+  }, 5000);
+
+  setTimeout(() => {
+    setShowNotification(false);
+  }, 8000);
 
   const onChange = (e) => {
     setValue(e.target.value);
@@ -176,13 +183,26 @@ export default function StartScreenComp({}) {
                 label={copied ? "Copied to clipboard!" : "Share a link"}
               />
             </div>
-            <div onClick={dowloadXLS}>
-              <Button disabled={!idShosen} label="Generate Excel Template" />
-            </div>
+            {showNotification && (
+              <Notification>
+                Project is not selected. &nbsp;
+                <button onClick={dowloadXLS} className="genAnyway">
+                  Generate anyway
+                </button>
+              </Notification>
+            )}
+            {projectID ? (
+              <div onClick={dowloadXLS}>
+                <Button disabled={!idShosen} label="Generate Excel Template" />
+              </div>
+            ) : (
+              <div onClick={() => setShowNotification(true)}>
+                <Button disabled={!idShosen} label="Generate Excel Template" />
+              </div>
+            )}
             <Link to={`?wizard=${idShosen}`}>
               <Button disabled={!idShosen} label="Customize Excel template" />
             </Link>
-            {/* <ProcessingBluePrintDialog /> */}
           </div>
         </div>
       </div>
