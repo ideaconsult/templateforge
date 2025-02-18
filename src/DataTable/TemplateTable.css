@@ -60,3 +60,11 @@
 .pageBtn:hover {
   background-color: #f0faff;
 }
+
+.pageNumberImput {
+  width: 82px;
+  font-size: 13px;
+  border-bottom: 1px solid #909090;
+  font-weight: 300;
+  padding: 0 6px;
+}
