@@ -66,6 +66,7 @@ export default function TemplateTable({ data }) {
 
   const [sorting, setSorting] = useState([{ id: "timestamp", desc: true }]);
   const [filtering, setFiltering] = useState("");
+  const [enteredPageNumber, setEnteredPageNumber] = useState("");
 
   const table = useReactTable({
     data,
@@ -95,6 +96,14 @@ export default function TemplateTable({ data }) {
 
   const pageCount = table.getPageCount();
   const currentPage = table.getState().pagination.pageIndex;
+
+  console.log(table);
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && enteredPageNumber - 1 < pageCount) {
+      table.setPageIndex(enteredPageNumber - 1);
+    }
+  };
 
   const setIdShosen = useSetIsShosen();
   useEffect(() => {
@@ -284,6 +293,15 @@ export default function TemplateTable({ data }) {
               </button>
             )}
           </div>
+          <input
+            value={enteredPageNumber}
+            onChange={(e) => setEnteredPageNumber(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="pageNumberImput"
+            type="text"
+            placeholder="Page Number"
+          />
+
           <button
             data-cy="next-page"
             className="paginBtn"
