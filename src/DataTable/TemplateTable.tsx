@@ -10,6 +10,8 @@ import {
 
 import { useEffect, useState } from "react";
 
+import "./TemplateTable.css";
+
 import { RowsIcon } from "lucide-react";
 import { useSetIsShosen } from "../store/store";
 import { onLookup } from "./CategoryLookUp";
@@ -250,16 +252,37 @@ export default function TemplateTable({ data }) {
             Previous
           </button>
           <div className="paginationPageCount">
-            <p>
-              page{" "}
-              <span data-cy="current-page-number" className="pageCurrent">
-                {currentPage + 1}
-              </span>{" "}
-              of{" "}
-              <span data-cy="all-page-number" className="pageCurrent">
+            {currentPage < 2 ? null : (
+              <button className="pageBtn" onClick={() => table.firstPage()}>
+                1
+              </button>
+            )}
+            {currentPage < 3 ? null : <p>...</p>}
+            {currentPage > 0 ? (
+              <div
+                className="pageBtn"
+                onClick={() => table.setPageIndex(currentPage - 1)}
+              >
+                {currentPage}
+              </div>
+            ) : null}
+            <div className="pageCurrent">{currentPage + 1}</div>
+            {currentPage + 2 > pageCount ? null : (
+              <>
+                <div
+                  className="pageBtn"
+                  onClick={() => table.setPageIndex(currentPage + 1)}
+                >
+                  {currentPage + 2}
+                </div>
+                {pageCount - currentPage < 4 ? null : <p>...</p>}
+              </>
+            )}
+            {pageCount - currentPage < 3 ? null : (
+              <button className="pageBtn" onClick={() => table.lastPage()}>
                 {pageCount}
-              </span>
-            </p>
+              </button>
+            )}
           </div>
           <button
             data-cy="next-page"
