@@ -1,5 +1,5 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
-const fixture = "json/templates_generated.json";
+const fixture = "json/bk_rcapi_templates_generated.json";
 
 describe("Copy Template Link Functionality", () => {
   beforeEach(() => {

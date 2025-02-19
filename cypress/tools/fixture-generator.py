@@ -47,7 +47,7 @@ for _ in range(150):
 
 current_directory = os.getcwd()
 
-file_name = "templates_generated.json"
+file_name = "bk_rcapi_templates_generated.json"
 
 parent_directory = os.path.dirname(current_directory) + "/fixtures"
 
