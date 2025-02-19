@@ -32,7 +32,7 @@ for _ in range(150):
   uuid_value = str(uuid.uuid4())
 
   template = {
-        "uri": f"https://api-test.ramanchada.ideaconsult.net/template/{random_string(21)}",
+        "uri": f"https://api-test.ramanchada.ideaconsult.net/template/{uuid_value}",
         "uuid": uuid_value,
         "METHOD": random_string(12),
         "timestamp": date.isoformat(),
@@ -49,7 +49,7 @@ current_directory = os.getcwd()
 
 file_name = "bk_rcapi_templates_generated.json"
 
-parent_directory = os.path.dirname(current_directory) + "/fixtures"
+parent_directory = os.path.dirname(current_directory) + "/cypress/fixtures/json"
 
 file_path = os.path.join(parent_directory, file_name)
 

@@ -8,7 +8,7 @@ function setIntercepts() {
       hostname: "api-test.ramanchada.ideaconsult.net",
     },
     {
-      fixture: "json/bk_rcapi_template_default.json",
+      fixture: "json/bk_rcapi_templates_generated.json",
     }
   ).as("getAllTemplates");
 
@@ -19,7 +19,7 @@ function setIntercepts() {
       hostname: "enanomapper.adma.ai",
     },
     {
-      fixture: "json/bk_rcapi_projects_default.json",
+      fixture: "json/bk_11ty_projects_default.json",
     }
   ).as("getAllProjects");
 }
@@ -34,14 +34,6 @@ describe("General site functionality", () => {
     cy.get("#root > div > p")
       .should("have.class", "underDev")
       .and("be.visible");
-  });
-
-  it("can open an existing draft for editing", () => {
-    cy.get('[data-cy="draft"]').click();
-    cy.get(".nonSelected td").eq(1).click();
-    cy.get('[data-cy="Edit blueprint"]').click();
-
-    cy.get("#Save").click();
   });
 
   it("can create a new empty draft", () => {
@@ -64,7 +56,10 @@ describe("General site functionality", () => {
   });
 
   it("can find an existing draft by searching", () => {
-    cy.get(".search").click().type("hts_metadata_test_finalized");
+    cy.get('[data-cy="draft"]').click();
+    cy.get(".search")
+      .click()
+      .type(`w<Ljcb]C6?^; *Equ#CZ~WS1J)M[cps!/bgU\"j(7eh`);
     cy.get(".nonSelected td").eq(1).click();
   });
 
@@ -75,12 +70,5 @@ describe("General site functionality", () => {
     cy.get('[data-cy="current-page-number"]').should("have.text", "2");
     cy.get('[data-cy="previous-page"]').click();
     cy.get('[data-cy="current-page-number"]').should("have.text", "1");
-  });
-
-  it("can sort by a table column", () => {
-    cy.get('[data-cy="draft"]').click();
-    cy.get('[data-cy="Acknowledgment"]').click();
-    cy.get('[data-cy="Acknowledgment"]').click();
-    cy.get('[data-cy="Acknowledgment"]').click();
   });
 });

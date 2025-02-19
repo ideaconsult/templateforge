@@ -1,5 +1,4 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
-const fixture = "json/bk_rcapi_templates_generated.json";
 
 describe("Copy Template Link Functionality", () => {
   beforeEach(() => {
@@ -11,7 +10,7 @@ describe("Copy Template Link Functionality", () => {
         hostname: "api-test.ramanchada.ideaconsult.net",
       },
       {
-        fixture,
+        fixture: "json/bk_rcapi_templates_generated.json",
       }
     ).as("getAllTemplates");
   });
@@ -25,7 +24,7 @@ describe("Copy Template Link Functionality", () => {
     cy.window().then((win) => {
       win.navigator.clipboard.readText().then((text) => {
         expect(text).to.eq(
-          "http://127.0.0.1:50722/templates/?uuid=cbe07283-c4c0-416a-a784-4a0274592bee"
+          "http://127.0.0.1:50722/templates/?uuid=d8fcd5b6-75b9-4794-80c6-462c00bb33b8"
         );
       });
     });

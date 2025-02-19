@@ -1,5 +1,4 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
-const fixture = "json/bk_rcapi_templates_generated.json";
 const uuid = "396fc51e-dd55-451f-a6dd-913177abb667";
 const project = "enanomapper";
 
@@ -13,7 +12,7 @@ describe("Generate Excel File", () => {
         hostname: "api-test.ramanchada.ideaconsult.net",
       },
       {
-        fixture,
+        fixture: "json/bk_rcapi_templates_generated.json",
       }
     ).as("getAllTemplates");
 
@@ -24,7 +23,7 @@ describe("Generate Excel File", () => {
         hostname: "enanomapper.adma.ai",
       },
       {
-        fixture: "json/bk_rcapi_projects_default.json",
+        fixture: "json/bk_11ty_projects_default.json",
       }
     ).as("getAllProjects");
   });
