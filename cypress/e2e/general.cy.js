@@ -11,16 +11,7 @@ function setIntercepts() {
       fixture: "json/bk_rcapi_template_default.json",
     }
   ).as("getAllTemplates");
-  cy.intercept(
-    {
-      method: "POST",
-      url: "/template",
-      hostname: "api-test.ramanchada.ideaconsult.net",
-    },
-    {
-      fixture: "json/bk_rcapi_template_default.json",
-    }
-  ).as("createNewTemplate");
+
   cy.intercept(
     {
       method: "GET",
@@ -34,7 +25,6 @@ function setIntercepts() {
 }
 
 describe("General site functionality", () => {
-
   beforeEach(() => {
     setIntercepts();
     cy.visit(testURLRoot);
@@ -93,5 +83,4 @@ describe("General site functionality", () => {
     cy.get('[data-cy="Acknowledgment"]').click();
     cy.get('[data-cy="Acknowledgment"]').click();
   });
-
 });
