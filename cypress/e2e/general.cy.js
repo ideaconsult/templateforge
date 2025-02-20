@@ -58,7 +58,7 @@ describe("General site functionality", () => {
     cy.get('[data-cy="draft"]').click();
     cy.get(".search")
       .click()
-      .type("hu@9n[2 FoPZZ|=T0}L]E=UB?yF4Efd");
+      .type("w+5&KX $mH:XsJu`3],R~w.f 8 G< %");
     cy.get(".nonSelected td").eq(1).click();
   });
 

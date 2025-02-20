@@ -1,5 +1,5 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
-const expectedUrl = testURLRoot + "?uuid=d8fcd5b6-75b9-4794-80c6-462c00bb33b8"
+const expectedUrl = testURLRoot + "?uuid=a7b58a49-4ead-4a1b-beb4-46b09f061401";
 
 describe("Copy Template Link Functionality", () => {
   beforeEach(() => {

@@ -56,8 +56,12 @@ with open(file_path, "w") as file:
     json.dump(templates, file, indent=2)
 
 drafts = [_ for _ in filter(lambda _: _["template_status"] == "DRAFT", data)]
-drafts_newest = sorted(drafts, key=lambda _: _["timestamp"], reverse=True)
-first_uuid = drafts_newest[0]["uuid"]
+finals = [_ for _ in filter(lambda _: _["template_status"] == "FINALIZED", data)]
+drafts_by_newest = sorted(drafts, key=lambda _: _["timestamp"], reverse=True)
+finals_by_newest = sorted(finals, key=lambda _: _["timestamp"], reverse=True)
+drafts_first_uuid = drafts_by_newest[0]["uuid"]
+finals_first_uuid = finals_by_newest[0]["uuid"]
 random_name = drafts[random.randint(0, len(drafts) - 1)]["template_name"]
-print(f'UUID of the most recent draft template: "{first_uuid}"')
+print(f'UUID of the most recent draft template: "{drafts_first_uuid}"')
+print(f'UUID of the most recent finalized template: "{finals_first_uuid}"')
 print(f'Name of a randomly chosen draft template: "{random_name}"')
