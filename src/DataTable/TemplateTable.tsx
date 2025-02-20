@@ -97,8 +97,6 @@ export default function TemplateTable({ data }) {
     setIdShosen(data && rowSelection ? data[rowSelection]?.uuid : null);
   }, [rowSelection, pagination]);
 
-  // console.log(table.getRowModel());
-
   return (
     <div>
       <div>
