@@ -24,11 +24,13 @@ const columns = [
   {
     accessorKey: "template_name",
     header: "Template Name",
+    sortingFn: "textCaseSensitive",
     cell: (props) => <>{props.getValue()}</>,
   },
   {
     accessorKey: "template_author",
     header: "Template Author",
+    sortingFn: "textCaseSensitive",
     cell: (props) => <>{props.getValue()}</>,
   },
   {
