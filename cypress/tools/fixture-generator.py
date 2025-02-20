@@ -3,7 +3,7 @@ import random
 import string
 import uuid
 from datetime import datetime, timedelta
-import os
+from pathlib import Path
 
 def random_string(length=8):
     return ''.join(random.choices(string.printable, k=length))
@@ -45,13 +45,9 @@ for _ in range(150):
   }
   data.append(template)
 
-current_directory = os.getcwd()
-
+dir_name = "cypress/fixtures/json"
 file_name = "bk_rcapi_templates_generated.json"
-
-parent_directory = os.path.dirname(current_directory) + "/cypress/fixtures/json"
-
-file_path = os.path.join(parent_directory, file_name)
+file_path = Path.cwd() / dir_name / file_name
 
 templates = {"template": data}
 
