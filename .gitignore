@@ -1,3 +1,7 @@
+# Cypress
+cypress/downloads
+cypress/screenshots
+
 # Logs
 logs
 *.log

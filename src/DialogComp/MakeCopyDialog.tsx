@@ -64,6 +64,7 @@ const MakeCopyDialog = () => {
       <Dialog.Trigger asChild>
         <button
           id="makeCopy"
+          data-cy="copy-btn"
           className="buttonMenu"
           disabled={!idShosen ? true : false}
           onClick={() => {
@@ -90,6 +91,7 @@ const MakeCopyDialog = () => {
               onChange={(e) => setName(e.target.value)}
               id="name"
               placeholder="copy"
+              data-cy="name-input"
             />
           </fieldset>
           {!name && <p className="warning">Please enter Draft name</p>}
@@ -99,6 +101,7 @@ const MakeCopyDialog = () => {
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
               id="author"
+              data-cy="author-input"
             />
           </fieldset>
           {!author && <p className="warning">Please enter Author name</p>}
@@ -108,6 +111,7 @@ const MakeCopyDialog = () => {
               value={acknowledgment}
               onChange={(e) => setAcknowledgment(e.target.value)}
               id="template_acknowledgment"
+              data-cy="acknowledgment-input"
             />
           </fieldset>
           {!acknowledgment && (

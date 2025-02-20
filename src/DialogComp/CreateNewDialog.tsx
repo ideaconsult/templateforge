@@ -31,7 +31,6 @@ const CreateNewDialog = () => {
 
   const setIdShosen = useSetIsShosen();
   const storageItemKey = "my-survey";
-
   var survey_data = new Model(json).data;
 
   return (
@@ -47,6 +46,7 @@ const CreateNewDialog = () => {
             window.localStorage.setItem(storageItemKey, "");
           }}
           className="createNewBtn"
+          data-cy="create-new-btn"
         >
           Create a new Draft
         </button>
@@ -67,6 +67,7 @@ const CreateNewDialog = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               id="name"
+              data-cy="name-input"
             />
           </fieldset>
           {!name && <p className="warning">Please enter Draft name</p>}
@@ -76,6 +77,7 @@ const CreateNewDialog = () => {
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
               id="author"
+              data-cy="author-input"
             />
           </fieldset>
           {!author && <p className="warning">Please enter Author name</p>}
@@ -85,6 +87,7 @@ const CreateNewDialog = () => {
               value={acknowledgment}
               onChange={(e) => setAcknowledgment(e.target.value)}
               id="template_acknowledgment"
+              data-cy="acknowledgment-input"
             />
           </fieldset>
           {!acknowledgment && (
@@ -102,6 +105,7 @@ const CreateNewDialog = () => {
                 id="create_new"
                 disabled={name == "" && author == "" && acknowledgment == ""}
                 className="Button"
+                data-cy="create-new-btn-modal"
                 onClick={async () => {
                   survey_data["template_name"] = name;
                   survey_data["template_status"] = "DRAFT";

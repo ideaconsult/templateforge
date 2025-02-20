@@ -7,6 +7,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+
 import { useEffect, useState } from "react";
 
 import { RowsIcon } from "lucide-react";
@@ -23,11 +24,13 @@ const columns = [
   {
     accessorKey: "template_name",
     header: "Template Name",
+    sortingFn: "textCaseSensitive",
     cell: (props) => <>{props.getValue()}</>,
   },
   {
     accessorKey: "template_author",
     header: "Template Author",
+    sortingFn: "textCaseSensitive",
     cell: (props) => <>{props.getValue()}</>,
   },
   {
@@ -109,10 +112,11 @@ export default function TemplateTable({ data }) {
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
+              <tr key={headerGroup.headers.id}>
                 {headerGroup.headers.map((header, idx) => (
                   <th
                     key={idx}
+                    data-cy={header.column.columnDef.header}
                     className="thSorted"
                     onClick={header.column.getToggleSortingHandler()}
                   >
@@ -201,12 +205,12 @@ export default function TemplateTable({ data }) {
               </tr>
             ))}
           </thead>
-          {/* {console.log(table.getRowModel().rows[0]?.original?.uuid)} */}
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row, i) => (
-              <tbody>
+          <tbody>
+            {/* {console.log(table.getRowModel().rows[0]?.original?.uuid)} */}
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row, i) => (
                 <tr
-                  key={i}
+                  key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                   onClick={() => {
                     setRowSelection(row.id);
@@ -224,20 +228,19 @@ export default function TemplateTable({ data }) {
                     </td>
                   ))}
                 </tr>
-              </tbody>
-            ))
-          ) : (
-            <tbody>
+              ))
+            ) : (
               <tr style={{ paddingLeft: "12px", color: "rgb(137 137 137)" }}>
                 <td>Sorry, no search result</td>
               </tr>
-            </tbody>
-          )}
+            )}
+          </tbody>
         </table>
       </div>
       {pageCount > 2 ? (
         <div className="pagination">
           <button
+            data-cy="previous-page"
             className="paginBtn"
             variant="outline"
             size="sm"
@@ -248,11 +251,18 @@ export default function TemplateTable({ data }) {
           </button>
           <div className="paginationPageCount">
             <p>
-              page <span className="pageCurrent">{currentPage + 1}</span> of{" "}
-              <span className="pageCurrent">{pageCount}</span>
+              page{" "}
+              <span data-cy="current-page-number" className="pageCurrent">
+                {currentPage + 1}
+              </span>{" "}
+              of{" "}
+              <span data-cy="all-page-number" className="pageCurrent">
+                {pageCount}
+              </span>
             </p>
           </div>
           <button
+            data-cy="next-page"
             className="paginBtn"
             variant="outline"
             size="sm"
