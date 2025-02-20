@@ -60,4 +60,4 @@ file_path = Path.cwd() / dir_name / file_name
 templates = {"template": data}
 
 with open(file_path, "w") as file:
-    json.dump(templates, file)
+    json.dump(templates, file, indent=2)
