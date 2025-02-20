@@ -61,3 +61,6 @@ templates = {"template": data}
 
 with open(file_path, "w") as file:
     json.dump(templates, file, indent=2)
+
+first_uuid = sorted(data, key=lambda _: _["timestamp"], reverse=True)[0]["uuid"]
+print(f"UUID of the template on the first row: {first_uuid}")
