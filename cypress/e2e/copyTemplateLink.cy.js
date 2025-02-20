@@ -1,4 +1,5 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
+const expectedUrl = testURLRoot + "?uuid=d8fcd5b6-75b9-4794-80c6-462c00bb33b8"
 
 describe("Copy Template Link Functionality", () => {
   beforeEach(() => {
@@ -21,12 +22,8 @@ describe("Copy Template Link Functionality", () => {
 
     cy.get("@copyButton").click();
 
-    cy.window().then((win) => {
-      win.navigator.clipboard.readText().then((text) => {
-        expect(text).to.eq(
-          "http://127.0.0.1:50722/templates/?uuid=d8fcd5b6-75b9-4794-80c6-462c00bb33b8"
-        );
-      });
-    });
+    cy.window().its("navigator.clipboard")
+      .then((clip) => clip.readText())
+      .should("equal", expectedUrl);
   });
 });
