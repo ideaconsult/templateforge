@@ -6,18 +6,11 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 
-def random_string(length=8):
-    return "".join(random.choices(string.printable, k=length))
-
-
-def random_underscores_string(length=8):
-    return "".join(
-        random_string(length)
-        + "_"
-        + random_string(length)
-        + "_"
-        + random_string(length)
+def random_string(length=32):
+    chars = "".join(
+        [string.digits, string.ascii_letters, "!#$%&()*+,-./:;<=>?@[]^_`{|}~", " " * 10]
     )
+    return "".join(random.choices(chars, k=length)).strip()
 
 
 def random_date(start, end):
@@ -42,14 +35,14 @@ for _ in range(150):
     template = {
         "uri": f"https://api-test.ramanchada.ideaconsult.net/template/{uuid_value}",
         "uuid": uuid_value,
-        "METHOD": random_string(12),
+        "METHOD": random_string(),
         "timestamp": date.isoformat(),
-        "PROTOCOL_CATEGORY_CODE": random_underscores_string(6),
-        "EXPERIMENT": random_string(12),
-        "template_name": random_string(42),
+        "PROTOCOL_CATEGORY_CODE": random_string(),
+        "EXPERIMENT": random_string(),
+        "template_name": random_string(),
         "template_status": random_status,
-        "template_author": random_string(42),
-        "template_acknowledgment": random_string(34),
+        "template_author": random_string(),
+        "template_acknowledgment": random_string(),
     }
     data.append(template)
 
@@ -62,5 +55,9 @@ templates = {"template": data}
 with open(file_path, "w") as file:
     json.dump(templates, file, indent=2)
 
-first_uuid = sorted(data, key=lambda _: _["timestamp"], reverse=True)[0]["uuid"]
-print(f"UUID of the template on the first row: {first_uuid}")
+drafts = [_ for _ in filter(lambda _: _["template_status"] == "DRAFT", data)]
+drafts_newest = sorted(drafts, key=lambda _: _["timestamp"], reverse=True)
+first_uuid = drafts_newest[0]["uuid"]
+random_name = drafts[random.randint(0, len(drafts) - 1)]["template_name"]
+print(f'UUID of the most recent draft template: "{first_uuid}"')
+print(f'Name of a randomly chosen draft template: "{random_name}"')

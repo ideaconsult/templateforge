@@ -1,5 +1,5 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
-const uuid = "ad7f5a2f-5f2f-4616-bf82-0da5c06c8b3b";
+const uuid = "0896e1cc-642a-4779-b8cb-bf17652eed5e";
 const project = "enanomapper";
 
 describe("Generate Excel File", () => {

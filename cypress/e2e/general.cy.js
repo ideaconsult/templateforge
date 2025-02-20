@@ -41,7 +41,6 @@ describe("General site functionality", () => {
     cy.get('[data-cy="name-input"]').type("name: test");
     cy.get('[data-cy="author-input"]').type("author: test");
     cy.get('[data-cy="acknowledgment-input"]').type("acknowledgment: test");
-    cy.get('[data-cy="create-new-btn-modal"]').click();
   });
 
   it("can set and unset a specific project", () => {
@@ -59,7 +58,7 @@ describe("General site functionality", () => {
     cy.get('[data-cy="draft"]').click();
     cy.get(".search")
       .click()
-      .type(`w<Ljcb]C6?^; *Equ#CZ~WS1J)M[cps!/bgU\"j(7eh`);
+      .type("hu@9n[2 FoPZZ|=T0}L]E=UB?yF4Efd");
     cy.get(".nonSelected td").eq(1).click();
   });
 
