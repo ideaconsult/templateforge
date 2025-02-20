@@ -1,8 +1,8 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
 const testProject = "enanomapper";
-const uuidFirstDraft = "0fa4c281-876c-45be-be9a-e6f06e7e6460";
-const uuidFirstFinalized = "a7b58a49-4ead-4a1b-beb4-46b09f061401";
-const searchText = "w+5&KX $mH:XsJu`3],R~w.f 8 G< %";
+const uuidFirstDraft = "2991fced-0cd5-4408-846a-61d446527489";
+const uuidFirstFinalized = "8f85c8d4-f2c7-44cc-aed4-959d8694f7af";
+const searchText = "Wfq/]eF| Egy?;,_WiNp Vh  zN >pDk";
 
 function setIntercepts() {
   cy.intercept(
