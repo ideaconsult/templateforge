@@ -1,4 +1,8 @@
 const testURLRoot = "http://127.0.0.1:50722/templates/";
+const testProject = "enanomapper";
+const uuidFirstDraft = "0fa4c281-876c-45be-be9a-e6f06e7e6460";
+const uuidFirstFinalized = "a7b58a49-4ead-4a1b-beb4-46b09f061401";
+const searchText = "w+5&KX $mH:XsJu`3],R~w.f 8 G< %";
 
 function setIntercepts() {
   cy.intercept(
@@ -56,9 +60,7 @@ describe("General site functionality", () => {
 
   it("can find an existing draft by searching", () => {
     cy.get('[data-cy="draft"]').click();
-    cy.get(".search")
-      .click()
-      .type("w+5&KX $mH:XsJu`3],R~w.f 8 G< %");
+    cy.get(".search").click().type(searchText);
     cy.get(".nonSelected td").eq(1).click();
   });
 
@@ -70,4 +72,38 @@ describe("General site functionality", () => {
     cy.get('[data-cy="previous-page"]').click();
     cy.get('[data-cy="current-page-number"]').should("have.text", "1");
   });
+
+  it("can copy the link to the clipboard", () => {
+    cy.get(".nonSelected td").eq(1).click();
+    cy.get('[data-cy="Share a link"]').as("copyButton");
+
+    cy.get("@copyButton").click();
+
+    cy.window().its("navigator.clipboard")
+      .then((clip) => clip.readText())
+      .should("equal", testURLRoot + "?uuid=" + uuidFirstFinalized);
+  });
+
+  it("can generate excel file", () => {
+    cy.intercept({
+      method: "GET",
+      url: `/template/${uuidFirstDraft}?format=xlsx&project=${testProject}`,
+      hostname: "api-test.ramanchada.ideaconsult.net",
+    }).as("generateExcelFile");
+
+    cy.get('[data-cy="preferences-btn"]').click();
+    cy.get('[data-cy="select-btn"]').click();
+    cy.get(`[data-project='${testProject}']`).click();
+    cy.get('[data-cy="ok-btn"]').click();
+
+    cy.get('[data-cy="draft"]').click();
+    cy.get(".nonSelected td").eq(1).click();
+
+    cy.get('[data-cy="Generate Excel Template"]').click();
+
+    cy.wait("@generateExcelFile").then((interception) => {
+      expect(interception.state).to.equal("Complete");
+    });
+  });
+
 });
