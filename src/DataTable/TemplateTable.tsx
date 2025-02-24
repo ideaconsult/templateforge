@@ -97,8 +97,6 @@ export default function TemplateTable({ data }) {
   const pageCount = table.getPageCount();
   const currentPage = table.getState().pagination.pageIndex;
 
-  console.log(table);
-
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && enteredPageNumber - 1 < pageCount) {
       table.setPageIndex(enteredPageNumber - 1);
