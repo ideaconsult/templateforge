@@ -7389,6 +7389,6 @@ var lookup = {
   ENVO_00003895: "Manufactured product/paper product",
 };
 
-export function ontLookup(val) {
+export function onLookup(val) {
   return lookup[val] === undefined ? val : lookup[val];
 }

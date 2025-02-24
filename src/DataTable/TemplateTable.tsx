@@ -14,7 +14,7 @@ import "./TemplateTable.css";
 
 import { RowsIcon } from "lucide-react";
 import { useSetIsShosen } from "../store/store";
-import { ontLookup } from "./CategoryLookUp";
+import { onLookup } from "./CategoryLookUp";
 import SortingIcon from "@/IconsComponents/SortingIcon";
 
 const columns = [
@@ -48,7 +48,7 @@ const columns = [
   {
     accessorKey: "PROTOCOL_CATEGORY_CODE",
     header: "Category",
-    cell: (props) => ontLookup(props.getValue()),
+    cell: (props) => onLookup(props.getValue()),
   },
   {
     accessorKey: "timestamp",
@@ -96,8 +96,6 @@ export default function TemplateTable({ data }) {
 
   const pageCount = table.getPageCount();
   const currentPage = table.getState().pagination.pageIndex;
-
-  console.log(table);
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && enteredPageNumber - 1 < pageCount) {
