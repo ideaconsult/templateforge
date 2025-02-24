@@ -33,7 +33,7 @@
     "survey-core": "latest",
     "survey-react-ui": "latest",
     "surveyjs-widgets": "^1.10.3",
-    "swr": "^2.2.4",
+    "swr": "^2.3.2",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
