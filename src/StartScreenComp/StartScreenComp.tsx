@@ -4,8 +4,6 @@ import { Navigate } from "react-router-dom";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
 import Notification from "../DialogComp/Notification";
 
-import { onLookup } from "../DataTable/CategoryLookUp";
-
 import LogoBar from "../MenuBar/LogoBar";
 import Button from "../ui/Button";
 import config from "../utils/config";
@@ -55,16 +53,9 @@ export default function StartScreenComp({}) {
     cachePolicy: "no-cache",
   });
 
-  const mappedCategoryData =
-    data &&
-    data.template.map((item) => ({
-      ...item,
-      PROTOCOL_CATEGORY_CODE: onLookup(item["PROTOCOL_CATEGORY_CODE"]),
-    }));
-
   const templateData = [];
   data &&
-    mappedCategoryData.map((item) => {
+    data.template.map((item) => {
       if (mode == "Finalized" && item.template_status == "FINALIZED") {
         return templateData.push(item);
       }
