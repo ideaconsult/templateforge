@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 
 import { RowsIcon } from "lucide-react";
 import { useSetIsShosen } from "../store/store";
-import { ontLookup } from "./CategoryLookUp";
+import { onLookup } from "./CategoryLookUp";
 import SortingIcon from "@/IconsComponents/SortingIcon";
 
 const columns = [
@@ -46,7 +46,7 @@ const columns = [
   {
     accessorKey: "PROTOCOL_CATEGORY_CODE",
     header: "Category",
-    cell: (props) => ontLookup(props.getValue()),
+    cell: (props) => onLookup(props.getValue()),
   },
   {
     accessorKey: "timestamp",
