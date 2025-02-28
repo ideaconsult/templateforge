@@ -10,6 +10,8 @@ import {
 
 import { useEffect, useState } from "react";
 
+import "./TemplateTable.css";
+
 import { RowsIcon } from "lucide-react";
 import { useSetIsShosen } from "../store/store";
 import { onLookup } from "./CategoryLookUp";
@@ -64,6 +66,7 @@ export default function TemplateTable({ data }) {
 
   const [sorting, setSorting] = useState([{ id: "timestamp", desc: true }]);
   const [filtering, setFiltering] = useState("");
+  const [enteredPageNumber, setEnteredPageNumber] = useState("");
 
   const table = useReactTable({
     data,
@@ -93,6 +96,14 @@ export default function TemplateTable({ data }) {
 
   const pageCount = table.getPageCount();
   const currentPage = table.getState().pagination.pageIndex;
+
+  console.log(table);
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && enteredPageNumber - 1 < pageCount) {
+      table.setPageIndex(enteredPageNumber - 1);
+    }
+  };
 
   const setIdShosen = useSetIsShosen();
   useEffect(() => {
@@ -250,17 +261,47 @@ export default function TemplateTable({ data }) {
             Previous
           </button>
           <div className="paginationPageCount">
-            <p>
-              page{" "}
-              <span data-cy="current-page-number" className="pageCurrent">
-                {currentPage + 1}
-              </span>{" "}
-              of{" "}
-              <span data-cy="all-page-number" className="pageCurrent">
+            {currentPage < 2 ? null : (
+              <button className="pageBtn" onClick={() => table.firstPage()}>
+                1
+              </button>
+            )}
+            {currentPage < 3 ? null : <p>...</p>}
+            {currentPage > 0 ? (
+              <div
+                className="pageBtn"
+                onClick={() => table.setPageIndex(currentPage - 1)}
+              >
+                {currentPage}
+              </div>
+            ) : null}
+            <div className="pageCurrent">{currentPage + 1}</div>
+            {currentPage + 2 > pageCount ? null : (
+              <>
+                <div
+                  className="pageBtn"
+                  onClick={() => table.setPageIndex(currentPage + 1)}
+                >
+                  {currentPage + 2}
+                </div>
+                {pageCount - currentPage < 4 ? null : <p>...</p>}
+              </>
+            )}
+            {pageCount - currentPage < 3 ? null : (
+              <button className="pageBtn" onClick={() => table.lastPage()}>
                 {pageCount}
-              </span>
-            </p>
+              </button>
+            )}
           </div>
+          <input
+            value={enteredPageNumber}
+            onChange={(e) => setEnteredPageNumber(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="pageNumberImput"
+            type="text"
+            placeholder="Page Number"
+          />
+
           <button
             data-cy="next-page"
             className="paginBtn"
