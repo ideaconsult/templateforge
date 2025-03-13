@@ -8,6 +8,7 @@ const useStore = create((set) => ({
   acknowledgment: "",
   showStartScreen: true,
   saveOnServer: false,
+  viewMode: false,
   intermediateData: null,
   project: localStorage.getItem("project"),
   projectID: localStorage.getItem("projectID"),
@@ -23,6 +24,7 @@ const useStore = create((set) => ({
   setIntermediateData: (data) => set(() => ({ intermediateData: data })),
   setSaveOnServer: () =>
     set((state) => ({ saveOnServer: !state.saveOnServer })),
+  setViewMode: () => set((state) => ({ viewMode: !state.viewMode })),
 }));
 
 export const useProjectID = () => useStore((state) => state.projectID);
@@ -58,3 +60,6 @@ export const useSetIntermediateData = () =>
 export const useSaveOnServer = () => useStore((state) => state.saveOnServer);
 export const useSetSaveOnServer = () =>
   useStore((state) => state.setSaveOnServer);
+
+export const useViewMode = () => useStore((state) => state.viewMode);
+export const useSetViewMode = () => useStore((state) => state.setViewMode);
