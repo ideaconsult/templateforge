@@ -26,6 +26,8 @@ import {
   useSetUuid,
   useUuid,
   useProjectID,
+  useViewMode,
+  useSetViewMode,
 } from "../store/store";
 
 import { downloadFile } from "../lib/request";
@@ -40,6 +42,7 @@ export default function StartScreenComp({}) {
   const UUID = useUuid();
   const setUUID = useSetUuid();
   const setStartScreen = useSetShowStartScreen();
+  const setViewMode = useSetViewMode();
   const projectID = useProjectID();
 
   const [showNotification, setShowNotification] = useState(false);
@@ -169,10 +172,22 @@ export default function StartScreenComp({}) {
           <TemplateTable data={!isLoading && templateData} />
 
           <div className="buttonsWrap">
+            {mode == "Draft" && (
+              <div
+                onClick={() => {
+                  setUUID(idShosen);
+                  setStartScreen();
+                  setViewMode();
+                }}
+              >
+                <Button disabled={!idShosen || error} label="View" />
+              </div>
+            )}
             <div
               onClick={() => {
                 setUUID(idShosen);
                 setStartScreen();
+                setViewMode();
                 window.localStorage.setItem(storageItemKey, "");
               }}
             >
@@ -181,6 +196,7 @@ export default function StartScreenComp({}) {
                 label={mode == "Finalized" ? "View" : "Edit blueprint"}
               />
             </div>
+
             {UUID && <Navigate to={`?uuid=${UUID}`} replace={true} />}
             <MakeCopyDialog />
             <div

@@ -14,6 +14,8 @@ import {
 } from "../store/store";
 import "./styles.css";
 
+import MakeCopyIcon from "@/IconsComponents/MakeCopyIcon";
+
 import config from "../utils/config";
 
 const MakeCopyDialog = () => {
@@ -62,17 +64,20 @@ const MakeCopyDialog = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button
-          id="makeCopy"
-          data-cy="copy-btn"
-          className="buttonMenu"
-          disabled={!idShosen ? true : false}
-          onClick={() => {
-            getTemplateInfo();
-          }}
-        >
-          Make a Copy
-        </button>
+        <div className="buttonMenu">
+          <MakeCopyIcon disabled={!idShosen ? true : false} />
+          <button
+            style={{ backgroundColor: "transparent" }}
+            id="makeCopy"
+            data-cy="copy-btn"
+            disabled={!idShosen ? true : false}
+            onClick={() => {
+              getTemplateInfo();
+            }}
+          >
+            Make a Copy
+          </button>
+        </div>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" />
