@@ -168,7 +168,7 @@ export default function StartScreenComp({}) {
                 onClick={() => {
                   setUUID(idShosen);
                   setStartScreen();
-                  setViewMode();
+                  setViewMode(true);
                 }}
               >
                 <Button disabled={!idShosen || error} label="View" />
@@ -178,7 +178,11 @@ export default function StartScreenComp({}) {
               onClick={() => {
                 setUUID(idShosen);
                 setStartScreen();
-                setViewMode();
+                if (mode == "Finalized") {
+                  setViewMode(true);
+                } else {
+                  setViewMode(false);
+                }
                 window.localStorage.setItem(storageItemKey, "");
               }}
             >
