@@ -53,7 +53,7 @@ function SurveyComponent({ setResult }) {
 
       setIntermediateData(data);
       survey.data = data;
-      if (!viewMode) {
+      if (viewMode) {
         survey.mode = "display";
       }
     } catch (error) {

@@ -26,7 +26,7 @@ const useStore = create((set) => ({
   setIntermediateData: (data) => set(() => ({ intermediateData: data })),
   setSaveOnServer: () =>
     set((state) => ({ saveOnServer: !state.saveOnServer })),
-  setViewMode: () => set((state) => ({ viewMode: !state.viewMode })),
+  setViewMode: (mode) => set(() => ({ viewMode: mode })),
 }));
 
 export const useProjectID = () => useStore((state) => state.projectID);
