@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import StartScreenComp from "../StartScreenComp/StartScreenComp";
-import TemplatePage from "./TemplatePage";
 import WizardPage from "./WizardPage";
 
-import { useSetUuid, useUuid, useProjectID } from "../store/store";
+import { useProjectID, useSetUuid, useUuid } from "../store/store";
 
 export default function HomePage() {
   const setUUID = useSetUuid();
