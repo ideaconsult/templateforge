@@ -8,12 +8,14 @@ const useStore = create((set) => ({
   acknowledgment: "",
   showStartScreen: true,
   saveOnServer: false,
+  mode: "Finalized",
   intermediateData: null,
   project: localStorage.getItem("project"),
   projectID: localStorage.getItem("projectID"),
   setProjectID: (projectID) => set(() => ({ projectID: projectID })),
   setUuid: (uuid) => set(() => ({ uuid: uuid })),
   setIsShosen: (isShosen) => set(() => ({ isShosen: isShosen })),
+  setMode: (mode) => set(() => ({ mode: mode })),
   setName: (name) => set(() => ({ name: name })),
   setAuthor: (author) => set(() => ({ author: author })),
   setAcknowledgment: (acknowledgment) =>
@@ -36,6 +38,9 @@ export const useSetUuid = () => useStore((state) => state.setUuid);
 
 export const useName = () => useStore((state) => state.name);
 export const useSetName = () => useStore((state) => state.setName);
+
+export const useMode = () => useStore((state) => state.mode);
+export const useSetMode = () => useStore((state) => state.setMode);
 
 export const useAuthor = () => useStore((state) => state.author);
 export const useSetAuthor = () => useStore((state) => state.setAuthor);

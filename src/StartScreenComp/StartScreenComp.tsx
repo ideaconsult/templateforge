@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
 import Notification from "../DialogComp/Notification";
 
@@ -26,6 +26,8 @@ import {
   useSetUuid,
   useUuid,
   useProjectID,
+  useMode,
+  useSetMode,
 } from "../store/store";
 
 import { downloadFile } from "../lib/request";
@@ -34,15 +36,17 @@ import "./StartScreenComp.css";
 
 export default function StartScreenComp({}) {
   const [value, setValue] = useState("");
-  const [mode, setMode] = useState("Finalized");
   const [copied, setCopied] = useState(false);
 
   const UUID = useUuid();
   const setUUID = useSetUuid();
   const setStartScreen = useSetShowStartScreen();
   const projectID = useProjectID();
+  const mode = useMode();
+  const setMode = useSetMode();
 
   const [showNotification, setShowNotification] = useState(false);
+  const navigate = useNavigate();
 
   const idShosen = useIsShosen();
   const setIdShosen = useSetIsShosen();
@@ -149,7 +153,9 @@ export default function StartScreenComp({}) {
         <p
           data-cy="finalized"
           id="Finalized"
-          onClick={() => setMode("Finalized")}
+          onClick={() => {
+            setMode("Finalized");
+          }}
           className={mode == "Finalized" ? "tabActive" : "tab"}
         >
           Finalized Blueprints
@@ -157,7 +163,9 @@ export default function StartScreenComp({}) {
         <p
           data-cy="draft"
           id="Draft"
-          onClick={() => setMode("Draft")}
+          onClick={() => {
+            setMode("Draft");
+          }}
           className={mode == "Draft" ? "tabActive" : "tab"}
         >
           Drafts Blueprints
@@ -174,6 +182,7 @@ export default function StartScreenComp({}) {
                 setUUID(idShosen);
                 setStartScreen();
                 window.localStorage.setItem(storageItemKey, "");
+                navigate(`/${idShosen}`);
               }}
             >
               <Button
@@ -181,7 +190,7 @@ export default function StartScreenComp({}) {
                 label={mode == "Finalized" ? "View" : "Edit blueprint"}
               />
             </div>
-            {UUID && <Navigate to={`?uuid=${UUID}`} replace={true} />}
+            {/* {UUID && <Navigate to={`?uuid=${UUID}`} replace={true} />} */}
             <MakeCopyDialog />
             <div
               onClick={() => {
