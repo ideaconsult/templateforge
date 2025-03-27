@@ -10,6 +10,8 @@ import {
 
 import { useEffect, useState } from "react";
 
+import Pagination from "./Pagination";
+
 import "./TemplateTable.css";
 
 import { RowsIcon } from "lucide-react";
@@ -247,70 +249,14 @@ export default function TemplateTable({ data }) {
         </table>
       </div>
       {pageCount > 2 ? (
-        <div className="pagination">
-          <button
-            data-cy="previous-page"
-            className="paginBtn"
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </button>
-          <div className="paginationPageCount">
-            {currentPage < 2 ? null : (
-              <button className="pageBtn" onClick={() => table.firstPage()}>
-                1
-              </button>
-            )}
-            {currentPage < 3 ? null : <p>...</p>}
-            {currentPage > 0 ? (
-              <div
-                className="pageBtn"
-                onClick={() => table.setPageIndex(currentPage - 1)}
-              >
-                {currentPage}
-              </div>
-            ) : null}
-            <div className="pageCurrent">{currentPage + 1}</div>
-            {currentPage + 2 > pageCount ? null : (
-              <>
-                <div
-                  className="pageBtn"
-                  onClick={() => table.setPageIndex(currentPage + 1)}
-                >
-                  {currentPage + 2}
-                </div>
-                {pageCount - currentPage < 4 ? null : <p>...</p>}
-              </>
-            )}
-            {pageCount - currentPage < 3 ? null : (
-              <button className="pageBtn" onClick={() => table.lastPage()}>
-                {pageCount}
-              </button>
-            )}
-          </div>
-          <input
-            value={enteredPageNumber}
-            onChange={(e) => setEnteredPageNumber(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="pageNumberImput"
-            type="text"
-            placeholder="Page Number"
-          />
-
-          <button
-            data-cy="next-page"
-            className="paginBtn"
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </button>
-        </div>
+        <Pagination
+          table={table}
+          pageCount={pageCount}
+          currentPage={currentPage}
+          enteredPageNumber={enteredPageNumber}
+          setEnteredPageNumber={setEnteredPageNumber}
+          handleKeyDown={handleKeyDown}
+        />
       ) : null}
       <hr style={{ border: "1px solid #e4e4e4", marginTop: "1rem" }} />
     </div>
