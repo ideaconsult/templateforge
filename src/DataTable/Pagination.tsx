@@ -13,8 +13,6 @@ export default function Pagination({
       <button
         data-cy="previous-page"
         className="paginBtn"
-        variant="outline"
-        size="sm"
         onClick={() => table.previousPage()}
         disabled={!table.getCanPreviousPage()}
       >
@@ -65,8 +63,6 @@ export default function Pagination({
       <button
         data-cy="next-page"
         className="paginBtn"
-        variant="outline"
-        size="sm"
         onClick={() => table.nextPage()}
         disabled={!table.getCanNextPage()}
       >

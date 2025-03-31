@@ -1,8 +1,9 @@
 // @ts-nocheck
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
 import Notification from "../DialogComp/Notification";
+import { useFetchTemplates } from "./hooks/useFetchTemplates";
 
 import { onLookup } from "../DataTable/CategoryLookUp";
 
@@ -15,26 +16,24 @@ import TemplateTable from "@/DataTable/TemplateTable";
 
 import { Link } from "react-router-dom";
 
-import useSWR from "swr";
-
-import { fetcher } from "../lib/fetcher";
-
 import {
   useIsShosen,
+  useMode,
+  useProjectID,
   useSetIsShosen,
+  useSetMode,
   useSetShowStartScreen,
   useSetUuid,
-  useUuid,
-  useProjectID,
-  useMode,
-  useSetMode,
-  useViewMode,
   useSetViewMode,
+  useUuid,
 } from "../store/store";
 
 import { downloadFile } from "../lib/request";
 
+import UnderDev from "@/ui/UnderDev";
+import DescriptionComp from "./DescriptionComp";
 import "./StartScreenComp.css";
+import Tabs from "./Tabs";
 
 export default function StartScreenComp({}) {
   const [value, setValue] = useState("");
@@ -58,16 +57,12 @@ export default function StartScreenComp({}) {
 
   const templateURL = `${apiUrl}/${idShosen}?format=xlsx&project=${projectID}`;
 
-  const { data, isLoading, error } = useSWR(`${apiUrl}`, fetcher, {
-    cachePolicy: "no-cache",
-  });
+  const { data, isLoading, error } = useFetchTemplates();
 
-  const mappedCategoryData =
-    data &&
-    data.template.map((item) => ({
-      ...item,
-      PROTOCOL_CATEGORY_CODE: onLookup(item["PROTOCOL_CATEGORY_CODE"]),
-    }));
+  const mappedCategoryData = data?.template.map((item) => ({
+    ...item,
+    PROTOCOL_CATEGORY_CODE: onLookup(item["PROTOCOL_CATEGORY_CODE"]),
+  }));
 
   const templateData = [];
   data &&
@@ -80,7 +75,7 @@ export default function StartScreenComp({}) {
       }
     });
 
-  const dowloadXLS = () => {
+  const downloadXLS = () => {
     idShosen && downloadFile(idShosen, templateURL);
   };
 
@@ -106,79 +101,16 @@ export default function StartScreenComp({}) {
   const storageItemKey = "my-survey";
   return (
     <div className="screenWrap">
-      <p className="underDev">
-        The Template Designer App is under development right now
-      </p>
+      <UnderDev />
       <LogoBar startScreen={true} setIdShosen={setIdShosen} />
-
       <div className="descriptionNew">
-        <p className="description">
-          Are you in search of the{" "}
-          <a
-            href="https://enanomapper.adma.ai/help/#templatewizard"
-            target="enm"
-          >
-            Template Wizard
-          </a>{" "}
-          within the{" "}
-          <a href="https://enanomapper.adma.ai" target="enm">
-            Nanosafety Data Interface
-          </a>
-          ? Perhaps the existing templates don't quite align with your
-          experiment requirements.
-          <br />
-          Enter the <a href="">Template Designer</a>, a powerful tool that
-          enables you to create a 'blueprint' for your data entry template,
-          tailored to report experiment results. Once your 'blueprint' is ready,
-          both you and fellow researchers can effortlessly generate and download
-          Excel templates based on your specifications. The templates generated
-          adhere to the{" "}
-          <a href="https://enanomapper.adma.ai/fair/" target="enm">
-            FAIR
-          </a>{" "}
-          data principles, including machine readability, and can be can be
-          seamlessly converted to formats such as JSON and{" "}
-          <a href="https://www.nexusformat.org/" target="_blank">
-            NeXus
-          </a>
-          . The templates can be effortlessly imported into the{" "}
-          <a href="https://enanomapper.adma.ai/" target="enm">
-            eNanoMapper database
-          </a>
-          , enhancing the efficiency and interoperability of your research data.
-          Elevate your data reporting experience with the{" "}
-          <a href="">Template Designer</a> app.
-          <br />
-        </p>{" "}
+        <DescriptionComp />
         <CreateNewDialog />
       </div>
-      <div className="tabsWrap">
-        <p
-          data-cy="finalized"
-          id="Finalized"
-          onClick={() => {
-            setMode("Finalized");
-          }}
-          className={mode == "Finalized" ? "tabActive" : "tab"}
-        >
-          Finalized Blueprints
-        </p>
-        <p
-          data-cy="draft"
-          id="Draft"
-          onClick={() => {
-            setMode("Draft");
-          }}
-          className={mode == "Draft" ? "tabActive" : "tab"}
-        >
-          Drafts Blueprints
-        </p>
-      </div>
-
+      <Tabs mode={mode} setMode={setMode} />
       <div className="tableViewWrap">
         <div className="inputWrap">
           <TemplateTable data={!isLoading && templateData} />
-
           <div className="buttonsWrap">
             {mode == "Draft" && (
               <div
@@ -186,6 +118,7 @@ export default function StartScreenComp({}) {
                   setUUID(idShosen);
                   setStartScreen();
                   setViewMode(true);
+                  navigate(`/${idShosen}?mode=edit`);
                 }}
               >
                 <Button disabled={!idShosen || error} label="View" />
@@ -197,8 +130,10 @@ export default function StartScreenComp({}) {
                 setStartScreen();
                 if (mode == "Finalized") {
                   setViewMode(true);
+                  navigate(`/${idShosen}?mode=edit`);
                 } else {
                   setViewMode(false);
+                  navigate(`/${idShosen}`);
                 }
                 window.localStorage.setItem(storageItemKey, "");
                 navigate(`/${idShosen}`);
@@ -209,8 +144,6 @@ export default function StartScreenComp({}) {
                 label={mode == "Finalized" ? "View" : "Edit blueprint"}
               />
             </div>
-
-            {UUID && <Navigate to={`?uuid=${UUID}`} replace={true} />}
             <MakeCopyDialog />
             <div
               onClick={() => {
@@ -226,13 +159,16 @@ export default function StartScreenComp({}) {
             {showNotification && (
               <Notification>
                 Project is not selected. &nbsp;
-                <button onClick={dowloadXLS} className="genAnyway">
+                <button
+                  onClick={idShosen && downloadFile(idShosen, templateURL)}
+                  className="genAnyway"
+                >
                   Generate anyway
                 </button>
               </Notification>
             )}
             {projectID ? (
-              <div onClick={dowloadXLS}>
+              <div onClick={idShosen && downloadFile(idShosen, templateURL)}>
                 <Button disabled={!idShosen} label="Generate Excel Template" />
               </div>
             ) : (

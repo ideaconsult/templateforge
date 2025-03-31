@@ -41,8 +41,11 @@ function SurveyComponent({ setResult }) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const uuidParams = queryParams.get("uuid");
+  const viewParams = queryParams.get("mode");
 
   const id = idShosen ? idShosen : UUID || uuidParams;
+
+  console.log(viewParams);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getTemplateInfo() {
@@ -53,7 +56,7 @@ function SurveyComponent({ setResult }) {
 
       setIntermediateData(data);
       survey.data = data;
-      if (viewMode) {
+      if (viewMode || viewParams == "edit") {
         survey.mode = "display";
       }
     } catch (error) {

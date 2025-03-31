@@ -11,7 +11,6 @@ export default function TemplatePage({ uuid, setProjectID, projectID }) {
   const params = useParams<{ templateId: string }>();
   const setUUID = useSetUuid();
 
-  console.log("params", params);
   if (!uuid) setUUID(params.templateId);
 
   const [result, setResult] = useState(null);
