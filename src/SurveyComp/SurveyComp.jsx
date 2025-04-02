@@ -45,8 +45,6 @@ function SurveyComponent({ setResult }) {
 
   const id = idShosen ? idShosen : UUID || uuidParams;
 
-  console.log(viewParams);
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getTemplateInfo() {
     try {
@@ -56,7 +54,7 @@ function SurveyComponent({ setResult }) {
 
       setIntermediateData(data);
       survey.data = data;
-      if (viewMode || viewParams == "edit") {
+      if (viewMode || !viewParams) {
         survey.mode = "display";
       }
     } catch (error) {

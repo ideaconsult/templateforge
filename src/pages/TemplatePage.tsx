@@ -18,12 +18,7 @@ export default function TemplatePage({ uuid, setProjectID, projectID }) {
   return (
     <div>
       <div className="headerWrap">
-        <LogoBar
-          startScreen={false}
-          uuid={uuid}
-          setProjectID={setProjectID}
-          projectID={projectID}
-        />
+        <LogoBar startScreen={false} />
         <TopMenuBar />
       </div>
       <div className="mainWrap">

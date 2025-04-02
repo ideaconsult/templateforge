@@ -118,7 +118,7 @@ export default function StartScreenComp({}) {
                   setUUID(idShosen);
                   setStartScreen();
                   setViewMode(true);
-                  navigate(`/${idShosen}?mode=edit`);
+                  navigate(`/${idShosen}`);
                 }}
               >
                 <Button disabled={!idShosen || error} label="View" />
@@ -130,10 +130,10 @@ export default function StartScreenComp({}) {
                 setStartScreen();
                 if (mode == "Finalized") {
                   setViewMode(true);
-                  navigate(`/${idShosen}?mode=edit`);
+                  navigate(`/${idShosen}`);
                 } else {
                   setViewMode(false);
-                  navigate(`/${idShosen}`);
+                  navigate(`/${idShosen}?mode=edit`);
                 }
                 window.localStorage.setItem(storageItemKey, "");
                 navigate(`/${idShosen}`);
@@ -176,7 +176,7 @@ export default function StartScreenComp({}) {
                 <Button disabled={!idShosen} label="Generate Excel Template" />
               </div>
             )}
-            <Link to={`?wizard=${idShosen}`}>
+            <Link to={`/wizard/${idShosen}`}>
               <Button disabled={!idShosen} label="Customize Excel template" />
             </Link>
           </div>

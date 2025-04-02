@@ -20,7 +20,7 @@ const router = createBrowserRouter(
       Component: TemplatePage,
     },
     {
-      path: "/wizard",
+      path: "/wizard/:uuid",
       Component: WizardPage,
     },
     {
