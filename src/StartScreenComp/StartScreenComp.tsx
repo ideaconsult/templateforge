@@ -157,18 +157,15 @@ export default function StartScreenComp({}) {
               />
             </div>
             {showNotification && (
-              <Notification>
+              <Notification mode={mode}>
                 Project is not selected. &nbsp;
-                <button
-                  onClick={idShosen && downloadFile(idShosen, templateURL)}
-                  className="genAnyway"
-                >
+                <button onClick={downloadXLS} className="genAnyway">
                   Generate anyway
                 </button>
               </Notification>
             )}
             {projectID ? (
-              <div onClick={idShosen && downloadFile(idShosen, templateURL)}>
+              <div onClick={downloadXLS}>
                 <Button disabled={!idShosen} label="Generate Excel Template" />
               </div>
             ) : (
