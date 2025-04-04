@@ -74,14 +74,16 @@ describe("General site functionality", () => {
   });
 
   it("can copy the link to the clipboard", () => {
+    cy.get('[data-cy="finalized"]').click();
     cy.get(".nonSelected td").eq(1).click();
     cy.get('[data-cy="Share a link"]').as("copyButton");
 
     cy.get("@copyButton").click();
 
-    cy.window().its("navigator.clipboard")
+    cy.window()
+      .its("navigator.clipboard")
       .then((clip) => clip.readText())
-      .should("equal", testURLRoot + "?uuid=" + uuidFirstFinalized);
+      .should("equal", testURLRoot + "/" + uuidFirstFinalized);
   });
 
   it("can generate excel file", () => {
@@ -105,5 +107,4 @@ describe("General site functionality", () => {
       expect(interception.state).to.equal("Complete");
     });
   });
-
 });

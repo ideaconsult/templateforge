@@ -33,7 +33,9 @@ export default function Pagination({
             {currentPage}
           </div>
         ) : null}
-        <div className="pageCurrent">{currentPage + 1}</div>
+        <div className="pageCurrent" data-cy="current-page-number">
+          {currentPage + 1}
+        </div>
         {currentPage + 2 > pageCount ? null : (
           <>
             <div
@@ -46,7 +48,11 @@ export default function Pagination({
           </>
         )}
         {pageCount - currentPage < 3 ? null : (
-          <button className="pageBtn" onClick={() => table.lastPage()}>
+          <button
+            data-cy="all-page-number"
+            className="pageBtn"
+            onClick={() => table.lastPage()}
+          >
             {pageCount}
           </button>
         )}
