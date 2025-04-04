@@ -8,7 +8,7 @@ const useStore = create((set) => ({
   acknowledgment: "",
   showStartScreen: true,
   saveOnServer: false,
-  mode: "Finalized",
+  mode: !window.localStorage.getItem("mode") && "Finalized",
   viewMode: false,
   intermediateData: null,
   project: localStorage.getItem("project"),

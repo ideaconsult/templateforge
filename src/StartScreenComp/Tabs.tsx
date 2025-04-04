@@ -1,7 +1,9 @@
 import React from "react";
 import "./StartScreenComp.css";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
-export default function Tabs({ mode, setMode }) {
+export default function Tabs({ setMode, tabsMode }) {
+  const { setLocalStorageItem } = useLocalStorage("mode");
   return (
     <div className="tabsWrap">
       <p
@@ -9,8 +11,9 @@ export default function Tabs({ mode, setMode }) {
         id="Finalized"
         onClick={() => {
           setMode("Finalized");
+          setLocalStorageItem("Finalized");
         }}
-        className={mode == "Finalized" ? "tabActive" : "tab"}
+        className={tabsMode == "Finalized" ? "tabActive" : "tab"}
       >
         Finalized Blueprints
       </p>
@@ -19,8 +22,9 @@ export default function Tabs({ mode, setMode }) {
         id="Draft"
         onClick={() => {
           setMode("Draft");
+          setLocalStorageItem("Draft");
         }}
-        className={mode == "Draft" ? "tabActive" : "tab"}
+        className={tabsMode == "Draft" ? "tabActive" : "tab"}
       >
         Drafts Blueprints
       </p>

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
 import Notification from "../DialogComp/Notification";
@@ -29,6 +29,7 @@ import {
 } from "../store/store";
 
 import { downloadFile } from "../lib/request";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 import UnderDev from "@/ui/UnderDev";
 import DescriptionComp from "./DescriptionComp";
@@ -46,6 +47,11 @@ export default function StartScreenComp({}) {
   const projectID = useProjectID();
   const mode = useMode();
   const setMode = useSetMode();
+
+  const { setLocalStorageItem, getLocalStorageItem, removeLocalStorageItem } =
+    useLocalStorage("mode");
+
+  const tabsMode = getLocalStorageItem() || mode;
 
   const [showNotification, setShowNotification] = useState(false);
   const navigate = useNavigate();
@@ -67,10 +73,10 @@ export default function StartScreenComp({}) {
   const templateData = [];
   data &&
     mappedCategoryData.map((item) => {
-      if (mode == "Finalized" && item.template_status == "FINALIZED") {
+      if (tabsMode == "Finalized" && item.template_status == "FINALIZED") {
         return templateData.push(item);
       }
-      if (mode == "Draft" && item.template_status == "DRAFT") {
+      if (tabsMode == "Draft" && item.template_status == "DRAFT") {
         return templateData.push(item);
       }
     });
@@ -107,12 +113,12 @@ export default function StartScreenComp({}) {
         <DescriptionComp />
         <CreateNewDialog />
       </div>
-      <Tabs mode={mode} setMode={setMode} />
+      <Tabs setMode={setMode} tabsMode={tabsMode} />
       <div className="tableViewWrap">
         <div className="inputWrap">
           <TemplateTable data={!isLoading && templateData} />
           <div className="buttonsWrap">
-            {mode == "Draft" && (
+            {tabsMode == "Draft" && (
               <div
                 onClick={() => {
                   setUUID(idShosen);
@@ -128,7 +134,8 @@ export default function StartScreenComp({}) {
               onClick={() => {
                 setUUID(idShosen);
                 setStartScreen();
-                if (mode == "Finalized") {
+
+                if (tabsMode == "Finalized") {
                   setViewMode(true);
                   navigate(`/${idShosen}`);
                 } else {
@@ -141,7 +148,7 @@ export default function StartScreenComp({}) {
             >
               <Button
                 disabled={!idShosen || error}
-                label={mode == "Finalized" ? "View" : "Edit blueprint"}
+                label={tabsMode == "Finalized" ? "View" : "Edit blueprint"}
               />
             </div>
             <MakeCopyDialog />
