@@ -83,7 +83,7 @@ describe("General site functionality", () => {
     cy.window()
       .its("navigator.clipboard")
       .then((clip) => clip.readText())
-      .should("equal", testURLRoot + "/" + uuidFirstFinalized);
+      .should("equal", testURLRoot + uuidFirstFinalized);
   });
 
   it("can generate excel file", () => {
