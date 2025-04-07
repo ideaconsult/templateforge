@@ -26,6 +26,13 @@ describe("Navigation functionality", () => {
     cy.url().should("include", `/templates/${UUID}`);
   });
 
+  it("can use query params in case one is on edit mode", () => {
+    cy.get('[data-cy="draft"]').click();
+    cy.get(".nonSelected td").eq(1).click();
+    cy.get('[data-cy="Edit blueprint"]').click();
+    cy.url().should("include", "mode=edit");
+  });
+
   it("can navigate to the Home page by pressing Back button", () => {
     cy.url({ timeout: 10000 }).should("include", "/templates/");
   });
