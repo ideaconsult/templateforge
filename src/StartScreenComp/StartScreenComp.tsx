@@ -143,7 +143,6 @@ export default function StartScreenComp({}) {
                   navigate(`/${idShosen}?mode=edit`);
                 }
                 window.localStorage.setItem(storageItemKey, "");
-                navigate(`/${idShosen}`);
               }}
             >
               <Button
