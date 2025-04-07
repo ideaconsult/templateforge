@@ -7,7 +7,9 @@ export default function NotFoundPage() {
     <div className="not-found-page">
       <div>
         <h2 style={{ paddingBottom: "1rem" }}>Sorry, page not found.</h2>
-        <button onClick={() => navigate("/")}>Back to Home page</button>
+        <button className="back-home-btn" onClick={() => navigate("/")}>
+          Back to Home page
+        </button>
       </div>
     </div>
   );

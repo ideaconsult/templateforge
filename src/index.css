@@ -26,7 +26,7 @@ h1 {
 button {
   border-radius: 6px;
   border: 1px solid transparent;
-  padding: 0.6rem;
+
   font-size: 0.8rem;
   font-weight: 600;
   font-family: inherit;
@@ -36,7 +36,6 @@ button {
 }
 button:hover {
   background-color: #646cff;
-  color: #fff;
 }
 button:focus,
 button:focus-visible {
@@ -55,7 +54,19 @@ button:checked {
   text-align: center;
   color: #646cff;
 }
+.back-home-btn {
+  padding: 0.67rem;
+}
+.back-home-btn:hover {
+  color: #fff;
+}
 
+.buttonMenu:hover {
+  background-color: #c8edff !important;
+}
+.sd-input--readonly {
+  background-color: #f9f9f9 !important;
+}
 pre {
   color: #282828 !important;
 }
