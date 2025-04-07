@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage.tsx";
 import TemplatePage from "./pages/TemplatePage.tsx";
 import WizardPage from "./pages/WizardPage.tsx";
 import PreferencesPage from "./pages/PreferencesPage.tsx";
+import NotFoundPage from "./pages/NotFoundPage.tsx";
 
 import "./index.css";
 
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
       path: "/preferences",
       Component: PreferencesPage,
     },
+    { path: "*", Component: NotFoundPage },
   ],
   { basename: "/templates" }
 );
