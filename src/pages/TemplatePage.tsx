@@ -24,7 +24,7 @@ export default function TemplatePage({ uuid }) {
   const [result, setResult] = useState(null);
 
   return (
-    <div>
+    <div data-cy="template-page">
       <div className="headerWrap">
         <LogoBar startScreen={false} />
         <TopMenuBar />
