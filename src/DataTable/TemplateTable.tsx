@@ -122,8 +122,8 @@ export default function TemplateTable({ data }) {
         />
         <table>
           <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.headers.id}>
+            {table.getHeaderGroups().map((headerGroup, i) => (
+              <tr key={i}>
                 {headerGroup.headers.map((header, idx) => (
                   <th
                     key={idx}

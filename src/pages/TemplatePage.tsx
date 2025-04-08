@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { validate } from "uuid";
 import LogoBar from "../MenuBar/LogoBar";
 import TopMenuBar from "../MenuBar/TopMenuBar";
 import SurveyComponent from "../SurveyComp/SurveyComp";
@@ -7,11 +8,18 @@ import { useSetUuid } from "../store/store";
 
 import "../App.css";
 
-export default function TemplatePage({ uuid, setProjectID, projectID }) {
+export default function TemplatePage({ uuid }) {
   const params = useParams<{ templateId: string }>();
   const setUUID = useSetUuid();
+  const navigate = useNavigate();
 
-  if (!uuid) setUUID(params.templateId);
+  useEffect(() => {
+    if (!uuid) setUUID(params.templateId);
+
+    if (!validate(params.templateId)) {
+      navigate(`/${params.templateId}/404`);
+    }
+  }, [params.templateId]);
 
   const [result, setResult] = useState(null);
 
