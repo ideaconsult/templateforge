@@ -14,7 +14,7 @@ import {
   useIsShosen,
   useUuid,
   useSetIntermediateData,
-  useIntermediateData,
+  useViewMode,
 } from "../store/store";
 
 import { useLocation } from "react-router-dom";
@@ -37,10 +37,11 @@ function SurveyComponent({ setResult }) {
   const UUID = useUuid();
   const idShosen = useIsShosen();
   const setIntermediateData = useSetIntermediateData();
-
+  const viewMode = useViewMode();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const uuidParams = queryParams.get("uuid");
+  const viewParams = queryParams.get("mode");
 
   const id = idShosen ? idShosen : UUID || uuidParams;
 
@@ -53,7 +54,7 @@ function SurveyComponent({ setResult }) {
 
       setIntermediateData(data);
       survey.data = data;
-      if (data.template_status == "FINALIZED") {
+      if (viewMode || !viewParams) {
         survey.mode = "display";
       }
     } catch (error) {

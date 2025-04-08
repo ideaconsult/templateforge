@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage.tsx";
 import TemplatePage from "./pages/TemplatePage.tsx";
 import WizardPage from "./pages/WizardPage.tsx";
 import PreferencesPage from "./pages/PreferencesPage.tsx";
+import NotFoundPage from "./pages/NotFoundPage.tsx";
 
 import "./index.css";
 
@@ -16,17 +17,19 @@ const router = createBrowserRouter(
     },
 
     {
-      path: "/template/:templateId",
+      path: "/:templateId",
       Component: TemplatePage,
     },
     {
-      path: "/wizard",
+      path: "/wizard/:templateId",
       Component: WizardPage,
     },
     {
       path: "/preferences",
       Component: PreferencesPage,
     },
+    { path: "/404", Component: NotFoundPage },
+    { path: "*", Component: NotFoundPage },
   ],
   { basename: "/templates" }
 );

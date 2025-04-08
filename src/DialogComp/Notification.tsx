@@ -1,9 +1,18 @@
-// @ts-nocheck
 import React from "react";
 import "./styles.css";
 
-function Notification({ children }) {
-  return <div className="notification-content">{children}</div>;
+function Notification({ children, mode }) {
+  return (
+    <div
+      className={`${
+        mode == "Draft"
+          ? "notification-content-draft"
+          : "notification-content-finalized"
+      }`}
+    >
+      {children}
+    </div>
+  );
 }
 
 export default Notification;

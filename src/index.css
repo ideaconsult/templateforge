@@ -24,7 +24,7 @@ h1 {
 }
 
 button {
-  border-radius: 10px;
+  border-radius: 6px;
   border: 1px solid transparent;
 
   font-size: 0.8rem;
@@ -34,9 +34,9 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-/* button:hover {
-  border-color: #646cff;
-} */
+button:hover {
+  background-color: #646cff;
+}
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -46,6 +46,27 @@ button:checked {
   background-color: #646cff;
 }
 
+.not-found-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #646cff;
+}
+.back-home-btn {
+  padding: 0.67rem;
+}
+.back-home-btn:hover {
+  color: #fff;
+}
+
+.buttonMenu:hover {
+  background-color: #c8edff !important;
+}
+.sd-input--readonly {
+  background-color: #f9f9f9 !important;
+}
 pre {
   color: #282828 !important;
 }

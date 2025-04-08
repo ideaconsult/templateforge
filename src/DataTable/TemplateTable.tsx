@@ -10,6 +10,10 @@ import {
 
 import { useEffect, useState } from "react";
 
+import Pagination from "./Pagination";
+
+import "./TemplateTable.css";
+
 import { RowsIcon } from "lucide-react";
 import { useSetIsShosen } from "../store/store";
 import { onLookup } from "./CategoryLookUp";
@@ -64,6 +68,7 @@ export default function TemplateTable({ data }) {
 
   const [sorting, setSorting] = useState([{ id: "timestamp", desc: true }]);
   const [filtering, setFiltering] = useState("");
+  const [enteredPageNumber, setEnteredPageNumber] = useState("");
 
   const table = useReactTable({
     data,
@@ -94,6 +99,12 @@ export default function TemplateTable({ data }) {
   const pageCount = table.getPageCount();
   const currentPage = table.getState().pagination.pageIndex;
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && enteredPageNumber - 1 < pageCount) {
+      table.setPageIndex(enteredPageNumber - 1);
+    }
+  };
+
   const setIdShosen = useSetIsShosen();
   useEffect(() => {
     setIdShosen(data && rowSelection ? data[rowSelection]?.uuid : null);
@@ -111,8 +122,8 @@ export default function TemplateTable({ data }) {
         />
         <table>
           <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.headers.id}>
+            {table.getHeaderGroups().map((headerGroup, i) => (
+              <tr key={i}>
                 {headerGroup.headers.map((header, idx) => (
                   <th
                     key={idx}
@@ -238,40 +249,14 @@ export default function TemplateTable({ data }) {
         </table>
       </div>
       {pageCount > 2 ? (
-        <div className="pagination">
-          <button
-            data-cy="previous-page"
-            className="paginBtn"
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </button>
-          <div className="paginationPageCount">
-            <p>
-              page{" "}
-              <span data-cy="current-page-number" className="pageCurrent">
-                {currentPage + 1}
-              </span>{" "}
-              of{" "}
-              <span data-cy="all-page-number" className="pageCurrent">
-                {pageCount}
-              </span>
-            </p>
-          </div>
-          <button
-            data-cy="next-page"
-            className="paginBtn"
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </button>
-        </div>
+        <Pagination
+          table={table}
+          pageCount={pageCount}
+          currentPage={currentPage}
+          enteredPageNumber={enteredPageNumber}
+          setEnteredPageNumber={setEnteredPageNumber}
+          handleKeyDown={handleKeyDown}
+        />
       ) : null}
       <hr style={{ border: "1px solid #e4e4e4", marginTop: "1rem" }} />
     </div>

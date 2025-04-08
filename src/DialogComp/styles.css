@@ -209,11 +209,23 @@ button[disabled] {
   color: #919191;
 }
 
-.notification-content {
+.notification-content-draft {
   width: max-content;
   position: absolute;
   bottom: 3rem;
-  left: 23rem;
+  left: 40rem;
+  font-size: 0.8rem;
+  background-color: #292929;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.notification-content-finalized {
+  width: max-content;
+  position: absolute;
+  bottom: 3rem;
+  left: 28.6rem;
   font-size: 0.8rem;
   background-color: #292929;
   color: #fff;

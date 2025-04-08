@@ -110,6 +110,12 @@
   background: #e50a3e;
 }
 
+.sd-input.sd-input--disabled,
+.sd-input.sd-input--disabled::placeholder {
+  background-color: #f9f9f9 !important;
+  opacity: 0.85;
+}
+
 #sv-nav-prev {
   grid-area: prev;
 }

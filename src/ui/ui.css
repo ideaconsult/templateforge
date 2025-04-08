@@ -1,0 +1,10 @@
+.underDev {
+  background: #ea5252;
+  color: #fff;
+  width: fit-content;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0.3rem 0.8rem;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}

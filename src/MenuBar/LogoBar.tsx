@@ -6,7 +6,7 @@ import PreferencesDialog from "@/DialogComp/PreferencesDialog";
 import { Link } from "react-router-dom";
 import { useSetIsShosen, useSetUuid } from "../store/store";
 
-export default function LogoBar({ startScreen, uuid, setProjectID }) {
+export default function LogoBar({ startScreen }) {
   const setUUID = useSetUuid();
   const setIdShosen = useSetIsShosen();
   const [projectName, setProjectName] = useState(() =>
