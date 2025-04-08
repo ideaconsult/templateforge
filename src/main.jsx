@@ -28,6 +28,7 @@ const router = createBrowserRouter(
       path: "/preferences",
       Component: PreferencesPage,
     },
+    { path: "/404", Component: NotFoundPage },
     { path: "*", Component: NotFoundPage },
   ],
   { basename: "/templates" }

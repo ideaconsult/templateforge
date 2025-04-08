@@ -17,7 +17,7 @@ export default function TemplatePage({ uuid }) {
     if (!uuid) setUUID(params.templateId);
 
     if (!validate(params.templateId)) {
-      navigate(`/${params.templateId}/404`);
+      navigate(`/404`);
     }
   }, [params.templateId]);
 
