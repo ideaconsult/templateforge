@@ -116,7 +116,10 @@ export default function StartScreenComp({}) {
       <Tabs setMode={setMode} tabsMode={tabsMode} />
       <div className="tableViewWrap">
         <div className="inputWrap">
-          <TemplateTable data={!isLoading && templateData} />
+          <TemplateTable
+            data={!isLoading && templateData}
+            tabsMode={tabsMode}
+          />
           <div className="buttonsWrap">
             {tabsMode == "Draft" && (
               <div
