@@ -10,7 +10,7 @@ describe("Routing-related navigation", () => {
       {
         method: "GET",
         url: "/template",
-        hostname: "api-test.ramanchada.ideaconsult.net",
+        hostname: "api.templates.ideaconsult.net",
       },
       {
         fixture: "json/bk_rcapi_templates_generated.json",
