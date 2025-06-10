@@ -9,7 +9,7 @@ function setIntercepts() {
     {
       method: "GET",
       url: "/template",
-      hostname: "api-test.ramanchada.ideaconsult.net",
+      hostname: "api.templates.ideaconsult.net",
     },
     {
       fixture: "json/bk_rcapi_templates_generated.json",
@@ -90,7 +90,7 @@ describe("General site functionality", () => {
     cy.intercept({
       method: "GET",
       url: `/template/${uuidFirstDraft}?format=xlsx&project=${testProject}`,
-      hostname: "api-test.ramanchada.ideaconsult.net",
+      hostname: "api.templates.ideaconsult.net",
     }).as("generateExcelFile");
 
     cy.get('[data-cy="preferences-btn"]').click();
