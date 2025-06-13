@@ -59,7 +59,7 @@ const columns = [
   },
 ];
 
-export default function TemplateTable({ data }) {
+export default function TemplateTable({ data, tabsMode }) {
   const [rowSelection, setRowSelection] = useState({});
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -109,6 +109,10 @@ export default function TemplateTable({ data }) {
   useEffect(() => {
     setIdShosen(data && rowSelection ? data[rowSelection]?.uuid : null);
   }, [rowSelection, pagination]);
+
+  useEffect(() => {
+    table.setPageIndex(0);
+  }, [tabsMode]);
 
   return (
     <div>
