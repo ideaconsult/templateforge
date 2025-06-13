@@ -248,7 +248,7 @@ export default function TemplateTable({ data }) {
           </tbody>
         </table>
       </div>
-      {pageCount > 2 ? (
+      {pageCount > 1 ? (
         <Pagination
           table={table}
           pageCount={pageCount}
