@@ -1,8 +1,6 @@
-import { useEffect } from "react";
-import { Model } from "survey-core";
-import { FunctionFactory } from "survey-core";
+import { useEffect, useState } from "react";
+import { Model, FunctionFactory } from "survey-core";
 import { Survey } from "survey-react-ui";
-import { json } from "./json";
 import { themeJson } from "./theme";
 
 import $ from "jquery";
@@ -18,13 +16,12 @@ import {
 } from "../store/store";
 
 import { useLocation } from "react-router-dom";
-
 import config from "../utils/config";
 
 import "survey-core/defaultV2.min.css";
 import "../App.css";
 
-var orcidPattern = /^\d{4}-\d{4}-\d{4}-(\d{4}|[Xx])$/;
+const orcidPattern = /^\d{4}-\d{4}-\d{4}-(\d{4}|[Xx])$/;
 
 function isValidOrcid([ORCID]) {
   return orcidPattern.test(ORCID);
@@ -33,7 +30,9 @@ FunctionFactory.Instance.register("isValidOrcid", isValidOrcid);
 
 // eslint-disable-next-line react/prop-types
 function SurveyComponent({ setResult }) {
-  const survey = new Model(json);
+  const [surveyJson, setSurveyJson] = useState(null);
+  const [survey, setSurvey] = useState(null);
+
   const UUID = useUuid();
   const idShosen = useIsShosen();
   const setIntermediateData = useSetIntermediateData();
@@ -45,90 +44,111 @@ function SurveyComponent({ setResult }) {
 
   const id = idShosen ? idShosen : UUID || uuidParams;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  async function getTemplateInfo() {
-    try {
-      const apiUrl = config.apiUrl;
-      const response = await fetch(`${apiUrl}/${id}`);
-      const data = await response.json();
-
-      setIntermediateData(data);
-      survey.data = data;
-      if (viewMode || !viewParams) {
-        survey.mode = "display";
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
-
+  // Load schema once (from localStorage or API)
   useEffect(() => {
-    getTemplateInfo();
-  }, [getTemplateInfo]);
-
-  window["$"] = window["jQuery"] = $;
-  // require("easy-autocomplete/dist/jquery.easy-autocomplete.js");
-  autocomplete(SurveyCore);
-
-  survey.addNavigationItem({
-    id: "sv-nav-clear-page",
-    title: "Clear Page",
-    action: () => {
-      survey.currentPage.questions.forEach((question) => {
-        question.value = undefined;
-      });
-    },
-    css: "nav-button",
-    innerCss: "sd-btn nav-input",
-  });
-
-  survey.addLayoutElement({
-    id: "new-el",
-    component: "sv-progressbar-percentage",
-    container: "sd-action-bar",
-    data: survey,
-  });
-  // console.log("HasErrors", survey.isCurrentPageHasErrors);
-  const storageItemKey = "my-survey";
-
-  function saveSurveyData(survey) {
-    postRequestUUID(survey.data, id);
-    setIntermediateData(survey.data);
-  }
-
-  function saveinLocalSurveyData(survey) {
-    setIntermediateData(survey.data);
-    const data = survey.data;
-    data.pageNo = survey.currentPageNo;
-    window.localStorage.setItem(storageItemKey, JSON.stringify(data));
-  }
-
-  // Save survey results to the local storage
-  survey.onValueChanged.add(saveinLocalSurveyData);
-  survey.onCurrentPageChanged.add(saveSurveyData);
-
-  // Empty the local storage after the survey is completed
-  survey.onComplete.add(() => {
-    window.localStorage.setItem(storageItemKey, "");
-  });
-
-  survey.applyTheme(themeJson);
-
-  survey.completedHtml = "Thank you for finalizing the template";
-
-  survey.onComplete.add(function (sender, options) {
-    // onCoplete Check
-    if (survey.validationAllowComplete) {
-      setResult(sender.data);
-      options.showSaveInProgress();
-      postRequestUUID(sender.data, id);
+    async function loadSchema() {
+      try {
+        const response = await fetch(`${config.apiUrl}/../definition/template_designer`);
+        const json = await response.json();
+        localStorage.setItem("surveyJson", JSON.stringify(json));
+        setSurveyJson(json);
+      } catch (err) {
+        console.error("Failed to fetch survey schema", err);
+      }
     }
-  });
-  return (
-    <>
-      <Survey model={survey} />
-    </>
-  );
+
+    loadSchema();
+  }, []);
+
+  // Create Survey model once JSON is available
+  useEffect(() => {
+    if (!surveyJson) return;
+
+    const model = new Model(surveyJson);
+    model.applyTheme(themeJson);
+
+    window["$"] = window["jQuery"] = $;
+    autocomplete(SurveyCore);
+
+    model.addNavigationItem({
+      id: "sv-nav-clear-page",
+      title: "Clear Page",
+      action: () => {
+        model.currentPage.questions.forEach((question) => {
+          question.value = undefined;
+        });
+      },
+      css: "nav-button",
+      innerCss: "sd-btn nav-input",
+    });
+
+    model.addLayoutElement({
+      id: "new-el",
+      component: "sv-progressbar-percentage",
+      container: "sd-action-bar",
+      data: model,
+    });
+
+    const storageItemKey = "my-survey";
+
+    function saveSurveyData(survey) {
+      postRequestUUID(survey.data, id);
+      setIntermediateData(survey.data);
+    }
+
+    function saveinLocalSurveyData(survey) {
+      setIntermediateData(survey.data);
+      const data = survey.data;
+      data.pageNo = survey.currentPageNo;
+      window.localStorage.setItem(storageItemKey, JSON.stringify(data));
+    }
+
+    model.onValueChanged.add(saveinLocalSurveyData);
+    model.onCurrentPageChanged.add(saveSurveyData);
+
+    model.onComplete.add(() => {
+      window.localStorage.setItem(storageItemKey, "");
+    });
+
+    model.completedHtml = "Thank you for finalizing the template";
+
+    model.onComplete.add(function (sender, options) {
+      if (model.validationAllowComplete) {
+        setResult(sender.data);
+        options.showSaveInProgress();
+        postRequestUUID(sender.data, id);
+      }
+    });
+
+    setSurvey(model);
+  }, [surveyJson]);
+
+  // Fetch survey data (answers) by ID
+  useEffect(() => {
+    async function getTemplateInfo() {
+      if (!survey) return;
+
+      try {
+        const apiUrl = config.apiUrl;
+        const response = await fetch(`${apiUrl}/${id}`);
+        const data = await response.json();
+
+        setIntermediateData(data);
+        survey.data = data;
+        if (viewMode || !viewParams) {
+          survey.mode = "display";
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    getTemplateInfo();
+  }, [survey, id, viewMode, viewParams, setIntermediateData]);
+
+  if (!survey) return <div>Loading survey...</div>;
+
+  return <Survey model={survey} />;
 }
 
 export default SurveyComponent;
