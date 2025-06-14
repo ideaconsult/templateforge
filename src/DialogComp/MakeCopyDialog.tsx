@@ -1,6 +1,7 @@
 // @ts-nocheck
 import * as Dialog from "@radix-ui/react-dialog";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   useAcknowledgment,
@@ -12,6 +13,7 @@ import {
   useSetIsShosen,
   useSetName,
   useSetUuid,
+  useMode,
 } from "../store/store";
 import "./styles.css";
 
@@ -30,6 +32,9 @@ const MakeCopyDialog = () => {
   const [name, setName] = useState();
   const [author, setAuthor] = useState();
   const [acknowledgment, setAcknowledgment] = useState();
+
+  const tabsMode = useMode();
+  const navigate = useNavigate();
 
   const apiUrl = config.apiUrl;
 
@@ -137,6 +142,14 @@ const MakeCopyDialog = () => {
                 onClick={() => {
                   postRequestCopy();
                   setIdShosen(newUUID);
+
+                  if (tabsMode == "Finalized") {
+                    // setViewMode(true);
+                    navigate(`/${idShosen}`);
+                  } else {
+                    // setViewMode(false);
+                    navigate(`/${idShosen}?mode=edit`);
+                  }
                 }}
               >
                 Make a Copy
