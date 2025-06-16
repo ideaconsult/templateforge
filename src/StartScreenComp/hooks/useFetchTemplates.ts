@@ -9,5 +9,6 @@ export const useFetchTemplates = () => {
     revalidateIfStale: true,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
+    dedupingInterval: 6000,
   });
 };
