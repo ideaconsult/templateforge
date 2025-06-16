@@ -42,9 +42,9 @@ const MakeCopyDialog = () => {
     const response = await fetch(`${apiUrl}/${idShosen}`);
     const data = await response.json();
     setData(data);
-    setName(data?.template_name || "");
-    setAuthor(data?.template_author || "");
-    setAcknowledgment(data?.template_acknowledgment || "");
+    setName(data?.template_name);
+    setAuthor(data?.template_author);
+    setAcknowledgment(data?.template_acknowledgment);
   }
 
   async function postRequestCopy() {
