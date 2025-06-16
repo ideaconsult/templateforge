@@ -6,6 +6,9 @@ const apiUrl = config.apiUrl;
 
 export const useFetchTemplates = () => {
   return useSWR(`${apiUrl}`, fetcher, {
-    dedupingInterval: 0,
+    revalidateIfStale: true,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 6000,
   });
 };
