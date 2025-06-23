@@ -233,6 +233,18 @@ button[disabled] {
   border-radius: 4px;
 }
 
+.notification-content-screen {
+  width: max-content;
+  position: absolute;
+  bottom: -2.4rem;
+  left: 15.3rem;
+  font-size: 0.8rem;
+  background-color: #292929;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
 @keyframes overlayShow {
   from {
     opacity: 0;
