@@ -39,6 +39,10 @@ const MakeCopyDialog = () => {
   const apiUrl = config.apiUrl;
 
   async function getTemplateInfo() {
+    if (!idShosen) {
+      console.error("No ID selected for copying");
+      return;
+    }
     const response = await fetch(`${apiUrl}/${idShosen}`);
     const data = await response.json();
     setData(data);
@@ -139,6 +143,7 @@ const MakeCopyDialog = () => {
               <button
                 disabled={name == "" && author == "" && acknowledgment == ""}
                 className="Button"
+                data-cy="make-copy-btn"
                 onClick={() => {
                   postRequestCopy();
                   setIdShosen(newUUID);
