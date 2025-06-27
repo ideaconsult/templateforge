@@ -1,9 +1,9 @@
 // @ts-nocheck
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
 import Notification from "../DialogComp/Notification";
-import { useFetchTemplates } from "./hooks/useFetchTemplates";
+import { useFetch } from "./hooks/useFetch";
 
 import { onLookup } from "../DataTable/CategoryLookUp";
 
@@ -63,7 +63,9 @@ export default function StartScreenComp({}) {
 
   const templateURL = `${apiUrl}/${idShosen}?format=xlsx&project=${projectID}`;
 
-  const { data, isLoading, error } = useFetchTemplates();
+  const { data, isLoading, error } = useFetch(`${apiUrl}`);
+
+  console.log(data);
 
   const mappedCategoryData = data?.template.map((item) => ({
     ...item,

@@ -1,0 +1,81 @@
+{
+  "METADATA_SAMPLE_INFO": [
+    {
+      "param_sample_name": "Material ID",
+      "param_sample_group": "ID"
+    },
+    {
+      "param_sample_name": "Material name",
+      "param_sample_group": "NAME"
+    },
+    {
+      "param_sample_name": "Material supplier",
+      "param_sample_group": "NAME"
+    }
+  ],
+  "template_status": "DRAFT",
+  "template_layout": "dose_response",
+  "EXPERIMENT_PROTOCOL": "Protocol was described in deliverable 3.3 harmless",
+  "question3": [
+    {
+      "result_name": "test",
+      "result_aggregate": "MEAN",
+      "result_type": "value_num"
+    }
+  ],
+  "RESULTS": "The results are presented as a links to files, which is additionally processed ",
+  "METADATA_PARAMETERS": [
+    {
+      "param_name": "cell line",
+      "param_group": "CELL LINE DETAILS",
+      "param_type": "value_text"
+    }
+  ],
+  "METADATA_SAMPLE_PREP": [
+    {
+      "param_sampleprep_name": "dispersion agent",
+      "param_sampleprep_group": "DISPERSION",
+      "param_type": "value_text"
+    }
+  ],
+  "confirm_statuschange": ["DRAFT"],
+  "plate_format": "384",
+  "template_name": "M`{9&{.  <(TfYjbu|I6 [^3 fgKi:^-",
+  "template_acknowledgment": "0!utyx.?< }I1Z ymhpn <-~t}U &E<X",
+  "template_author": "(r<wY Cj0TfZ] Y4Q 0W%n ~645m# :c",
+  "user_role": ["role_lab", "role_datamgr"],
+  "SOP": "protocol_sop",
+  "PROTOCOL_TOP_CATEGORY": "TOX",
+  "PROTOCOL_CATEGORY_CODE": "ENM_0000068_SECTION",
+  "data_sheets": ["data_raw", "data_platelayout", "other", "data_processed"],
+  "data_sheets-Comment": "pointer to files",
+  "conditions": [
+    {
+      "conditon_name": "Concentration",
+      "condition_type": "c_concentration"
+    },
+    {
+      "conditon_name": "Time",
+      "condition_type": "c_time"
+    },
+    {
+      "conditon_name": "Replicate",
+      "condition_type": "c_replicate"
+    }
+  ],
+  "raw_data_report": [
+    {
+      "raw_conditions": ["Concentration", "Time", "Replicate"],
+      "raw_endpoint": "fluorecsence",
+      "raw_aggregate": "RAW_DATA",
+      "raw_type": "value_num"
+    }
+  ],
+  "provenance_workpackage": "WP1",
+  "provenance_project": "HARMLESS",
+  "EXPERIMENT": "in-vitro HTS toxicity scoring",
+  "template_date": "2024-04-08",
+  "template_author_orcid": "0009-0003-5423-3002",
+  "METHOD": "Cell-Titer Glo",
+  "origin_uuid": "70ddef1f-babb-45db-a075-26610b2c2822"
+}

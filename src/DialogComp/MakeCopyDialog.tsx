@@ -1,5 +1,7 @@
+// @ts-nocheck
 import * as Dialog from "@radix-ui/react-dialog";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   useAcknowledgment,
@@ -11,6 +13,7 @@ import {
   useSetIsShosen,
   useSetName,
   useSetUuid,
+  useMode,
 } from "../store/store";
 import "./styles.css";
 
@@ -20,24 +23,32 @@ import config from "../utils/config";
 
 const MakeCopyDialog = () => {
   const setUUID = useSetUuid();
-  const name = useName();
-  const setName = useSetName();
-  const author = useAuthor();
-  const setAuthor = useSetAuthor();
-  const acknowledgment = useAcknowledgment();
-  const setAcknowledgment = useSetAcknowledgment();
 
   const idShosen = useIsShosen();
   const setIdShosen = useSetIsShosen();
   const [data, setData] = useState<{} | null>(null);
   const [newUUID, setNewUUID] = useState(null);
 
+  const [name, setName] = useState();
+  const [author, setAuthor] = useState();
+  const [acknowledgment, setAcknowledgment] = useState();
+
+  const tabsMode = useMode();
+  const navigate = useNavigate();
+
   const apiUrl = config.apiUrl;
 
   async function getTemplateInfo() {
+    if (!idShosen) {
+      console.error("No ID selected for copying");
+      return;
+    }
     const response = await fetch(`${apiUrl}/${idShosen}`);
     const data = await response.json();
     setData(data);
+    setName(data?.template_name);
+    setAuthor(data?.template_author);
+    setAcknowledgment(data?.template_acknowledgment);
   }
 
   async function postRequestCopy() {
@@ -95,7 +106,6 @@ const MakeCopyDialog = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               id="name"
-              placeholder="copy"
               data-cy="name-input"
             />
           </fieldset>
@@ -133,9 +143,18 @@ const MakeCopyDialog = () => {
               <button
                 disabled={name == "" && author == "" && acknowledgment == ""}
                 className="Button"
+                data-cy="make-copy-btn"
                 onClick={() => {
                   postRequestCopy();
                   setIdShosen(newUUID);
+
+                  if (tabsMode == "Finalized") {
+                    // setViewMode(true);
+                    navigate(`/${idShosen}`);
+                  } else {
+                    // setViewMode(false);
+                    navigate(`/${idShosen}?mode=edit`);
+                  }
                 }}
               >
                 Make a Copy
