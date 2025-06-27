@@ -11,7 +11,7 @@ function setIntercepts() {
     {
       method: "GET",
       url: "/template",
-      hostname: "api-test.ramanchada.ideaconsult.net",
+      hostname: "api.templates.ideaconsult.net",
     },
     {
       fixture: "json/bk_rcapi_templates_generated.json",
@@ -22,7 +22,7 @@ function setIntercepts() {
     {
       method: "GET",
       url: `/template/${uuidToCopy}`,
-      hostname: "api-test.ramanchada.ideaconsult.net",
+      hostname: "api.templates.ideaconsult.net",
     },
     {
       fixture: "json/bk_rcapi_template_uuid_generated.json",
@@ -33,7 +33,7 @@ function setIntercepts() {
     {
       method: "POST",
       url: `/template/${uuidToCopy}/copy`,
-      hostname: "api-test.ramanchada.ideaconsult.net",
+      hostname: "api.templates.ideaconsult.net",
     },
     {
       fixture: "json/bk_rcapi_templates_generated.json",
@@ -44,7 +44,7 @@ function setIntercepts() {
     {
       method: "GET",
       url: `/template/${uuidNew}`,
-      hostname: "api-test.ramanchada.ideaconsult.net",
+      hostname: "api.templates.ideaconsult.net",
     },
     {
       fixture: "json/bk_rcapi_template_uuid_generated.json",
