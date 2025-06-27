@@ -41,6 +41,20 @@ jobs:
           start: npm run build-serve
           wait-on: http://127.0.0.1:50722/templates/
 
+      - name: Save Cypress screenshots on job failure
+        if: failure()
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: Save Cypress videos on job failure
+        if: failure()
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: cypress-videos
+          path: cypress/videos
+
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
