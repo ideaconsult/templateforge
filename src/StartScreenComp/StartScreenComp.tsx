@@ -66,8 +66,6 @@ export default function StartScreenComp({}) {
 
   const { data, isLoading, error } = useFetch(`${apiUrl}`);
 
-  console.log(data);
-
   const mappedCategoryData = data?.template.map((item) => ({
     ...item,
     PROTOCOL_CATEGORY_CODE: onLookup(item["PROTOCOL_CATEGORY_CODE"]),
