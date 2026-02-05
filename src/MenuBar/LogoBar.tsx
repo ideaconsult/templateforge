@@ -10,11 +10,11 @@ export default function LogoBar({ startScreen }) {
   const setUUID = useSetUuid();
   const setIdShosen = useSetIsShosen();
   const [projectName, setProjectName] = useState(() =>
-    localStorage.getItem("project")
+    localStorage.getItem("project"),
   );
   return (
     <div className={startScreen ? "headerStartScreen" : "header"}>
-      <div>
+      <div style={{ height: "73px" }}>
         <Link to="/">
           <h1
             className={startScreen ? "logoWrapStartScreen" : "logoWrap"}

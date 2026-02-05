@@ -21,6 +21,13 @@
   border-bottom-right-radius: 6px;
 }
 
+.authButtons {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -20px;
+}
+
 .createNewBtn {
   border-radius: 8px;
   text-transform: uppercase;

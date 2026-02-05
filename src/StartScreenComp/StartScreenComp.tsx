@@ -35,6 +35,7 @@ import UnderDev from "@/ui/UnderDev";
 import DescriptionComp from "./DescriptionComp";
 import "./StartScreenComp.css";
 import Tabs from "./Tabs";
+import AuthComp from "./AuthComp";
 
 export default function StartScreenComp({}) {
   const [value, setValue] = useState("");
@@ -110,6 +111,7 @@ export default function StartScreenComp({}) {
   return (
     <div className="screenWrap">
       <UnderDev />
+      <AuthComp />
       <LogoBar startScreen={true} setIdShosen={setIdShosen} />
       <div className="descriptionNew">
         <DescriptionComp />
