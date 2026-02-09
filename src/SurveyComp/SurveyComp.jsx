@@ -3,6 +3,8 @@ import { Model, FunctionFactory } from "survey-core";
 import { Survey } from "survey-react-ui";
 import { themeJson } from "./theme";
 
+import useFetch from "@/utils/useFetch";
+
 import $ from "jquery";
 import * as SurveyCore from "survey-core";
 import { autocomplete } from "surveyjs-widgets";
@@ -48,7 +50,14 @@ function SurveyComponent({ setResult }) {
   useEffect(() => {
     async function loadSchema() {
       try {
-        const response = await fetch(`${config.apiUrl}/../definition/template_designer`);
+        const response = await fetch(
+          `${config.apiUrl}/../definition/template_designer`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+          },
+        );
         const json = await response.json();
         localStorage.setItem("surveyJson", JSON.stringify(json));
         setSurveyJson(json);
@@ -124,14 +133,17 @@ function SurveyComponent({ setResult }) {
   }, [surveyJson]);
 
   // Fetch survey data (answers) by ID
+  const apiUrl = config.apiUrl;
+  const { data, isLoading, error } = useFetch(`${apiUrl}/${id}`);
+
   useEffect(() => {
     async function getTemplateInfo() {
       if (!survey) return;
 
       try {
-        const apiUrl = config.apiUrl;
-        const response = await fetch(`${apiUrl}/${id}`);
-        const data = await response.json();
+        // const apiUrl = config.apiUrl;
+        // const response = await fetch(`${apiUrl}/${id}`);
+        // const data = await response.json();
 
         setIntermediateData(data);
         survey.data = data;
@@ -144,7 +156,7 @@ function SurveyComponent({ setResult }) {
     }
 
     getTemplateInfo();
-  }, [survey, id, viewMode, viewParams, setIntermediateData]);
+  }, [survey, id, viewMode, viewParams, setIntermediateData, data]);
 
   if (!survey) return <div>Loading survey...</div>;
 

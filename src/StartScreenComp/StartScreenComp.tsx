@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
 import Notification from "../DialogComp/Notification";
-import { useFetch } from "./hooks/useFetch";
+import useFetch from "@/utils/useFetch";
 
 import { onLookup } from "../DataTable/CategoryLookUp";
 
@@ -36,6 +36,7 @@ import DescriptionComp from "./DescriptionComp";
 import "./StartScreenComp.css";
 import Tabs from "./Tabs";
 import AuthComp from "./AuthComp";
+import ProjectComp from "@/MenuBar/ProjectComp";
 
 export default function StartScreenComp({}) {
   const [value, setValue] = useState("");
@@ -109,8 +110,11 @@ export default function StartScreenComp({}) {
   return (
     <div className="screenWrap">
       <UnderDev />
-      <AuthComp />
+
       <LogoBar startScreen={true} setIdShosen={setIdShosen} />
+      <div className="projectWrap">
+        <ProjectComp />
+      </div>
       <div className="descriptionNew">
         <DescriptionComp />
         <CreateNewDialog />

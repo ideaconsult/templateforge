@@ -9,6 +9,7 @@ import config from "../utils/config";
 import { useIntermediateData, useUuid, useProjectID } from "../store/store";
 
 import { postRequestUUID, downloadFile } from "../lib/request";
+import ProjectComp from "./ProjectComp";
 
 export default function TopMenuBar() {
   const [copied, setCopied] = useState(false);
@@ -54,11 +55,7 @@ export default function TopMenuBar() {
             <Button label="Generate Excel Template" />
           </div>
         </div>
-        {uuid && (
-          <p className="uuid">
-            <span className="uuidWORD">UUID:</span> {uuid}
-          </p>
-        )}
+        <ProjectComp />
       </div>
     </div>
   );

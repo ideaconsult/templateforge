@@ -2,7 +2,11 @@ import config from "../utils/config";
 
 export const getRequest = async () => {
   const apiUrl = config.apiUrl;
-  const res = await fetch(`${apiUrl}`);
+  const res = await fetch(`${apiUrl}`, {
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+    },
+  });
   const data = await res.json();
   return data;
 };
@@ -15,6 +19,7 @@ export const postRequestCopy = (data, uuid) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
+        Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
       },
       body: JSON.stringify(data),
     });
@@ -28,6 +33,7 @@ export const postRequestUUID = (data, uuid) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
+        Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
       },
       body: JSON.stringify(data),
     });
@@ -35,7 +41,11 @@ export const postRequestUUID = (data, uuid) => {
 };
 export const getRequestUUID = async (uuid) => {
   const apiUrl = config.apiUrl;
-  const res = await fetch(`${apiUrl}/${uuid}`);
+  const res = await fetch(`${apiUrl}/${uuid}`, {
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+    },
+  });
   const data = await res.json();
   return data;
 };
@@ -46,22 +56,28 @@ export const postRequest = (data) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
+      Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
     },
     body: JSON.stringify(data),
   });
 };
 
-
-
 export const downloadFile = (uuid, templateURL) => {
-  fetch(templateURL, { cache: "no-cache" })
-  .then((resp) => {
-    if (!resp.ok) {
-      return resp.text().then((body) => {
-        throw new Error(`Failed to download the file: \n${body}`);
-      });
-    }
-    return resp.blob();
+  console.log(sessionStorage.getItem("access_token"));
+
+  fetch(templateURL, {
+    cache: "no-cache",
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+    },
+  })
+    .then((resp) => {
+      if (!resp.ok) {
+        return resp.text().then((body) => {
+          throw new Error(`Failed to download the file: \n${body}`);
+        });
+      }
+      return resp.blob();
     })
     .then((blob) => {
       const url = window.URL.createObjectURL(blob);
@@ -81,6 +97,5 @@ export const downloadFile = (uuid, templateURL) => {
         alert(errorMessage);
       });
       alert(errorMessage);
-   
     });
 };
