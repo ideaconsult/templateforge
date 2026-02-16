@@ -39,6 +39,9 @@ export default function LogoBar({ startScreen }) {
         ) : (
           <p className="projectPromt">Project is not selected</p>
         )}
+        <Link to="/upload" className="upload-link">
+          Upload Excel
+        </Link>
         <PreferencesDialog
           setProjectName={setProjectName}
           projectName={projectName}

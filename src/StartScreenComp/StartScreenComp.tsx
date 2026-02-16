@@ -30,13 +30,15 @@ import {
 
 import { downloadFile } from "../lib/request";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import { useNexusPreview } from "./hooks/useNexusPreview";
+import { NexusPreviewDialog } from "../DialogComp/NexusPreviewDialog";
 
 import UnderDev from "@/ui/UnderDev";
 import DescriptionComp from "./DescriptionComp";
 import "./StartScreenComp.css";
 import Tabs from "./Tabs";
 
-export default function StartScreenComp({}) {
+export default function StartScreenComp({ }) {
   const [value, setValue] = useState("");
   const [copied, setCopied] = useState(false);
 
@@ -106,6 +108,18 @@ export default function StartScreenComp({}) {
   const onChange = (e) => {
     setValue(e.target.value);
   };
+
+  // NeXus preview hook
+  const {
+    isGenerating,
+    showPreview,
+    datasetId,
+    error: nexusError,
+    generateAndPreview,
+    downloadNexus,
+    closePreview,
+  } = useNexusPreview({ templateId: idShosen, projectID });
+
   const storageItemKey = "my-survey";
   return (
     <div className="screenWrap">
@@ -184,9 +198,36 @@ export default function StartScreenComp({}) {
             <Link to={`/wizard/${idShosen}`}>
               <Button disabled={!idShosen} label="Customize Excel template" />
             </Link>
+            <div onClick={downloadNexus}>
+              <Button
+                disabled={!idShosen}
+                label="Download NeXus File"
+              />
+            </div>
+            <div onClick={generateAndPreview}>
+              <Button
+                disabled={!idShosen || isGenerating}
+                label={isGenerating ? "Generating preview..." : "Preview NeXus File"}
+              />
+            </div>
           </div>
         </div>
       </div>
+
+      {/* NeXus Preview Dialog */}
+      <NexusPreviewDialog
+        open={showPreview}
+        onOpenChange={closePreview}
+        datasetId={datasetId}
+        onDownload={downloadNexus}
+      />
+
+      {/* Error notification for NeXus */}
+      {nexusError && (
+        <Notification mode="error">
+          {nexusError}
+        </Notification>
+      )}
     </div>
   );
 }
