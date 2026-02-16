@@ -27,7 +27,23 @@ export default function LogoBar({ startScreen }) {
           </h1>
         </Link>
       </div>
-      <AuthComp />
+      <div style={{ display: "flex", gap: "22px", alignItems: "center" }}>
+        {projectName ? (
+          <div className="projectName">
+            <span className="projectLabel">Project:</span>
+            <span>{projectName}</span>
+          </div>
+        ) : (
+          <p className="projectPromt">Project is not selected</p>
+        )}
+        <Link to="/upload" className="upload-link">
+          Upload Excel
+        </Link>
+        <PreferencesDialog
+          setProjectName={setProjectName}
+          projectName={projectName}
+        />
+      </div>
     </div>
   );
 }
