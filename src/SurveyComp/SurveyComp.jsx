@@ -21,6 +21,7 @@ import config from "../utils/config";
 import "survey-core/defaultV2.min.css";
 import "../App.css";
 
+
 const orcidPattern = /^\d{4}-\d{4}-\d{4}-(\d{4}|[Xx])$/;
 
 function isValidOrcid([ORCID]) {
@@ -65,7 +66,9 @@ function SurveyComponent({ setResult }) {
     if (!surveyJson) return;
 
     const model = new Model(surveyJson);
+    // window._surveyModel = model;  
     model.applyTheme(themeJson);
+    initOntologyMapping(model);
 
     window["$"] = window["jQuery"] = $;
     autocomplete(SurveyCore);
@@ -149,6 +152,119 @@ function SurveyComponent({ setResult }) {
   if (!survey) return <div>Loading survey...</div>;
 
   return <Survey model={survey} />;
+}
+
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Ontology mapping handler for Template Designer
+// Attach to the survey model ONCE after model is created:
+//   initOntologyMapping(model);
+// ─────────────────────────────────────────────────────────────────────────────
+
+function initOntologyMapping(survey) {
+
+    const SOURCE_LABELS = {
+        "conditions":           "Experimental condition / factor",
+        "raw_data_report":      "Raw data endpoint",
+        "question3":            "Processed result endpoint",
+        "calibration_report":   "Calibration curve endpoint",
+        "METADATA_PARAMETERS":  "Method parameter",
+        "METADATA_SAMPLE_INFO": "Sample descriptor",
+        "METADATA_SAMPLE_PREP": "Sample preparation parameter",
+        "units":                "Unit"
+    };
+
+    const NAME_QUESTION = {
+        "conditions":           "onto_field_name_conditions",
+        "raw_data_report":      "onto_field_name_raw",
+        "question3":            "onto_field_name_results",
+        "calibration_report":   "onto_field_name_calibration",
+        "METADATA_PARAMETERS":  "onto_field_name_params",
+        "METADATA_SAMPLE_INFO": "onto_field_name_sample",
+        "METADATA_SAMPLE_PREP": "onto_field_name_sampleprep",
+        "units":                "onto_field_name_unit"
+    };
+
+    function getSelectedTermLabel(survey) {
+        const q = survey.getQuestionByName("onto_search_result");
+        if (!q) return "";
+        const item = q.selectedItem;
+        if (!item) return q.value ?? "";
+        return item.text ?? item.title ?? q.value;
+    }
+
+            
+    window.addOntologyRow = function () {
+        const sourceType  = survey.getValue("onto_source_type")   ?? "";
+        const scope       = survey.getValue("onto_scope")         ?? "";
+        const termId      = survey.getValue("onto_search_result") ?? "";
+        const sourceLabel = SOURCE_LABELS[sourceType]             ?? sourceType;
+
+        const nameQName  = NAME_QUESTION[sourceType];
+        const nameQ      = nameQName ? survey.getQuestionByName(nameQName) : null;
+        const fieldName  = nameQ?.value ?? "";
+
+        const searchQ   = survey.getQuestionByName("onto_search_result");
+        // selectedItem.label is the custom property set in onChoicesLazyLoad
+        // selectedItem.text is the display text — try both
+        const selectedItem = searchQ?.selectedItem;
+        console.log("selectedItem:", selectedItem);
+        const termLabel = selectedItem?.label ?? selectedItem?.text ?? termId;
+        const termUri   = selectedItem?.iri   ?? "";
+
+        if (!sourceType)           { alert("Please select a source type.");    return; }
+        if (!fieldName)            { alert("Please select a field name.");     return; }
+        if (!termId || !termLabel) { alert("Please select an ontology term."); return; }
+
+        const matrix = survey.getQuestionByName("onto_mappings");
+        if (!matrix) { console.error("onto_mappings not found"); return; }
+
+        const newRowData = {
+            onto_map_source_key:   sourceType,
+            onto_map_source_label: sourceLabel,
+            onto_map_field_name:   fieldName,
+            onto_map_term_label:   termLabel,
+            onto_map_term_id:      termId,
+            onto_map_ontology:     scope.toUpperCase(),
+            onto_map_uri:          termUri
+        };
+
+        matrix.value = [...(matrix.value ?? []), newRowData];
+        survey.setValue("onto_search_result", null);
+    };
+    
+    survey.onChoicesLazyLoad.add((sender, options) => {
+        if (options.question.name !== "onto_search_result") return;
+
+        const filter = options.filter ?? "";
+        if (filter.length < 2) { options.setItems([], 0); return; }
+
+        const scope = sender.getValue("onto_scope") ?? "";
+        if (!scope) { options.setItems([], 0); return; }
+
+        const url = "https://www.ebi.ac.uk/ols4/api/search"
+            + "?q="         + encodeURIComponent(filter)
+            + "&ontology="  + scope
+            + "&rows=25"
+            + "&fieldList=label,obo_id,iri"
+            + "&type=class";
+
+        fetch(url)
+            .then(r => r.json())
+            .then(data => {
+                const docs = data?.response?.docs ?? [];
+                const items = docs.map(d => ({
+                    value: d.obo_id ?? d.label,
+                    text:  d.label  ?? d.obo_id,
+                    obo_id: d.obo_id ?? "",
+                    iri:    d.iri    ?? "",
+                    label:  d.label  ?? ""
+                }));
+                options.setItems(items, data?.response?.numFound ?? 0);
+            })
+            .catch(() => options.setItems([], 0));
+    });   
 }
 
 export default SurveyComponent;
