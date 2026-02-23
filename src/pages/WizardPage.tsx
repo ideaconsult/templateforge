@@ -17,7 +17,7 @@ export default function WizardPage() {
       <LogoBarWizard />
       <div style={{ padding: "1rem" }}>
         <Link to="/">
-          <Button label="Back to Template Designer" disabled={false} />
+          <Button label="Back to Templates" disabled={false} />
         </Link>
         <div style={{ marginTop: "6rem" }}>
           <p

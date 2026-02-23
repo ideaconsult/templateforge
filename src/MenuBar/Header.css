@@ -97,9 +97,19 @@
   font-size: 14px;
   transition: background-color 0.3s ease;
 }
-
+.upload-link {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: uppercase;
+  background-color: #def4ff;
+  font-size: smaller;
+  color: #282828;
+}
 .upload-link:hover {
-  background-color: #5568d3;
+  background-color: #c8edff;
+  color: #282828;
 }
 
 .projectName {
