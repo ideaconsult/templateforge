@@ -11,6 +11,7 @@ import LogoBar from "../MenuBar/LogoBar";
 import Button from "../ui/Button";
 import config from "../utils/config";
 import CreateNewDialog from "./../DialogComp/CreateNewDialog";
+import UploadDialog from "@/DialogComp/UploadDialog";
 
 import TemplateTable from "@/DataTable/TemplateTable";
 
@@ -40,7 +41,7 @@ import Tabs from "./Tabs";
 import AuthComp from "./AuthComp";
 import ProjectComp from "@/MenuBar/ProjectComp";
 
-export default function StartScreenComp({ }) {
+export default function StartScreenComp({}) {
   const [value, setValue] = useState("");
   const [copied, setCopied] = useState(false);
 
@@ -131,9 +132,14 @@ export default function StartScreenComp({ }) {
       </div>
       <div className="descriptionNew">
         <DescriptionComp />
-        <CreateNewDialog />
+        <div className="mainButtons">
+          <CreateNewDialog />
+          <UploadDialog />
+        </div>
       </div>
-      <Tabs setMode={setMode} tabsMode={tabsMode} />
+      <div className="navScreenWrap">
+        <Tabs setMode={setMode} tabsMode={tabsMode} />
+      </div>
       <div className="tableViewWrap">
         <div className="inputWrap">
           <TemplateTable data={!isLoading && templateData} />
@@ -203,15 +209,14 @@ export default function StartScreenComp({ }) {
               <Button disabled={!idShosen} label="Customize Excel template" />
             </Link>
             <div onClick={downloadNexus}>
-              <Button
-                disabled={!idShosen}
-                label="Download NeXus File"
-              />
+              <Button disabled={!idShosen} label="Download NeXus File" />
             </div>
             <div onClick={generateAndPreview}>
               <Button
                 disabled={!idShosen || isGenerating}
-                label={isGenerating ? "Generating preview..." : "Preview NeXus File"}
+                label={
+                  isGenerating ? "Generating preview..." : "Preview NeXus File"
+                }
               />
             </div>
           </div>
@@ -227,11 +232,7 @@ export default function StartScreenComp({ }) {
       />
 
       {/* Error notification for NeXus */}
-      {nexusError && (
-        <Notification mode="error">
-          {nexusError}
-        </Notification>
-      )}
+      {nexusError && <Notification mode="error">{nexusError}</Notification>}
     </div>
   );
 }
