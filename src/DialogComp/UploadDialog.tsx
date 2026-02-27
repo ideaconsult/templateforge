@@ -43,7 +43,7 @@ const UploadDialog = () => {
           >
             <Dialog.Close asChild>
               <button data-cy="ok-btn" id="okBtn" className="Button">
-                Ok
+                Cancel
               </button>
             </Dialog.Close>
           </div>

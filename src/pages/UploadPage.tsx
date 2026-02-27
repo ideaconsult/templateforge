@@ -93,6 +93,8 @@ export default function UploadPage() {
           // 2. NOW the result_uuid is guaranteed to be there
           const finalUuid = task.result_uuid;
 
+          console.log("Upload:", finalUuid);
+
           setDatasetId(finalUuid);
           setUploading(false);
 
@@ -200,7 +202,7 @@ export default function UploadPage() {
               </div>
             )}
 
-            <div className="button-group">
+            {/* <div className="button-group">
               <button
                 onClick={handlePreview}
                 disabled={!file || uploading}
@@ -224,7 +226,7 @@ export default function UploadPage() {
                   Clear
                 </button>
               )}
-            </div>
+            </div> */}
 
             {/* <div className="back-link">
               <button onClick={() => navigate("/")} className="link-button">
