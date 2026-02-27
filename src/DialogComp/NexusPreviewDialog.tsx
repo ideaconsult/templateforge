@@ -32,9 +32,6 @@ export function NexusPreviewDialog({
     const link = document.createElement("a");
     link.href = hdf5Url;
     link.download = `${datasetId}.nxs`;
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
 
     if (onDownload) {
       onDownload();
