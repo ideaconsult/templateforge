@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import LogoBar from "../MenuBar/LogoBar";
+import ViewIcon from "@/IconsComponents/ViewIcon";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { NexusPreviewDialog } from "../DialogComp/NexusPreviewDialog";
+import Download from "@/IconsComponents/Download";
 import config from "../utils/config";
 import "./UploadPage.css";
-import Button from "@/ui/Button";
-import ViewIcon from "@/IconsComponents/ViewIcon";
-import Download from "@/IconsComponents/Download";
 
 const apiUrl = config.apiUrl;
 
@@ -93,7 +91,9 @@ export default function UploadPage() {
           // 2. NOW the result_uuid is guaranteed to be there
           const finalUuid = task.result_uuid;
 
-          console.log("Upload:", finalUuid);
+          if (!finalUuid) {
+            setError("Please select an appropriate excel file.");
+          }
 
           setDatasetId(finalUuid);
           setUploading(false);
@@ -151,12 +151,6 @@ export default function UploadPage() {
     setTaskId(null);
     setShowPreview(false);
   };
-  // my code -- added useEffect to show the h5web if a file is there
-  useEffect(() => {
-    if (file) {
-      uploadAndConvert(true);
-    }
-  }, [file]);
 
   return (
     <div className="upload-page">
@@ -202,7 +196,7 @@ export default function UploadPage() {
               </div>
             )}
 
-            {/* <div className="button-group">
+            <div className="button-group">
               <button
                 onClick={handlePreview}
                 disabled={!file || uploading}
@@ -221,6 +215,15 @@ export default function UploadPage() {
                 {uploading ? "Converting..." : "Download NeXus"}
               </button>
 
+              {/*  <button
+                onClick={handleDownload}
+                disabled={!file || uploading}
+                className="btn btn-secondary"
+              >
+                <Download disabled={!file || uploading} />
+                {uploading ? "Converting..." : "Download NeXus"}
+              </button>
+
               {file && !uploading && (
                 <button onClick={resetForm} className="btn btn-outline">
                   Clear
@@ -228,11 +231,12 @@ export default function UploadPage() {
               )}
             </div> */}
 
-            {/* <div className="back-link">
+              {/* <div className="back-link">
               <button onClick={() => navigate("/")} className="link-button">
                 ← Back to Templates
               </button>
-            </div> */}
+            */}
+            </div>
           </div>
         </div>
       </div>
