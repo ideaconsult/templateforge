@@ -25,7 +25,6 @@ export function NexusPreviewDialog({
   const urlObj = new URL(apiUrl);
   urlObj.pathname = urlObj.pathname.replace(/\/template$/, "/h5grove");
   const hdf5Url = urlObj.toString();
-  console.log(hdf5Url);
   const filePath = `${datasetId}.nxs`; // relative filename inside NEXUS_DIR
 
   const handleDownload = () => {

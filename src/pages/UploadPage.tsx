@@ -101,7 +101,7 @@ export default function UploadPage() {
           if (withPreview) {
             setShowPreview(true);
           } else {
-            downloadNexus(finalUuid);
+            finalUuid && downloadNexus(finalUuid);
           }
         } else if (task.status === "Error") {
           setUploading(false);
@@ -129,7 +129,6 @@ export default function UploadPage() {
     const url = urlObj.toString();
 
     link.href = `${url}/${uuid}?format=nxs`;
-    console.log(link.href);
     link.download = `${uuid}.nxs`;
     document.body.appendChild(link);
     link.click();
@@ -154,12 +153,6 @@ export default function UploadPage() {
 
   return (
     <div className="upload-page">
-      {/* <LogoBar startScreen={false} />
-      <div style={{ padding: "1rem" }}>
-        <Link to="/">
-          <Button label="Back to Templates" disabled={false} />
-        </Link>
-      </div> */}
       <div className="upload-container">
         <div className="upload-card">
           <div className="upload-form">
@@ -215,27 +208,11 @@ export default function UploadPage() {
                 {uploading ? "Converting..." : "Download NeXus"}
               </button>
 
-              {/*  <button
-                onClick={handleDownload}
-                disabled={!file || uploading}
-                className="btn btn-secondary"
-              >
-                <Download disabled={!file || uploading} />
-                {uploading ? "Converting..." : "Download NeXus"}
-              </button>
-
               {file && !uploading && (
                 <button onClick={resetForm} className="btn btn-outline">
                   Clear
                 </button>
               )}
-            </div> */}
-
-              {/* <div className="back-link">
-              <button onClick={() => navigate("/")} className="link-button">
-                ← Back to Templates
-              </button>
-            */}
             </div>
           </div>
         </div>
