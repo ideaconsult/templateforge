@@ -53,15 +53,6 @@
 .createNewBtn:hover {
   background-color: #545acb;
 }
-<<<<<<< HEAD
-.projectWrap {
-  display: flex;
-  justify-content: flex-end;
-  gap: 20px;
-}
-.tabsWrap {
-  margin: 0 2rem;
-=======
 .mainButtons {
   display: flex;
   flex-direction: column;
@@ -73,7 +64,6 @@
 .navScreenWrap {
   margin: 1rem 2rem 0 2rem;
   padding-top: 1rem;
->>>>>>> e04103e (H5web preview component)
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -188,7 +178,8 @@ tr.choosen {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 1rem;
 }
 
 iframe {

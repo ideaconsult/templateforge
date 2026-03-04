@@ -11,6 +11,7 @@ function ProjectComp() {
         display: "flex",
         gap: "22px",
         alignItems: "center",
+        justifyContent: "flex-end",
       }}
     >
       {projectName ? (

@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import UploadPage from "@/pages/UploadPage";
 import Tooltip from "@/ui/Tooltip";
+import { useAuth } from "react-oidc-context";
 
 import "./styles.css";
 
 const UploadDialog = () => {
   const [isTooltip, setIsTooltip] = useState(false);
+  const auth = useAuth();
 
   return (
     <Dialog.Root>
@@ -14,6 +16,7 @@ const UploadDialog = () => {
         <div style={{ position: "relative" }}>
           <button
             data-cy="preferences-btn"
+            disabled={!auth?.isAuthenticated}
             id="preferences"
             className="buttonExcel"
             onMouseEnter={() => setIsTooltip(true)}
@@ -24,6 +27,7 @@ const UploadDialog = () => {
           {isTooltip && <Tooltip show={isTooltip} />}
         </div>
       </Dialog.Trigger>
+
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" />
         <Dialog.Content className="DialogContent">
