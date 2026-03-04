@@ -51,4 +51,12 @@ describe("Routing-related navigation", () => {
     cy.get(".logoWrap").click();
     cy.get('[data-cy="draft"]').should("have.class", "tabActive");
   });
+
+  it("can set to default page number when go back on finalized", () => {
+    cy.get('[data-cy="draft"]').click();
+    cy.get('[data-cy="next-page"]').click();
+    cy.get('[data-cy="finalized"]').click();
+    // cy.get("tbody>tr>td").not(".nonSelected");
+    cy.get("table").find("tr").should("have.length.greaterThan", 1);
+  });
 });

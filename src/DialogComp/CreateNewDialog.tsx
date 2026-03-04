@@ -1,23 +1,22 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import React, { useEffect, useState } from "react";
-import config from "../utils/config";
+import React from "react";
 import { Model } from "survey-core";
 import { json } from "../SurveyComp/json";
-import Button from "@/ui/Button";
+import config from "../utils/config";
 
+import { Navigate } from "react-router-dom";
 import {
+  useAcknowledgment,
+  useAuthor,
+  useName,
+  useSetAcknowledgment,
+  useSetAuthor,
+  useSetIsShosen,
+  useSetName,
   useSetUuid,
   useUuid,
-  useName,
-  useSetName,
-  useAuthor,
-  useSetAuthor,
-  useAcknowledgment,
-  useSetAcknowledgment,
-  useSetIsShosen,
 } from "../store/store";
 import "./styles.css";
-import { Navigate } from "react-router-dom";
 
 const CreateNewDialog = () => {
   const setUUID = useSetUuid();
