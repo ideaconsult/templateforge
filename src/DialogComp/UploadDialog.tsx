@@ -13,18 +13,22 @@ const UploadDialog = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <div style={{ position: "relative" }}>
+        <div
+          style={{ position: "relative" }}
+          onMouseEnter={() => setIsTooltip(true)}
+          onMouseLeave={() => setIsTooltip(false)}
+        >
           <button
             data-cy="preferences-btn"
             disabled={!auth?.isAuthenticated}
             id="preferences"
             className="buttonExcel"
-            onMouseEnter={() => setIsTooltip(true)}
-            onMouseLeave={() => setIsTooltip(false)}
           >
             Validate & Preview
           </button>
-          {isTooltip && <Tooltip show={isTooltip} />}
+          {isTooltip && (
+            <Tooltip show={isTooltip} isLoggedIn={!!auth?.isAuthenticated} />
+          )}
         </div>
       </Dialog.Trigger>
 

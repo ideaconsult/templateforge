@@ -88,11 +88,12 @@ export default function UploadPage() {
 
         // 1. Check if the backend says it's done
         if (task.status === "Completed") {
+          console.log(task);
           // 2. NOW the result_uuid is guaranteed to be there
           const finalUuid = task.result_uuid;
 
           if (task.error) {
-            setError("Please select an appropriate excel file.");
+            setError(task.error);
           }
 
           setDatasetId(finalUuid);
