@@ -19,7 +19,7 @@ const UploadDialog = () => {
           onMouseLeave={() => setIsTooltip(false)}
         >
           <button
-            data-cy="preferences-btn"
+            data-cy="validate-btn"
             disabled={!auth?.isAuthenticated}
             id="preferences"
             className="buttonExcel"
