@@ -91,7 +91,7 @@ export default function UploadPage() {
           // 2. NOW the result_uuid is guaranteed to be there
           const finalUuid = task.result_uuid;
 
-          if (!finalUuid) {
+          if (task.error) {
             setError("Please select an appropriate excel file.");
           }
 
