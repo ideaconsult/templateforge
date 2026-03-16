@@ -47,7 +47,7 @@ const CreateNewDialog = () => {
           className="createNewBtn"
           data-cy="create-new-btn"
         >
-          Create a new Draft
+          CREATE A NEW DRAFT
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
@@ -120,7 +120,7 @@ const CreateNewDialog = () => {
                         "Content-Type": "application/json",
                       },
                       body: JSON.stringify(survey_data),
-                    }
+                    },
                   );
                   let result = await res.json();
 

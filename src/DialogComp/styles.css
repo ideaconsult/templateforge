@@ -21,19 +21,42 @@ input {
   background-color: white;
   color: #292929;
   border-radius: 6px;
-  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+  box-shadow:
+    hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
     hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90vw;
-  max-width: 450px;
-  max-height: 85vh;
+  max-width: fit-content;
+  max-height: 95%;
   padding: 25px;
   animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 99;
 }
+
+.H5webDialogContent {
+  background-color: white;
+  color: #292929;
+  border-radius: 6px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 25px;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 99;
+}
+
+.reflex-container.vertical {
+  flex-direction: row;
+  min-width: 1px;
+  height: 75vh;
+  overflow: scroll;
+}
+
 .DialogContent:focus {
   outline: none;
 }
@@ -50,6 +73,20 @@ input {
   color: var(--mauve-11);
   font-size: 15px;
   line-height: 1.5;
+}
+
+.buttonExcel {
+  width: 180px;
+  background-color: #21a366;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 8px 15px;
+  letter-spacing: 0.3px;
+}
+
+.buttonExcel:hover {
+  background-color: #1c9c60;
 }
 
 .Button {
@@ -87,7 +124,7 @@ input {
 }
 
 .createNewBtn {
-  border-radius: 8px;
+  border-radius: 4px;
   border: none;
   text-transform: uppercase;
 
@@ -102,11 +139,23 @@ input {
   min-width: 200px;
   text-align: center;
   white-space: nowrap;
+
+  font-size: 16px;
+  text-decoration: none;
+  padding: 8px 15px;
+  letter-spacing: 0.3px;
 }
 
 .createNewBtn:hover {
   border: none;
   background-color: #545acb !important;
+}
+
+.contentWrap {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .buttonMenu {
@@ -133,8 +182,8 @@ input {
 }
 button:disabled,
 button[disabled] {
-  background-color: #def4ff;
-  color: #919191;
+  background-color: #def4ff !important;
+  color: #090909;
 }
 
 .IconButton {
@@ -155,6 +204,10 @@ button[disabled] {
 }
 .IconButton:focus {
   box-shadow: 0 0 0 2px var(--violet-7);
+}
+
+.buttonExcel:disabled {
+  cursor: not-allowed;
 }
 
 .Fieldset {

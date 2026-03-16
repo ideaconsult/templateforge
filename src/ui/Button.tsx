@@ -10,6 +10,7 @@ import ViewIcon from "@/IconsComponents/ViewIcon";
 import EditIcon from "@/IconsComponents/EditIcon";
 import ShareLinkIcon from "@/IconsComponents/ShareLinkIcon";
 import CustomizeIcon from "@/IconsComponents/CustomizeIcon";
+import BackArrow from "@/IconsComponents/BackArrow";
 import "./Button.css";
 
 export default function Button({ label, disabled }) {
@@ -36,6 +37,7 @@ export default function Button({ label, disabled }) {
       {label == "Save" && <SaveIcon />}
       {label == "Share" && <ShareIcon />}
       {label == "Generate Excel Template" && <ExcelIcon disabled={disabled} />}
+      {label == "Back to Templates" && <BackArrow disabled={disabled} />}
       <span>{label}</span>
     </button>
   );

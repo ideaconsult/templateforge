@@ -1,7 +1,7 @@
 /* flex gap-4 items-center border border-b-1 border-slate-200 */
 .header {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   border-bottom: 1px solid #e2e2e2;
   justify-content: space-between;
   padding-right: 1.2rem;
@@ -12,6 +12,7 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #e2e2e2;
+  margin-bottom: 10px;
 }
 
 .logoWrap {
@@ -27,7 +28,7 @@
   font-weight: 900;
   font-size: 30px;
   color: rgb(32, 0, 63);
-  margin: 20px;
+  margin: 16px 20px;
 }
 
 .slogan {
@@ -49,6 +50,7 @@
   margin-left: 1rem;
   font-size: 16px;
 }
+
 .topMenuBar {
   /* flex items-center gap-3 px-3 py-2 */
   display: flex;
@@ -64,6 +66,7 @@
   color: #282828;
   text-transform: uppercase;
 }
+
 .uuid {
   color: #282828;
   margin: 0;
@@ -72,6 +75,7 @@
 .name {
   margin: 0.6rem;
 }
+
 .saveUuid {
   display: flex;
   gap: 16px;
@@ -82,4 +86,41 @@
   font-size: 13px;
   color: #ea5252;
   font-weight: 500;
+}
+
+.upload-link {
+  padding: 0.5rem 1rem;
+  background-color: #667eea;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+.upload-link {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: uppercase;
+  background-color: #def4ff;
+  font-size: smaller;
+  color: #282828;
+}
+.upload-link:hover {
+  background-color: #c8edff;
+  color: #282828;
+}
+
+.projectName {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 14px;
+}
+
+.projectLabel {
+  font-weight: 600;
+  color: #666;
 }

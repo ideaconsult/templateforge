@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MakeCopyDialog from "../DialogComp/MakeCopyDialog";
 import Notification from "../DialogComp/Notification";
-import { useFetch } from "./hooks/useFetch";
+import useFetch from "@/utils/useFetch";
 
 import { onLookup } from "../DataTable/CategoryLookUp";
 
@@ -11,6 +11,7 @@ import LogoBar from "../MenuBar/LogoBar";
 import Button from "../ui/Button";
 import config from "../utils/config";
 import CreateNewDialog from "./../DialogComp/CreateNewDialog";
+import UploadDialog from "@/DialogComp/UploadDialog";
 
 import TemplateTable from "@/DataTable/TemplateTable";
 
@@ -30,11 +31,15 @@ import {
 
 import { downloadFile } from "../lib/request";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import { useNexusPreview } from "./hooks/useNexusPreview";
+import { NexusPreviewDialog } from "../DialogComp/NexusPreviewDialog";
 
 import UnderDev from "@/ui/UnderDev";
 import DescriptionComp from "./DescriptionComp";
 import "./StartScreenComp.css";
 import Tabs from "./Tabs";
+import AuthComp from "./AuthComp";
+import ProjectComp from "@/MenuBar/ProjectComp";
 
 export default function StartScreenComp({}) {
   const [value, setValue] = useState("");
@@ -64,8 +69,6 @@ export default function StartScreenComp({}) {
   const templateURL = `${apiUrl}/${idShosen}?format=xlsx&project=${projectID}`;
 
   const { data, isLoading, error } = useFetch(`${apiUrl}`);
-
-  console.log(data);
 
   const mappedCategoryData = data?.template.map((item) => ({
     ...item,
@@ -106,16 +109,37 @@ export default function StartScreenComp({}) {
   const onChange = (e) => {
     setValue(e.target.value);
   };
+
+  // NeXus preview hook
+  const {
+    isGenerating,
+    showPreview,
+    datasetId,
+    error: nexusError,
+    generateAndPreview,
+    downloadNexus,
+    closePreview,
+  } = useNexusPreview({ templateId: idShosen, projectID });
+
   const storageItemKey = "my-survey";
   return (
     <div className="screenWrap">
       <UnderDev />
+
       <LogoBar startScreen={true} setIdShosen={setIdShosen} />
+      <div className="projectWrap">
+        <ProjectComp />
+      </div>
       <div className="descriptionNew">
         <DescriptionComp />
-        <CreateNewDialog />
+        <div className="mainButtons">
+          <CreateNewDialog />
+          <UploadDialog />
+        </div>
       </div>
-      <Tabs setMode={setMode} tabsMode={tabsMode} />
+      <div className="navScreenWrap">
+        <Tabs setMode={setMode} tabsMode={tabsMode} />
+      </div>
       <div className="tableViewWrap">
         <div className="inputWrap">
           <TemplateTable
@@ -187,9 +211,31 @@ export default function StartScreenComp({}) {
             <Link to={`/wizard/${idShosen}`}>
               <Button disabled={!idShosen} label="Customize Excel template" />
             </Link>
+            {/* <div onClick={downloadNexus}>
+              <Button disabled={!idShosen} label="Download NeXus File" />
+            </div> */}
+            {/* <div onClick={generateAndPreview}>
+              <Button
+                disabled={!idShosen || isGenerating}
+                label={
+                  isGenerating ? "Generating preview..." : "Preview NeXus File"
+                }
+              />
+            </div> */}
           </div>
         </div>
       </div>
+
+      {/* NeXus Preview Dialog */}
+      <NexusPreviewDialog
+        open={showPreview}
+        onOpenChange={closePreview}
+        datasetId={datasetId}
+        onDownload={downloadNexus}
+      />
+
+      {/* Error notification for NeXus */}
+      {nexusError && <Notification mode="error">{nexusError}</Notification>}
     </div>
   );
 }
