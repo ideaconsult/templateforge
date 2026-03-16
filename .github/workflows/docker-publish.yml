@@ -36,7 +36,7 @@ jobs:
           submodules: recursive
 
       - name: Run Cypress
-        uses: cypress-io/github-action@v6.10.3
+        uses: cypress-io/github-action@v7.1.6
         with:
           start: npm run build-serve
           wait-on: http://127.0.0.1:50722/templates/
