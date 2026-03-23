@@ -11,6 +11,7 @@ import EditIcon from "@/IconsComponents/EditIcon";
 import ShareLinkIcon from "@/IconsComponents/ShareLinkIcon";
 import CustomizeIcon from "@/IconsComponents/CustomizeIcon";
 import BackArrow from "@/IconsComponents/BackArrow";
+import { TbDatabaseEdit } from "react-icons/tb";
 import "./Button.css";
 
 export default function Button({ label, disabled }) {
@@ -38,6 +39,7 @@ export default function Button({ label, disabled }) {
       {label == "Share" && <ShareIcon />}
       {label == "Generate Excel Template" && <ExcelIcon disabled={disabled} />}
       {label == "Back to Templates" && <BackArrow disabled={disabled} />}
+      {label == "Edit data" && <TbDatabaseEdit size={20} />}
       <span>{label}</span>
     </button>
   );

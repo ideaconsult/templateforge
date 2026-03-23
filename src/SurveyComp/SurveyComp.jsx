@@ -22,6 +22,7 @@ import config from "../utils/config";
 
 import "survey-core/defaultV2.min.css";
 import "../App.css";
+// import json from "../SurveyComp/dataComp";
 
 const orcidPattern = /^\d{4}-\d{4}-\d{4}-(\d{4}|[Xx])$/;
 
@@ -31,7 +32,7 @@ function isValidOrcid([ORCID]) {
 FunctionFactory.Instance.register("isValidOrcid", isValidOrcid);
 
 // eslint-disable-next-line react/prop-types
-function SurveyComponent({ setResult }) {
+function SurveyComponent({ setResult, definition }) {
   const [surveyJson, setSurveyJson] = useState(null);
   const [survey, setSurvey] = useState(null);
 
@@ -50,14 +51,11 @@ function SurveyComponent({ setResult }) {
   useEffect(() => {
     async function loadSchema() {
       try {
-        const response = await fetch(
-          `${config.apiUrl}/../definition/template_designer`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
+        const response = await fetch(`${definition}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           },
-        );
+        });
         const json = await response.json();
         localStorage.setItem("surveyJson", JSON.stringify(json));
         setSurveyJson(json);
