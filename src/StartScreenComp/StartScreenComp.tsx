@@ -208,20 +208,21 @@ export default function StartScreenComp({}) {
                 <Button disabled={!idShosen} label="Generate Excel Template" />
               </div>
             )}
-            <Link to={`/wizard/${idShosen}`}>
+            <div
+              onClick={() => {
+                setUUID(idShosen);
+                setStartScreen();
+
+                setViewMode(true);
+                navigate(`wizard/${idShosen}`);
+
+                window.localStorage.setItem(storageItemKey, "");
+              }}
+            >
               <Button disabled={!idShosen} label="Customize Excel template" />
-            </Link>
-            {/* <div onClick={downloadNexus}>
-              <Button disabled={!idShosen} label="Download NeXus File" />
-            </div> */}
-            {/* <div onClick={generateAndPreview}>
-              <Button
-                disabled={!idShosen || isGenerating}
-                label={
-                  isGenerating ? "Generating preview..." : "Preview NeXus File"
-                }
-              />
-            </div> */}
+
+              {/* <Button disabled={!idShosen || error} label={"Edit data"} /> */}
+            </div>
           </div>
         </div>
       </div>
