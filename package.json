@@ -33,7 +33,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-oidc-context": "^3.3.0",
-    "react-router-dom": "^6.22.0",
+    "react-router-dom": "^7.13.2",
     "survey-core": "latest",
     "survey-react-ui": "latest",
     "surveyjs-widgets": "^1.10.3",
