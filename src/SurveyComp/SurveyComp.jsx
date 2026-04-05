@@ -32,7 +32,7 @@ function isValidOrcid([ORCID]) {
 FunctionFactory.Instance.register("isValidOrcid", isValidOrcid);
 
 // eslint-disable-next-line react/prop-types
-function SurveyComponent({ setResult, definition, uuid: uuidProp }) {
+function SurveyComponent({ setResult, definition, uuid: uuidProp, mode: modeProp }) {
   const [surveyJson, setSurveyJson] = useState(null);
   const [survey, setSurvey] = useState(null);
 
@@ -145,7 +145,10 @@ function SurveyComponent({ setResult, definition, uuid: uuidProp }) {
 
         setIntermediateData(data);
         survey.data = data;
-        if (viewMode || !viewParams) {
+        // modeProp takes priority; fall back to URL ?mode= param; default is display
+        if (modeProp) {
+          survey.mode = modeProp;
+        } else if (viewMode || !viewParams) {
           survey.mode = "display";
         }
       } catch (error) {
