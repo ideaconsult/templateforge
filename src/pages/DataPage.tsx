@@ -43,6 +43,7 @@ export default function DataPage() {
             setResult={setResult}
             uuid={params.templateId}
             definition={definition}
+            mode="edit"
           />
         </div>
       </div>
