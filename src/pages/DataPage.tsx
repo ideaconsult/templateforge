@@ -12,11 +12,11 @@ export default function DataPage() {
   const [result, setResult] = useState(null);
   const projectID = useProjectID();
 
-  const definition = `${config.apiUrl}/../definition/template_designer/`;
-
   let params = useParams();
   const uuid = params.templateId;
   const templateURL = `${config.apiUrl}/${uuid}?format=xlsx&project=${projectID}`;
+  const definition = `${config.apiUrl}/${uuid}?format=json&data_entry=true`;
+  
   const downloadXLS = () => {
     uuid && downloadFile(uuid, templateURL);
   };
