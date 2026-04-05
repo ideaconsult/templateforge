@@ -32,7 +32,7 @@ function isValidOrcid([ORCID]) {
 FunctionFactory.Instance.register("isValidOrcid", isValidOrcid);
 
 // eslint-disable-next-line react/prop-types
-function SurveyComponent({ setResult, definition }) {
+function SurveyComponent({ setResult, definition, uuid: uuidProp }) {
   const [surveyJson, setSurveyJson] = useState(null);
   const [survey, setSurvey] = useState(null);
 
@@ -45,7 +45,7 @@ function SurveyComponent({ setResult, definition }) {
   const uuidParams = queryParams.get("uuid");
   const viewParams = queryParams.get("mode");
 
-  const id = idShosen ? idShosen : UUID || uuidParams;
+  const id = uuidProp || idShosen || UUID || uuidParams;
 
   // Load schema once (from localStorage or API)
   useEffect(() => {
