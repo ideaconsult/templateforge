@@ -32,7 +32,7 @@ function isValidOrcid([ORCID]) {
 FunctionFactory.Instance.register("isValidOrcid", isValidOrcid);
 
 // eslint-disable-next-line react/prop-types
-function SurveyComponent({ setResult, definition, uuid: uuidProp, mode: modeProp }) {
+function SurveyComponent({ setResult, definition, uuid: uuidProp, mode: modeProp, isDataEntry = false }) {
   const [surveyJson, setSurveyJson] = useState(null);
   const [survey, setSurvey] = useState(null);
 
@@ -96,10 +96,18 @@ function SurveyComponent({ setResult, definition, uuid: uuidProp, mode: modeProp
       data: model,
     });
 
-    const storageItemKey = "my-survey";
+    // Use a uuid-specific key for data-entry mode so answers are scoped
+    // per template and never collide with the blueprint designer storage.
+    const storageItemKey = isDataEntry
+      ? `data-entry-${id}`
+      : "my-survey";
 
     function saveSurveyData(survey) {
-      postRequestUUID(survey.data, id);
+      // In data-entry mode never POST to the backend — customization is
+      // local-only. In blueprint-designer mode POST as before.
+      if (!isDataEntry) {
+        postRequestUUID(survey.data, id);
+      }
       setIntermediateData(survey.data);
     }
 
@@ -145,6 +153,20 @@ function SurveyComponent({ setResult, definition, uuid: uuidProp, mode: modeProp
 
         setIntermediateData(data);
         survey.data = data;
+        // In data-entry mode, layer localStorage answers on top of any
+        // backend-loaded data (localStorage is more recent).
+        const storageKey = isDataEntry ? `data-entry-${id}` : "my-survey";
+        const saved = window.localStorage.getItem(storageKey);
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            // pageNo is a nav helper, not a survey answer
+            const { pageNo, ...answers } = parsed;
+            survey.data = { ...survey.data, ...answers };
+          } catch (e) {
+            console.warn("Could not restore saved survey data", e);
+          }
+        }
         // modeProp takes priority; fall back to URL ?mode= param; default is display
         if (modeProp) {
           survey.mode = modeProp;
