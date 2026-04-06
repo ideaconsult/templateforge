@@ -15,10 +15,24 @@ export default function DataPage() {
   let params = useParams();
   const uuid = params.templateId;
   const templateURL = `${config.apiUrl}/${uuid}?format=xlsx&project=${projectID}`;
+  const customXlsxURL = `${config.apiUrl}/${uuid}/xlsx?project=${projectID}`;
   const definition = `${config.apiUrl}/${uuid}?format=json&data_entry=true`;
   
   const downloadXLS = () => {
-    uuid && downloadFile(uuid, templateURL);
+    // Read customization from localStorage — never stored on the backend.
+    const storageKey = `data-entry-${uuid}`;
+    let payload = null;
+    try {
+      const saved = window.localStorage.getItem(storageKey);
+      if (saved) {
+        const { pageNo, ...answers } = JSON.parse(saved);
+        payload = answers;
+      }
+    } catch (e) {
+      console.warn("Could not read customization from localStorage", e);
+    }
+    console.log("customization payload:", payload);
+    uuid && downloadFile(uuid, customXlsxURL, payload);
   };
   return (
     <div>
@@ -44,6 +58,7 @@ export default function DataPage() {
             uuid={params.templateId}
             definition={definition}
             mode="edit"
+            isDataEntry={true}
           />
         </div>
       </div>
