@@ -61,7 +61,7 @@ export const Main = () => {
     if ("serviceWorker" in navigator) {
       try {
         const registration = await navigator.serviceWorker.register(
-          "/serviceWorker.js",
+          "/templates/serviceWorker.js",
           {
             scope: "/templates/",
           },
