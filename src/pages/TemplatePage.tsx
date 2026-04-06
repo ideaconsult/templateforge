@@ -24,7 +24,7 @@ export default function TemplatePage({ uuid }) {
 
   const [result, setResult] = useState(null);
 
-  const definition = `${config.apiUrl}/../definition/template_designer/`;
+  const definition = `${config.apiUrl}/../definition/template_designer`;
 
   return (
     <div data-cy="template-page">
