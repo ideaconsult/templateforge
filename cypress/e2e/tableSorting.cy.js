@@ -7,7 +7,7 @@ describe("Table column sorting functionality", () => {
       {
         method: "GET",
         url: "/template",
-        hostname: "api.templates.ideaconsult.net",
+        hostname: "api-test.templates.ideaconsult.net",
       },
       {
         fixture: "json/bk_rcapi_templates_generated.json",
