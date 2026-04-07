@@ -7,6 +7,7 @@ import SurveyComponent from "../SurveyComp/SurveyComp";
 import { useSetUuid } from "../store/store";
 
 import "../App.css";
+import config from "@/utils/config";
 
 export default function TemplatePage({ uuid }) {
   const params = useParams<{ templateId: string }>();
@@ -23,6 +24,8 @@ export default function TemplatePage({ uuid }) {
 
   const [result, setResult] = useState(null);
 
+  const definition = `${config.apiUrl}/../definition/template_designer`;
+
   return (
     <div data-cy="template-page">
       <div className="headerWrap">
@@ -30,7 +33,11 @@ export default function TemplatePage({ uuid }) {
         <TopMenuBar />
       </div>
       <div className="mainWrap">
-        <SurveyComponent setResult={setResult} uuid={uuid} />
+        <SurveyComponent
+          setResult={setResult}
+          uuid={uuid}
+          definition={definition}
+        />
       </div>
     </div>
   );

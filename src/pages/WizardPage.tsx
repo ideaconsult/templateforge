@@ -3,12 +3,14 @@ import React from "react";
 import LogoBarWizard from "../MenuBar/LogoBarWizard";
 import Button from "@/ui/Button";
 import Select from "@/ui/Select";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const selectUrl =
   "https://enanomapper.adma.ai/api/projects/nanoreg2/materials.json";
 
 export default function WizardPage() {
+  let params = useParams();
+
   return (
     <div>
       <p className="underDev">

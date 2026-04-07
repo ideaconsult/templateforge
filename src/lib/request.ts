@@ -62,14 +62,17 @@ export const postRequest = (data) => {
   });
 };
 
-export const downloadFile = (uuid, templateURL) => {
+export const downloadFile = (uuid, templateURL,  customization = null) => {
   console.log(sessionStorage.getItem("access_token"));
 
   fetch(templateURL, {
     cache: "no-cache",
+    method: customization ? "POST" : "GET",
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+      ...(customization ? { "Content-Type": "application/json" } : {}),
     },
+    body: customization ? JSON.stringify(customization) : undefined,
   })
     .then((resp) => {
       if (!resp.ok) {

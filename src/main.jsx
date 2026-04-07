@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage.tsx";
 import TemplatePage from "./pages/TemplatePage.tsx";
 import WizardPage from "./pages/WizardPage.tsx";
 import PreferencesPage from "./pages/PreferencesPage.tsx";
+import DataPage from "./pages/DataPage.tsx";
 import UploadPage from "./pages/UploadPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 
@@ -36,7 +37,7 @@ const router = createBrowserRouter(
     },
     {
       path: "/wizard/:templateId",
-      Component: WizardPage,
+      Component: DataPage,
     },
     {
       path: "/preferences",
