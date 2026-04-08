@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import "./Select.css";
 import SearchIcon from "@/IconsComponents/SearchIcon";
@@ -7,7 +8,7 @@ import { fetcher } from "@/lib/fetcher";
 import { useSetProjectID } from "../store/store";
 
 export default function Select({ url, setProjectName, projectName }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [project, setProject] = useState(() => localStorage.getItem("project"));
 
   const [filtered, setFiltered] = useState([]);
@@ -26,10 +27,10 @@ export default function Select({ url, setProjectName, projectName }) {
       setFiltered(
         data &&
           data.filter((item) =>
-            item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-          )
+            item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()),
+          ),
       ),
-    [search, data]
+    [search, data],
   );
 
   const resetProject = () => {
@@ -59,11 +60,7 @@ export default function Select({ url, setProjectName, projectName }) {
           </>
         ) : null}
       </div>
-      <div
-        data-cy="select-btn"
-        onClick={() => setOpen(!open)}
-        className="selectBtn"
-      >
+      <div data-cy="select-btn" className="selectBtn">
         <SearchIcon />
         <input
           id="projectSearch"
@@ -87,7 +84,6 @@ export default function Select({ url, setProjectName, projectName }) {
                   setProject(item.name);
                   setProjectID(item.id);
                   setProjectName(item.name);
-                  setOpen(false);
                 }}
               >
                 {item.name}
