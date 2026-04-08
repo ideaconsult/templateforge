@@ -59,7 +59,7 @@ function SurveyComponent({ setResult }) {
           },
         );
         const json = await response.json();
-        localStorage.setItem("surveyJson", JSON.stringify(json));
+        // localStorage.setItem("surveyJson", JSON.stringify(json));
         setSurveyJson(json);
       } catch (err) {
         console.error("Failed to fetch survey schema", err);
