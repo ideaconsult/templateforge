@@ -13,7 +13,7 @@ function setIntercepts() {
     },
     {
       fixture: "json/bk_rcapi_templates_generated.json",
-    }
+    },
   ).as("getAllTemplates");
 
   cy.intercept(
@@ -24,7 +24,7 @@ function setIntercepts() {
     },
     {
       fixture: "json/bk_11ty_projects_default.json",
-    }
+    },
   ).as("getAllProjects");
 }
 
@@ -49,6 +49,7 @@ describe("General site functionality", () => {
 
   it("can set and unset a specific project", () => {
     cy.get('[data-cy="preferences-btn"]').click();
+    cy.get(".selectOptions").should("exist");
     cy.get('[data-cy="select-btn"]').click();
     cy.get('[data-project="enanomapper"]').click();
     cy.get('[data-cy="ok-btn"]').click();
