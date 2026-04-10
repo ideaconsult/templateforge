@@ -42,6 +42,10 @@ function useFetch(url) {
       const response = await axiosInstance.get(url, {
         signal: controller.signal,
         headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
           Authorization: kc_token ? `Bearer ${kc_token}` : "",
         },
       });
