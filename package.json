@@ -38,7 +38,7 @@
     "survey-react-ui": "^1.12.61",
     "surveyjs-widgets": "^1.10.3",
     "swr": "^2.3.3",
-    "uuid": "^11.1.0",
+    "uuid": "^13.0.0",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
