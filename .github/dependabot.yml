@@ -18,6 +18,10 @@ updates:
     assignees:
       - "kerberizer"
     ignore:
+      - dependency-name: "survey-core"
+        versions: [">= 2.0.0"]
+      - dependency-name: "survey-react-ui"
+        versions: [">= 2.0.0"]
       - dependency-name: "react"
         versions: [">= 19.0.0"]
       - dependency-name: "react-dom"
