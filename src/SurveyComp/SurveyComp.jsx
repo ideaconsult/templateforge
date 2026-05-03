@@ -20,7 +20,7 @@ import {
 import { useLocation } from "react-router-dom";
 import config from "../utils/config";
 
-import "survey-core/defaultV2.min.css";
+import "survey-core/survey-core.min.css";
 import "../App.css";
 // import json from "../SurveyComp/dataComp";
 
@@ -32,7 +32,13 @@ function isValidOrcid([ORCID]) {
 FunctionFactory.Instance.register("isValidOrcid", isValidOrcid);
 
 // eslint-disable-next-line react/prop-types
-function SurveyComponent({ setResult, definition, uuid: uuidProp, mode: modeProp, isDataEntry = false }) {
+function SurveyComponent({
+  setResult,
+  definition,
+  uuid: uuidProp,
+  mode: modeProp,
+  isDataEntry = false,
+}) {
   const [surveyJson, setSurveyJson] = useState(null);
   const [survey, setSurvey] = useState(null);
 
@@ -98,9 +104,7 @@ function SurveyComponent({ setResult, definition, uuid: uuidProp, mode: modeProp
 
     // Use a uuid-specific key for data-entry mode so answers are scoped
     // per template and never collide with the blueprint designer storage.
-    const storageItemKey = isDataEntry
-      ? `data-entry-${id}`
-      : "my-survey";
+    const storageItemKey = isDataEntry ? `data-entry-${id}` : "my-survey";
 
     function saveSurveyData(survey) {
       // In data-entry mode never POST to the backend — customization is
