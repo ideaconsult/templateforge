@@ -1,0 +1,576 @@
+{
+  "title": "Data entry – Critical Raw Materials (CRM) Identification and Flagging",
+  "description": "Enter experimental results for method: CRM-Screen. This form was generated from blueprint 'Critical Raw Materials (CRM) Identification and Flagging'.",
+  "logoPosition": "right",
+  "showPreviewBeforeComplete": "showAnsweredQuestions",
+  "showPrevButton": true,
+  "showQuestionNumbers": "off",
+  "showTOC": true,
+  "goNextPageAutomatic": false,
+  "widthMode": "responsive",
+  "fitToContainer": true,
+  "headerView": "advanced",
+  "pages": [
+    {
+      "name": "de_page_identity",
+      "title": "[Critical Raw Materials (CRM) Identification and Flagging] Experiment identity & provenance",
+      "description": "Confirm who performed the experiment and when.",
+      "navigationTitle": "Identity",
+      "navigationDescription": "Operator, facility, dates",
+      "elements": [
+        {
+          "type": "html",
+          "name": "de_blueprint_summary",
+          "titleLocation": "hidden",
+          "html": "<div class='alert alert-info' style='font-size:0.9em;padding:10px'><b>Blueprint summary</b><br><div style='margin:4px 0'><b>Template:</b> <span style='color:#333'>Critical Raw Materials (CRM) Identification and Flagging</span></div><div style='margin:4px 0'><b>Method (acronym):</b> <span style='color:#333'>CRM-Screen</span></div><div style='margin:4px 0'><b>Protocol:</b> <span style='color:#333'>Critical Raw Material identification and supply vulnerability screening</span></div><div style='margin:4px 0'><b>Protocol type:</b> <span style='color:#333'>protocol_research</span></div><div style='margin:4px 0'><b>Study type:</b> <span style='color:#333'>SOCIO_ECON</span></div><div style='margin:4px 0'><b>Category code:</b> <span style='color:#333'>SLCA_CRM_SECTION</span></div><div style='margin:4px 0'><b>Blueprint author:</b> <span style='color:#333'>PHANTASTIC WP5</span></div><div style='margin:4px 0'><b>Acknowledgment:</b> <span style='color:#333'>SSbD Framework JRC143022 §12.2 step 2 / EC CRM List 2023</span></div></div>",
+          "readOnly": true
+        },
+        {
+          "type": "text",
+          "name": "de_provenance_operator",
+          "title": "Operator / person conducting the experiment",
+          "isRequired": true,
+          "startWithNewLine": true,
+          "defaultValue": ""
+        },
+        {
+          "type": "text",
+          "name": "de_provenance_provider",
+          "title": "Partner / test facility",
+          "startWithNewLine": false,
+          "defaultValue": ""
+        },
+        {
+          "type": "text",
+          "name": "de_provenance_contact",
+          "title": "Lead scientist & contact",
+          "startWithNewLine": true,
+          "defaultValue": ""
+        },
+        {
+          "type": "text",
+          "name": "de_provenance_project",
+          "title": "Project",
+          "startWithNewLine": false,
+          "defaultValue": "PHANTASTIC"
+        },
+        {
+          "type": "text",
+          "name": "de_provenance_workpackage",
+          "title": "Work package",
+          "startWithNewLine": false,
+          "defaultValue": "WP5"
+        },
+        {
+          "type": "text",
+          "inputType": "date",
+          "name": "de_provenance_startdate",
+          "title": "Test start date",
+          "isRequired": true,
+          "startWithNewLine": true,
+          "defaultValueExpression": "today()"
+        },
+        {
+          "type": "text",
+          "inputType": "date",
+          "name": "de_provenance_enddate",
+          "title": "Test end date",
+          "startWithNewLine": false
+        }
+      ]
+    },
+    {
+      "name": "de_page_sample",
+      "title": "[CRM-Screen] Materials",
+      "description": "Specify how many materials will be tested in this experiment.",
+      "navigationTitle": "Materials",
+      "navigationDescription": "Number of materials",
+      "elements": [
+        {
+          "type": "text",
+          "inputType": "number",
+          "name": "de_material_count",
+          "title": "How many materials / samples will be tested?",
+          "description": "The Excel template will pre-populate this many material lookup columns in the Test_conditions sheet. You will select the actual materials from the project list inside Excel.",
+          "defaultValue": 1,
+          "min": 1,
+          "max": 50,
+          "isRequired": true,
+          "startWithNewLine": true
+        },
+        {
+          "type": "panel",
+          "name": "de_panel_sample_example",
+          "title": "Example material (optional)",
+          "description": "Filling this in will add one example row to the Materials sheet so you can see the expected format. Leave blank to skip.",
+          "state": "collapsed",
+          "elements": [
+            {
+              "type": "text",
+              "name": "de_sample__material___product_id",
+              "title": "Material / product ID",
+              "description": "Group: ID",
+              "startWithNewLine": true
+            },
+            {
+              "type": "text",
+              "name": "de_sample__material___product_name",
+              "title": "Material / product name",
+              "description": "Group: NAME",
+              "startWithNewLine": false
+            },
+            {
+              "type": "text",
+              "name": "de_sample__cas_number",
+              "title": "CAS number",
+              "description": "Group: CASRN",
+              "startWithNewLine": true
+            },
+            {
+              "type": "text",
+              "name": "de_sample__batch",
+              "title": "Batch",
+              "description": "Group: BATCH",
+              "startWithNewLine": false
+            },
+            {
+              "type": "text",
+              "name": "de_sample__supplier",
+              "title": "Supplier",
+              "description": "Group: SUPPLIER",
+              "startWithNewLine": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "de_page_sampleprep",
+      "title": "[CRM-Screen] Sample preparation",
+      "description": "Enter sample preparation parameters.",
+      "navigationTitle": "Sample prep",
+      "navigationDescription": "Sample preparation parameters",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "de_sampleprep_panel_other_sampleprep",
+          "title": "Other sample preparation",
+          "elements": [
+            {
+              "name": "de_sampleprep__crm_substance_name",
+              "title": "CRM substance name",
+              "startWithNewLine": true,
+              "isRequired": false,
+              "description": "Name of the critical raw material identified",
+              "type": "text"
+            },
+            {
+              "name": "de_sampleprep__crm_cas_number",
+              "title": "CRM CAS number",
+              "startWithNewLine": false,
+              "isRequired": false,
+              "type": "text"
+            },
+            {
+              "name": "de_sampleprep__primary_supply_country",
+              "title": "Primary supply country",
+              "startWithNewLine": true,
+              "isRequired": false,
+              "description": "Dominant country of supply per EC CRM list",
+              "type": "text"
+            },
+            {
+              "name": "de_sampleprep__ec_crm_list_entry",
+              "title": "EC CRM list entry",
+              "startWithNewLine": false,
+              "isRequired": false,
+              "description": "Exact entry name in the EC CRM list",
+              "type": "text"
+            },
+            {
+              "name": "de_sampleprep__lci_input_source",
+              "title": "LCI input source",
+              "startWithNewLine": true,
+              "isRequired": false,
+              "description": "Which LCI input flow contains this CRM (lci.input.<slug>.name)",
+              "type": "text"
+            },
+            {
+              "name": "de_sampleprep__supply_risk_category",
+              "title": "Supply risk category",
+              "startWithNewLine": false,
+              "isRequired": false,
+              "description": "low | medium | high — EC economic importance × supply risk matrix",
+              "type": "text"
+            },
+            {
+              "name": "de_sampleprep__substitution_difficulty",
+              "title": "Substitution difficulty",
+              "startWithNewLine": true,
+              "isRequired": false,
+              "description": "easy | difficult | very difficult — technical replaceability",
+              "type": "text"
+            },
+            {
+              "name": "de_sampleprep__design_recommendation",
+              "title": "Design recommendation",
+              "startWithNewLine": false,
+              "isRequired": false,
+              "description": "Specific redesign action to reduce or eliminate this CRM dependency",
+              "type": "text"
+            }
+          ],
+          "state": "expanded"
+        }
+      ]
+    },
+    {
+      "name": "de_page_methodparams",
+      "title": "[CRM-Screen] Method parameters",
+      "description": "Enter instrument and measurement parameters.",
+      "navigationTitle": "Method params",
+      "navigationDescription": "Instrument & measurement parameters",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "de_params_panel_other_metadata",
+          "title": "OTHER_METADATA",
+          "elements": [
+            {
+              "name": "de_params__ec_crm_list_version",
+              "title": "EC CRM list version",
+              "startWithNewLine": true,
+              "isRequired": false,
+              "description": "EC CRM list used, e.g. EC 2023 (34 CRMs)",
+              "type": "text"
+            },
+            {
+              "name": "de_params__lci_source_template_uuid",
+              "title": "LCI source template UUID",
+              "startWithNewLine": false,
+              "isRequired": false,
+              "description": "UUID of the LCI_INVENTORY_SECTION template scanned for CRM inputs",
+              "type": "text"
+            },
+            {
+              "name": "de_params__functional_unit",
+              "title": "Functional unit",
+              "startWithNewLine": true,
+              "isRequired": false,
+              "description": "Must match the LCI template functional unit",
+              "type": "text"
+            },
+            {
+              "name": "de_params__system_boundary",
+              "title": "System boundary",
+              "startWithNewLine": false,
+              "isRequired": false,
+              "description": "cradle-to-gate | cradle-to-grave. CRM screening covers upstream inputs.",
+              "type": "text"
+            },
+            {
+              "name": "de_params__assessed_by__organisation_",
+              "title": "Assessed by (organisation)",
+              "startWithNewLine": true,
+              "isRequired": false,
+              "type": "text"
+            },
+            {
+              "name": "de_params__ssbd_decision_rule_implication",
+              "title": "SSbD decision rule implication",
+              "startWithNewLine": false,
+              "isRequired": false,
+              "description": "If CRM flags > 0: describe update to DecisionNode.decision_rule for CRM minimisation",
+              "type": "text"
+            }
+          ],
+          "state": "expanded"
+        },
+        {
+          "type": "panel",
+          "name": "de_params_panel_measurement_conditions",
+          "title": "MEASUREMENT CONDITIONS",
+          "elements": [
+            {
+              "name": "de_params__screening_scope",
+              "title": "Screening scope",
+              "startWithNewLine": true,
+              "isRequired": false,
+              "description": "direct inputs only | including upstream background ecoinvent",
+              "type": "text"
+            },
+            {
+              "name": "de_params__hhi_data_source",
+              "title": "HHI data source",
+              "startWithNewLine": false,
+              "isRequired": false,
+              "description": "Source for HHI (Herfindahl-Hirschman Index) data, e.g. EC CRM Study 2023",
+              "type": "text"
+            },
+            {
+              "name": "de_params__substitutability_data_source",
+              "title": "Substitutability data source",
+              "startWithNewLine": true,
+              "isRequired": false,
+              "description": "Source for substitutability scores, e.g. EC CRM Study 2023",
+              "type": "text"
+            }
+          ],
+          "state": "expanded"
+        }
+      ]
+    },
+    {
+      "name": "de_page_conditions",
+      "title": "[CRM-Screen] Experimental factors",
+      "description": "Enter the levels / values for each experimental condition.",
+      "navigationTitle": "Conditions",
+      "navigationDescription": "Experimental factors & replicates",
+      "elements": [
+        {
+          "type": "matrixdynamic",
+          "name": "de_condition__lifecycle_stage",
+          "title": "Lifecycle stage series",
+          "description": "Type: Other condition. Labels are pre-filled as L1–L5 — edit values and remove unused rows.",
+          "startWithNewLine": true,
+          "rowCount": 5,
+          "minRowCount": 1,
+          "confirmDelete": true,
+          "addRowText": "Add Lifecycle stage level",
+          "defaultValue": [
+            {
+              "cond_label": "L1",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "L2",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "L3",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "L4",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "L5",
+              "cond_value": ""
+            }
+          ],
+          "columns": [
+            {
+              "name": "cond_label",
+              "title": "Label (e.g. L1, L2…)",
+              "cellType": "text",
+              "isRequired": true
+            },
+            {
+              "name": "cond_value",
+              "title": "Value",
+              "cellType": "text"
+            }
+          ]
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "de_condition__supply_chain_tier",
+          "title": "Supply chain tier series",
+          "description": "Type: Other condition. Labels are pre-filled as S1–S5 — edit values and remove unused rows.",
+          "startWithNewLine": true,
+          "rowCount": 5,
+          "minRowCount": 1,
+          "confirmDelete": true,
+          "addRowText": "Add Supply chain tier level",
+          "defaultValue": [
+            {
+              "cond_label": "S1",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "S2",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "S3",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "S4",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "S5",
+              "cond_value": ""
+            }
+          ],
+          "columns": [
+            {
+              "name": "cond_label",
+              "title": "Label (e.g. S1, S2…)",
+              "cellType": "text",
+              "isRequired": true
+            },
+            {
+              "name": "cond_value",
+              "title": "Value",
+              "cellType": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "de_page_results",
+      "title": "[CRM-Screen] Results",
+      "description": "Enter processed / aggregated result values.",
+      "navigationTitle": "Results",
+      "navigationDescription": "Processed result values",
+      "elements": [
+        {
+          "type": "matrixdynamic",
+          "name": "de_results",
+          "title": "Processed results",
+          "description": "Enter one row per measurement / replicate. Condition columns help identify which treatment the row belongs to.",
+          "rowCount": 3,
+          "minRowCount": 1,
+          "confirmDelete": true,
+          "addRowText": "Add measurement row",
+          "allowRowsDragAndDrop": true,
+          "showCommentArea": true,
+          "columns": [
+            {
+              "name": "cond__lifecycle_stage",
+              "title": "Lifecycle stage",
+              "cellType": "text"
+            },
+            {
+              "name": "cond__supply_chain_tier",
+              "title": "Supply chain tier",
+              "cellType": "text"
+            },
+            {
+              "name": "ep__total_crm_flag_count",
+              "title": "Total CRM flag count (count (integer)) [TOTAL]",
+              "cellType": "text"
+            },
+            {
+              "name": "ep__total_crm_mass_per_functional_unit",
+              "title": "Total CRM mass per functional unit (kg/functional unit) [TOTAL]",
+              "cellType": "text"
+            },
+            {
+              "name": "ep__crm_mass_as___of_total_material_input",
+              "title": "CRM mass as % of total material input (%) [AGGREGATED]",
+              "cellType": "text"
+            },
+            {
+              "name": "ep__overall_supply_vulnerability_flag",
+              "title": "Overall supply vulnerability flag (none/present/high_mass) [AGGREGATED]",
+              "cellType": "text"
+            },
+            {
+              "name": "ep__highest_hhi_score__most_critical_crm_",
+              "title": "Highest HHI score (most critical CRM) (dimensionless) [MAX]",
+              "cellType": "text"
+            },
+            {
+              "name": "ep__highest_substitutability_risk_score",
+              "title": "Highest substitutability risk score (0-1) [MAX]",
+              "cellType": "text"
+            },
+            {
+              "name": "ep__recommended_design_action",
+              "title": "Recommended design action [AGGREGATED]",
+              "cellType": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "de_page_raw",
+      "title": "[CRM-Screen] Raw data",
+      "description": "Enter unprocessed (raw) measurement values.",
+      "navigationTitle": "Raw data",
+      "navigationDescription": "Unprocessed measurement data",
+      "elements": [
+        {
+          "type": "matrixdynamic",
+          "name": "de_raw_data",
+          "title": "Raw (unprocessed) data",
+          "description": "Enter one row per measurement. Each row represents a single raw observation.",
+          "rowCount": 3,
+          "minRowCount": 1,
+          "confirmDelete": true,
+          "addRowText": "Add measurement row",
+          "allowRowsDragAndDrop": true,
+          "showCommentArea": true,
+          "columns": [
+            {
+              "name": "cond__lifecycle_stage",
+              "title": "Lifecycle stage",
+              "cellType": "text"
+            },
+            {
+              "name": "cond__supply_chain_tier",
+              "title": "Supply chain tier",
+              "cellType": "text"
+            },
+            {
+              "name": "ep__crm_substance_mass_input",
+              "title": "CRM substance mass input (kg/functional unit)",
+              "cellType": "text"
+            },
+            {
+              "name": "ep__crm_share_of_total_material_input",
+              "title": "CRM share of total material input (%)",
+              "cellType": "text"
+            },
+            {
+              "name": "ep__hhi_supply_concentration_score",
+              "title": "HHI supply concentration score (dimensionless 0-10000)",
+              "cellType": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "de_page_submit",
+      "title": "Generate Excel template",
+      "description": "Review your entries, then click Complete to generate the pre-filled Excel file.",
+      "navigationTitle": "Generate Excel",
+      "navigationDescription": "Notes & generate",
+      "elements": [
+        {
+          "type": "text",
+          "name": "de_experiment_id",
+          "title": "Experiment / run identifier",
+          "description": "Internal lab notebook ID or LIMS reference for this run.",
+          "isRequired": false,
+          "startWithNewLine": true
+        },
+        {
+          "type": "comment",
+          "name": "de_notes",
+          "title": "Additional notes / comments",
+          "description": "Any remarks about this experiment run, deviations from protocol, QC issues, etc.",
+          "startWithNewLine": false
+        }
+      ]
+    }
+  ],
+  "triggers": [],
+  "calculatedValues": [
+    {
+      "name": "blueprint_method",
+      "expression": "'CRM-Screen'"
+    },
+    {
+      "name": "blueprint_template_name",
+      "expression": "'Critical Raw Materials (CRM) Identification and Flagging'"
+    }
+  ]
+}
