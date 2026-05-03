@@ -1,6 +1,6 @@
 {
-  "title": "Data entry – Critical Raw Materials (CRM) Identification and Flagging",
-  "description": "Enter experimental results for method: CRM-Screen. This form was generated from blueprint 'Critical Raw Materials (CRM) Identification and Flagging'.",
+  "title": "Data entry – Raman spectra",
+  "description": "Enter experimental results for method: Raman spectroscopy. This form was generated from blueprint 'Raman spectra'.",
   "logoPosition": "right",
   "showPreviewBeforeComplete": "showAnsweredQuestions",
   "showPrevButton": true,
@@ -13,7 +13,7 @@
   "pages": [
     {
       "name": "de_page_identity",
-      "title": "[Critical Raw Materials (CRM) Identification and Flagging] Experiment identity & provenance",
+      "title": "[Raman spectra] Experiment identity & provenance",
       "description": "Confirm who performed the experiment and when.",
       "navigationTitle": "Identity",
       "navigationDescription": "Operator, facility, dates",
@@ -22,7 +22,7 @@
           "type": "html",
           "name": "de_blueprint_summary",
           "titleLocation": "hidden",
-          "html": "<div class='alert alert-info' style='font-size:0.9em;padding:10px'><b>Blueprint summary</b><br><div style='margin:4px 0'><b>Template:</b> <span style='color:#333'>Critical Raw Materials (CRM) Identification and Flagging</span></div><div style='margin:4px 0'><b>Method (acronym):</b> <span style='color:#333'>CRM-Screen</span></div><div style='margin:4px 0'><b>Protocol:</b> <span style='color:#333'>Critical Raw Material identification and supply vulnerability screening</span></div><div style='margin:4px 0'><b>Protocol type:</b> <span style='color:#333'>protocol_research</span></div><div style='margin:4px 0'><b>Study type:</b> <span style='color:#333'>SOCIO_ECON</span></div><div style='margin:4px 0'><b>Category code:</b> <span style='color:#333'>SLCA_CRM_SECTION</span></div><div style='margin:4px 0'><b>Blueprint author:</b> <span style='color:#333'>PHANTASTIC WP5</span></div><div style='margin:4px 0'><b>Acknowledgment:</b> <span style='color:#333'>SSbD Framework JRC143022 §12.2 step 2 / EC CRM List 2023</span></div></div>",
+          "html": "<div class='alert alert-info' style='font-size:0.9em;padding:10px'><b>Blueprint summary</b><br><div style='margin:4px 0'><b>Template:</b> <span style='color:#333'>Raman spectra</span></div><div style='margin:4px 0'><b>Method (acronym):</b> <span style='color:#333'>Raman spectroscopy</span></div><div style='margin:4px 0'><b>Protocol:</b> <span style='color:#333'>Raman spectroscopy</span></div><div style='margin:4px 0'><b>Protocol type:</b> <span style='color:#333'>protocol_sop</span></div><div style='margin:4px 0'><b>Study type:</b> <span style='color:#333'>P-CHEM</span></div><div style='margin:4px 0'><b>Category code:</b> <span style='color:#333'>ANALYTICAL_METHODS_SECTION</span></div><div style='margin:4px 0'><b>Blueprint author:</b> <span style='color:#333'>Nina Jeliazkova</span></div><div style='margin:4px 0'><b>Acknowledgment:</b> <span style='color:#333'>CHARISMA/POLYRISK</span></div></div>",
           "readOnly": true
         },
         {
@@ -52,14 +52,14 @@
           "name": "de_provenance_project",
           "title": "Project",
           "startWithNewLine": false,
-          "defaultValue": "PHANTASTIC"
+          "defaultValue": "CHARISMA"
         },
         {
           "type": "text",
           "name": "de_provenance_workpackage",
           "title": "Work package",
           "startWithNewLine": false,
-          "defaultValue": "WP5"
+          "defaultValue": "WP3"
         },
         {
           "type": "text",
@@ -81,7 +81,7 @@
     },
     {
       "name": "de_page_sample",
-      "title": "[CRM-Screen] Materials",
+      "title": "[Raman spectroscopy] Materials",
       "description": "Specify how many materials will be tested in this experiment.",
       "navigationTitle": "Materials",
       "navigationDescription": "Number of materials",
@@ -107,36 +107,22 @@
           "elements": [
             {
               "type": "text",
-              "name": "de_sample__material___product_id",
-              "title": "Material / product ID",
+              "name": "de_sample__material_id",
+              "title": "Material ID",
               "description": "Group: ID",
               "startWithNewLine": true
             },
             {
               "type": "text",
-              "name": "de_sample__material___product_name",
-              "title": "Material / product name",
+              "name": "de_sample__material_name",
+              "title": "Material name",
               "description": "Group: NAME",
               "startWithNewLine": false
             },
             {
               "type": "text",
-              "name": "de_sample__cas_number",
-              "title": "CAS number",
-              "description": "Group: CASRN",
-              "startWithNewLine": true
-            },
-            {
-              "type": "text",
-              "name": "de_sample__batch",
-              "title": "Batch",
-              "description": "Group: BATCH",
-              "startWithNewLine": false
-            },
-            {
-              "type": "text",
-              "name": "de_sample__supplier",
-              "title": "Supplier",
+              "name": "de_sample__material_supplier",
+              "title": "Material supplier",
               "description": "Group: SUPPLIER",
               "startWithNewLine": true
             }
@@ -146,7 +132,7 @@
     },
     {
       "name": "de_page_sampleprep",
-      "title": "[CRM-Screen] Sample preparation",
+      "title": "[Raman spectroscopy] Sample preparation",
       "description": "Enter sample preparation parameters.",
       "navigationTitle": "Sample prep",
       "navigationDescription": "Sample preparation parameters",
@@ -157,67 +143,12 @@
           "title": "Other sample preparation",
           "elements": [
             {
-              "name": "de_sampleprep__crm_substance_name",
-              "title": "CRM substance name",
+              "name": "de_sampleprep__notes",
+              "title": "Notes",
               "startWithNewLine": true,
               "isRequired": false,
-              "description": "Name of the critical raw material identified",
-              "type": "text"
-            },
-            {
-              "name": "de_sampleprep__crm_cas_number",
-              "title": "CRM CAS number",
-              "startWithNewLine": false,
-              "isRequired": false,
-              "type": "text"
-            },
-            {
-              "name": "de_sampleprep__primary_supply_country",
-              "title": "Primary supply country",
-              "startWithNewLine": true,
-              "isRequired": false,
-              "description": "Dominant country of supply per EC CRM list",
-              "type": "text"
-            },
-            {
-              "name": "de_sampleprep__ec_crm_list_entry",
-              "title": "EC CRM list entry",
-              "startWithNewLine": false,
-              "isRequired": false,
-              "description": "Exact entry name in the EC CRM list",
-              "type": "text"
-            },
-            {
-              "name": "de_sampleprep__lci_input_source",
-              "title": "LCI input source",
-              "startWithNewLine": true,
-              "isRequired": false,
-              "description": "Which LCI input flow contains this CRM (lci.input.<slug>.name)",
-              "type": "text"
-            },
-            {
-              "name": "de_sampleprep__supply_risk_category",
-              "title": "Supply risk category",
-              "startWithNewLine": false,
-              "isRequired": false,
-              "description": "low | medium | high — EC economic importance × supply risk matrix",
-              "type": "text"
-            },
-            {
-              "name": "de_sampleprep__substitution_difficulty",
-              "title": "Substitution difficulty",
-              "startWithNewLine": true,
-              "isRequired": false,
-              "description": "easy | difficult | very difficult — technical replaceability",
-              "type": "text"
-            },
-            {
-              "name": "de_sampleprep__design_recommendation",
-              "title": "Design recommendation",
-              "startWithNewLine": false,
-              "isRequired": false,
-              "description": "Specific redesign action to reduce or eliminate this CRM dependency",
-              "type": "text"
+              "type": "text",
+              "inputType": "number"
             }
           ],
           "state": "expanded"
@@ -226,93 +157,101 @@
     },
     {
       "name": "de_page_methodparams",
-      "title": "[CRM-Screen] Method parameters",
+      "title": "[Raman spectroscopy] Method parameters",
       "description": "Enter instrument and measurement parameters.",
       "navigationTitle": "Method params",
       "navigationDescription": "Instrument & measurement parameters",
       "elements": [
         {
           "type": "panel",
-          "name": "de_params_panel_other_metadata",
-          "title": "OTHER_METADATA",
+          "name": "de_params_panel_instrument",
+          "title": "INSTRUMENT",
           "elements": [
             {
-              "name": "de_params__ec_crm_list_version",
-              "title": "EC CRM list version",
+              "name": "de_params__instrument_make",
+              "title": "Instrument make",
               "startWithNewLine": true,
               "isRequired": false,
-              "description": "EC CRM list used, e.g. EC 2023 (34 CRMs)",
               "type": "text"
             },
             {
-              "name": "de_params__lci_source_template_uuid",
-              "title": "LCI source template UUID",
+              "name": "de_params__instrument_model",
+              "title": "Instrument model",
               "startWithNewLine": false,
               "isRequired": false,
-              "description": "UUID of the LCI_INVENTORY_SECTION template scanned for CRM inputs",
               "type": "text"
             },
             {
-              "name": "de_params__functional_unit",
-              "title": "Functional unit",
+              "name": "de_params__wavelength",
+              "title": "Wavelength",
               "startWithNewLine": true,
               "isRequired": false,
-              "description": "Must match the LCI template functional unit",
-              "type": "text"
+              "description": "[unit: nm]",
+              "type": "text",
+              "inputType": "number"
             },
             {
-              "name": "de_params__system_boundary",
-              "title": "System boundary",
+              "name": "de_params__max_laser_power",
+              "title": "Max laser power",
               "startWithNewLine": false,
               "isRequired": false,
-              "description": "cradle-to-gate | cradle-to-grave. CRM screening covers upstream inputs.",
-              "type": "text"
+              "description": "[unit: mW]",
+              "type": "text",
+              "inputType": "number"
             },
             {
-              "name": "de_params__assessed_by__organisation_",
-              "title": "Assessed by (organisation)",
+              "name": "de_params__spectral_range___scanning_mode",
+              "title": "Spectral range / scanning mode",
               "startWithNewLine": true,
               "isRequired": false,
               "type": "text"
             },
             {
-              "name": "de_params__ssbd_decision_rule_implication",
-              "title": "SSbD decision rule implication",
+              "name": "de_params__collection_optics",
+              "title": "Collection optics",
               "startWithNewLine": false,
               "isRequired": false,
-              "description": "If CRM flags > 0: describe update to DecisionNode.decision_rule for CRM minimisation",
-              "type": "text"
-            }
-          ],
-          "state": "expanded"
-        },
-        {
-          "type": "panel",
-          "name": "de_params_panel_measurement_conditions",
-          "title": "MEASUREMENT CONDITIONS",
-          "elements": [
-            {
-              "name": "de_params__screening_scope",
-              "title": "Screening scope",
-              "startWithNewLine": true,
-              "isRequired": false,
-              "description": "direct inputs only | including upstream background ecoinvent",
+              "description": "Subgroup: Optical path",
               "type": "text"
             },
             {
-              "name": "de_params__hhi_data_source",
-              "title": "HHI data source",
+              "name": "de_params__slit_size",
+              "title": "Slit Size",
+              "startWithNewLine": true,
+              "isRequired": false,
+              "description": "Subgroup: Optical path",
+              "type": "text"
+            },
+            {
+              "name": "de_params__grating",
+              "title": "Grating",
               "startWithNewLine": false,
               "isRequired": false,
-              "description": "Source for HHI (Herfindahl-Hirschman Index) data, e.g. EC CRM Study 2023",
+              "description": "Subgroup: Optical path",
               "type": "text"
             },
             {
-              "name": "de_params__substitutability_data_source",
-              "title": "Substitutability data source",
+              "name": "de_params__pin_hole",
+              "title": "Pin hole",
               "startWithNewLine": true,
               "isRequired": false,
-              "description": "Source for substitutability scores, e.g. EC CRM Study 2023",
+              "description": "Subgroup: Optical path",
+              "type": "text"
+            },
+            {
+              "name": "de_params__collection_fibre_diameter",
+              "title": "Collection Fibre Diameter",
+              "startWithNewLine": false,
+              "isRequired": false,
+              "description": "Subgroup: Optical path",
+              "type": "text"
+            },
+            {
+              "name": "de_params__notes",
+              "title": "Notes",
+              "startWithNewLine": true,
+              "isRequired": false,
+              "description": "Subgroup: Optical path",
               "type": "text"
             }
           ],
@@ -322,21 +261,121 @@
     },
     {
       "name": "de_page_conditions",
-      "title": "[CRM-Screen] Experimental factors",
+      "title": "[Raman spectroscopy] Experimental factors",
       "description": "Enter the levels / values for each experimental condition.",
       "navigationTitle": "Conditions",
       "navigationDescription": "Experimental factors & replicates",
       "elements": [
         {
+          "type": "text",
+          "inputType": "number",
+          "name": "de_condition__measurement__",
+          "title": "Measurement #",
+          "description": "Replicate",
+          "startWithNewLine": true
+        },
+        {
           "type": "matrixdynamic",
-          "name": "de_condition__lifecycle_stage",
-          "title": "Lifecycle stage series",
-          "description": "Type: Other condition. Labels are pre-filled as L1–L5 — edit values and remove unused rows.",
+          "name": "de_condition__background",
+          "title": "Background series",
+          "description": "Type: Experiment identifier. Labels are pre-filled as B1–B5 — edit values and remove unused rows.",
           "startWithNewLine": true,
           "rowCount": 5,
           "minRowCount": 1,
           "confirmDelete": true,
-          "addRowText": "Add Lifecycle stage level",
+          "addRowText": "Add Background level",
+          "defaultValue": [
+            {
+              "cond_label": "B1",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "B2",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "B3",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "B4",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "B5",
+              "cond_value": ""
+            }
+          ],
+          "columns": [
+            {
+              "name": "cond_label",
+              "title": "Label (e.g. B1, B2…)",
+              "cellType": "text",
+              "isRequired": true
+            },
+            {
+              "name": "cond_value",
+              "title": "Value",
+              "cellType": "text"
+            }
+          ]
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "de_condition__overexposed",
+          "title": "Overexposed series",
+          "description": "Type: Experiment identifier. Labels are pre-filled as O1–O5 — edit values and remove unused rows.",
+          "startWithNewLine": true,
+          "rowCount": 5,
+          "minRowCount": 1,
+          "confirmDelete": true,
+          "addRowText": "Add Overexposed level",
+          "defaultValue": [
+            {
+              "cond_label": "O1",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "O2",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "O3",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "O4",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "O5",
+              "cond_value": ""
+            }
+          ],
+          "columns": [
+            {
+              "name": "cond_label",
+              "title": "Label (e.g. O1, O2…)",
+              "cellType": "text",
+              "isRequired": true
+            },
+            {
+              "name": "cond_value",
+              "title": "Value",
+              "cellType": "text"
+            }
+          ]
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "de_condition__laser_power",
+          "title": "Laser power series",
+          "description": "Type: Experiment identifier. Labels are pre-filled as L1–L5 — edit values and remove unused rows.  Unit: %",
+          "startWithNewLine": true,
+          "rowCount": 5,
+          "minRowCount": 1,
+          "confirmDelete": true,
+          "addRowText": "Add Laser power level",
           "defaultValue": [
             {
               "cond_label": "L1",
@@ -368,6 +407,144 @@
             },
             {
               "name": "cond_value",
+              "title": "Value (%)",
+              "cellType": "text"
+            }
+          ]
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "de_condition__laser_power",
+          "title": "Laser power series",
+          "description": "Type: Experiment identifier. Labels are pre-filled as L1–L5 — edit values and remove unused rows.  Unit: mW",
+          "startWithNewLine": true,
+          "rowCount": 5,
+          "minRowCount": 1,
+          "confirmDelete": true,
+          "addRowText": "Add Laser power level",
+          "defaultValue": [
+            {
+              "cond_label": "L1",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "L2",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "L3",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "L4",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "L5",
+              "cond_value": ""
+            }
+          ],
+          "columns": [
+            {
+              "name": "cond_label",
+              "title": "Label (e.g. L1, L2…)",
+              "cellType": "text",
+              "isRequired": true
+            },
+            {
+              "name": "cond_value",
+              "title": "Value (mW)",
+              "cellType": "text"
+            }
+          ]
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "de_condition__integration_time",
+          "title": "Integration time series",
+          "description": "Type: Experiment identifier. Labels are pre-filled as I1–I5 — edit values and remove unused rows.  Unit: ms",
+          "startWithNewLine": true,
+          "rowCount": 5,
+          "minRowCount": 1,
+          "confirmDelete": true,
+          "addRowText": "Add Integration time level",
+          "defaultValue": [
+            {
+              "cond_label": "I1",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "I2",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "I3",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "I4",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "I5",
+              "cond_value": ""
+            }
+          ],
+          "columns": [
+            {
+              "name": "cond_label",
+              "title": "Label (e.g. I1, I2…)",
+              "cellType": "text",
+              "isRequired": true
+            },
+            {
+              "name": "cond_value",
+              "title": "Value (ms)",
+              "cellType": "text"
+            }
+          ]
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "de_condition__humidity",
+          "title": "Humidity series",
+          "description": "Type: Experiment identifier. Labels are pre-filled as H1–H5 — edit values and remove unused rows.",
+          "startWithNewLine": true,
+          "rowCount": 5,
+          "minRowCount": 1,
+          "confirmDelete": true,
+          "addRowText": "Add Humidity level",
+          "defaultValue": [
+            {
+              "cond_label": "H1",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "H2",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "H3",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "H4",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "H5",
+              "cond_value": ""
+            }
+          ],
+          "columns": [
+            {
+              "name": "cond_label",
+              "title": "Label (e.g. H1, H2…)",
+              "cellType": "text",
+              "isRequired": true
+            },
+            {
+              "name": "cond_value",
               "title": "Value",
               "cellType": "text"
             }
@@ -375,40 +552,132 @@
         },
         {
           "type": "matrixdynamic",
-          "name": "de_condition__supply_chain_tier",
-          "title": "Supply chain tier series",
-          "description": "Type: Other condition. Labels are pre-filled as S1–S5 — edit values and remove unused rows.",
+          "name": "de_condition__temperature",
+          "title": "Temperature series",
+          "description": "Type: Experiment identifier. Labels are pre-filled as T1–T5 — edit values and remove unused rows.  Unit: C",
           "startWithNewLine": true,
           "rowCount": 5,
           "minRowCount": 1,
           "confirmDelete": true,
-          "addRowText": "Add Supply chain tier level",
+          "addRowText": "Add Temperature level",
           "defaultValue": [
             {
-              "cond_label": "S1",
+              "cond_label": "T1",
               "cond_value": ""
             },
             {
-              "cond_label": "S2",
+              "cond_label": "T2",
               "cond_value": ""
             },
             {
-              "cond_label": "S3",
+              "cond_label": "T3",
               "cond_value": ""
             },
             {
-              "cond_label": "S4",
+              "cond_label": "T4",
               "cond_value": ""
             },
             {
-              "cond_label": "S5",
+              "cond_label": "T5",
               "cond_value": ""
             }
           ],
           "columns": [
             {
               "name": "cond_label",
-              "title": "Label (e.g. S1, S2…)",
+              "title": "Label (e.g. T1, T2…)",
+              "cellType": "text",
+              "isRequired": true
+            },
+            {
+              "name": "cond_value",
+              "title": "Value (C)",
+              "cellType": "text"
+            }
+          ]
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "de_condition__date",
+          "title": "Date series",
+          "description": "Type: Experiment identifier. Labels are pre-filled as D1–D5 — edit values and remove unused rows.",
+          "startWithNewLine": true,
+          "rowCount": 5,
+          "minRowCount": 1,
+          "confirmDelete": true,
+          "addRowText": "Add Date level",
+          "defaultValue": [
+            {
+              "cond_label": "D1",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "D2",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "D3",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "D4",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "D5",
+              "cond_value": ""
+            }
+          ],
+          "columns": [
+            {
+              "name": "cond_label",
+              "title": "Label (e.g. D1, D2…)",
+              "cellType": "text",
+              "isRequired": true
+            },
+            {
+              "name": "cond_value",
+              "title": "Value",
+              "cellType": "text"
+            }
+          ]
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "de_condition__time",
+          "title": "Time series",
+          "description": "Type: Experiment identifier. Labels are pre-filled as T1–T5 — edit values and remove unused rows.",
+          "startWithNewLine": true,
+          "rowCount": 5,
+          "minRowCount": 1,
+          "confirmDelete": true,
+          "addRowText": "Add Time level",
+          "defaultValue": [
+            {
+              "cond_label": "T1",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "T2",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "T3",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "T4",
+              "cond_value": ""
+            },
+            {
+              "cond_label": "T5",
+              "cond_value": ""
+            }
+          ],
+          "columns": [
+            {
+              "name": "cond_label",
+              "title": "Label (e.g. T1, T2…)",
               "cellType": "text",
               "isRequired": true
             },
@@ -422,76 +691,8 @@
       ]
     },
     {
-      "name": "de_page_results",
-      "title": "[CRM-Screen] Results",
-      "description": "Enter processed / aggregated result values.",
-      "navigationTitle": "Results",
-      "navigationDescription": "Processed result values",
-      "elements": [
-        {
-          "type": "matrixdynamic",
-          "name": "de_results",
-          "title": "Processed results",
-          "description": "Enter one row per measurement / replicate. Condition columns help identify which treatment the row belongs to.",
-          "rowCount": 3,
-          "minRowCount": 1,
-          "confirmDelete": true,
-          "addRowText": "Add measurement row",
-          "allowRowsDragAndDrop": true,
-          "showCommentArea": true,
-          "columns": [
-            {
-              "name": "cond__lifecycle_stage",
-              "title": "Lifecycle stage",
-              "cellType": "text"
-            },
-            {
-              "name": "cond__supply_chain_tier",
-              "title": "Supply chain tier",
-              "cellType": "text"
-            },
-            {
-              "name": "ep__total_crm_flag_count",
-              "title": "Total CRM flag count (count (integer)) [TOTAL]",
-              "cellType": "text"
-            },
-            {
-              "name": "ep__total_crm_mass_per_functional_unit",
-              "title": "Total CRM mass per functional unit (kg/functional unit) [TOTAL]",
-              "cellType": "text"
-            },
-            {
-              "name": "ep__crm_mass_as___of_total_material_input",
-              "title": "CRM mass as % of total material input (%) [AGGREGATED]",
-              "cellType": "text"
-            },
-            {
-              "name": "ep__overall_supply_vulnerability_flag",
-              "title": "Overall supply vulnerability flag (none/present/high_mass) [AGGREGATED]",
-              "cellType": "text"
-            },
-            {
-              "name": "ep__highest_hhi_score__most_critical_crm_",
-              "title": "Highest HHI score (most critical CRM) (dimensionless) [MAX]",
-              "cellType": "text"
-            },
-            {
-              "name": "ep__highest_substitutability_risk_score",
-              "title": "Highest substitutability risk score (0-1) [MAX]",
-              "cellType": "text"
-            },
-            {
-              "name": "ep__recommended_design_action",
-              "title": "Recommended design action [AGGREGATED]",
-              "cellType": "text"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "name": "de_page_raw",
-      "title": "[CRM-Screen] Raw data",
+      "title": "[Raman spectroscopy] Raw data",
       "description": "Enter unprocessed (raw) measurement values.",
       "navigationTitle": "Raw data",
       "navigationDescription": "Unprocessed measurement data",
@@ -509,29 +710,62 @@
           "showCommentArea": true,
           "columns": [
             {
-              "name": "cond__lifecycle_stage",
-              "title": "Lifecycle stage",
+              "name": "cond__measurement__",
+              "title": "Measurement #",
               "cellType": "text"
             },
             {
-              "name": "cond__supply_chain_tier",
-              "title": "Supply chain tier",
+              "name": "cond__background",
+              "title": "Background",
               "cellType": "text"
             },
             {
-              "name": "ep__crm_substance_mass_input",
-              "title": "CRM substance mass input (kg/functional unit)",
+              "name": "cond__overexposed",
+              "title": "Overexposed",
               "cellType": "text"
             },
             {
-              "name": "ep__crm_share_of_total_material_input",
-              "title": "CRM share of total material input (%)",
+              "name": "cond__laser_power",
+              "title": "Laser power (%)",
               "cellType": "text"
             },
             {
-              "name": "ep__hhi_supply_concentration_score",
-              "title": "HHI supply concentration score (dimensionless 0-10000)",
+              "name": "cond__laser_power",
+              "title": "Laser power (mW)",
               "cellType": "text"
+            },
+            {
+              "name": "cond__integration_time",
+              "title": "Integration time (ms)",
+              "cellType": "text"
+            },
+            {
+              "name": "cond__humidity",
+              "title": "Humidity",
+              "cellType": "text"
+            },
+            {
+              "name": "cond__temperature",
+              "title": "Temperature (C)",
+              "cellType": "text"
+            },
+            {
+              "name": "cond__date",
+              "title": "Date",
+              "cellType": "text"
+            },
+            {
+              "name": "cond__time",
+              "title": "Time",
+              "cellType": "text"
+            },
+            {
+              "name": "ep__spectrum_file",
+              "type": "file",
+              "storeDataAsText": true,
+              "waitForUpload": true,
+              "title": "Spectrum file",
+              "cellType": "file"
             }
           ]
         }
@@ -566,11 +800,11 @@
   "calculatedValues": [
     {
       "name": "blueprint_method",
-      "expression": "'CRM-Screen'"
+      "expression": "'Raman spectroscopy'"
     },
     {
       "name": "blueprint_template_name",
-      "expression": "'Critical Raw Materials (CRM) Identification and Flagging'"
+      "expression": "'Raman spectra'"
     }
   ]
 }

@@ -20,6 +20,8 @@ import {
 import { useLocation } from "react-router-dom";
 import config from "../utils/config";
 
+import mockJson from "./mock-wizard.json";
+
 import "survey-core/survey-core.min.css";
 import "../App.css";
 // import json from "../SurveyComp/dataComp";
@@ -53,6 +55,8 @@ function SurveyComponent({
 
   const id = uuidProp || idShosen || UUID || uuidParams;
 
+  console.log(mockJson);
+
   // Load schema once (from localStorage or API)
   useEffect(() => {
     async function loadSchema() {
@@ -64,7 +68,7 @@ function SurveyComponent({
         });
         const json = await response.json();
         localStorage.setItem("surveyJson", JSON.stringify(json));
-        setSurveyJson(json);
+        setSurveyJson(location.pathname.includes("wizard") ? mockJson : json);
       } catch (err) {
         console.error("Failed to fetch survey schema", err);
       }
