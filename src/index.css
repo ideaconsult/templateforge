@@ -77,6 +77,14 @@ thead > tr > th > button {
   font-size: 1rem;
 }
 
+.sd-file {
+  min-height: 40px !important;
+}
+
+.sd-file__drag-area {
+  height: 40px !important;
+}
+
 .sv-string-viewer.sv-string-viewer--multiline {
   display: none;
 }
@@ -84,10 +92,20 @@ thead > tr > th > button {
 .sd-file__decorator {
   position: relative;
   width: fit-content;
+  border: none;
 }
 
 .sd-file__preview-item {
   display: none;
+}
+.sv-svg-icon {
+  height: 20px !important;
+}
+.sd-file--answered .sd-file__actions-container {
+  position: relative;
+}
+.sd-context-btn--negative:hover {
+  background-color: #fff !important;
 }
 
 @media (prefers-color-scheme: light) {
